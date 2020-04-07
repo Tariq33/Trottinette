@@ -12,13 +12,13 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("supplier")
 public class Fournisseur extends Utilisateur{
-	@Column(name = "siret_number", nullable = false)
+	@Column(name = "siret_number")
 	private String numeroSiret;
-	@Column(name = "tva_number", nullable = false)
+	@Column(name = "tva_number")
 	private String numeroTva;
-	@Column(name = "iban", nullable = false)
+	@Column(name = "iban")
 	private String iban;
-	@Column(name = "bic", nullable = false)
+	@Column(name = "bic")
 	private String bic;
 	@Embedded
 	private Adresse adresse;

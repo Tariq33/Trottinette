@@ -84,10 +84,14 @@ public abstract class Utilisateur {
 	public void setCompteValide(Boolean compteValide) {
 		this.compteValide = compteValide;
 	}
-	
-	
-	
-	
-	
 
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+	
 }
