@@ -7,21 +7,27 @@
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-<!-- 		<class>sopra.formation.model.Evaluation</class> -->
-<!-- 		<class>sopra.formation.model.Filiere</class> -->
-<!-- 		<class>sopra.formation.model.Matiere</class> -->
-<!-- 		<class>sopra.formation.model.Personne</class> -->
-<!-- 		<class>sopra.formation.model.Stagiaire</class> -->
-<!-- 		<class>sopra.formation.model.Formateur</class> -->
-<!-- 		<class>sopra.formation.model.Salle</class> -->
-<!-- 		<class>sopra.formation.model.UE</class> -->
+		<class>model.Administrateur</class>
+		<class>model.Client</class>
+		<class>model.FinDeTrajet</class>
+		<class>model.Fournisseur</class>
+		<class>model.Itineraire</class>
+		<class>model.MoyenDeTransport</class>
+		<class>model.PaiementFournisseur</class>
+		<class>model.Preference</class>
+		<class>model.Reservation</class>
+		<class>model.Scooter</class>
+		<class>model.Transaction</class>
+		<class>model.Trottinette</class>
+		<class>model.Utilisateur</class>
+		<class>model.Velo</class>
 
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/training" />
+				value="jdbc:postgresql://localhost:5432/trottinette" />
 			<property name="javax.persistence.jdbc.user"
 				value="postgres" />
 			<property name="javax.persistence.jdbc.password"
