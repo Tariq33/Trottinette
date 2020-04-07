@@ -1,20 +1,19 @@
 package persistence.jpa;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-
 import app.Application;
-import model.Client;
-import persistence.IClientDao;
+import model.Administrateur;
+import persistence.IAdministrateurDao;
 
-public class ClientDaoJpa implements IClientDao {
-	
+
+public class AdministrateurDaoJpa implements IAdministrateurDao{
+
 	@Override
-	public List<Client> findAll() {
-		List<Client> clients = null;
+	public List<Administrateur> findAll() {
+		List<Administrateur> administrateurs = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -24,9 +23,9 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Client> query = em.createQuery("from Client", Client.class);
+			TypedQuery<Administrateur> query = em.createQuery("from Administrateur", Administrateur.class);
 
-			clients = query.getResultList();
+			administrateurs = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -40,12 +39,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return clients;
+		return administrateurs;
 	}
 
 	@Override
-	public Client find(Long id) {
-		Client client = null;
+	public Administrateur find(Long id) {
+		Administrateur administrateur = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,7 +54,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.find(Client.class, id);
+			administrateur = em.find(Administrateur.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -69,12 +68,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return administrateur;
 	}
 
 	@Override
-	public Client save(Client obj) {
-		Client client = null;
+	public Administrateur save(Administrateur obj) {
+		Administrateur administrateur = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -84,7 +83,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.merge(obj);
+			administrateur = em.merge(obj);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -98,11 +97,11 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return administrateur;
 	}
 
 	@Override
-	public void delete(Client obj) {
+	public void delete(Administrateur obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -125,6 +124,5 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 	}
-
 
 }
