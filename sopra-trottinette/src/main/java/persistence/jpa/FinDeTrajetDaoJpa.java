@@ -5,15 +5,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-
 import app.Application;
 import model.FinDeTrajet;
 import persistence.IFinDeTrajetDao;
 
-public class FinDeTrajetDaoJpa implements IFinDeTrajetDao {
+public class FinDeTrajetDaoJpa implements IFinDeTrajetDao{
+
 	@Override
 	public List<FinDeTrajet> findAll() {
-		List<FinDeTrajet> finDeTrajets = null;
+		List<FinDeTrajet> finsDeTrajet = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -25,7 +25,7 @@ public class FinDeTrajetDaoJpa implements IFinDeTrajetDao {
 
 			TypedQuery<FinDeTrajet> query = em.createQuery("from FinDeTrajet", FinDeTrajet.class);
 
-			finDeTrajets = query.getResultList();
+			finsDeTrajet = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -39,7 +39,7 @@ public class FinDeTrajetDaoJpa implements IFinDeTrajetDao {
 			}
 		}
 
-		return finDeTrajets;
+		return finsDeTrajet;
 	}
 
 	@Override
@@ -124,4 +124,7 @@ public class FinDeTrajetDaoJpa implements IFinDeTrajetDao {
 			}
 		}
 	}
+
+
 }
+	
