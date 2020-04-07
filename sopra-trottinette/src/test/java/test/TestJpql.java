@@ -5,17 +5,21 @@ import persistence.IAdministrateurDao;
 import persistence.IClientDao;
 import persistence.IFinDeTrajetDao;
 import persistence.IFournisseurDao;
+import persistence.IItineraireDao;
+import persistence.IPaiementFournisseurDao;
 import persistence.IReservationDao;
+import persistence.IScooterDao;
 import persistence.ITransactionDao;
+import persistence.ITrottinetteDao;
+import persistence.IVeloDao;
 
 public class TestJpql {
 
-	IAdministrateurDao administrateurDao = Application.getInstance().getVilleDao();
+	IAdministrateurDao administrateurDao = Application.getInstance().getAdministrateurDao();
 	IClientDao clientDao = Application.getInstance().getClientDao();
 	IFinDeTrajetDao finDeTrajetDao = Application.getInstance().getFinDeTrajetDao();
 	IFournisseurDao fournisseurDao = Application.getInstance().getFournisseurDao();
 	IItineraireDao itineraireDao = Application.getInstance().getItineraireDao();
-	IMoyenDeTransport moyenDeTransportDao = Application.getInstance().getMoyenDeTransportDao();
 	IPaiementFournisseurDao paiementFournisseurDao = Application.getInstance().getPaiementFournisseurDao();
 	IReservationDao reservationDao = Application.getInstance().getReservationDao();
 	IScooterDao scooterDao = Application.getInstance().getScooterDao();

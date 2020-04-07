@@ -32,7 +32,7 @@ public class Application {
 
 	private final IItineraireDao itineraireDao = new ItineraireDaoJpa();
 	private final IPaiementFournisseurDao paiementFournisseurDao = new PaiementFournisseurDaoJpa();
-	private final IScooterDao scooteurDao = new ScooterDaoJpa();
+	private final IScooterDao scooterDao = new ScooterDaoJpa();
 	private final ITrottinetteDao trottinetteDao = new TrottinetteDaoJpa();
 	private final IVeloDao veloDao = new VeloDaoJpa();
 	private final IAdministrateurDao administrateurDao = new AdministrateurDaoJpa();
@@ -65,8 +65,8 @@ public class Application {
 		return paiementFournisseurDao;
 	}
 
-	public IScooterDao getScooteurDao() {
-		return scooteurDao;
+	public IScooterDao getScooterDao() {
+		return scooterDao;
 	}
 
 	public ITrottinetteDao getTrottinetteDao() {
