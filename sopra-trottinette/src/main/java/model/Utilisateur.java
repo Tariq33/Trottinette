@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_account")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "typeOfUser", discriminatorType = DiscriminatorType.STRING, length = 25)
 public abstract class Utilisateur {

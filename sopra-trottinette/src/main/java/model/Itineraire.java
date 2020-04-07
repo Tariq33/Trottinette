@@ -2,7 +2,10 @@ package model;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,9 +23,26 @@ public class Itineraire {
 	private Long id;
 	@Version
 	private Integer version;
-	@Column(name = "startingAddress", length = 100)
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="rue", column = @Column(name="departure_street")),
+		@AttributeOverride(name="complement", column = @Column(name="departure_additional")),
+		@AttributeOverride(name="codePostal", column = @Column(name="departure_zipcode")),
+		@AttributeOverride(name="ville", column = @Column(name="departure_city")),
+		@AttributeOverride(name="latitude", column = @Column(name="departure_latitude")),
+		@AttributeOverride(name="longitude", column = @Column(name="departure_longitude")),
+		
+	})
 	private AdresseItineraire adrDepart;
-	@Column(name = "endingAddress", length = 100)
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="rue", column = @Column(name="arrival_street")),
+		@AttributeOverride(name="complement", column = @Column(name="arrival_additional")),
+		@AttributeOverride(name="codePostal", column = @Column(name="arrival_zipcode")),
+		@AttributeOverride(name="ville", column = @Column(name="arrival_city")),
+		@AttributeOverride(name="latitude", column = @Column(name="arrival_latitude")),
+		@AttributeOverride(name="longitude", column = @Column(name="arrival_longitude")),
+	})
 	private AdresseItineraire adrArrivee;
 	@Column(name = "startingHour", length = 100)
 	private Date heureDepart;
@@ -41,6 +61,7 @@ public class Itineraire {
 	@OneToOne(mappedBy = "itineraire")
 	private PaiementFournisseur paiementFournisseur;
 	@OneToOne
+	@JoinColumn(name = "transportMeans_id")
 	private MoyenDeTransport moyenDeTransport;
 	@ManyToOne
 	@JoinColumn(name = "reservation_id")

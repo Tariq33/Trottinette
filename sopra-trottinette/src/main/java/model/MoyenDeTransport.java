@@ -8,12 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "transportMeans")
+@Table(name = "transport_means")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "moyen", discriminatorType = DiscriminatorType.STRING, length = 15)
 public abstract class MoyenDeTransport {
@@ -26,7 +28,8 @@ public abstract class MoyenDeTransport {
 	private String longitude;
 	@Column(name = "latitude", length = 100)
 	private String latitude;
-	@Column(name = "supplier", length = 100)
+	@ManyToOne
+	@JoinColumn(name = "supplier_id")
 	private Fournisseur fournisseur;
 	@Column(name = "perMinuteCost", length = 100)
 	private Float prixMinute;
@@ -38,8 +41,7 @@ public abstract class MoyenDeTransport {
 	private Boolean disponible;
 	@Column(name = "inUse", length = 100)
 	private Boolean enUtilisation;
-
-	@OneToOne
+	@OneToOne(mappedBy = "moyenDeTransport")
 	private Itineraire itineraire;
 
 	public MoyenDeTransport() {
