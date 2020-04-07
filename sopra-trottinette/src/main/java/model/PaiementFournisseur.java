@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -24,10 +26,11 @@ public class PaiementFournisseur {
 	private Date date;
 	@Column(name = "transactionNumber", length = 100)
 	private String numeroDeTransaction;
-
 	@OneToOne
+	@JoinColumn(name = "itinerary_id")
 	private Itineraire itineraire;
-	
+	@ManyToOne
+	@JoinColumn(name = "supplier_id")
 	private Fournisseur fournisseur;
 
 	public PaiementFournisseur() {

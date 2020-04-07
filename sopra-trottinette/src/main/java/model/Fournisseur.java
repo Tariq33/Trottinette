@@ -23,7 +23,7 @@ public class Fournisseur extends Utilisateur{
 	@Embedded
 	private Adresse adresse;
 	@OneToMany(mappedBy = "fournisseur")
-	private List<PaiementFournisseur> paiements = new ArrayList<PaiementFournisseur>();
+	private List<PaiementFournisseur> fournisseurs = new ArrayList<PaiementFournisseur>();
 
 	public Fournisseur() {
 		super();
