@@ -3,18 +3,30 @@ package app;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import persistence.IItineraireDao;
+import persistence.IMoyenDeTransportDao;
+import persistence.IPaiementFournisseurDao;
+import persistence.IScooterDao;
+import persistence.ITrottinetteDao;
+import persistence.IVeloDao;
+import persistence.jpa.ItineraireDaoJpa;
+import persistence.jpa.MoyenDeTransportDaoJpa;
+import persistence.jpa.PaiementFournisseurDaoJpa;
+import persistence.jpa.ScooterDaoJpa;
+import persistence.jpa.TrottinetteDaoJpa;
+import persistence.jpa.VeloDaoJpa;
+
 public class Application {
 	private static Application instance = null;
 
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("sopra-trottinette");
 
-//	private final IEvaluationDao evaluationDao = new EvaluationDaoJpa();
-//	private final IFiliereDao filiereDao = new FiliereDaoJpa();
-//	private final IFormateurDao formateurDao = new FormateurDaoJpa();
-//	private final IMatiereDao matiereDao = new MatiereDaoJpa();
-//	private final ISalleDao salleDao = new SalleDaoJpa();
-//	private final IStagiaireDao stagiaireDao = new StagiaireDaoJpa();
-//	private final IUEDao ueDao = new UEDaoJpa();
+	private final IItineraireDao itineraireDao = new ItineraireDaoJpa();
+	private final IMoyenDeTransportDao moyenDeTransport = new MoyenDeTransportDaoJpa();
+	private final IPaiementFournisseurDao paiementFournisseurDao = new PaiementFournisseurDaoJpa();
+	private final IScooterDao scooteurDao = new ScooterDaoJpa();
+	private final ITrottinetteDao trottinetteDao = new TrottinetteDaoJpa();
+	private final IVeloDao veloDao = new VeloDaoJpa();
 
 	private Application() {
 	}
