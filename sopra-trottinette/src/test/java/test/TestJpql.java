@@ -1,6 +1,7 @@
 package test;
 
 import app.Application;
+import model.Scooter;
 import persistence.IAdministrateurDao;
 import persistence.IClientDao;
 import persistence.IFinDeTrajetDao;
@@ -28,6 +29,14 @@ public class TestJpql {
 		ITransactionDao transactionDao = Application.getInstance().getTransactionDao();
 		ITrottinetteDao trottinetteDao = Application.getInstance().getTrottinetteDao();
 		IVeloDao veloDao = Application.getInstance().getVeloDao();
+		
+		Scooter scoot = new Scooter();
+		scoot.setDisponible(true);
+		scoot.setLongitude("45.12.36");
+		scoot.setLatitude("45.20.30");
+		scoot.setPrixMinute(1.2F);
+		
+		scoot = scooterDao.save(scoot);
 
 	}
 }

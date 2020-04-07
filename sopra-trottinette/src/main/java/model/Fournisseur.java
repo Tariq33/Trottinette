@@ -24,6 +24,8 @@ public class Fournisseur extends Utilisateur{
 	private Adresse adresse;
 	@OneToMany(mappedBy = "fournisseur")
 	private List<PaiementFournisseur> paiements = new ArrayList<PaiementFournisseur>();
+	@OneToMany(mappedBy = "fournisseur")
+	private List<MoyenDeTransport> moyensDeTransport = new ArrayList<MoyenDeTransport>();
 
 	public Fournisseur() {
 		super();
@@ -78,11 +80,21 @@ public class Fournisseur extends Utilisateur{
 		this.paiements = paiements;
 	}
 	
-	public void addPaiementFournissuer(PaiementFournisseur paiement) {
+	public void addPaiementFournisseur(PaiementFournisseur paiement) {
 		this.paiements.add(paiement);
 	}
+
+	public List<MoyenDeTransport> getMoyensDeTransport() {
+		return moyensDeTransport;
+	}
+
+	public void setMoyensDeTransport(List<MoyenDeTransport> moyensDeTransport) {
+		this.moyensDeTransport = moyensDeTransport;
+	}
 	
-	
+	public void addMoyenDeTransport(MoyenDeTransport moyenDeTransport) {
+		this.moyensDeTransport.add(moyenDeTransport);
+	}
 	
 	
 	

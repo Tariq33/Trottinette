@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "supplierPaiement")
+@Table(name = "supplier_paiement")
 public class PaiementFournisseur {
 	@Id
 	@GeneratedValue

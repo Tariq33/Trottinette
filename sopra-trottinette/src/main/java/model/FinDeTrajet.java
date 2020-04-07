@@ -7,10 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@DiscriminatorValue("end_of_journey")
+@Table(name = "end_of_journey")
 public class FinDeTrajet {
 	
 	@Id
