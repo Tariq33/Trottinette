@@ -7,14 +7,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import app.Application;
-import model.Client;
-import persistence.IClientDao;
+import model.Trottinette;
+import persistence.ITrottinetteDao;
 
-public class ClientDaoJpa implements IClientDao {
-	
+public class TrottinetteDaoJpa implements ITrottinetteDao{
+
 	@Override
-	public List<Client> findAll() {
-		List<Client> clients = null;
+	public List<Trottinette> findAll() {
+		List<Trottinette> trottinettes = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -24,9 +24,9 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Client> query = em.createQuery("from Client", Client.class);
+			TypedQuery<Trottinette> query = em.createQuery("from Trottinette", Trottinette.class);
 
-			clients = query.getResultList();
+			trottinettes = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -40,12 +40,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return clients;
+		return trottinettes;
 	}
 
 	@Override
-	public Client find(Long id) {
-		Client client = null;
+	public Trottinette find(Long id) {
+		Trottinette trottinette = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,7 +55,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.find(Client.class, id);
+			trottinette = em.find(Trottinette.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -69,12 +69,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return trottinette;
 	}
 
 	@Override
-	public Client save(Client obj) {
-		Client client = null;
+	public Trottinette save(Trottinette obj) {
+		Trottinette trottinette = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -84,7 +84,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.merge(obj);
+			trottinette = em.merge(obj);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -98,11 +98,11 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return trottinette;
 	}
 
 	@Override
-	public void delete(Client obj) {
+	public void delete(Trottinette obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -125,6 +125,5 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 	}
-
 
 }

@@ -7,14 +7,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import app.Application;
-import model.Client;
-import persistence.IClientDao;
+import model.Itineraire;
+import persistence.IItineraireDao;
 
-public class ClientDaoJpa implements IClientDao {
-	
+public class ItineraireDaoJpa implements IItineraireDao {
 	@Override
-	public List<Client> findAll() {
-		List<Client> clients = null;
+	public List<Itineraire> findAll() {
+		List<Itineraire> itineraires = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -24,9 +23,9 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Client> query = em.createQuery("from Client", Client.class);
+			TypedQuery<Itineraire> query = em.createQuery("from Itineraire", Itineraire.class);
 
-			clients = query.getResultList();
+			itineraires = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -40,12 +39,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return clients;
+		return itineraires;
 	}
 
 	@Override
-	public Client find(Long id) {
-		Client client = null;
+	public Itineraire find(Long id) {
+		Itineraire itineraire = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,7 +54,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.find(Client.class, id);
+			itineraire = em.find(Itineraire.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -69,12 +68,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return itineraire;
 	}
 
 	@Override
-	public Client save(Client obj) {
-		Client client = null;
+	public Itineraire save(Itineraire obj) {
+		Itineraire itineraire = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -84,7 +83,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.merge(obj);
+			itineraire = em.merge(obj);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -98,11 +97,11 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return itineraire;
 	}
 
 	@Override
-	public void delete(Client obj) {
+	public void delete(Itineraire obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -125,6 +124,4 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 	}
-
-
 }

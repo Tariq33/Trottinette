@@ -7,14 +7,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import app.Application;
-import model.Client;
-import persistence.IClientDao;
+import model.Scooter;
+import persistence.IScooterDao;
 
-public class ClientDaoJpa implements IClientDao {
-	
+public class ScooterDaoJpa implements IScooterDao {
+
 	@Override
-	public List<Client> findAll() {
-		List<Client> clients = null;
+	public List<Scooter> findAll() {
+		List<Scooter> scooters = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -24,9 +24,9 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Client> query = em.createQuery("from Client", Client.class);
+			TypedQuery<Scooter> query = em.createQuery("from Scooter", Scooter.class);
 
-			clients = query.getResultList();
+			scooters = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -40,12 +40,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return clients;
+		return scooters;
 	}
 
 	@Override
-	public Client find(Long id) {
-		Client client = null;
+	public Scooter find(Long id) {
+		Scooter scooter = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,7 +55,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.find(Client.class, id);
+			scooter = em.find(Scooter.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -69,12 +69,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return scooter;
 	}
 
 	@Override
-	public Client save(Client obj) {
-		Client client = null;
+	public Scooter save(Scooter obj) {
+		Scooter scooter = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -84,7 +84,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.merge(obj);
+			scooter = em.merge(obj);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -98,11 +98,11 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return scooter;
 	}
 
 	@Override
-	public void delete(Client obj) {
+	public void delete(Scooter obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -125,6 +125,5 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 	}
-
 
 }

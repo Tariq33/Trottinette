@@ -7,14 +7,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import app.Application;
-import model.Client;
-import persistence.IClientDao;
+import model.Velo;
+import persistence.IVeloDao;
 
-public class ClientDaoJpa implements IClientDao {
-	
+public class VeloDaoJpa implements IVeloDao {
+
 	@Override
-	public List<Client> findAll() {
-		List<Client> clients = null;
+	public List<Velo> findAll() {
+		List<Velo> velos = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -24,9 +24,9 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Client> query = em.createQuery("from Client", Client.class);
+			TypedQuery<Velo> query = em.createQuery("from Velo", Velo.class);
 
-			clients = query.getResultList();
+			velos = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -40,12 +40,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return clients;
+		return velos;
 	}
 
 	@Override
-	public Client find(Long id) {
-		Client client = null;
+	public Velo find(Long id) {
+		Velo velo = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,7 +55,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.find(Client.class, id);
+			velo = em.find(Velo.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -69,12 +69,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return velo;
 	}
 
 	@Override
-	public Client save(Client obj) {
-		Client client = null;
+	public Velo save(Velo obj) {
+		Velo velo = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -84,7 +84,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.merge(obj);
+			velo = em.merge(obj);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -98,11 +98,11 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return velo;
 	}
 
 	@Override
-	public void delete(Client obj) {
+	public void delete(Velo obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -125,6 +125,5 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 	}
-
 
 }

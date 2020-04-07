@@ -7,14 +7,13 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import app.Application;
-import model.Client;
-import persistence.IClientDao;
+import model.FinDeTrajet;
+import persistence.IFinDeTrajetDao;
 
-public class ClientDaoJpa implements IClientDao {
-	
+public class FinDeTrajetDaoJpa implements IFinDeTrajetDao {
 	@Override
-	public List<Client> findAll() {
-		List<Client> clients = null;
+	public List<FinDeTrajet> findAll() {
+		List<FinDeTrajet> finDeTrajets = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -24,9 +23,9 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Client> query = em.createQuery("from Client", Client.class);
+			TypedQuery<FinDeTrajet> query = em.createQuery("from FinDeTrajet", FinDeTrajet.class);
 
-			clients = query.getResultList();
+			finDeTrajets = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -40,12 +39,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return clients;
+		return finDeTrajets;
 	}
 
 	@Override
-	public Client find(Long id) {
-		Client client = null;
+	public FinDeTrajet find(Long id) {
+		FinDeTrajet finDeTrajet = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,7 +54,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.find(Client.class, id);
+			finDeTrajet = em.find(FinDeTrajet.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -69,12 +68,12 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return finDeTrajet;
 	}
 
 	@Override
-	public Client save(Client obj) {
-		Client client = null;
+	public FinDeTrajet save(FinDeTrajet obj) {
+		FinDeTrajet finDeTrajet = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -84,7 +83,7 @@ public class ClientDaoJpa implements IClientDao {
 			tx = em.getTransaction();
 			tx.begin();
 
-			client = em.merge(obj);
+			finDeTrajet = em.merge(obj);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -98,11 +97,11 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 
-		return client;
+		return finDeTrajet;
 	}
 
 	@Override
-	public void delete(Client obj) {
+	public void delete(FinDeTrajet obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 
@@ -125,6 +124,4 @@ public class ClientDaoJpa implements IClientDao {
 			}
 		}
 	}
-
-
 }
