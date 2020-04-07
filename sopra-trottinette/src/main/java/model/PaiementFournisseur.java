@@ -27,7 +27,7 @@ public class PaiementFournisseur {
 
 	@OneToOne
 	private Itineraire itineraire;
-
+	
 	private Fournisseur fournisseur;
 
 	public PaiementFournisseur() {
