@@ -2,9 +2,10 @@ package test;
 
 import java.util.Date;
 
-import javax.persistence.Column;
+//import javax.persistence.Column;
 
-import app.Application;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import model.Administrateur;
 import model.Client;
 import model.FinDeTrajet;
@@ -31,18 +32,19 @@ import persistence.IVeloRepository;
 public class TestJpql {
 
 	public static void main(String[] args) {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
 
-		IAdministrateurRepository administrateurDao = Application.getInstance().getAdministrateurDao();
-		IClientRepository clientDao = Application.getInstance().getClientDao();
-		IFinDeTrajetRepository finDeTrajetDao = Application.getInstance().getFinDeTrajetDao();
-		IFournisseurRepository fournisseurDao = Application.getInstance().getFournisseurDao();
-		IItineraireRepository itineraireDao = Application.getInstance().getItineraireDao();
-		IPaiementFournisseurRepository paiementFournisseurDao = Application.getInstance().getPaiementFournisseurDao();
-		IReservationRepository reservationDao = Application.getInstance().getReservationDao();
-		IScooterRepository scooterDao = Application.getInstance().getScooterDao();
-		ITransactionRepository transactionDao = Application.getInstance().getTransactionDao();
-		ITrottinetteRepository trottinetteDao = Application.getInstance().getTrottinetteDao();
-		IVeloRepository veloDao = Application.getInstance().getVeloDao();
+		IAdministrateurRepository administrateurDao = context.getBean(IAdministrateurRepository.class);
+		IClientRepository clientDao = context.getBean(IClientRepository.class);
+		IFinDeTrajetRepository finDeTrajetDao = context.getBean(IFinDeTrajetRepository.class);
+		IFournisseurRepository fournisseurDao = context.getBean(IFournisseurRepository.class);
+		IItineraireRepository itineraireDao = context.getBean(IItineraireRepository.class);
+		IPaiementFournisseurRepository paiementFournisseurDao = context.getBean(IPaiementFournisseurRepository.class);
+		IReservationRepository reservationDao = context.getBean(IReservationRepository.class);
+		IScooterRepository scooterDao = context.getBean(IScooterRepository.class);
+		ITransactionRepository transactionDao = context.getBean(ITransactionRepository.class);
+		ITrottinetteRepository trottinetteDao = context.getBean(ITrottinetteRepository.class);
+		IVeloRepository veloDao = context.getBean(IVeloRepository.class);
 		
 		Scooter scoot = new Scooter();
 		scoot.setDisponible(true);
@@ -143,5 +145,8 @@ public class TestJpql {
 		itineraire1.setMoyenDeTransport(trot);
 		
 		itineraire1 = itineraireDao.save(itineraire1);
+		
+		context.close();
+
 	}
 }
