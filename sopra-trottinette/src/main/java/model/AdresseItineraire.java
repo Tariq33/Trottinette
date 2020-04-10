@@ -15,9 +15,9 @@ public class AdresseItineraire {
 	@Column(name = "city", length = 100)
 	private String ville;
 	@Column(name = "longitude", length = 100)
-	private String longitude;
+	private Float longitude;
 	@Column(name = "latitude", length = 100)
-	private String latitude;
+	private Float latitude;
 
 	public AdresseItineraire() {
 		super();
@@ -55,19 +55,19 @@ public class AdresseItineraire {
 		this.ville = ville;
 	}
 
-	public String getLongitude() {
+	public Float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
 	}
 
-	public String getLatitude() {
+	public Float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Float latitude) {
 		this.latitude = latitude;
 	}
 }
