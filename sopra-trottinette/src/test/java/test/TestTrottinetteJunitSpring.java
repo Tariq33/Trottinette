@@ -1,11 +1,18 @@
 package test;
 
+
+
 import java.util.Date;
 
-import javax.persistence.Column;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import app.Application;
 import model.Administrateur;
+import model.Adresse;
 import model.Client;
 import model.FinDeTrajet;
 import model.Fournisseur;
@@ -28,21 +35,36 @@ import persistence.ITransactionRepository;
 import persistence.ITrottinetteRepository;
 import persistence.IVeloRepository;
 
-public class TestJpql {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/application-context.xml")
+//@ContextConfiguration(classes = ApplicationConfig.class)
+public class TestTrottinetteJunitSpring {
 
-	public static void main(String[] args) {
+	@Autowired
+	private IScooterRepository scooterDao;
+	@Autowired
+	private IVeloRepository veloDao;
+	@Autowired
+	private ITrottinetteRepository trottinetteDao;
+	@Autowired
+	private IFournisseurRepository fournisseurDao;
+	@Autowired
+	private IAdministrateurRepository administrateurDao;
+	@Autowired
+	private IClientRepository clientDao;
+	@Autowired
+	private ITransactionRepository transactionDao;
+	@Autowired
+	private IReservationRepository reservationDao;
+	@Autowired
+	private IFinDeTrajetRepository finDeTrajetDao;
+	@Autowired
+	private IPaiementFournisseurRepository paiementFournisseurDao;
+	@Autowired
+	private IItineraireRepository itineraireDao;
 
-		IAdministrateurRepository administrateurDao = Application.getInstance().getAdministrateurDao();
-		IClientRepository clientDao = Application.getInstance().getClientDao();
-		IFinDeTrajetRepository finDeTrajetDao = Application.getInstance().getFinDeTrajetDao();
-		IFournisseurRepository fournisseurDao = Application.getInstance().getFournisseurDao();
-		IItineraireRepository itineraireDao = Application.getInstance().getItineraireDao();
-		IPaiementFournisseurRepository paiementFournisseurDao = Application.getInstance().getPaiementFournisseurDao();
-		IReservationRepository reservationDao = Application.getInstance().getReservationDao();
-		IScooterRepository scooterDao = Application.getInstance().getScooterDao();
-		ITransactionRepository transactionDao = Application.getInstance().getTransactionDao();
-		ITrottinetteRepository trottinetteDao = Application.getInstance().getTrottinetteDao();
-		IVeloRepository veloDao = Application.getInstance().getVeloDao();
+	@Test
+	public void Scooter() {
 		
 		Scooter scoot = new Scooter();
 		scoot.setDisponible(true);
@@ -143,5 +165,8 @@ public class TestJpql {
 		itineraire1.setMoyenDeTransport(trot);
 		
 		itineraire1 = itineraireDao.save(itineraire1);
+		
 	}
+
+
 }
