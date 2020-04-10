@@ -2,17 +2,17 @@ package app;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import persistence.IAdministrateurDao;
-import persistence.IClientDao;
-import persistence.IFinDeTrajetDao;
-import persistence.IFournisseurDao;
-import persistence.IItineraireDao;
-import persistence.IPaiementFournisseurDao;
-import persistence.IReservationDao;
-import persistence.IScooterDao;
-import persistence.ITransactionDao;
-import persistence.ITrottinetteDao;
-import persistence.IVeloDao;
+import persistence.IAdministrateurRepository;
+import persistence.IClientRepository;
+import persistence.IFinDeTrajetRepository;
+import persistence.IFournisseurRepository;
+import persistence.IItineraireRepository;
+import persistence.IPaiementFournisseurRepository;
+import persistence.IReservationRepository;
+import persistence.IScooterRepository;
+import persistence.ITransactionRepository;
+import persistence.ITrottinetteRepository;
+import persistence.IVeloRepository;
 import persistence.jpa.AdministrateurDaoJpa;
 import persistence.jpa.ClientDaoJpa;
 import persistence.jpa.FinDeTrajetDaoJpa;
@@ -30,17 +30,17 @@ public class Application {
 
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("sopra-trottinette");
 
-	private final IItineraireDao itineraireDao = new ItineraireDaoJpa();
-	private final IPaiementFournisseurDao paiementFournisseurDao = new PaiementFournisseurDaoJpa();
-	private final IScooterDao scooterDao = new ScooterDaoJpa();
-	private final ITrottinetteDao trottinetteDao = new TrottinetteDaoJpa();
-	private final IVeloDao veloDao = new VeloDaoJpa();
-	private final IAdministrateurDao administrateurDao = new AdministrateurDaoJpa();
-	private final ITransactionDao transactionDao = new TransactionDaoJpa();
-	private final IClientDao clientDao = new ClientDaoJpa();
-	private final IReservationDao reservationDao = new ReservationDaoJpa();
-	private final IFinDeTrajetDao finDeTrajetDao = new FinDeTrajetDaoJpa();
-	private final IFournisseurDao fournisseurDao = new FournisseurDaoJpa();
+	private final IItineraireRepository itineraireDao = new ItineraireDaoJpa();
+	private final IPaiementFournisseurRepository paiementFournisseurDao = new PaiementFournisseurDaoJpa();
+	private final IScooterRepository scooterDao = new ScooterDaoJpa();
+	private final ITrottinetteRepository trottinetteDao = new TrottinetteDaoJpa();
+	private final IVeloRepository veloDao = new VeloDaoJpa();
+	private final IAdministrateurRepository administrateurDao = new AdministrateurDaoJpa();
+	private final ITransactionRepository transactionDao = new TransactionDaoJpa();
+	private final IClientRepository clientDao = new ClientDaoJpa();
+	private final IReservationRepository reservationDao = new ReservationDaoJpa();
+	private final IFinDeTrajetRepository finDeTrajetDao = new FinDeTrajetDaoJpa();
+	private final IFournisseurRepository fournisseurDao = new FournisseurDaoJpa();
 
 	private Application() {
 	}
@@ -57,47 +57,47 @@ public class Application {
 		return emf;
 	}
 
-	public IItineraireDao getItineraireDao() {
+	public IItineraireRepository getItineraireDao() {
 		return itineraireDao;
 	}
 
-	public IPaiementFournisseurDao getPaiementFournisseurDao() {
+	public IPaiementFournisseurRepository getPaiementFournisseurDao() {
 		return paiementFournisseurDao;
 	}
 
-	public IScooterDao getScooterDao() {
+	public IScooterRepository getScooterDao() {
 		return scooterDao;
 	}
 
-	public ITrottinetteDao getTrottinetteDao() {
+	public ITrottinetteRepository getTrottinetteDao() {
 		return trottinetteDao;
 	}
 
-	public IVeloDao getVeloDao() {
+	public IVeloRepository getVeloDao() {
 		return veloDao;
 	}
 
-	public IAdministrateurDao getAdministrateurDao() {
+	public IAdministrateurRepository getAdministrateurDao() {
 		return administrateurDao;
 	}
 
-	public ITransactionDao getTransactionDao() {
+	public ITransactionRepository getTransactionDao() {
 		return transactionDao;
 	}
 
-	public IClientDao getClientDao() {
+	public IClientRepository getClientDao() {
 		return clientDao;
 	}
 
-	public IReservationDao getReservationDao() {
+	public IReservationRepository getReservationDao() {
 		return reservationDao;
 	}
 
-	public IFinDeTrajetDao getFinDeTrajetDao() {
+	public IFinDeTrajetRepository getFinDeTrajetDao() {
 		return finDeTrajetDao;
 	}
 
-	public IFournisseurDao getFournisseurDao() {
+	public IFournisseurRepository getFournisseurDao() {
 		return fournisseurDao;
 	}
 	

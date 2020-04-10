@@ -16,33 +16,33 @@ import model.Scooter;
 import model.Transaction;
 import model.Trottinette;
 import model.Velo;
-import persistence.IAdministrateurDao;
-import persistence.IClientDao;
-import persistence.IFinDeTrajetDao;
-import persistence.IFournisseurDao;
-import persistence.IItineraireDao;
-import persistence.IPaiementFournisseurDao;
-import persistence.IReservationDao;
-import persistence.IScooterDao;
-import persistence.ITransactionDao;
-import persistence.ITrottinetteDao;
-import persistence.IVeloDao;
+import persistence.IAdministrateurRepository;
+import persistence.IClientRepository;
+import persistence.IFinDeTrajetRepository;
+import persistence.IFournisseurRepository;
+import persistence.IItineraireRepository;
+import persistence.IPaiementFournisseurRepository;
+import persistence.IReservationRepository;
+import persistence.IScooterRepository;
+import persistence.ITransactionRepository;
+import persistence.ITrottinetteRepository;
+import persistence.IVeloRepository;
 
 public class TestJpql {
 
 	public static void main(String[] args) {
 
-		IAdministrateurDao administrateurDao = Application.getInstance().getAdministrateurDao();
-		IClientDao clientDao = Application.getInstance().getClientDao();
-		IFinDeTrajetDao finDeTrajetDao = Application.getInstance().getFinDeTrajetDao();
-		IFournisseurDao fournisseurDao = Application.getInstance().getFournisseurDao();
-		IItineraireDao itineraireDao = Application.getInstance().getItineraireDao();
-		IPaiementFournisseurDao paiementFournisseurDao = Application.getInstance().getPaiementFournisseurDao();
-		IReservationDao reservationDao = Application.getInstance().getReservationDao();
-		IScooterDao scooterDao = Application.getInstance().getScooterDao();
-		ITransactionDao transactionDao = Application.getInstance().getTransactionDao();
-		ITrottinetteDao trottinetteDao = Application.getInstance().getTrottinetteDao();
-		IVeloDao veloDao = Application.getInstance().getVeloDao();
+		IAdministrateurRepository administrateurDao = Application.getInstance().getAdministrateurDao();
+		IClientRepository clientDao = Application.getInstance().getClientDao();
+		IFinDeTrajetRepository finDeTrajetDao = Application.getInstance().getFinDeTrajetDao();
+		IFournisseurRepository fournisseurDao = Application.getInstance().getFournisseurDao();
+		IItineraireRepository itineraireDao = Application.getInstance().getItineraireDao();
+		IPaiementFournisseurRepository paiementFournisseurDao = Application.getInstance().getPaiementFournisseurDao();
+		IReservationRepository reservationDao = Application.getInstance().getReservationDao();
+		IScooterRepository scooterDao = Application.getInstance().getScooterDao();
+		ITransactionRepository transactionDao = Application.getInstance().getTransactionDao();
+		ITrottinetteRepository trottinetteDao = Application.getInstance().getTrottinetteDao();
+		IVeloRepository veloDao = Application.getInstance().getVeloDao();
 		
 		Scooter scoot = new Scooter();
 		scoot.setDisponible(true);
