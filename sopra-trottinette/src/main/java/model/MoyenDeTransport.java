@@ -1,13 +1,11 @@
 package model;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -16,18 +14,26 @@ import javax.persistence.Version;
 
 @Entity
 @Table(name = "transport_means")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "moyen", discriminatorType = DiscriminatorType.STRING, length = 15)
-public abstract class MoyenDeTransport {
+public class MoyenDeTransport {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Version
 	private Integer version;
 	@Column(name = "longitude", length = 100)
-	private String longitude;
+	private Float longitude;
 	@Column(name = "latitude", length = 100)
-	private String latitude;
+	private Float latitude;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type_of_transport")
+	private TypeDeTransport typeDeTransport;
+	@Column(name = "estimatedDistance", length = 255)
+	private Float distanceEstimee;
+	@Column(name = "engineType", length = 255)
+	@Enumerated(EnumType.STRING)
+	private TypeMoteur typeMoteur;
+	@Column(name = "capacity", length = 255)
+	private Float capacite;
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
 	private Fournisseur fournisseur;
@@ -64,20 +70,52 @@ public abstract class MoyenDeTransport {
 		this.version = version;
 	}
 
-	public String getLongitude() {
+	public Float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
 	}
 
-	public String getLatitude() {
+	public Float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Float latitude) {
 		this.latitude = latitude;
+	}
+
+	public TypeDeTransport getTypeDeTransport() {
+		return typeDeTransport;
+	}
+
+	public void setTypeDeTransport(TypeDeTransport typeDeTransport) {
+		this.typeDeTransport = typeDeTransport;
+	}
+
+	public Float getDistanceEstimee() {
+		return distanceEstimee;
+	}
+
+	public void setDistanceEstimee(Float distanceEstimee) {
+		this.distanceEstimee = distanceEstimee;
+	}
+
+	public TypeMoteur getTypeMoteur() {
+		return typeMoteur;
+	}
+
+	public void setTypeMoteur(TypeMoteur typeMoteur) {
+		this.typeMoteur = typeMoteur;
+	}
+
+	public Float getCapacite() {
+		return capacite;
+	}
+
+	public void setCapacite(Float capacite) {
+		this.capacite = capacite;
 	}
 
 	public Fournisseur getFournisseur() {
@@ -136,4 +174,5 @@ public abstract class MoyenDeTransport {
 		this.itineraire = itineraire;
 	}
 
+	
 }
