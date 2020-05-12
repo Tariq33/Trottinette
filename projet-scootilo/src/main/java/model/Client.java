@@ -16,17 +16,17 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Client extends Utilisateur {
 
 	@Column(name = "balance", length = 10)
-	@JsonView(Views.ViewClient.class)
+	@JsonView(Views.ViewCommon.class)
 	private Float solde;
 	@Column(name = "first_name", length = 100)
-	@JsonView(Views.ViewClient.class)
+	@JsonView(Views.ViewCommon.class)
 	private String prenom;
 	@Embedded
 	@Column(name = "address")
-	@JsonView(Views.ViewClient.class)
+	@JsonView(Views.ViewCommon.class)
 	private Adresse adresse;
 	@Embedded
-	@JsonView(Views.ViewClient.class)
+	@JsonView(Views.ViewCommon.class)
 	private Preference preference;
 	@OneToMany(mappedBy = "client")
 	@JsonView(Views.ViewClientReservation.class)

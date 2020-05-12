@@ -9,6 +9,8 @@ public class Views {
 	
 	public static class ViewMoyenDeTransport extends ViewCommon {}
 	
+	public static class ViewMoyenDeTransportFournisseur extends ViewMoyenDeTransport {}
+	
 	public static class ViewPaiementFournisseur extends ViewCommon {}
 	
 	public static class ViewReservation extends ViewCommon {}

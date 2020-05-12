@@ -19,4 +19,10 @@ public interface IMoyenDeTransportRepository extends JpaRepository<MoyenDeTransp
 //	//Liste des tarifs
 //	@Query("select distinct m.typeDeTransport, u.nom, m.prixMinute from MoyenDeTransport m left join Utilisateur u")
 //	List<Object> findRecapPrix();
+	
+	//@Query("Select m from MoyenDeTransport m left join Utilisateur u where u.nom = :nom")
+	//@Query("Select f.moyensDeTransport from Fournisseur f join MoyenDeTransport m where f.nom =:nom")
+	//@Query("select m from Fournisseur f join f.moyensDeTransport m where f.nom = :nom")
+	@Query("select m from Fournisseur f join f.moyensDeTransport m where f.nom = :nom")
+	List<MoyenDeTransport> findAllByFournisseur(@Param("nom") String nom);
 }
