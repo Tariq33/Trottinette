@@ -12,25 +12,36 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import sopra.formation.model.Views;
+
 @Entity
 @Table(name = "supplier_paiement")
 public class PaiementFournisseur {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private Integer version;
 	@Column(name = "amount", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private Float montant;
 	@Column(name = "date", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private Date date;
 	@Column(name = "transactionNumber", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private String numeroDeTransaction;
 	@OneToOne
 	@JoinColumn(name = "itinerary_id")
+	@JsonView(Views.ViewCommon.class)
 	private Itineraire itineraire;
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
+	@JsonView(Views.ViewCommon.class)
 	private Fournisseur fournisseur;
 
 	public PaiementFournisseur() {
