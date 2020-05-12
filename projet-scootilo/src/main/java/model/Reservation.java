@@ -18,30 +18,41 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "reservation")
 public class Reservation {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private int version;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "departure_time")
+	@JsonView(Views.ViewCommon.class)
 	private Date heureDepart;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "arrival_time")
+	@JsonView(Views.ViewCommon.class)
 	private Date heureArrivee;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date")
+	@JsonView(Views.ViewCommon.class)
 	private Date date;
 	@Column(name = "total_time", length = 15)
+	@JsonView(Views.ViewCommon.class)
 	private Float dureeTotale;
 	@Column(name = "estimated_amount", length = 15)
+	@JsonView(Views.ViewCommon.class)
 	private Float montantEstime;
 	@Column(name = "total_amount", length = 15)
+	@JsonView(Views.ViewCommon.class)
 	private Float montantTotal;
 	@Column(name = "expired")
+	@JsonView(Views.ViewCommon.class)
 	private Boolean expiree;
 	@Embedded
 	@AttributeOverrides({

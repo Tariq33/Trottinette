@@ -13,21 +13,28 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 @Entity
 @Table(name = "deal")
 public class Transaction {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private int version;
 	@Column(name = "amount", length = 10, nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private Float montant;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "date", nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private Date date;
 	@Column(name = "deal_number", length = 25, nullable = false)
+	@JsonView(Views.ViewCommon.class)
 	private String numeroDeTransaction;
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
