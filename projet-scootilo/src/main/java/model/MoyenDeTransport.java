@@ -47,7 +47,7 @@ public class MoyenDeTransport {
 	private Float capacite;
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
-	@JsonView(Views.ViewCommon.class)
+	//@JsonView(Views.ViewMoyenDeTransport.class) problème de boucle infinie
 	private Fournisseur fournisseur;
 	@Column(name = "perMinuteCost", length = 100)
 	@JsonView(Views.ViewCommon.class)
