@@ -18,8 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import model.PaiementFournisseur;
+import model.Views;
 import persistence.IPaiementFournisseurRepository;
-import sopra.formation.web.Views;
 
 @RestController
 @RequestMapping("/paiementfournisseur")

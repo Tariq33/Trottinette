@@ -17,78 +17,55 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import model.MoyenDeTransport;
-import model.Views;
-import persistence.IMoyenDeTransportRepository;
+import model.Fournisseur;
+import persistence.IFournisseurRepository;
 
 @RestController
-@RequestMapping("/moyendetransport")
-public class MoyenDeTransportRestController {
+@RequestMapping("/fournisseur")
+public class FournisseurRestController {
 
 	@Autowired
-	private IMoyenDeTransportRepository moyendetransportRepo;
+	private IFournisseurRepository fournisseurRepo;
 
 	@GetMapping("")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public List<MoyenDeTransport> findAll() {
-		return moyendetransportRepo.findAll();
+	@JsonView(Views.ViewFournisseur.class)
+	public List<Fournisseur> findAll() {
+		return fournisseurRepo.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public MoyenDeTransport find(@PathVariable Long id) {
+	@JsonView(Views.ViewFournisseur.class)
+	public Fournisseur find(@PathVariable Long id) {
 
-		Optional<MoyenDeTransport> optMoyenDeTransport = moyendetransportRepo.findById(id);
+		Optional<Fournisseur> optFournisseur = fournisseurRepo.findById(id);
 
-		if (optMoyenDeTransport.isPresent()) {
-			return optMoyenDeTransport.get();
+		if (optFournisseur.isPresent()) {
+			return optFournisseur.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
-	
-	@PostMapping("")
-	public MoyenDeTransport create(@RequestBody MoyenDeTransport moyendetransport) {
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
 
-		return moyendetransport;
+	@PostMapping("")
+	public Fournisseur create(@RequestBody Fournisseur fournisseur) {
+		fournisseur = fournisseurRepo.save(fournisseur);
+
+		return fournisseur;
 	}
 
 	@PutMapping("/{id}")
-	public MoyenDeTransport update(@RequestBody MoyenDeTransport moyendetransport, @PathVariable Long id) {
-		if (!moyendetransportRepo.existsById(id)) {
+	public Fournisseur update(@RequestBody Fournisseur fournisseur, @PathVariable Long id) {
+		if (!fournisseurRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
+		fournisseur = fournisseurRepo.save(fournisseur);
 
-		return moyendetransport;
+		return fournisseur;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		moyendetransportRepo.deleteById(id);
+		fournisseurRepo.deleteById(id);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

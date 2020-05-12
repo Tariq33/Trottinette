@@ -9,23 +9,32 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import web.Views;
 
 @Entity
 @DiscriminatorValue("customer")
-public class Client extends Utilisateur{
-	
+public class Client extends Utilisateur {
+
 	@Column(name = "balance", length = 10)
+	@JsonView(Views.ViewClient.class)
 	private Float solde;
 	@Column(name = "first_name", length = 100)
+	@JsonView(Views.ViewClient.class)
 	private String prenom;
 	@Embedded
 	@Column(name = "address")
+	@JsonView(Views.ViewClient.class)
 	private Adresse adresse;
 	@Embedded
+	@JsonView(Views.ViewClient.class)
 	private Preference preference;
-	@OneToMany(mappedBy = "client")	
+	@OneToMany(mappedBy = "client")
+//	@JsonView(Views.ViewClientDetail.class)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	@OneToMany(mappedBy = "client")
+//	@JsonView(Views.ViewClientDetail.class)
 	private List<Transaction> transactions = new ArrayList<Transaction>();
 
 	public Client() {
@@ -72,11 +81,10 @@ public class Client extends Utilisateur{
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-	
+
 	public void addReservation(Reservation reservation) {
 		this.reservations.add(reservation);
 	}
-
 
 	public List<Transaction> getTransactions() {
 		return transactions;
@@ -85,12 +93,9 @@ public class Client extends Utilisateur{
 	public void setTransactions(List<Transaction> transactions) {
 		this.transactions = transactions;
 	}
-	
+
 	public void addTransaction(Transaction transaction) {
 		this.transactions.add(transaction);
 	}
-	
-	
-	
 
 }

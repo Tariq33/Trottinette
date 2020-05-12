@@ -17,78 +17,55 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import model.MoyenDeTransport;
-import model.Views;
-import persistence.IMoyenDeTransportRepository;
+import model.Itineraire;
+import persistence.IItineraireRepository;
 
 @RestController
-@RequestMapping("/moyendetransport")
-public class MoyenDeTransportRestController {
+@RequestMapping("/itineraire")
+public class ItineraireRestController {
 
 	@Autowired
-	private IMoyenDeTransportRepository moyendetransportRepo;
+	private IItineraireRepository itineraireRepo;
 
 	@GetMapping("")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public List<MoyenDeTransport> findAll() {
-		return moyendetransportRepo.findAll();
+	@JsonView(Views.ViewItineraire.class)
+	public List<Itineraire> findAll() {
+		return itineraireRepo.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public MoyenDeTransport find(@PathVariable Long id) {
+	@JsonView(Views.ViewItineraire.class)
+	public Itineraire find(@PathVariable Long id) {
 
-		Optional<MoyenDeTransport> optMoyenDeTransport = moyendetransportRepo.findById(id);
+		Optional<Itineraire> optItineraire = itineraireRepo.findById(id);
 
-		if (optMoyenDeTransport.isPresent()) {
-			return optMoyenDeTransport.get();
+		if (optItineraire.isPresent()) {
+			return optItineraire.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
-	
-	@PostMapping("")
-	public MoyenDeTransport create(@RequestBody MoyenDeTransport moyendetransport) {
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
 
-		return moyendetransport;
+	@PostMapping("")
+	public Itineraire create(@RequestBody Itineraire itineraire) {
+		itineraire = itineraireRepo.save(itineraire);
+
+		return itineraire;
 	}
 
 	@PutMapping("/{id}")
-	public MoyenDeTransport update(@RequestBody MoyenDeTransport moyendetransport, @PathVariable Long id) {
-		if (!moyendetransportRepo.existsById(id)) {
+	public Itineraire update(@RequestBody Itineraire itineraire, @PathVariable Long id) {
+		if (!itineraireRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
+		itineraire = itineraireRepo.save(itineraire);
 
-		return moyendetransport;
+		return itineraire;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		moyendetransportRepo.deleteById(id);
+		itineraireRepo.deleteById(id);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

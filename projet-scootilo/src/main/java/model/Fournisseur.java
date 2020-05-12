@@ -9,22 +9,33 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import web.Views;
+
 @Entity
 @DiscriminatorValue("supplier")
-public class Fournisseur extends Utilisateur{
+public class Fournisseur extends Utilisateur {
 	@Column(name = "siret_number")
+	@JsonView(Views.ViewFournisseur.class)
 	private String numeroSiret;
 	@Column(name = "tva_number")
+	@JsonView(Views.ViewFournisseur.class)
 	private String numeroTva;
 	@Column(name = "iban")
+	@JsonView(Views.ViewFournisseur.class)
 	private String iban;
 	@Column(name = "bic")
+	@JsonView(Views.ViewFournisseur.class)
 	private String bic;
 	@Embedded
+	@JsonView(Views.ViewFournisseur.class)
 	private Adresse adresse;
 	@OneToMany(mappedBy = "fournisseur")
+//	@JsonView(Views.ViewFournisseurDetail.class)
 	private List<PaiementFournisseur> paiements = new ArrayList<PaiementFournisseur>();
 	@OneToMany(mappedBy = "fournisseur")
+//	@JsonView(Views.ViewFournisseurDetail.class)
 	private List<MoyenDeTransport> moyensDeTransport = new ArrayList<MoyenDeTransport>();
 
 	public Fournisseur() {
@@ -79,7 +90,7 @@ public class Fournisseur extends Utilisateur{
 	public void setPaiements(List<PaiementFournisseur> paiements) {
 		this.paiements = paiements;
 	}
-	
+
 	public void addPaiementFournisseur(PaiementFournisseur paiement) {
 		this.paiements.add(paiement);
 	}
@@ -91,12 +102,9 @@ public class Fournisseur extends Utilisateur{
 	public void setMoyensDeTransport(List<MoyenDeTransport> moyensDeTransport) {
 		this.moyensDeTransport = moyensDeTransport;
 	}
-	
+
 	public void addMoyenDeTransport(MoyenDeTransport moyenDeTransport) {
 		this.moyensDeTransport.add(moyenDeTransport);
 	}
-	
-	
-	
-	
+
 }

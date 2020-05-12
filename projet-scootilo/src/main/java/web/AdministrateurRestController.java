@@ -17,78 +17,55 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import model.MoyenDeTransport;
-import model.Views;
-import persistence.IMoyenDeTransportRepository;
+import model.Administrateur;
+import persistence.IAdministrateurRepository;
 
 @RestController
-@RequestMapping("/moyendetransport")
-public class MoyenDeTransportRestController {
+@RequestMapping("/administrateur")
+public class AdministrateurRestController {
 
 	@Autowired
-	private IMoyenDeTransportRepository moyendetransportRepo;
+	private IAdministrateurRepository administrateurRepo;
 
 	@GetMapping("")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public List<MoyenDeTransport> findAll() {
-		return moyendetransportRepo.findAll();
+	@JsonView(Views.ViewAdministrateur.class)
+	public List<Administrateur> findAll() {
+		return administrateurRepo.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public MoyenDeTransport find(@PathVariable Long id) {
+	@JsonView(Views.ViewAdministrateur.class)
+	public Administrateur find(@PathVariable Long id) {
 
-		Optional<MoyenDeTransport> optMoyenDeTransport = moyendetransportRepo.findById(id);
+		Optional<Administrateur> optAdministrateur = administrateurRepo.findById(id);
 
-		if (optMoyenDeTransport.isPresent()) {
-			return optMoyenDeTransport.get();
+		if (optAdministrateur.isPresent()) {
+			return optAdministrateur.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
-	
-	@PostMapping("")
-	public MoyenDeTransport create(@RequestBody MoyenDeTransport moyendetransport) {
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
 
-		return moyendetransport;
+	@PostMapping("")
+	public Administrateur create(@RequestBody Administrateur administrateur) {
+		administrateur = administrateurRepo.save(administrateur);
+
+		return administrateur;
 	}
 
 	@PutMapping("/{id}")
-	public MoyenDeTransport update(@RequestBody MoyenDeTransport moyendetransport, @PathVariable Long id) {
-		if (!moyendetransportRepo.existsById(id)) {
+	public Administrateur update(@RequestBody Administrateur administrateur, @PathVariable Long id) {
+		if (!administrateurRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
+		administrateur = administrateurRepo.save(administrateur);
 
-		return moyendetransport;
+		return administrateur;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		moyendetransportRepo.deleteById(id);
+		administrateurRepo.deleteById(id);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

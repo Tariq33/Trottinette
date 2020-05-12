@@ -17,78 +17,55 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import model.MoyenDeTransport;
-import model.Views;
-import persistence.IMoyenDeTransportRepository;
+import model.Client;
+import persistence.IClientRepository;
 
 @RestController
-@RequestMapping("/moyendetransport")
-public class MoyenDeTransportRestController {
+@RequestMapping("/client")
+public class ClientRestController {
 
 	@Autowired
-	private IMoyenDeTransportRepository moyendetransportRepo;
+	private IClientRepository clientRepo;
 
 	@GetMapping("")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public List<MoyenDeTransport> findAll() {
-		return moyendetransportRepo.findAll();
+	@JsonView(Views.ViewClient.class)
+	public List<Client> findAll() {
+		return clientRepo.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewMoyenDeTransport.class)
-	public MoyenDeTransport find(@PathVariable Long id) {
+	@JsonView(Views.ViewClient.class)
+	public Client find(@PathVariable Long id) {
 
-		Optional<MoyenDeTransport> optMoyenDeTransport = moyendetransportRepo.findById(id);
+		Optional<Client> optClient = clientRepo.findById(id);
 
-		if (optMoyenDeTransport.isPresent()) {
-			return optMoyenDeTransport.get();
+		if (optClient.isPresent()) {
+			return optClient.get();
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
-	
-	@PostMapping("")
-	public MoyenDeTransport create(@RequestBody MoyenDeTransport moyendetransport) {
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
 
-		return moyendetransport;
+	@PostMapping("")
+	public Client create(@RequestBody Client client) {
+		client = clientRepo.save(client);
+
+		return client;
 	}
 
 	@PutMapping("/{id}")
-	public MoyenDeTransport update(@RequestBody MoyenDeTransport moyendetransport, @PathVariable Long id) {
-		if (!moyendetransportRepo.existsById(id)) {
+	public Client update(@RequestBody Client client, @PathVariable Long id) {
+		if (!clientRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 
-		moyendetransport = moyendetransportRepo.save(moyendetransport);
+		client = clientRepo.save(client);
 
-		return moyendetransport;
+		return client;
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		moyendetransportRepo.deleteById(id);
+		clientRepo.deleteById(id);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

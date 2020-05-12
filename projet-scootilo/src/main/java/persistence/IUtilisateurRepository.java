@@ -20,10 +20,5 @@ public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long>
 	//identifiant oublié => renvoie l'identifiant par mail
 	Utilisateur findByEmail(String email);
 	
-	//Voir son solde
-	@Query("select u.solde from Utilisateur u where u.identifiant = :identifiant")
-	Float findSoldeByIdentifiant(@Param("identifiant")String identifiant);
-	
-	@Query("select u.reservations from Utilisateur u where u.identifiant = :identifiant")
-	List<Reservation> findAllReservation(@Param("identifiant")String identifiant);
+
 }
