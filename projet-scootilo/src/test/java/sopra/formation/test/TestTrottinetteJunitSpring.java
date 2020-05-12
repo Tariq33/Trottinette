@@ -1,4 +1,4 @@
-package test;
+package sopra.formation.test;
 
 
 
