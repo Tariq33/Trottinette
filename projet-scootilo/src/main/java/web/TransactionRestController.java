@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import model.Transaction;
+import model.Views;
 import persistence.ITransactionRepository;
 
 @RestController
@@ -26,13 +29,13 @@ public class TransactionRestController {
 	private ITransactionRepository transactionRepo;
 
 	@GetMapping("")
-	//@JsonView(Views.ViewTransaction.class)
+	@JsonView(Views.ViewTransaction.class)
 	public List<Transaction> findAll() {
 		return transactionRepo.findAll();
 	}
 
 	@GetMapping("/{id}")
-	//@JsonView(Views.ViewTransaction.class)
+	@JsonView(Views.ViewTransaction.class)
 	public Transaction find(@PathVariable Long id) {
 
 		Optional<Transaction> optTransaction = transactionRepo.findById(id);

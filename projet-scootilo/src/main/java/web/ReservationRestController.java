@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import model.Reservation;
+import model.Views;
 import persistence.IReservationRepository;
 
 @RestController
@@ -26,13 +29,13 @@ public class ReservationRestController {
 	private IReservationRepository reservationRepo;
 
 	@GetMapping("")
-	//@JsonView(Views.ViewReservation.class)
+	@JsonView(Views.ViewReservation.class)
 	public List<Reservation> findAll() {
 		return reservationRepo.findAll();
 	}
 
 	@GetMapping("/{id}")
-	//@JsonView(Views.ViewReservation.class)
+	@JsonView(Views.ViewReservation.class)
 	public Reservation find(@PathVariable Long id) {
 
 		Optional<Reservation> optReservation = reservationRepo.findById(id);
