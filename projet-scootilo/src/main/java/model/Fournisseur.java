@@ -35,10 +35,11 @@ public class Fournisseur extends Utilisateur {
 //	@JsonView(Views.ViewFournisseurDetail.class)
 	private List<PaiementFournisseur> paiements = new ArrayList<PaiementFournisseur>();
 	@OneToMany(mappedBy = "fournisseur")
-//	@JsonView(Views.ViewFournisseurDetail.class)
-	@JsonView(ViewMoyenDeTransportByFournisseur.class)
+	@JsonView(Views.ViewMoyenDeTransportFournisseur.class)
 	private List<MoyenDeTransport> moyensDeTransport = new ArrayList<MoyenDeTransport>();
-
+	
+	
+	
 	public Fournisseur() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -3,19 +3,27 @@ package model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Embeddable
 public class Preference {
-
+	
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "bike")
 	private Boolean velo;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "moped")
 	private Boolean scooter;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "scooter")
 	private Boolean trottinette;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "fast")
 	private Boolean rapide;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "cheap")
 	private Boolean moinsCher;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "lessWalking")
 	private Boolean moinsDeMarche;
 
