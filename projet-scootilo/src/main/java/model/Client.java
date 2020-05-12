@@ -29,7 +29,7 @@ public class Client extends Utilisateur {
 	@JsonView(Views.ViewClient.class)
 	private Preference preference;
 	@OneToMany(mappedBy = "client")
-//	@JsonView(Views.ViewClientDetail.class)
+	@JsonView(Views.ViewClientReservation.class)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	@OneToMany(mappedBy = "client")
 //	@JsonView(Views.ViewClientDetail.class)

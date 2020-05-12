@@ -35,7 +35,9 @@ public class Fournisseur extends Utilisateur {
 	@OneToMany(mappedBy = "fournisseur")
 //	@JsonView(Views.ViewFournisseurDetail.class)
 	private List<MoyenDeTransport> moyensDeTransport = new ArrayList<MoyenDeTransport>();
-
+	
+	
+	
 	public Fournisseur() {
 		super();
 		// TODO Auto-generated constructor stub
