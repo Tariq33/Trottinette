@@ -11,9 +11,20 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 
-
+@JsonTypeInfo(
+		  use = JsonTypeInfo.Id.NAME, 
+		  include = JsonTypeInfo.As.PROPERTY, 
+		  property = "type")
+@JsonSubTypes({ 
+		  @Type(value = Administrateur.class, name = "admin"), 
+		  @Type(value = Client.class, name = "customer"),
+		  @Type(value = Fournisseur.class, name = "supplier")
+		})
 
 @Entity
 @Table(name = "user_account")

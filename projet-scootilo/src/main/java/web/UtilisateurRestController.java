@@ -23,7 +23,7 @@ import persistence.IUtilisateurRepository;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/utilisateur")
 public class UtilisateurRestController {
 
 	@Autowired

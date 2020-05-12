@@ -15,19 +15,19 @@ import com.fasterxml.jackson.annotation.JsonView;
 @DiscriminatorValue("supplier")
 public class Fournisseur extends Utilisateur {
 	@Column(name = "siret_number")
-	@JsonView(Views.ViewFournisseur.class)
+	@JsonView(Views.ViewCommon.class)
 	private String numeroSiret;
 	@Column(name = "tva_number")
-	@JsonView(Views.ViewFournisseur.class)
+	@JsonView(Views.ViewCommon.class)
 	private String numeroTva;
 	@Column(name = "iban")
-	@JsonView(Views.ViewFournisseur.class)
+	@JsonView(Views.ViewCommon.class)
 	private String iban;
 	@Column(name = "bic")
-	@JsonView(Views.ViewFournisseur.class)
+	@JsonView(Views.ViewCommon.class)
 	private String bic;
 	@Embedded
-	@JsonView(Views.ViewFournisseur.class)
+	@JsonView(Views.ViewCommon.class)
 	private Adresse adresse;
 	@OneToMany(mappedBy = "fournisseur")
 //	@JsonView(Views.ViewFournisseurDetail.class)
