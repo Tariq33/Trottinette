@@ -72,12 +72,28 @@ public class MoyenDeTransportRestController {
 	}
 	
 	
+	@GetMapping("/by-moyendetransport/{id}")
+	@JsonView(Views.ViewMoyenDeTransport.class)
+	public MoyenDeTransport findMoyenDeTransportById(@PathVariable Long id) {
+
+		Optional<MoyenDeTransport> optMoyenDeTransport = moyendetransportRepo.findById(id);
+
+		if (optMoyenDeTransport.isPresent()) {
+			return optMoyenDeTransport.get();
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
+		}
+	}
 	
 	
-	
-	
-	
-	
+	@GetMapping("/by-fournisseur/{nom}")
+	@JsonView(Views.ViewMoyenDeTransportByFournisseur.class)
+	public List<MoyenDeTransport> findAllByFournisseur(@PathVariable String nom) {
+		
+		
+		
+		return moyendetransportRepo.findAllByFournisseur(nom);
+	}
 	
 	
 	

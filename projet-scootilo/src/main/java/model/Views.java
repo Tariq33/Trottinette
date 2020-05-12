@@ -22,4 +22,6 @@ public class Views {
 	public static class ViewAdministrateur extends ViewUtilisateur {}
 	
 	public static class ViewClient extends ViewUtilisateur {}
+	
+	public static class ViewMoyenDeTransportByFournisseur extends ViewMoyenDeTransport {}
 }

@@ -15,6 +15,15 @@ public interface IMoyenDeTransportRepository extends JpaRepository<MoyenDeTransp
 	@Query("from MoyenDeTransport m where (m.longitude between :longitudeMin and :longitudeMax) and (m.latitude between :latitudeMin and :latitudeMax)")
 	List<MoyenDeTransport> findAllMoyenDeTransportInArea(@Param("longitudeMin") Float longitudeMin, @Param("longitudeMax") Float longitudeMax, @Param("latitudeMin") Float latitudeMin, @Param("latitudeMax") Float latitudeMax);
 
+	List<MoyenDeTransport> findMoyenDeTransportById(Long id);
+	
+	
+	@Query("select m from Fournisseur f join f.moyensDeTransport m where f.nom = :nom")
+	List<MoyenDeTransport> findAllByFournisseur(@Param("nom") String nom);
+
+	
+	
+
 	
 //	//Liste des tarifs
 //	@Query("select distinct m.typeDeTransport, u.nom, m.prixMinute from MoyenDeTransport m left join Utilisateur u")
