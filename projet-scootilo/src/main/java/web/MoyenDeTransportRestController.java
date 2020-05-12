@@ -18,8 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import model.MoyenDeTransport;
+import model.Views;
 import persistence.IMoyenDeTransportRepository;
-import sopra.formation.web.Views;
 
 @RestController
 @RequestMapping("/moyendetransport")

@@ -14,9 +14,6 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import sopra.formation.model.Views;
-
-
 
 @Entity
 @Table(name = "transport_means")
