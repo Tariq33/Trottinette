@@ -14,7 +14,6 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-
 @Entity
 @Table(name = "supplier_paiement")
 public class PaiementFournisseur {

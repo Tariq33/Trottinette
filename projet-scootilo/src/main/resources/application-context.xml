@@ -15,10 +15,10 @@
 	<context:annotation-config/>
 	
 	<!-- Indiquer dans quel(s) paquetage(s) scanner pour trouver des annotations -->
-	<context:component-scan base-package="sopra.formation.persistence"/>
+	<context:component-scan base-package="persistence"/>
 	
 	<!-- Génération automatique des repositories -->
-	<jpa:repositories base-package="sopra.formation.persistence"/>
+	<jpa:repositories base-package="persistence"/>
 	
 	<!-- Charge le fichier datasource.properties en mémoire -->
 	<context:property-placeholder location="classpath:datasource.properties"/>
@@ -35,7 +35,7 @@
 	<!-- On crée un entityManagerFactory local à partir de la dataSource -->
 	<bean id="entityManagerFactory"	class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="sopra.formation.model" />
+		<property name="packagesToScan" value="model" />
 
 		<!--On précise le provider ... -->
 		<property name="jpaVendorAdapter">

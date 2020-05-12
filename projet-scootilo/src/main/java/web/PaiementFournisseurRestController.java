@@ -21,6 +21,7 @@ import model.PaiementFournisseur;
 import model.Views;
 import persistence.IPaiementFournisseurRepository;
 
+
 @RestController
 @RequestMapping("/paiementfournisseur")
 public class PaiementFournisseurRestController {
