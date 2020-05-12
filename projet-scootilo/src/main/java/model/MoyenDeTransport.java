@@ -12,42 +12,60 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+
 @Entity
 @Table(name = "transport_means")
 public class MoyenDeTransport {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewCommon.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewCommon.class)
 	private Integer version;
 	@Column(name = "longitude", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private Float longitude;
 	@Column(name = "latitude", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private Float latitude;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type_of_transport")
+	@JsonView(Views.ViewCommon.class)
 	private TypeDeTransport typeDeTransport;
 	@Column(name = "estimatedDistance", length = 255)
+	@JsonView(Views.ViewCommon.class)
 	private Float distanceEstimee;
 	@Column(name = "engineType", length = 255)
 	@Enumerated(EnumType.STRING)
+	@JsonView(Views.ViewCommon.class)
 	private TypeMoteur typeMoteur;
 	@Column(name = "capacity", length = 255)
+	@JsonView(Views.ViewCommon.class)
 	private Float capacite;
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
+	@JsonView(Views.ViewCommon.class)
 	private Fournisseur fournisseur;
 	@Column(name = "perMinuteCost", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private Float prixMinute;
 	@Column(name = "serialNumber", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private String numeroDeSerie;
 	@Column(name = "qrCode", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private String qrCode;
 	@Column(name = "available", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private Boolean disponible;
 	@Column(name = "inUse", length = 100)
+	@JsonView(Views.ViewCommon.class)
 	private Boolean enUtilisation;
 	@OneToOne(mappedBy = "moyenDeTransport")
+	@JsonView(Views.ViewCommon.class)
 	private Itineraire itineraire;
 
 	public MoyenDeTransport() {
