@@ -9,21 +9,30 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import web.Views;
+
 @Entity
 @Table(name = "end_of_journey")
 public class FinDeTrajet {
-	
+
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewFinDeTrajet.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewFinDeTrajet.class)
 	private int version;
 	@Column(name = "picture", length = 255)
+	@JsonView(Views.ViewFinDeTrajet.class)
 	private String photo;
 	@Column(name = "comment", length = 400)
+	@JsonView(Views.ViewFinDeTrajet.class)
 	private String commentaire;
 	@ManyToOne
-	@JoinColumn(name="reservation_id")
+	@JoinColumn(name = "reservation_id")
+//	@JsonView(Views.ViewFinDeTrajetDetail.class)
 	private Reservation reservation;
 
 	public FinDeTrajet() {
@@ -70,9 +79,5 @@ public class FinDeTrajet {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-	
-	
-	
-	
 
 }

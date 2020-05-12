@@ -15,56 +15,71 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import web.Views;
+
 @Entity
 @Table(name = "itinerary")
 public class Itineraire {
 	@Id
 	@GeneratedValue
+	@JsonView(Views.ViewItineraire.class)
 	private Long id;
 	@Version
+	@JsonView(Views.ViewItineraire.class)
 	private Integer version;
 	@Embedded
-	@AttributeOverrides({
-		@AttributeOverride(name="rue", column = @Column(name="departure_street")),
-		@AttributeOverride(name="complement", column = @Column(name="departure_additional")),
-		@AttributeOverride(name="codePostal", column = @Column(name="departure_zipcode")),
-		@AttributeOverride(name="ville", column = @Column(name="departure_city")),
-		@AttributeOverride(name="latitude", column = @Column(name="departure_latitude")),
-		@AttributeOverride(name="longitude", column = @Column(name="departure_longitude")),
-		
+	@AttributeOverrides({ @AttributeOverride(name = "rue", column = @Column(name = "departure_street")),
+			@AttributeOverride(name = "complement", column = @Column(name = "departure_additional")),
+			@AttributeOverride(name = "codePostal", column = @Column(name = "departure_zipcode")),
+			@AttributeOverride(name = "ville", column = @Column(name = "departure_city")),
+			@AttributeOverride(name = "latitude", column = @Column(name = "departure_latitude")),
+			@AttributeOverride(name = "longitude", column = @Column(name = "departure_longitude")),
+
 	})
+	@JsonView(Views.ViewItineraire.class)
 	private AdresseItineraire adrDepart;
 	@Embedded
-	@AttributeOverrides({
-		@AttributeOverride(name="rue", column = @Column(name="arrival_street")),
-		@AttributeOverride(name="complement", column = @Column(name="arrival_additional")),
-		@AttributeOverride(name="codePostal", column = @Column(name="arrival_zipcode")),
-		@AttributeOverride(name="ville", column = @Column(name="arrival_city")),
-		@AttributeOverride(name="latitude", column = @Column(name="arrival_latitude")),
-		@AttributeOverride(name="longitude", column = @Column(name="arrival_longitude")),
-	})
+	@AttributeOverrides({ @AttributeOverride(name = "rue", column = @Column(name = "arrival_street")),
+			@AttributeOverride(name = "complement", column = @Column(name = "arrival_additional")),
+			@AttributeOverride(name = "codePostal", column = @Column(name = "arrival_zipcode")),
+			@AttributeOverride(name = "ville", column = @Column(name = "arrival_city")),
+			@AttributeOverride(name = "latitude", column = @Column(name = "arrival_latitude")),
+			@AttributeOverride(name = "longitude", column = @Column(name = "arrival_longitude")), })
+	@JsonView(Views.ViewItineraire.class)
 	private AdresseItineraire adrArrivee;
 	@Column(name = "startingHour", length = 100)
+	@JsonView(Views.ViewItineraire.class)
 	private Date heureDepart;
 	@Column(name = "endingHour", length = 100)
+	@JsonView(Views.ViewItineraire.class)
 	private Date heureArrivee;
 	@Column(name = "hourLimit", length = 100)
+	@JsonView(Views.ViewItineraire.class)
 	private Date heureLimite;
 	@Column(name = "estimatedDuration", length = 100)
+	@JsonView(Views.ViewItineraire.class)
 	private Float dureeEstimee;
 	@Column(name = "duration", length = 100)
+	@JsonView(Views.ViewItineraire.class)
 	private Float Duree;
 	@Column(name = "amount", length = 100)
+	@JsonView(Views.ViewItineraire.class)
 	private Float montant;
 	@Column(name = "deposit", length = 100)
+	@JsonView(Views.ViewItineraire.class)
 	private Float acompte;
 	@OneToOne(mappedBy = "itineraire")
+//	@JsonView(Views.ViewItineraireDetail.class)
 	private PaiementFournisseur paiementFournisseur;
 	@OneToOne
 	@JoinColumn(name = "transportMeans_id")
+//	@JsonView(Views.ViewItineraireDetail.class)
 	private MoyenDeTransport moyenDeTransport;
 	@ManyToOne
 	@JoinColumn(name = "reservation_id")
+//	@JsonView(Views.ViewItineraireDetail.class)
 	private Reservation reservation;
 
 	public Itineraire() {
