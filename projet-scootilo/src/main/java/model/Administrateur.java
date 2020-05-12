@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import web.Views;
-
 @Entity
 @DiscriminatorValue("admin")
 public class Administrateur extends Utilisateur {

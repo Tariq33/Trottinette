@@ -20,4 +20,6 @@ public class Views {
 	public static class ViewFournisseur extends ViewUtilisateur {}
 	
 	public static class ViewAdministrateur extends ViewUtilisateur {}
+	
+	public static class ViewClient extends ViewUtilisateur {}
 }

@@ -11,8 +11,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import web.Views;
-
 @Entity
 @DiscriminatorValue("supplier")
 public class Fournisseur extends Utilisateur {

@@ -17,8 +17,6 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import web.Views;
-
 @Entity
 @Table(name = "itinerary")
 public class Itineraire {

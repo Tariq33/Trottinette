@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import model.Administrateur;
+import model.Views;
 import persistence.IAdministrateurRepository;
 
 @RestController

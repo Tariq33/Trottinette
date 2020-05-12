@@ -11,8 +11,6 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import web.Views;
-
 @Entity
 @Table(name = "end_of_journey")
 public class FinDeTrajet {
