@@ -1,5 +1,6 @@
 package web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +18,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import model.Client;
 import model.Utilisateur;
 import model.Views;
 import persistence.IUtilisateurRepository;
-
 
 @RestController
 @RequestMapping("/utilisateur")
@@ -28,11 +29,32 @@ public class UtilisateurRestController {
 
 	@Autowired
 	private IUtilisateurRepository utilisateurRepo;
-	
+
 	@GetMapping("")
 	@JsonView(Views.ViewUtilisateur.class)
 	public List<Utilisateur> findAll() {
 		return utilisateurRepo.findAll();
+	}
+
+	@GetMapping("/connexion/{identifiant}|{motDePasse}")
+	@JsonView(Views.ViewUtilisateur.class)
+	public Utilisateur findByIdentifiantAndMotDePasse(@PathVariable String identifiant,
+			@PathVariable String motDePasse) {
+		return utilisateurRepo.findByIdentifiantAndMotDePasse(identifiant, motDePasse);
+	}
+
+	@GetMapping("/help/{email}")
+	@JsonView(Views.ViewUtilisateur.class)
+	public Utilisateur findIdentifiantAndMotDepasseByEmail(@PathVariable String email) {
+		
+		return utilisateurRepo.findUserByEmail(email);
+	}
+	
+	@GetMapping("/byIdentifiant/{identifiant}")
+	@JsonView(Views.ViewUtilisateur.class)
+	public Utilisateur findUserByIdentifiant(@PathVariable String identifiant) {
+		
+		return utilisateurRepo.findUserByIdentifiant(identifiant);
 	}
 
 	@GetMapping("/{id}")
@@ -47,7 +69,6 @@ public class UtilisateurRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
-	
 
 	@PostMapping("")
 	public Utilisateur create(@RequestBody Utilisateur utilisateur) {
