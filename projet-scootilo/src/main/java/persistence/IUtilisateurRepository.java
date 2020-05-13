@@ -7,12 +7,14 @@ import model.Utilisateur;
 public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 	
 	//Vérification connexion
-	Utilisateur findByIdentifiantAndMotDePasse(String identifiant, String motDePasse);
+	@Query("select u from Utilisateur u where u.motDePasse= :motDePasse and u.identifiant= :identifiant")
+	Utilisateur findByIdentifiantAndMotDePasse(@Param("identifiant") String identifiant, @Param("motDePasse") String motDePasse);
 	
-	//Mot de passe oublié => renvoie le mdp dans le mail
-	Utilisateur findByIdentifiant(String identifiant);
+	//Mot de passe oublié ou Identifiant oublié => renvoie l'identifiant par mail 
+	@Query("select u from Utilisateur u where u.email= :email")
+	Utilisateur findUserByEmail(@Param("email") String email);
 	
-	//identifiant oublié => renvoie l'identifiant par mail
-	Utilisateur findByEmail(String email);
+	@Query("select u from Utilisateur u where u.identifiant= :identifiant")
+	Utilisateur findUserByIdentifiant(@Param("identifiant") String identifiant);
 	
 }
