@@ -76,6 +76,7 @@ public class Reservation {
 	private AdresseItineraire adrArrivee;
 	@ManyToOne
 	@JoinColumn(name = "client_id")
+	@JsonView(Views.ViewReservation.class)
 	private Client client;
 	@OneToMany(mappedBy = "reservation")
 	private List<FinDeTrajet> finsDeTrajet = new ArrayList<FinDeTrajet>();

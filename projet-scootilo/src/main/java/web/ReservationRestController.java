@@ -46,6 +46,12 @@ public class ReservationRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
+	
+	@GetMapping("/expById/{identifiant}")
+	@JsonView(Views.ViewClientReservation.class)
+	public List<Reservation> FindReservationExpireeByIdentifiant(@PathVariable String identifiant) {
+		return reservationRepo.FindReservationExpireeByIdentifiant(identifiant);
+	}
 
 	@PostMapping("")
 	public Reservation create(@RequestBody Reservation reservation) {

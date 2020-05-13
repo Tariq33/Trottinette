@@ -3,15 +3,21 @@ package model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Embeddable
 public class Adresse {
 	
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "street", length = 255)
 	private String rue;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "additional", length = 255)
 	private String complement;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "zipcode", length = 10)
 	private String codePostal;
+	@JsonView(Views.ViewCommon.class)
 	@Column(name = "city", length = 100)
 	private String ville;
 

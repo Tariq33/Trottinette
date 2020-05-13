@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import model.Client;
+import model.Preference;
 import model.Views;
 import persistence.IClientRepository;
 
@@ -33,7 +34,29 @@ public class ClientRestController {
 	public List<Client> findAll() {
 		return clientRepo.findAll();
 	}
-
+	
+	@GetMapping("/moncompte/{identifiant}")
+	@JsonView(Views.ViewClient.class)
+	public Client findByIdentifiant(@PathVariable String identifiant) {
+		
+		Client client = clientRepo.findByIdentifiant(identifiant);
+		
+		return client;	
+	}
+	
+	
+	@GetMapping("/preference/{identifiant}")
+	@JsonView(Views.ViewClient.class)
+	public Preference findPreferenceByIdentifiant(@PathVariable String identifiant) {
+		
+		Client client = clientRepo.findByIdentifiant(identifiant);
+		
+		Preference preference = client.getPreference();
+		
+		return preference;	
+	}
+	
+	
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewClient.class)
 	public Client find(@PathVariable Long id) {
