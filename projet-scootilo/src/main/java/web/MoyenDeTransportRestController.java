@@ -94,14 +94,7 @@ public class MoyenDeTransportRestController {
 	}
 	
 	
-	@GetMapping("/by-fournisseur/{nom}")
-	@JsonView(Views.ViewMoyenDeTransportByFournisseur.class)
-	public List<MoyenDeTransport> findAllByFournisseur(@PathVariable String nom) {
-		
-		
-		
-		return moyendetransportRepo.findAllByFournisseur(nom);
-	}
+
 	
 	
 	

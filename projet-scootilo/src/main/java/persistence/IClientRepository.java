@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import model.Client;
-import model.Preference;
 import model.Reservation;
 
 public interface IClientRepository extends JpaRepository<Client, Long> {
@@ -21,4 +20,7 @@ public interface IClientRepository extends JpaRepository<Client, Long> {
 	
 	@Query("select u from Utilisateur u where u.identifiant = :identifiant")
 	Client findByIdentifiant(@Param("identifiant") String identifiant);
+	
+	@Query("select preference from Utilisateur u where u.identifiant = :identifiant")
+	Client FindPreferencesByIdentifiant(@Param("identifiant") String identifiant);
 }

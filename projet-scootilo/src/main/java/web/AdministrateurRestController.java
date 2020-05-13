@@ -46,6 +46,15 @@ public class AdministrateurRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
+	
+	@GetMapping("/moncompte/{identifiant}")
+	@JsonView(Views.ViewAdministrateur.class)
+	public Administrateur findByIdentifiant(@PathVariable String identifiant) {
+		
+		Administrateur administrateur = administrateurRepo.findByIdentifiant(identifiant);
+		
+		return administrateur;	
+	}
 
 	@PostMapping("")
 	public Administrateur create(@RequestBody Administrateur administrateur) {

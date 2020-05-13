@@ -46,6 +46,15 @@ public class FournisseurRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
+	
+	@GetMapping("/moncompte/{identifiant}")
+	@JsonView(Views.ViewFournisseur.class)
+	public Fournisseur findByIdentifiant(@PathVariable String identifiant) {
+		
+		Fournisseur fournisseur = fournisseurRepo.findByIdentifiant(identifiant);
+		
+		return fournisseur;	
+	}
 
 	@PostMapping("")
 	public Fournisseur create(@RequestBody Fournisseur fournisseur) {
