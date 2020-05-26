@@ -17,6 +17,8 @@ import { SeDeplacerComponent } from './components/se-deplacer/se-deplacer.compon
 import { SeDeplacerRechercheComponent } from './components/se-deplacer-recherche/se-deplacer-recherche.component';
 import { SeDeplacerTarifComponent } from './components/se-deplacer-tarif/se-deplacer-tarif.component';
 import { LogInComponent } from './components/log-in/log-in.component';
+import { PartenairesComponent } from './components/partenaires/partenaires.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { LogInComponent } from './components/log-in/log-in.component';
     SeDeplacerComponent,
     SeDeplacerRechercheComponent,
     SeDeplacerTarifComponent,
-    LogInComponent
+    LogInComponent,
+    PartenairesComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,
