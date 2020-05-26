@@ -181,7 +181,7 @@ class SpringFormationBootApplicationTests {
 //		
 //		System.out.println(moyensDeTransport.get(0));
 
-		utilisateurDao.delete(clement);
+//		utilisateurDao.delete(clement);
 	}
 
 }
