@@ -19,23 +19,23 @@ export class FinDeTrajetService {
   }
 
   findById(id: number): Observable<FinDeTrajet> {
-    return this.http.get<FinDeTrajet>('http://localhost:8080/api/stagiaire/' + id);
+    return this.http.get<FinDeTrajet>('http://localhost:8080/api/finDeTrajet/' + id);
   }
 
   create(finDeTrajet: FinDeTrajet) {
-    return this.http.post<FinDeTrajet>('http://localhost:8080/api/stagiaire', finDeTrajet);
+    return this.http.post<FinDeTrajet>('http://localhost:8080/api/finDeTrajet', finDeTrajet);
   }
 
   modify(finDeTrajet: FinDeTrajet) {
-    return this.http.put<FinDeTrajet>('http://localhost:8080/api/stagiaire/' + finDeTrajet.id, finDeTrajet);
+    return this.http.put<FinDeTrajet>('http://localhost:8080/api/finDeTrajet/' + finDeTrajet.id, finDeTrajet);
   }
 
   deleteById(id: number) {
-    this.http.delete('http://localhost:8080/api/stagiaire/' + id).subscribe(resp => this.load(), error => console.log(error));
+    this.http.delete('http://localhost:8080/api/finDeTrajet/' + id).subscribe(resp => this.load(), error => console.log(error));
   }
 
   load() {
-    this.http.get<Array<FinDeTrajet>>('http://localhost:8080/api/stagiaire').subscribe(resp => {
+    this.http.get<Array<FinDeTrajet>>('http://localhost:8080/api/finDeTrajet').subscribe(resp => {
       this.finDeTrajets = resp;
     }, error => console.log(error));
   }

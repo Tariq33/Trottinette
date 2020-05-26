@@ -19,23 +19,23 @@ export class AdministrateurService {
   }
 
   findById(id: number): Observable<Administrateur> {
-    return this.http.get<Administrateur>('http://localhost:8080/api/stagiaire/' + id);
+    return this.http.get<Administrateur>('http://localhost:8080/api/administrateur/' + id);
   }
 
   create(administrateur: Administrateur) {
-    return this.http.post<Administrateur>('http://localhost:8080/api/stagiaire', administrateur);
+    return this.http.post<Administrateur>('http://localhost:8080/api/administrateur', administrateur);
   }
 
   modify(administrateur: Administrateur) {
-    return this.http.put<Administrateur>('http://localhost:8080/api/stagiaire/' + administrateur.id, administrateur);
+    return this.http.put<Administrateur>('http://localhost:8080/api/administrateur/' + administrateur.id, administrateur);
   }
 
   deleteById(id: number) {
-    this.http.delete('http://localhost:8080/api/stagiaire/' + id).subscribe(resp => this.load(), error => console.log(error));
+    this.http.delete('http://localhost:8080/api/administrateur/' + id).subscribe(resp => this.load(), error => console.log(error));
   }
 
   load() {
-    this.http.get<Array<Administrateur>>('http://localhost:8080/api/stagiaire').subscribe(resp => {
+    this.http.get<Array<Administrateur>>('http://localhost:8080/api/administrateur').subscribe(resp => {
       this.administrateurs = resp;
     }, error => console.log(error));
   }
