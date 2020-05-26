@@ -5,6 +5,7 @@ import {SeDeplacerComponent} from "./components/se-deplacer/se-deplacer.componen
 import {SeDeplacerTarifComponent} from "./components/se-deplacer-tarif/se-deplacer-tarif.component";
 import {PartenairesComponent} from "./components/partenaires/partenaires.component";
 import {ContactsComponent} from "./components/contacts/contacts.component";
+import {LogInComponent} from "./components/log-in/log-in.component";
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: "seDeplacer", component: SeDeplacerComponent},
   {path: "tarifs", component: SeDeplacerTarifComponent},
   {path: "partenaires", component: PartenairesComponent},
-  {path: "contact", component: ContactsComponent}
+  {path: "contact", component: ContactsComponent},
+  {path: "logIn", component: LogInComponent}
   ];
 
 @NgModule({
