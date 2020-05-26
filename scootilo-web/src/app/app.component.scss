@@ -1,3 +1,4 @@
+/*DEBUT Navbar*/
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -24,3 +25,17 @@
   color:  white;
   border-color: rgb(50,162,228);
 }
+
+.navbar-brand{
+  margin-right: 25px;
+  font-weight: bold;
+  font-size: 125%;
+}
+
+.nav-item {
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 115%;
+}
+
+/*FIN Navbar*/
