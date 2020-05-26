@@ -1,3 +1,6 @@
+import {Itineraire} from "./itineraire";
+import {Fournisseur} from "./fournisseur";
+
 export class PaiementFournisseur {
   id: number;
   version: number;
