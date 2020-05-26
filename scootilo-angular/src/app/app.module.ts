@@ -17,6 +17,7 @@ import { PageDaccueilComponent } from './components/page-daccueil/page-daccueil.
 import { SeDeplacerComponent } from './components/se-deplacer/se-deplacer.component';
 import { SeDeplacerRechercheComponent } from './components/se-deplacer-recherche/se-deplacer-recherche.component';
 import { SeDeplacerTarifComponent } from './components/se-deplacer-tarif/se-deplacer-tarif.component';
+import { LogInComponent } from './components/log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SeDeplacerTarifComponent } from './components/se-deplacer-tarif/se-depl
     PageDaccueilComponent,
     SeDeplacerComponent,
     SeDeplacerRechercheComponent,
-    SeDeplacerTarifComponent
+    SeDeplacerTarifComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
