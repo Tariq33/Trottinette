@@ -21,7 +21,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 @NgModule({
   declarations: [
     AppComponent,
-    IdOublieComponent,
+	IdOublieComponent,
     MonCompteClientComponent,
     MonCompteAdministrateurComponent,
     MonCompteFournisseurComponent,
@@ -37,7 +37,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
+	HttpClientModule,
     FormsModule
   ],
   providers: [],
