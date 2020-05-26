@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+body {
+  background-color: rgb(233,236,239);
+  }
+  
+.container {
+	
+	padding-top: 20px;"
+}
+
+.table {
+	margin-left: 100px;
+	margin-top: 15px;
+	width: 80%;
+}

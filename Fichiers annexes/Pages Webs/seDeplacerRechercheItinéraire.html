@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SCOOTILO - Réservation</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="seDeplacer.css" />
+</head>
+<body>
+
+	<div class="row" style="padding-left: 15px;">
+		<div class="col-xl-3 itineraire"padding-top: 15px;">
+
+			<div style="text-align: center;">
+
+
+				<h6>Recherchez votre itinéraire</h6>
+				<h6>OU</h6>
+				<h6>Réservez directement sur la carte</h6>
+
+			</div>
+			<br>
+			<div>
+				<h4>Itinéraire :</h4>
+				<form>
+					<div class="form-group">
+						<label for="formGroupExampleInput">Lieu de départ :</label> <input
+							type="text" class="form-control" id="formGroupExampleInput"
+							placeholder="Choisissez votre lieu de départ"
+							style="width: 400px;">
+					</div>
+				</form>
+				<div class="dropdown show">
+					<a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+						id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Mes adresses </a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a class="dropdown-item" href="#">Adresse n°1</a> <a
+							class="dropdown-item" href="#">Adresse n°2</a> <a
+							class="dropdown-item" href="#">Adresse n°3</a>
+					</div>
+				</div>
+				<br>
+				<div class="form-group">
+					<label for="formGroupExampleInput">Lieu d'arrivée :</label> <input
+						type="text" class="form-control" id="formGroupExampleInput"
+						placeholder="Choisissez votre destination" style="width: 400px;">
+				</div>
+				</form>
+				<div class="dropdown show">
+					<a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+						id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Mes adresses </a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a class="dropdown-item" href="#">Adresse n°1</a> <a
+							class="dropdown-item" href="#">Adresse n°2</a> <a
+							class="dropdown-item" href="#">Adresse n°3</a>
+					</div>
+				</div>
+				<br>
+				<div>
+					<h6 class="card-title">Préférences :</h6>
+					<div class="form-check-inline">
+						<label class="form-check-label"> <input type="checkbox"
+							class="form-check-input" value="">Trottinette
+						</label>
+					</div>
+					<div class="form-check-inline">
+						<label class="form-check-label"> <input type="checkbox"
+							class="form-check-input" value="">Vélo
+						</label>
+					</div>
+					<div class="form-check-inline">
+						<label class="form-check-label"> <input type="checkbox"
+							class="form-check-input" value="">Scooter
+						</label>
+					</div>
+				</div>
+				<br> <a href="#" class="btn-lg btn-secondary"
+					style="margin-left: 130px;">Rechercher</a>
+
+			</div>
+			<br>
+			<div>
+				<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+  </div>
+</nav>
+
+				<table class="table">
+					<tbody>
+						<tr>
+							<td>Mode de transport :</td>
+							<td>A renseigner</td>
+						</tr>
+						<tr>
+							<td>Emplacement :</td>
+							<td>A renseigner</td>
+						</tr>
+						<tr>
+							<td>Prix (€/min) :</td>
+							<td>A renseigner</td>
+						</tr>
+						<tr>
+							<td>Temps de marche :</td>
+							<td>A renseigner</td>
+						</tr>
+					</tbody>
+				</table>
+				<br> <a href="#" class="btn-lg btn-secondary"
+					style="margin-left: 160px;">Réserver</a>
+			</div>
+
+		</div>
+		<div class="col-xl-9 carte">
+			<iframe
+				src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11317.441106859496!2d-0.5673022087519212!3d44.83459582041811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sfr!4v1589131830931!5m2!1sfr!2sfr"
+				width="1375" height="880" frameborder="0" style="border: 0;"
+				allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+		</div>
+
+
+
+	</div>
+</body>
+</html>
