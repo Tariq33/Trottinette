@@ -1,1 +1,23 @@
-<p>se-deplacer-tarif works!</p>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h4>Liste des tarifs</h4>
+    </div>
+    <table class="table">
+      <thead class="thead-light">
+      <tr>
+        <th>Type de transport</th>
+        <th>Compagnie</th>
+        <th>Tarif/minute</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let moyenDeTransport of list()">
+        <td>{{moyenDeTransport.typeDeTransport}}</td>
+        <td>{{moyenDeTransport.fournisseur.nom}}</td>
+        <td>{{moyenDeTransport.prixMinute}}€</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

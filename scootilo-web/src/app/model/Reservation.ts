@@ -1,6 +1,7 @@
 import {AdresseItineraire} from "./adresseItineraire";
 import {FinDeTrajet} from "./finDeTrajet";
 import {Itineraire} from "./itineraire";
+import {Client} from "./client";
 
 export class Reservation {
   id: number;

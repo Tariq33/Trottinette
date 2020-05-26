@@ -1,7 +1,6 @@
 import {Utilisateur} from "./utilisateur";
 import {Adresse} from "./adresse";
 import {Preference} from "./preference";
-import {FinDeTrajet} from "./finDeTrajet";
 import {Reservation} from "./Reservation";
 import {Transaction} from "./Transaction";
 
