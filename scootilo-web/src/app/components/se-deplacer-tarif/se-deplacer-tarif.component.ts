@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MoyenDeTransport} from "../../model/moyenDeTransport";
+import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
 
 @Component({
   selector: 'app-se-deplacer-tarif',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeDeplacerTarifComponent implements OnInit {
 
-  constructor() { }
+  constructor(private moyenDeTransportService: MoyenDeTransportService) { }
 
   ngOnInit(): void {
+  }
+
+  list(): Array<MoyenDeTransport> {
+    return this.moyenDeTransportService.findAll();
   }
 
 }
