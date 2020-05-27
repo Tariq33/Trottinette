@@ -8,17 +8,13 @@ import {Component} from '@angular/core';
 export class AppComponent {
   title = 'scootilo-web';
 
-  user: string;
-
   constructor() {
-    localStorage.setItem("user", "monIdentifiant");
-    this.user = localStorage.getItem("user");
-    localStorage.setItem("type", "monType");
+    sessionStorage.setItem("utilisateur","");
   }
 
   getUser(): string {
-    return localStorage.getItem("user");
-    ;
+    if(sessionStorage.getItem("utilisateur")!="") return JSON.parse(sessionStorage.getItem("utilisateur")).identifiant;
+    else return "monId";
   }
 
 }
