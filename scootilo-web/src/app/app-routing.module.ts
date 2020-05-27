@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: "contact", component: ContactsComponent},
   {path: "compteAdministrateur", component: MonCompteAdministrateurComponent},
   {path: "logIn", component: LogInComponent},
-  {path: "plan", component: PlanReseauComponent}
+  {path: "plan", component: PlanReseauComponent},
   {path: "logIn", component: LogInComponent},
   {path: "compteAdministrateur/ajoutUtilisateur", component: MonCompteAdministrateurAjoutUtilisateurComponent},
   {path: "compteAdministrateur/ajoutUtilisateur/:id", component: MonCompteAdministrateurAjoutUtilisateurComponent},
