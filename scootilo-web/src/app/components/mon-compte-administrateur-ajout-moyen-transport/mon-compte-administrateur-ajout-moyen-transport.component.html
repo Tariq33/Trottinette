@@ -1,0 +1,47 @@
+<div class="container" style="padding-bottom: 20px;">
+  <div class="card">
+    <div class="card-header">
+      <h4>Ajout d'un utilisateur</h4>
+    </div>
+
+    <div class="card-body">
+
+      <div class="form-group">
+        <label for="numeroDeSerie">Identifiant :</label>
+        <input type="text" class="form-control" id="numeroDeSerie" [(ngModel)]="moyenDeTransportForm.numeroDeSerie">
+      </div>
+      <div class="form-group">
+        <label for="typeDeTransport">Type de transport :</label>
+        <select class="form-control" id="typeDeTransport" [(ngModel)]="moyenDeTransportForm.typeDeTransport">
+          <option value="velo">Vélo</option>
+          <option value="scooter">Scooter</option>
+          <option value="trottinette">Trottinette</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="typeMoteur">Type de moteur :</label>
+        <select class="form-control" id="typeMoteur" [(ngModel)]="moyenDeTransportForm.typeMoteur">
+          <option value="Thermique">Thermique</option>
+          <option value="Electrique">Electrique</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="prixMinute">Prix par minute (€) : </label>
+        <input type="number" class="form-control" id="prixMinute" [(ngModel)]="moyenDeTransportForm.prixMinute">
+      </div>
+      <div class="form-group">
+        <label for="disponible">Disponible :</label>
+        <select class="form-control" id="disponible" [(ngModel)]="moyenDeTransportForm.disponible">
+          <option value="true">Oui</option>
+          <option value="false">Non</option>
+        </select>
+      </div>
+
+      <a type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteAdministrateur">Ajouter</a>
+      <a class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteAdministrateur">Annuler</a>
+
+    </div>
+  </div>
+</div>
+
+

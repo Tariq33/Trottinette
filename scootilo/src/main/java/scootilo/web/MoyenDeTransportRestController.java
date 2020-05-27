@@ -60,6 +60,7 @@ public class MoyenDeTransportRestController {
 	
 	
 	@PostMapping("")
+	@JsonView(Views.ViewMoyenDeTransport.class)
 	public MoyenDeTransport create(@RequestBody MoyenDeTransport moyendetransport) {
 		moyendetransport = moyendetransportRepo.save(moyendetransport);
 
@@ -67,6 +68,7 @@ public class MoyenDeTransportRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewMoyenDeTransport.class)
 	public MoyenDeTransport update(@RequestBody MoyenDeTransport moyendetransport, @PathVariable Long id) {
 		if (!moyendetransportRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

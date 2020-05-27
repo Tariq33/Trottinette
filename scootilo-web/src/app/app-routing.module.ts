@@ -7,6 +7,10 @@ import {PartenairesComponent} from "./components/partenaires/partenaires.compone
 import {ContactsComponent} from "./components/contacts/contacts.component";
 import {MonCompteAdministrateurComponent} from './components/mon-compte-administrateur/mon-compte-administrateur.component';
 import {LogInComponent} from "./components/log-in/log-in.component";
+import {PlanReseauComponent} from "./components/plan-reseau/plan-reseau.component";
+import {MonCompteAdministrateurAjoutUtilisateurComponent} from './components/mon-compte-administrateur-ajout-utilisateur/mon-compte-administrateur-ajout-utilisateur.component';
+import {MonCompteAdministrateurAjoutMoyenTransportComponent} from './components/mon-compte-administrateur-ajout-moyen-transport/mon-compte-administrateur-ajout-moyen-transport.component';
+import {CreationCompteComponent} from "./components/creation-compte/creation-compte.component";
 import {MonCompteClientComponent} from "./components/mon-compte-client/mon-compte-client.component";
 
 
@@ -18,6 +22,14 @@ const routes: Routes = [
   {path: "partenaires", component: PartenairesComponent},
   {path: "contact", component: ContactsComponent},
   {path: "compteAdministrateur", component: MonCompteAdministrateurComponent},
+  {path: "logIn", component: LogInComponent},
+  {path: "plan", component: PlanReseauComponent},
+  {path: "logIn", component: LogInComponent},
+  {path: "compteAdministrateur/ajoutUtilisateur", component: MonCompteAdministrateurAjoutUtilisateurComponent},
+  {path: "compteAdministrateur/ajoutUtilisateur/:id", component: MonCompteAdministrateurAjoutUtilisateurComponent},
+  {path: "compteAdministrateur/ajoutMoyenTransport", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
+  {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
+  {path: "creationCompte", component: CreationCompteComponent}
   {path: "compteClient", component: MonCompteClientComponent},
   {path: "logIn", component: LogInComponent}
   ];
