@@ -1,3 +1,5 @@
+import { Client } from './client';
+
 export class Transaction {
   id: number;
   version: number;

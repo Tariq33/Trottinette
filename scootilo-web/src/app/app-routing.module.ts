@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: "tarifs", component: SeDeplacerTarifComponent},
   {path: "partenaires", component: PartenairesComponent},
   {path: "contact", component: ContactsComponent},
-  {path: "compteAdministrateur", component: MonCompteAdministrateurComponent}
+  {path: "compteAdministrateur", component: MonCompteAdministrateurComponent},
   {path: "logIn", component: LogInComponent}
   ];
 
