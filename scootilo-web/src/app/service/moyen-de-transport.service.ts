@@ -20,23 +20,23 @@ export class MoyenDeTransportService {
   }
 
   findById(id: number): Observable<MoyenDeTransport> {
-    return this.http.get<MoyenDeTransport>("http://localhost:8080/api/moyenDeTransport/" + id);
+    return this.http.get<MoyenDeTransport>("http://localhost:8080/moyendetransport/" + id);
   }
 
   create(moyenDeTransport: MoyenDeTransport) {
-    return this.http.post<MoyenDeTransport>("http://localhost:8080/api/moyenDeTransport", moyenDeTransport);
+    return this.http.post<MoyenDeTransport>("http://localhost:8080/moyendetransport", moyenDeTransport);
   }
 
   modify(moyenDeTransport: MoyenDeTransport) {
-    return this.http.put<MoyenDeTransport>("http://localhost:8080/api/moyenDeTransport/" + moyenDeTransport.id, moyenDeTransport);
+    return this.http.put<MoyenDeTransport>("http://localhost:8080/moyendetransport/" + moyenDeTransport.id, moyenDeTransport);
   }
 
   deleteById(id: number) {
-    this.http.delete("http://localhost:8080/api/moyenDeTransport/" + id).subscribe(resp => this.load(), error => console.log(error))
+    this.http.delete("http://localhost:8080/moyendetransport/" + id).subscribe(resp => this.load(), error => console.log(error))
   }
 
   load() {
-    this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/api/moyenDeTransport").subscribe(resp => {
+    this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport").subscribe(resp => {
       this.moyensDeTransport = resp;
     }, error => console.log(error))
   }
