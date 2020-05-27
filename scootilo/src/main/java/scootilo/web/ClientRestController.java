@@ -72,6 +72,15 @@ public class ClientRestController {
 		}
 	}
 
+	@GetMapping("/historique/{id}")
+	@JsonView(Views.ViewClient.class)
+	public Client FindHistorique(@PathVariable Long id) {
+
+		return clientRepo.FindHistorique(id);
+		
+	}
+
+	
 	@PostMapping("")
 	public Client create(@RequestBody Client client) {
 		client = clientRepo.save(client);

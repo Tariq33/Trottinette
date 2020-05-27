@@ -7,6 +7,7 @@ import {PartenairesComponent} from "./components/partenaires/partenaires.compone
 import {ContactsComponent} from "./components/contacts/contacts.component";
 import {MonCompteAdministrateurComponent} from './components/mon-compte-administrateur/mon-compte-administrateur.component';
 import {LogInComponent} from "./components/log-in/log-in.component";
+import {MonCompteClientComponent} from "./components/mon-compte-client/mon-compte-client.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: "partenaires", component: PartenairesComponent},
   {path: "contact", component: ContactsComponent},
   {path: "compteAdministrateur", component: MonCompteAdministrateurComponent},
+  {path: "compteClient", component: MonCompteClientComponent},
   {path: "logIn", component: LogInComponent}
   ];
 
