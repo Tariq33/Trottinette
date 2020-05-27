@@ -20,6 +20,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { PhotoFinalisationComponent } from './components/photo-finalisation/photo-finalisation.component';
+import { PlanReseauComponent } from './components/plan-reseau/plan-reseau.component';
 import { MonCompteAdministrateurListeUtilisateurComponent } from './components/mon-compte-administrateur-liste-utilisateur/mon-compte-administrateur-liste-utilisateur.component';
 import { MonCompteAdministrateurListeMoyenTransportComponent } from './components/mon-compte-administrateur-liste-moyen-transport/mon-compte-administrateur-liste-moyen-transport.component';
 import { MonCompteAdministrateurAjoutUtilisateurComponent } from './components/mon-compte-administrateur-ajout-utilisateur/mon-compte-administrateur-ajout-utilisateur.component';
@@ -43,6 +44,8 @@ import { CreationCompteComponent } from './components/creation-compte/creation-c
     LogInComponent,
     PartenairesComponent,
     ContactsComponent,
+    PhotoFinalisationComponent,
+    PlanReseauComponent
     PhotoFinalisationComponent,
     MonCompteAdministrateurListeUtilisateurComponent,
     MonCompteAdministrateurListeMoyenTransportComponent,
