@@ -47,7 +47,7 @@ export class PlanReseauComponent implements OnInit {
     const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       minZoom: 2,
-      maxZoom: 18
+      maxZoom: 19
     });
 
     mainLayer.addTo(this.map);
