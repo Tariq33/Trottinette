@@ -25,15 +25,22 @@
         <li class="nav-item active"><a [routerLink]="['/contact']" class="nav-link" >Contact<span
           class="sr-only"></span></a></li>
 
+
+
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <!--       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se
+        <button *ngIf="getUser()=='monIdentifiant'; else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se
           connecter</button>
+        <ng-template #connecte>
+          <button class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/logIn']">Mon compte</button>
+        </ng-template>
       </form>
     </div>
   </nav>
 </div>
+
+<p *ngIf="getUser()!='monIdentifiant'"  style="text-align: center;font-weight: bold" >Bonjour {{getUser()}}</p>
 
 <div class="container-fluid">
 

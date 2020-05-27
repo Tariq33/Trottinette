@@ -26,8 +26,10 @@ export class LogInComponent implements OnInit {
     this.utilisateurService.findByIdentifiantAndMotDePasse(this.identifiant, this.motDePasse).subscribe(resp => {
       this.utilisateurTrouve=resp;
       console.log(this.utilisateurTrouve);
-      sessionStorage.user=resp.identifiant;
-      sessionStorage.type=resp.type;
+        localStorage.user=resp.identifiant;
+        localStorage.type=resp.type;
+      this.router.navigateByUrl('/accueil');
+
       },
       error => console.log(error)
     );
