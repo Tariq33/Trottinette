@@ -1,0 +1,45 @@
+/*DEBUT Navbar*/
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media ( min-width : 768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+.btn-outline-info {
+background-color: white;
+color:  rgb(50,162,228);
+border-color: rgb(50,162,228);
+}
+
+.btn-outline-info:hover, .btn-outline-info:focus, .btn-outline-info:active, .btn-outline-info.active, .open>.dropdown-toggle.btn-outline-info {
+background-color: rgb(50,162,228);
+color:  white;
+border-color: rgb(50,162,228);
+}
+
+.navbar-brand{
+	margin-right: 25px;
+	font-weight: bold;
+	font-size: 125%;
+}
+
+.nav-item {
+	margin-right: 20px;
+	font-weight: bold;
+	font-size: 115%;
+}
+
+.dropdown-item{
+	border: 1px solid rgb(235, 233, 233);
+	font-weight:bold;
+}
+/*FIN Navbar*/

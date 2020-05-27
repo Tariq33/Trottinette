@@ -44,6 +44,7 @@ public class MoyenDeTransportRestController {
 		return moyendetransportRepo.findAllByFournisseur(nom);
 	}
 	
+	
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewMoyenDeTransport.class)
 	public MoyenDeTransport find(@PathVariable Long id) {

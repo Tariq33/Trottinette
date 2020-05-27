@@ -4,6 +4,7 @@ export class Utilisateur {
   nom: string;
   identifiant: string;
   motDePasse: string;
+  confirmMotDePasse: String;
   email: string;
   compteValide: boolean;
   type: string;

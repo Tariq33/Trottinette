@@ -24,6 +24,7 @@ import { MonCompteAdministrateurListeUtilisateurComponent } from './components/m
 import { MonCompteAdministrateurListeMoyenTransportComponent } from './components/mon-compte-administrateur-liste-moyen-transport/mon-compte-administrateur-liste-moyen-transport.component';
 import { MonCompteAdministrateurAjoutUtilisateurComponent } from './components/mon-compte-administrateur-ajout-utilisateur/mon-compte-administrateur-ajout-utilisateur.component';
 import { MonCompteAdministrateurAjoutMoyenTransportComponent } from './components/mon-compte-administrateur-ajout-moyen-transport/mon-compte-administrateur-ajout-moyen-transport.component';
+import { CreationCompteComponent } from './components/creation-compte/creation-compte.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MonCompteAdministrateurAjoutMoyenTransportComponent } from './component
     MonCompteAdministrateurListeMoyenTransportComponent,
     MonCompteAdministrateurAjoutUtilisateurComponent,
     MonCompteAdministrateurAjoutMoyenTransportComponent
+    CreationCompteComponent
   ],
   imports: [
     BrowserModule,
