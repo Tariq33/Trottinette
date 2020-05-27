@@ -20,6 +20,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { PhotoFinalisationComponent } from './components/photo-finalisation/photo-finalisation.component';
+import { PlanReseauComponent } from './components/plan-reseau/plan-reseau.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PhotoFinalisationComponent } from './components/photo-finalisation/phot
     LogInComponent,
     PartenairesComponent,
     ContactsComponent,
-    PhotoFinalisationComponent
+    PhotoFinalisationComponent,
+    PlanReseauComponent
   ],
   imports: [
     BrowserModule,
