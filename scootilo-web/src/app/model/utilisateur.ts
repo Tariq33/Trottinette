@@ -6,8 +6,9 @@ export class Utilisateur {
   motDePasse: string;
   email: string;
   compteValide: boolean;
+  type: string;
 
-  constructor(id?: number, version?: number, nom?: string, identifiant?: string, motDePasse?: string, email?: string, compteValide?: boolean) {
+  constructor(id?: number, version?: number, nom?: string, identifiant?: string, motDePasse?: string, email?: string, compteValide?: boolean, type?: string) {
     this.id = id;
     this.version = version;
     this.nom = nom;
@@ -15,7 +16,7 @@ export class Utilisateur {
     this.motDePasse = motDePasse;
     this.email = email;
     this.compteValide = compteValide;
-
+    this.type = type;
   }
 
 }

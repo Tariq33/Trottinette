@@ -73,7 +73,7 @@ public class Itineraire {
 	private PaiementFournisseur paiementFournisseur;
 	@OneToOne
 	@JoinColumn(name = "transportMeans_id")
-//	@JsonView(Views.ViewItineraireDetail.class)
+	@JsonView(Views.ViewItineraire.class)
 	private MoyenDeTransport moyenDeTransport;
 	@ManyToOne
 	@JoinColumn(name = "reservation_id")

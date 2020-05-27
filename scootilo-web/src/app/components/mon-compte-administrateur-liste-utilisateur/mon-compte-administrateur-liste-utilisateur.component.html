@@ -1,0 +1,39 @@
+<div class="container" style="padding-bottom: 20px;">
+  <div class="card">
+    <div class="card-header">
+      <h4>Liste des utilisateurs</h4>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th>Type d'utilisateur</th>
+          <th>Identifiant</th>
+          <th>Mot de passe</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Compte validé</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let util of list()">
+          <td>{{util.type}}</td>
+          <td>{{util.identifiant}}</td>
+          <td>{{util.motDePasse}}</td>
+          <td>{{util.nom}}</td>
+          <td>{{util.email}}</td>
+          <td>{{util.compteValide}}</td>
+          <td>
+            <div style="padding-top: 9px;" class="btn-group btn-group-sm">
+              <a class="btn btn-primary" [routerLink]="['/compteAdministrateur/ajoutUtilisateur', util.id]"><i class="fa fa-edit"></i></a> <a
+              class="btn btn-danger"><i class="fa fa-trash" (click)="delete(util.id)"></i></a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-primary" routerLink="/compteAdministrateur/ajoutUtilisateur">Ajouter un utilisateur</a>
+    </div>
+  </div>
+</div>

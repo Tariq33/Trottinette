@@ -20,6 +20,10 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { PartenairesComponent } from './components/partenaires/partenaires.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { PhotoFinalisationComponent } from './components/photo-finalisation/photo-finalisation.component';
+import { MonCompteAdministrateurListeUtilisateurComponent } from './components/mon-compte-administrateur-liste-utilisateur/mon-compte-administrateur-liste-utilisateur.component';
+import { MonCompteAdministrateurListeMoyenTransportComponent } from './components/mon-compte-administrateur-liste-moyen-transport/mon-compte-administrateur-liste-moyen-transport.component';
+import { MonCompteAdministrateurAjoutUtilisateurComponent } from './components/mon-compte-administrateur-ajout-utilisateur/mon-compte-administrateur-ajout-utilisateur.component';
+import { MonCompteAdministrateurAjoutMoyenTransportComponent } from './components/mon-compte-administrateur-ajout-moyen-transport/mon-compte-administrateur-ajout-moyen-transport.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,11 @@ import { PhotoFinalisationComponent } from './components/photo-finalisation/phot
     LogInComponent,
     PartenairesComponent,
     ContactsComponent,
-    PhotoFinalisationComponent
+    PhotoFinalisationComponent,
+    MonCompteAdministrateurListeUtilisateurComponent,
+    MonCompteAdministrateurListeMoyenTransportComponent,
+    MonCompteAdministrateurAjoutUtilisateurComponent,
+    MonCompteAdministrateurAjoutMoyenTransportComponent
   ],
   imports: [
     BrowserModule,
