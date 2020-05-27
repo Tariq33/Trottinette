@@ -1,0 +1,36 @@
+<div class="container" style="padding-bottom: 20px;">
+  <div class="card">
+    <div class="card-header">
+      <h4>Liste des moyens de transport</h4>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th>Numéro de série</th>
+          <th>Type de transport</th>
+          <th>Type de moteur</th>
+          <th>prix à la minute</th>
+          <th>Disponible</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let moy of list()">
+          <td>{{moy.numeroDeSerie}}</td>
+          <td>{{moy.typeDeTransport}}</td>
+          <td>{{moy.typeMoteur}}</td>
+          <td>{{moy.prixMinute}}</td>
+          <td>{{moy.disponible}}</td>
+          <td>
+            <div style="padding-top: 9px;" class="btn-group btn-group-sm">
+              <a class="btn btn-primary" (click)="edit(moy.id)" [routerLink]="['/compteAdministrateur/ajoutMoyenTransport', moy.id]"><i class="fa fa-edit"></i></a>
+              <a class="btn btn-danger" (click)="delete(moy.id)"><i class="fa fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <a  routerLink="/compteAdministrateur/ajoutMoyenTransport" class="btn btn-primary">Ajouter un moyen de
+        transport</a>
+    </div>

@@ -50,6 +50,7 @@ public class ItineraireRestController {
 	}
 
 	@PostMapping("")
+	@JsonView(Views.ViewItineraire.class)
 	public Itineraire create(@RequestBody Itineraire itineraire) {
 		itineraire = itineraireRepo.save(itineraire);
 
@@ -57,6 +58,7 @@ public class ItineraireRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewItineraire.class)
 	public Itineraire update(@RequestBody Itineraire itineraire, @PathVariable Long id) {
 		if (!itineraireRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

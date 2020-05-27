@@ -71,6 +71,7 @@ public class UtilisateurRestController {
 	}
 
 	@PostMapping("")
+	@JsonView(Views.ViewUtilisateur.class)
 	public Utilisateur create(@RequestBody Utilisateur utilisateur) {
 		utilisateur = utilisateurRepo.save(utilisateur);
 
@@ -78,6 +79,7 @@ public class UtilisateurRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewUtilisateur.class)
 	public Utilisateur update(@RequestBody Utilisateur utilisateur, @PathVariable Long id) {
 		if (!utilisateurRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
