@@ -1,5 +1,6 @@
 package scootilo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -47,7 +48,7 @@ public class MoyenDeTransport {
 	private Float capacite;
 	@ManyToOne
 	@JoinColumn(name = "supplier_id")
-//	@JsonView(Views.ViewCommon.class)				// cause boucle infinie
+	@JsonView(Views.ViewCommon.class)				// cause boucle infinie
 	private Fournisseur fournisseur;
 	@Column(name = "perMinuteCost", length = 100)
 	@JsonView(Views.ViewCommon.class)
@@ -64,7 +65,7 @@ public class MoyenDeTransport {
 	@Column(name = "inUse", length = 100)
 	@JsonView(Views.ViewCommon.class)
 	private Boolean enUtilisation;
-	@OneToOne(mappedBy = "moyenDeTransport")
+	@OneToOne(mappedBy = "moyenDeTransport", cascade=CascadeType.ALL)
 	@JsonView(Views.ViewCommon.class)
 	private Itineraire itineraire;
 

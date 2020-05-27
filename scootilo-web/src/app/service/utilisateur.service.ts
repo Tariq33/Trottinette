@@ -23,6 +23,10 @@ export class UtilisateurService {
     return this.http.get<Utilisateur>("http://localhost:8080/utilisateur/" + id);
   }
 
+  findByIdentifiantAndMotDePasse(identifiant: string, motDePasse: string): Observable<Utilisateur> {
+    return this.http.get<Utilisateur>("http://localhost:8080/utilisateur/connexion/" + identifiant + "|" + motDePasse);
+  }
+
   create(utilisateur: Utilisateur) {
     return this.http.post<Utilisateur>("http://localhost:8080/utilisateur", utilisateur);
   }
