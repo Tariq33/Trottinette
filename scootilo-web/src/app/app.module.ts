@@ -45,7 +45,7 @@ import { CreationCompteComponent } from './components/creation-compte/creation-c
     PartenairesComponent,
     ContactsComponent,
     PhotoFinalisationComponent,
-    PlanReseauComponent
+    PlanReseauComponent,
     PhotoFinalisationComponent,
     MonCompteAdministrateurListeUtilisateurComponent,
     MonCompteAdministrateurListeMoyenTransportComponent,
