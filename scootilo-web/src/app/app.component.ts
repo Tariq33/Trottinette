@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'scootilo-web';
+
+  constructor() {
+    sessionStorage.setItem("user","monIdentifiant");
+    sessionStorage.setItem("type","monType");
+  }
 }

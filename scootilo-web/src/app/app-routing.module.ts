@@ -7,6 +7,7 @@ import {PartenairesComponent} from "./components/partenaires/partenaires.compone
 import {ContactsComponent} from "./components/contacts/contacts.component";
 import {MonCompteAdministrateurComponent} from './components/mon-compte-administrateur/mon-compte-administrateur.component';
 import {LogInComponent} from "./components/log-in/log-in.component";
+import {CreationCompteComponent} from "./components/creation-compte/creation-compte.component";
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: "partenaires", component: PartenairesComponent},
   {path: "contact", component: ContactsComponent},
   {path: "compteAdministrateur", component: MonCompteAdministrateurComponent},
-  {path: "logIn", component: LogInComponent}
+  {path: "logIn", component: LogInComponent},
+  {path: "creationCompte", component: CreationCompteComponent}
   ];
 
 @NgModule({
