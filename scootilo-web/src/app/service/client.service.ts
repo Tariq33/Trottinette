@@ -19,23 +19,23 @@ export class ClientService {
   }
 
   findById(id: number): Observable<Client> {
-    return this.http.get<Client>('http://localhost:8080/api/client/' + id);
+    return this.http.get<Client>('http://localhost:8080/client/' + id);
   }
 
   create(client: Client) {
-    return this.http.post<Client>('http://localhost:8080/api/client', client);
+    return this.http.post<Client>('http://localhost:8080/client', client);
   }
 
   modify(client: Client) {
-    return this.http.put<Client>('http://localhost:8080/api/client/' + client.id, client);
+    return this.http.put<Client>('http://localhost:8080/client/' + client.id, client);
   }
 
   deleteById(id: number) {
-    this.http.delete('http://localhost:8080/api/client/' + id).subscribe(resp => this.load(), error => console.log(error));
+    this.http.delete('http://localhost:8080/client/' + id).subscribe(resp => this.load(), error => console.log(error));
   }
 
   load() {
-    this.http.get<Array<Client>>('http://localhost:8080/api/client').subscribe(resp => {
+    this.http.get<Array<Client>>('http://localhost:8080/client').subscribe(resp => {
       this.clients = resp;
     }, error => console.log(error));
   }

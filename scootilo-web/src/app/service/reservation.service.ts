@@ -20,23 +20,23 @@ export class ReservationService {
   }
 
   findById(id: number): Observable<Reservation> {
-    return this.http.get<Reservation>("http://localhost:8080/api/reservation/" + id);
+    return this.http.get<Reservation>("http://localhost:8080/reservation/" + id);
   }
 
   create(reservation: Reservation) {
-    return this.http.post<Reservation>("http://localhost:8080/api/reservation", reservation);
+    return this.http.post<Reservation>("http://localhost:8080/reservation", reservation);
   }
 
   modify(reservation: Reservation) {
-    return this.http.put<Reservation>("http://localhost:8080/api/reservation/" + reservation.id, reservation);
+    return this.http.put<Reservation>("http://localhost:8080/reservation/" + reservation.id, reservation);
   }
 
   deleteById(id: number) {
-    this.http.delete("http://localhost:8080/api/reservation/" + id).subscribe(resp => this.load(), error => console.log(error))
+    this.http.delete("http://localhost:8080/reservation/" + id).subscribe(resp => this.load(), error => console.log(error))
   }
 
   load() {
-    this.http.get<Array<Reservation>>("http://localhost:8080/api/reservation").subscribe(resp => {
+    this.http.get<Array<Reservation>>("http://localhost:8080/reservation").subscribe(resp => {
       this.reservations = resp;
     }, error => console.log(error))
   }

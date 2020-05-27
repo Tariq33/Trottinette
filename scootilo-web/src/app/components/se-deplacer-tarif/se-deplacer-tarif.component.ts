@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
+import {UtilisateurService} from "../../service/utilisateur.service";
 
 @Component({
   selector: 'app-se-deplacer-tarif',

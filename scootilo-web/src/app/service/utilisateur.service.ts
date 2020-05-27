@@ -20,23 +20,23 @@ export class UtilisateurService {
   }
 
   findById(id: number): Observable<Utilisateur> {
-    return this.http.get<Utilisateur>("http://localhost:8080/api/utilisateur/" + id);
+    return this.http.get<Utilisateur>("http://localhost:8080/utilisateur/" + id);
   }
 
   create(utilisateur: Utilisateur) {
-    return this.http.post<Utilisateur>("http://localhost:8080/api/utilisateur", utilisateur);
+    return this.http.post<Utilisateur>("http://localhost:8080/utilisateur", utilisateur);
   }
 
   modify(utilisateur: Utilisateur) {
-    return this.http.put<Utilisateur>("http://localhost:8080/api/utilisateur/" + utilisateur.id, utilisateur);
+    return this.http.put<Utilisateur>("http://localhost:8080/utilisateur/" + utilisateur.id, utilisateur);
   }
 
   deleteById(id: number) {
-    this.http.delete("http://localhost:8080/api/utilisateur/" + id).subscribe(resp => this.load(), error => console.log(error))
+    this.http.delete("http://localhost:8080/utilisateur/" + id).subscribe(resp => this.load(), error => console.log(error))
   }
 
   load() {
-    this.http.get<Array<Utilisateur>>("http://localhost:8080/api/utilisateur").subscribe(resp => {
+    this.http.get<Array<Utilisateur>>("http://localhost:8080/utilisateur").subscribe(resp => {
       this.utilisateurs = resp;
     }, error => console.log(error))
   }
