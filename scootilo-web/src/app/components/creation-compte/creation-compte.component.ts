@@ -12,8 +12,8 @@ export class CreationCompteComponent implements OnInit {
 
   clientForm: Client = new Client();
   confirmMotDePasse: string="";
-  passwordMatch : boolean=true;
-  isShow:boolean=false;
+  passwordMatch: boolean=true;
+  isShow: boolean=false;
 
   constructor(private clientService : ClientService,private router: Router) {
   }

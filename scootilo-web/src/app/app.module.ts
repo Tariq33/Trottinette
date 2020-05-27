@@ -29,7 +29,7 @@ import { CreationCompteComponent } from './components/creation-compte/creation-c
 @NgModule({
   declarations: [
     AppComponent,
-	IdOublieComponent,
+	  IdOublieComponent,
     MonCompteClientComponent,
     MonCompteAdministrateurComponent,
     MonCompteFournisseurComponent,
@@ -47,13 +47,13 @@ import { CreationCompteComponent } from './components/creation-compte/creation-c
     MonCompteAdministrateurListeUtilisateurComponent,
     MonCompteAdministrateurListeMoyenTransportComponent,
     MonCompteAdministrateurAjoutUtilisateurComponent,
-    MonCompteAdministrateurAjoutMoyenTransportComponent
+    MonCompteAdministrateurAjoutMoyenTransportComponent,
     CreationCompteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-	HttpClientModule,
+	  HttpClientModule,
     FormsModule
   ],
   providers: [],
