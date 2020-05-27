@@ -10,13 +10,16 @@ export class MoyenDeTransportService {
 
   private moyensDeTransport: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
 
-
   constructor(private http: HttpClient) {
     this.load();
   }
 
   findAll(): Array<MoyenDeTransport> {
     return this.moyensDeTransport;
+  }
+
+  findAllMoyObs(): Observable<Array<MoyenDeTransport>> {
+    return this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport");
   }
 
   findById(id: number): Observable<MoyenDeTransport> {

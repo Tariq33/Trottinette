@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'scootilo-web';
 
+  user: string;
+
   constructor() {
-    sessionStorage.setItem("user","monIdentifiant");
-    sessionStorage.setItem("type","monType");
+    localStorage.setItem("user", "monIdentifiant");
+    this.user = localStorage.getItem("user");
+    localStorage.setItem("type", "monType");
   }
+
+  getUser(): string {
+    return localStorage.getItem("user");
+    ;
+  }
+
 }
