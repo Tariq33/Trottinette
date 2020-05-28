@@ -20,6 +20,7 @@ export class MonCompteAdministrateurInfoComponent implements OnInit {
     this.administrateurForm.prenom = JSON.parse(sessionStorage.getItem("utilisateur")).prenom;
     this.administrateurForm.nom = JSON.parse(sessionStorage.getItem("utilisateur")).nom;
     this.administrateurForm.email = JSON.parse(sessionStorage.getItem("utilisateur")).email;
+    this.administrateurForm.id = JSON.parse(sessionStorage.getItem("utilisateur")).id;
 
     // this.administrateurService.findByIdentifiant(identifiant).subscribe(resp => this.administrateurForm = resp, error => console.log(error));
 

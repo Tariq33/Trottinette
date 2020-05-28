@@ -35,8 +35,8 @@
           connecter</button>
         <ng-template #connecte>
           <button *ngIf="getType()=='admin'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteAdministrateur']">Mon compte</button>
-          <button *ngIf="getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/monCompteClient']">Mon compte</button>
-          <button *ngIf="getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/monCompteFournisseur']">Mon compte</button>
+          <button *ngIf="getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteClient']">Mon compte</button>
+          <button *ngIf="getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteFournisseur']">Mon compte</button>
         </ng-template>
       </form>
     </div>

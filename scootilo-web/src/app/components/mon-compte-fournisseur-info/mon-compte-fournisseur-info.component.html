@@ -11,14 +11,15 @@
       <h6 class="card-title">Numéro de TVA :</h6>
       <p class="card-text">{{fournisseurForm.numeroTva}}</p>
       <h6 class="card-title">IBAN :</h6>
-      <p class="card-text">Données à importer</p>
+      <p class="card-text">{{fournisseurForm.iban}}</p>
       <h6 class="card-title">BIC :</h6>
-      <p class="card-text">Données à importer</p>
+      <p class="card-text">{{fournisseurForm.bic}}</p>
       <h6 class="card-title">Adresse :</h6>
-      <p class="card-text">Données à importer : Rue + complément</p>
-      <p class="card-text">Données à importer : code postal + ville</p>
-      <br> <a href="#" class="btn btn-primary">Mettre à jour les
-      informations</a>
+      <p class="card-text">{{fournisseurForm.adresse?.rue}} {{fournisseurForm.adresse?.complement}}</p>
+      <p class="card-text">{{fournisseurForm.adresse?.codePostal}} {{fournisseurForm.adresse?.ville}}</p>
+      <br> <a class="btn btn-primary" (click)="edit(fournisseurForm.id)" [routerLink]="['/compteFournisseur/miseJourInfoPerso', fournisseurForm.id]">Mettre à jour les informations </a>
     </div>
   </div>
 </div>
+
+

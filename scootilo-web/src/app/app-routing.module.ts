@@ -13,6 +13,7 @@ import {MonCompteAdministrateurAjoutMoyenTransportComponent} from './components/
 import {CreationCompteComponent} from "./components/creation-compte/creation-compte.component";
 import {MonCompteAdministrateurMajInfoComponent} from './components/mon-compte-administrateur-maj-info/mon-compte-administrateur-maj-info.component';
 import {MonCompteFournisseurComponent} from './components/mon-compte-fournisseur/mon-compte-fournisseur.component';
+import {MonCompteFournisseurMajInfoComponent} from './components/mon-compte-fournisseur-maj-info/mon-compte-fournisseur-maj-info.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
   {path: "compteAdministrateur/miseJourInfoPerso/:id", component: MonCompteAdministrateurMajInfoComponent },
   {path: "compteFournisseur", component: MonCompteFournisseurComponent},
+  {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent },
   {path: "creationCompte", component: CreationCompteComponent}
   ];
 
