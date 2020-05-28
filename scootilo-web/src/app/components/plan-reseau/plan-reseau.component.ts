@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
+import 'leaflet-routing-machine';
+import 'leaflet-control-geocoder';
 import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
 import {Client} from "../../model/client";
@@ -33,15 +35,17 @@ export class PlanReseauComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) { }
+  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) {
+    this.clientService.findById(119).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
+    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+  }
 
   /*ngAfterViewInit(): void {
     this.createMap();
   }*/
 
   ngOnInit(): void {
-    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); } ,err => console.log(err))
-    this.clientService.findById(119).subscribe(resp => this.client = resp, err => console.log(err))
+
   }
 
   createMap(){
@@ -62,25 +66,26 @@ export class PlanReseauComponent implements OnInit {
 
     mainLayer.addTo(this.map);
     L.marker([centre.lat,centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+
     /*L.Routing.control({
       geocoder: L.control.Geocoder.nominatim()
     }).addTo(this.map);
     L.Control.geocoder().addTo(this.map);*/
 
+  }
 
+  addTransports(){
     for (let tranport of this.moyensDeTransportObs ){
       this.addMarker(tranport);
-
     }
-
   }
+
   addMarker(transport){
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
       marker.bindPopup('<h1>velo</h1>');
     }
-    //else if(type=="scooter"){
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
@@ -91,7 +96,6 @@ export class PlanReseauComponent implements OnInit {
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
       marker.addTo(this.map);
       marker.bindPopup('<h1>trot</h1>');
-
     }
   }
 
