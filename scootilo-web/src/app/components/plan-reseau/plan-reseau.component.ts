@@ -2,6 +2,8 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
+import {Client} from "../../model/client";
+import {ClientService} from "../../service/client.service";
 
 
 @Component({
@@ -13,6 +15,7 @@ import {MoyenDeTransportService} from "../../service/moyen-de-transport.service"
 export class PlanReseauComponent implements OnInit {
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
+  client: Client;
 
   veloIcon = new L.Icon({
     iconUrl: '../../../assets/icon-velo.png'
@@ -26,7 +29,11 @@ export class PlanReseauComponent implements OnInit {
     iconUrl: '../../../assets/icon-trot.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService) { }
+  hommeIcon = new L.Icon({
+    iconUrl: '../../../assets/icon-homme.png'
+  });
+
+  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) { }
 
   /*ngAfterViewInit(): void {
     this.createMap();
@@ -34,12 +41,15 @@ export class PlanReseauComponent implements OnInit {
 
   ngOnInit(): void {
     this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); } ,err => console.log(err))
+    this.clientService.findById(119).subscribe(resp => this.client = resp, err => console.log(err))
   }
 
   createMap(){
     const centre = {
-      lat: 44.83089065551758,
-      lng: -0.5729547739028931,
+      lat: this.client.latitude,
+      lng: this.client.longitude,
+      /*lat: 44.83089065551758,
+      lng: -0.5729547739028931,*/
     };
     const zoomLevel = 14;
     this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
@@ -51,26 +61,37 @@ export class PlanReseauComponent implements OnInit {
     });
 
     mainLayer.addTo(this.map);
+    L.marker([centre.lat,centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+    /*L.Routing.control({
+      geocoder: L.control.Geocoder.nominatim()
+    }).addTo(this.map);
+    L.Control.geocoder().addTo(this.map);*/
 
-    for (let moy of this.moyensDeTransportObs ){
-      this.addMarker(moy.latitude,moy.longitude,moy.typeDeTransport);
+
+    for (let tranport of this.moyensDeTransportObs ){
+      this.addMarker(tranport);
+
     }
 
   }
-  //addMarker(coords){
-  addMarker(latitude, longitude, type){
-    //const marker = L.marker([coords.lat,coords.lng], {icon: this.smallIcon});
-    if(type=="velo"){
-      const marker = L.marker([latitude,longitude], {icon: this.veloIcon});
+  addMarker(transport){
+    if(transport.typeDeTransport=="velo"){
+      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
+      marker.bindPopup('<h1>velo</h1>');
     }
-    else if(type=="scooter"){
-      const marker = L.marker([latitude,longitude], {icon: this.scootIcon});
+    //else if(type=="scooter"){
+    else if(transport.typeDeTransport=="scooter"){
+      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
+      marker.bindPopup('<h1>scooter</h1>');
+      //marker.bindTooltip('test');
     }
     else{
-      const marker = L.marker([latitude,longitude], {icon: this.trotIcon});
+      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
       marker.addTo(this.map);
+      marker.bindPopup('<h1>trot</h1>');
+
     }
   }
 
