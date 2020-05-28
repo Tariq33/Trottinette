@@ -14,7 +14,12 @@ export class AppComponent {
 
   getUser(): string {
     if(sessionStorage.getItem("utilisateur")!="") return JSON.parse(sessionStorage.getItem("utilisateur")).identifiant;
-    else return "monId";
+    else return "";
+  }
+
+  getType():string{
+    if(sessionStorage.getItem("utilisateur")!="") return JSON.parse(sessionStorage.getItem("utilisateur")).type;
+    else return "";
   }
 
 }

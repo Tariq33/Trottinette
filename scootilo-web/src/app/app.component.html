@@ -31,17 +31,19 @@
 
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <button *ngIf="getUser()=='monId'; else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se
+        <button *ngIf="getUser()==''; else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se
           connecter</button>
         <ng-template #connecte>
-          <button class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/logIn']">Mon compte</button>
+          <button *ngIf="getType()=='admin'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteAdministrateur']">Mon compte</button>
+          <button *ngIf="getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/monCompteClient']">Mon compte</button>
+          <button *ngIf="getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/monCompteFournisseur']">Mon compte</button>
         </ng-template>
       </form>
     </div>
   </nav>
 </div>
 
-<p *ngIf="getUser()!='monId'"  style="text-align: center;font-weight: bold" >Bonjour {{getUser()}}</p>
+<p *ngIf="getUser()!=''" style="text-align: center;font-weight: bold">Bonjour {{getUser()}}</p>
 
 <div class="container-fluid">
 
