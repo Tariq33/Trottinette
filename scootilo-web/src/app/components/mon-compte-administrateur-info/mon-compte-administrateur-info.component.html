@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h4>Mes informations personnelles</h4>
+    </div>
+
+    <div class="card-body">
+      <div>
+        <h6 class="card-title">Prénom :</h6>
+        <p class="card-text">{{administrateurForm.prenom}}</p>
+        <h6 class="card-title">Nom :</h6>
+        <p class="card-text">{{administrateurForm.nom}}</p>
+        <h6 class="card-title">Adresse mail :</h6>
+        <p class="card-text">{{administrateurForm.email}}</p>
+      </div>
+
+      <br> <a class="btn btn-primary" (click)="edit(administrateurForm.id)" [routerLink]="['/compteAdministrateur/miseJourInfoPerso', administrateurForm.id]">Mettre à jour</a>
+    </div>
+  </div>
+
+</div>

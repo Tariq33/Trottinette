@@ -26,6 +26,9 @@ import { MonCompteAdministrateurListeMoyenTransportComponent } from './component
 import { MonCompteAdministrateurAjoutUtilisateurComponent } from './components/mon-compte-administrateur-ajout-utilisateur/mon-compte-administrateur-ajout-utilisateur.component';
 import { MonCompteAdministrateurAjoutMoyenTransportComponent } from './components/mon-compte-administrateur-ajout-moyen-transport/mon-compte-administrateur-ajout-moyen-transport.component';
 import { CreationCompteComponent } from './components/creation-compte/creation-compte.component';
+import { MonCompteAdministrateurMajInfoComponent } from './components/mon-compte-administrateur-maj-info/mon-compte-administrateur-maj-info.component';
+import { MonCompteAdministrateurInfoComponent } from './components/mon-compte-administrateur-info/mon-compte-administrateur-info.component';
+import { MonCompteFournisseurInfoComponent } from './components/mon-compte-fournisseur-info/mon-compte-fournisseur-info.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { CreationCompteComponent } from './components/creation-compte/creation-c
     MonCompteAdministrateurListeMoyenTransportComponent,
     MonCompteAdministrateurAjoutUtilisateurComponent,
     MonCompteAdministrateurAjoutMoyenTransportComponent,
-    CreationCompteComponent
+    CreationCompteComponent,
+    MonCompteAdministrateurMajInfoComponent,
+    MonCompteAdministrateurInfoComponent,
+    MonCompteFournisseurInfoComponent
   ],
   imports: [
     BrowserModule,

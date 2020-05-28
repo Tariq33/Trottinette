@@ -21,6 +21,12 @@ public class Client extends Utilisateur {
 	@Column(name = "first_name", length = 100)
 	@JsonView(Views.ViewCommon.class)
 	private String prenom;
+	@Column(name = "latitude")
+	@JsonView(Views.ViewCommon.class)
+	private Float latitude;
+	@Column(name = "longitude")
+	@JsonView(Views.ViewCommon.class)
+	private Float longitude;
 	@Embedded
 	@Column(name = "address")
 	@JsonView(Views.ViewCommon.class)
@@ -94,6 +100,22 @@ public class Client extends Utilisateur {
 
 	public void addTransaction(Transaction transaction) {
 		this.transactions.add(transaction);
+	}
+	
+	public Float getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Float latitude) {
+		this.latitude = latitude;
+	}
+
+	public Float getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Float longitude) {
+		this.longitude = longitude;
 	}
 
 }

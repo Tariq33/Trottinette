@@ -11,6 +11,8 @@ import {PlanReseauComponent} from "./components/plan-reseau/plan-reseau.componen
 import {MonCompteAdministrateurAjoutUtilisateurComponent} from './components/mon-compte-administrateur-ajout-utilisateur/mon-compte-administrateur-ajout-utilisateur.component';
 import {MonCompteAdministrateurAjoutMoyenTransportComponent} from './components/mon-compte-administrateur-ajout-moyen-transport/mon-compte-administrateur-ajout-moyen-transport.component';
 import {CreationCompteComponent} from "./components/creation-compte/creation-compte.component";
+import {MonCompteAdministrateurMajInfoComponent} from './components/mon-compte-administrateur-maj-info/mon-compte-administrateur-maj-info.component';
+import {MonCompteFournisseurComponent} from './components/mon-compte-fournisseur/mon-compte-fournisseur.component';
 import {MonCompteClientComponent} from "./components/mon-compte-client/mon-compte-client.component";
 
 
@@ -28,7 +30,9 @@ const routes: Routes = [
   {path: "compteAdministrateur/ajoutUtilisateur/:id", component: MonCompteAdministrateurAjoutUtilisateurComponent},
   {path: "compteAdministrateur/ajoutMoyenTransport", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
   {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
-  {path: "creationCompte", component: CreationCompteComponent},
+  {path: "compteAdministrateur/miseJourInfoPerso/:id", component: MonCompteAdministrateurMajInfoComponent },
+  {path: "compteFournisseur", component: MonCompteFournisseurComponent},
+  {path: "creationCompte", component: CreationCompteComponent}
   {path: "compteClient", component: MonCompteClientComponent},
   ];
 
