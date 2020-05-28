@@ -27,10 +27,10 @@ public class Client extends Utilisateur {
 	@Column(name = "longitude")
 	@JsonView(Views.ViewCommon.class)
 	private Float longitude;
-	@Embedded
-	@Column(name = "address")
-	@JsonView(Views.ViewCommon.class)
-	private Adresse adresse;
+//	@Embedded
+//	@Column(name = "address")
+//	@JsonView(Views.ViewCommon.class)
+//	private Adresse adresse;
 	@Embedded
 	@JsonView(Views.ViewCommon.class)
 	private Preference preference;
@@ -62,13 +62,13 @@ public class Client extends Utilisateur {
 		this.prenom = prenom;
 	}
 
-	public Adresse getAdresse() {
-		return adresse;
-	}
-
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
-	}
+//	public Adresse getAdresse() {
+//		return adresse;
+//	}
+//
+//	public void setAdresse(Adresse adresse) {
+//		this.adresse = adresse;
+//	}
 
 	public Preference getPreference() {
 		return preference;
