@@ -60,7 +60,7 @@ import { MonCompteClientMajInfoComponent } from './components/mon-compte-client-
     MonCompteAdministrateurMajInfoComponent,
     MonCompteAdministrateurInfoComponent,
     MonCompteFournisseurInfoComponent,
-    MonCompteFournisseurMajInfoComponent
+    MonCompteFournisseurMajInfoComponent,
     MonCompteFournisseurInfoComponent,
     MonCompteClientMajInfoComponent
   ],

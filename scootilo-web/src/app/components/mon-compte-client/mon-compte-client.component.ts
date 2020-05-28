@@ -30,6 +30,7 @@ export class MonCompteClientComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(JSON.parse(sessionStorage.getItem("utilisateur")));
     this.clientunique.id = JSON.parse(sessionStorage.getItem("utilisateur")).id;
     this.clientunique.solde = JSON.parse(sessionStorage.getItem("utilisateur")).solde;
     this.clientunique.prenom = JSON.parse(sessionStorage.getItem("utilisateur")).prenom;

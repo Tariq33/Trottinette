@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from "../../model/client";
 import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
 import {ClientService} from "../../service/client.service";
 import {Preference} from "../../model/Preference";
 
@@ -12,35 +12,39 @@ import {Preference} from "../../model/Preference";
 })
 export class MonCompteClientMajInfoComponent implements OnInit {
 
-  clientunique: Client = new Client();
+  clientunique: Client;
 
-  constructor(private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
     this.route.params.subscribe(params => {
       let id = params['id'];
+      console.log(id);
+      this.clientService.findById(id).subscribe(resp => {this.clientunique = resp; }, error => console.log(error));
 
-      this.clientService.findById(id).subscribe(resp => this.clientunique = resp, error => console.log(error));
 
     })
   }
 
-
   save() {
-    if (!this.clientunique.id) {
-      this.clientService.create(this.clientunique).subscribe(resp => {
-          this.clientunique = null;
-          this.clientService.load();
-        },
-        error => console.log(error)
-      )
-
-    } else {
+    console.log(this.clientunique);
+    if (this.clientunique.id) {
       this.clientService.modify(this.clientunique).subscribe(resp => {
         this.clientunique = null;
-        this.clientService.load();
+        this.updateSessionStorage();
+        this.router.navigateByUrl('/compteClient')
       }, error => console.log(error));
-    }
+    };
+  }
+
+  updateSessionStorage() {
+    this.clientService.findById(this.clientunique.id).subscribe(resp => {
+        sessionStorage.setItem("utilisateur",JSON.stringify(resp));
+
+      },
+      error => console.log(error)
+    );
   }
 
   cancel() {

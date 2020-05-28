@@ -37,7 +37,6 @@ const routes: Routes = [
   {path: "compteFournisseur", component: MonCompteFournisseurComponent},
   {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent },
   {path: "compteClient", component: MonCompteClientComponent},
-  {path: "creationCompte", component: CreationCompteComponent}
   {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteCrediter", component: MonCompteCrediterComponent},
   {path: "compteClient/miseJourInfoPerso/:id", component: MonCompteClientMajInfoComponent }
