@@ -1,5 +1,6 @@
 package scootilo.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +73,41 @@ public class ClientRestController {
 		}
 	}
 
+//	@GetMapping("/historique/{id}")
+//	@JsonView(Views.ViewClient.class)
+//	public ArrayList<Object> FindHistorique(@PathVariable Long id) {
+//		
+//		ArrayList<Object> client = clientRepo.FindHistorique(id);
+//		
+//		return client;
+//		
+//	}
+	
+	@GetMapping("/historique/{id}")
+	@JsonView(Views.ViewClient.class)
+	public ArrayList<String[]> FindHistorique(@PathVariable Long id) {
+		
+//		String[] arrfStrFull = null;
+		ArrayList<String[]> arrfStrFull = new ArrayList<String[]>();
+		
+		String[] client = clientRepo.FindHistorique(id);
+		
+		for (int j=0; j<client.length; j++) {
+			String i = (String)client[j];
+			
+			String[] arrOfStr = i.split(",");
+			
+			arrfStrFull.add(arrOfStr);
+						
+			}
+		
+		return arrfStrFull;
+		
+	}
+
+	
 	@PostMapping("")
+	@JsonView(Views.ViewClient.class)
 	public Client create(@RequestBody Client client) {
 		client = clientRepo.save(client);
 
@@ -80,6 +115,7 @@ public class ClientRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewClient.class)
 	public Client update(@RequestBody Client client, @PathVariable Long id) {
 		if (!clientRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

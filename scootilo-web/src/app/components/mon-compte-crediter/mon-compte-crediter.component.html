@@ -1,1 +1,17 @@
-<p>mon-compte-crediter works!</p>
+<div class="container" style="padding-bottom: 20px;">
+  <div class="card">
+    <div class="card-header">
+      <h4>Recharger votre compte</h4>
+    </div>
+
+    <div class="card-body">
+
+<div class="form-group">
+  <label for="solde">Solde :</label>
+  <input type="text" class="form-control" id="solde" [(ngModel)]="clientunique.solde">
+</div>
+
+
+
+<a type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteClient">Ajouter</a>
+<a class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteClient">Annuler</a>

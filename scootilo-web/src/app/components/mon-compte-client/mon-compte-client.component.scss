@@ -1,0 +1,28 @@
+body {
+  background-color: rgb(233,236,239);
+}
+
+.container
+{
+  padding-top: 20px;
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+
+.btn-primary {
+  background-color: rgb(50,162,228);
+  color:  white;
+  border-color: rgb(50,162,228);
+}
+
+.btn-primary:hover, .btn-outline-info:focus, .btn-outline-info:active, .btn-outline-info.active, .open>.dropdown-toggle.btn-outline-info {
+  background-color: rgb(28,140,208);
+  color:  white;
+  border-color: rgb(28,140,208);
+}
+
+.table {
+  border: 1px solid rgb(222, 226, 230);
+}

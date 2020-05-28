@@ -81,15 +81,19 @@ export class PlanReseauComponent implements OnInit {
   }
 
   addMarker(transport){
+
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
+      marker.on("click",function () {
+        console.log("ON A CLIQUE");
+      })
       marker.bindPopup('<h1>velo</h1>');
     }
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<h1>scooter</h1>');
+      marker.bindPopup('<p>OK</p>');
       //marker.bindTooltip('test');
     }
     else{

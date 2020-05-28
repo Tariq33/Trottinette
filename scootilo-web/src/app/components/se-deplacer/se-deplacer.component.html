@@ -1,1 +1,108 @@
-<p>se-deplacer works!</p>
+<div class="row" style="padding-left: 15px;">
+  <div>
+    <div class="form-group">
+      <label >Lieu de départ :</label>
+      <input type="text" class="form-control" id="azeaze"
+      style="width: 400px;">
+    </div>
+    <div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle"  role="button"
+         id="aze" data-toggle="dropdown" aria-haspopup="true"
+         aria-expanded="false"> Mes adresses </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" >Adresse n°1</a>
+          <a class="dropdown-item" >Adresse n°2</a>
+          <a class="dropdown-item" >Adresse n°3</a>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label >Lieu d'arrivée :</label> <input
+      type="text" class="form-control" style="width: 400px;">
+    </div>
+    <div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle"  role="button"
+         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+         aria-expanded="false"> Mes adresses </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" >Adresse n°1</a> <a
+        class="dropdown-item" >Adresse n°2</a> <a
+        class="dropdown-item" >Adresse n°3</a>
+      </div>
+    </div>
+
+    <div>
+      <h6 class="card-title">Préférences :</h6>
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value="">Trottinette
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value="">Vélo
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value="">Scooter
+        </label>
+      </div>
+    </div>
+    <br> <a  class="btn-lg btn-secondary"
+            style="margin-left: 130px;">Rechercher</a>
+
+  <br>
+  <br>
+  <div>
+    <ul  class="nav nav-tabs">
+      <li class="nav-item">
+        <a style="color: black;" class="nav-link active" >Plus rapide</a>
+      </li>
+      <li class="nav-item">
+        <a style="color: black;" class="nav-link" >Moins cher</a>
+      </li>
+      <li class="nav-item">
+        <a style="color: black;" class="nav-link" >Moins de marche</a>
+      </li>
+
+    </ul>
+
+    <table class="table">
+      <tbody>
+      <tr>
+        <td>Mode de transport :</td>
+        <td>A renseigner</td>
+      </tr>
+      <tr>
+        <td>Emplacement :</td>
+        <td>A renseigner</td>
+      </tr>
+      <tr>
+        <td>Durée totale :</td>
+        <td>A renseigner</td>
+      </tr>
+      <tr>
+        <td>Prix estimatif :</td>
+        <td>A renseigner</td>
+      </tr>
+      <tr>
+        <td>Temps de marche :</td>
+        <td>A renseigner</td>
+      </tr>
+      </tbody>
+    </table>
+    <br> <a  class="btn-lg btn-secondary"
+            style="margin-left: 160px;">Réserver</a>
+  </div>
+</div>
+
+
+<div >
+  <div class="container" >
+    <div class="map-wrapper" style="left: 500px">
+      <div id="map"> </div>
+    </div>
+  </div>
+</div>

@@ -15,6 +15,8 @@ export class MonCompteAdministrateurAjoutMoyenTransportComponent implements OnIn
 
   constructor(private moyenDeTransportService: MoyenDeTransportService, private http: HttpClient, private route: ActivatedRoute) { }
 
+  typeUser: string = JSON.parse(sessionStorage.getItem("utilisateur")).type
+
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       let id = params['id'];

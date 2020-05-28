@@ -26,9 +26,9 @@ public class Fournisseur extends Utilisateur {
 	@Column(name = "bic")
 	@JsonView(Views.ViewCommon.class)
 	private String bic;
-	@Embedded
-	@JsonView(Views.ViewCommon.class)
-	private Adresse adresse;
+//	@Embedded
+//	@JsonView(Views.ViewCommon.class)
+//	private Adresse adresse;
 	@OneToMany(mappedBy = "fournisseur")
 //	@JsonView(Views.ViewFournisseurDetail.class)
 	private List<PaiementFournisseur> paiements = new ArrayList<PaiementFournisseur>();
@@ -75,13 +75,13 @@ public class Fournisseur extends Utilisateur {
 		this.bic = bic;
 	}
 
-	public Adresse getAdresse() {
-		return adresse;
-	}
-
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
-	}
+//	public Adresse getAdresse() {
+//		return adresse;
+//	}
+//
+//	public void setAdresse(Adresse adresse) {
+//		this.adresse = adresse;
+//	}
 
 	public List<PaiementFournisseur> getPaiements() {
 		return paiements;
