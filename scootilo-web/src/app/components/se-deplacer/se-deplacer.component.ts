@@ -4,6 +4,7 @@ import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
+import {SessionService} from "../../service/session.service";
 
 
 @Component({
@@ -33,8 +34,8 @@ export class SeDeplacerComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) {
-    this.clientService.findById(119).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
+  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+    this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
     this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
   }
 
