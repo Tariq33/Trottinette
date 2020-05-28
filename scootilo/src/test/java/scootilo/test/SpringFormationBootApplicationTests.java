@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import scootilo.model.Administrateur;
+import scootilo.model.Adresse;
 import scootilo.model.Client;
 import scootilo.model.FinDeTrajet;
 import scootilo.model.Fournisseur;
@@ -18,6 +19,7 @@ import scootilo.model.TypeDeTransport;
 import scootilo.model.Utilisateur;
 import scootilo.model.PaiementFournisseur;
 import scootilo.model.Reservation;
+import scootilo.persistence.IAdresseRepository;
 import scootilo.persistence.IClientRepository;
 import scootilo.persistence.IFinDeTrajetRepository;
 import scootilo.persistence.IItineraireRepository;
@@ -45,9 +47,27 @@ class SpringFormationBootApplicationTests {
 	private IItineraireRepository itineraireDao;
 	@Autowired
 	private IClientRepository clientDao;
+	@Autowired
+	private IAdresseRepository adresseDao;
 
 	@Test
 	void contextLoads() {
+		
+		Client jeremy = new Client();
+		jeremy.setNom("azeaeaez");
+		jeremy.setIdentifiant("azeazeae");
+		jeremy.setMotDePasse("azeazeaze");
+		jeremy.setEmail("jeremy@hotmail.com");
+		jeremy.setSolde(1000000F);
+		jeremy = utilisateurDao.save(jeremy);
+		
+		Adresse adresse = new Adresse();
+		adresse.setCodePostal("4545");
+		adresse.setUtilisateur(jeremy);
+		adresse = adresseDao.save(adresse);
+		
+		
+		/*
 		MoyenDeTransport scoot = new MoyenDeTransport();
 		scoot.setTypeDeTransport(TypeDeTransport.scooter);
 		scoot.setDisponible(true);
@@ -181,7 +201,7 @@ class SpringFormationBootApplicationTests {
 //		
 //		System.out.println(moyensDeTransport.get(0));
 
-//		utilisateurDao.delete(clement);
+//		utilisateurDao.delete(clement);*/
 	}
 
 }

@@ -1,5 +1,8 @@
 package scootilo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -52,10 +56,24 @@ public abstract class Utilisateur {
 	@Column(name = "account_validate")
 	@JsonView(Views.ViewCommon.class)
 	private Boolean compteValide;
+	@OneToMany(mappedBy = "utilisateur")
+	private List<Adresse> adresses = new ArrayList<Adresse>();
 	
 	public Utilisateur() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public List<Adresse> getAdresses() {
+		return adresses;
+	}
+
+	public void setAdresses(List<Adresse> adresses) {
+		this.adresses = adresses;
+	}
+
+	public void addAdresse(Adresse adresse) {
+		this.adresses.add(adresse);
 	}
 
 	public Long getId() {
