@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Confirmation</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="finalisation.css"/>
+
+</head>
+<body>
+
+	<div style="margin-bottom: 80px;">
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" href="#">Accueil</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarsExampleDefault"
+				aria-controls="navbarsExampleDefault" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active dropdown" id="menu"><a
+						class="nav-link dropdown-toggle" href="" id="navbardrop"
+						data-toggle="dropdown">Se déplacer <span class="sr-only"></span></a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="">Réserver un véhicule</a> <a
+								class="dropdown-item" href="">Choisir son itinéraire</a>
+						</div></li>
+					<li class="nav-item active"><a class="nav-link" href="#">Tarifs
+							<span class="sr-only"></span>
+					</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#">Plan
+							du réseau <span class="sr-only"></span>
+					</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#">Partenaires
+							<span class="sr-only"></span>
+					</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#">Contact<span
+							class="sr-only"></span></a></li>
+
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<!--       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+					<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Se
+						connecter</button>
+				</form>
+			</div>
+		</nav>
+	</div>
+	
+	<div class="row" style="padding-left: 2%;">
+		<div class="col-xl-4" >
+
+			<div class="card-header" style="margin-top: 10%;">
+
+				<h5>Merci de prendre en photo le véhicule une fois votre trajet terminé. <br/>
+				Ceci aidera les prochains passagers à le trouver plus facilement et en 
+				cas de problème constituera une preuve recevable.</h5>
+
+			</div>
+	
+			<br>
+			<div style="text-align: center">
+				<a href="#" class="btn-lg btn-secondary" >Ajouter une photo</a>
+			</div>
+			<br/>
+			<br/>
+			<br/>
+			<div class="card-header">
+				<h5>Votre voyage s'est-il bien déroulé ? <br/>
+				Merci de nous laisser votre avis :</h5>
+			</div>
+			<div style="text-align: center">
+				<textarea id="commentaire" name="comment" maxlength="400" cols="40" rows="6">
+
+				</textarea>
+			</div>
+		</div>
+		<br/>
+		<div class="col-xl-8" style="text-align: center; ">
+			<figure>
+				<img src="preuve.jpg" alt="Preuve" />
+			</figure>
+		</div>
+	</div>
+	
+	<div class="card-header" style="text-align: center; margin-left:15%;margin-right:15%;">
+		<h5>Si vous avez rencontré un soucis durant votre trajet, merci de prendre contact avec notre service SAV.</h5> <br/>
+		<a href="#" class="btn-lg btn-secondary" >Envoyer</a>
+	</div>
+
+
+</body>
+</html>

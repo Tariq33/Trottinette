@@ -35,29 +35,32 @@ export class SeDeplacerComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) { }
+  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) {
+    this.clientService.findById(119).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
+    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+  }
 
   /*ngAfterViewInit(): void {
     this.createMap();
   }*/
 
   ngOnInit(): void {
-    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); } ,err => console.log(err))
-    this.clientService.findById(400).subscribe(resp => this.client = resp, err => console.log(err))
+
   }
 
   createMap(){
     const centre = {
-      lat: 44.8419,
-      lng: -0.5767717
+      lat: this.client.latitude,
+      lng: this.client.longitude,
     };
 
-    this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: 15});
+    const zoomLevel = 14;
+    this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
 
-    const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      minZoom: 1,
-      maxZoom: 20
+    const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
+      minZoom: 2,
+      maxZoom: 19
     });
 
     mainLayer.addTo(this.map);
@@ -68,8 +71,14 @@ export class SeDeplacerComponent implements OnInit {
     }
 
   }
-  addMarker(transport){
 
+  addTransports(){
+    for (let tranport of this.moyensDeTransportObs ){
+      this.addMarker(tranport);
+    }
+  }
+
+  addMarker(transport){
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
@@ -78,7 +87,6 @@ export class SeDeplacerComponent implements OnInit {
       })
       marker.bindPopup('<h1>velo</h1>');
     }
-    //else if(type=="scooter"){
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
