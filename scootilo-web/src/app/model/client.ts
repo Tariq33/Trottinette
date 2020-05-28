@@ -12,8 +12,11 @@ export class Client extends Utilisateur {
   reservations: Array<Reservation>;
   transactions: Array<Transaction>;
   type : string;
+  latitude: number;
+  longitude: number;
 
-  constructor(solde?: number,type?:string,prenom?: string, adresse?: Adresse, preference?: Preference, reservations?: Array<Reservation>, transactions?: Array<Transaction>) {
+
+  constructor(solde?: number,type?:string,prenom?: string, adresse?: Adresse, preference?: Preference, reservations?: Array<Reservation>, transactions?: Array<Transaction>, latitude?: number, longitude?:number) {
     super();
     this.solde = solde
     this.prenom = prenom;
@@ -22,6 +25,8 @@ export class Client extends Utilisateur {
     this.reservations = reservations;
     this.transactions = transactions;
     this.type="customer";
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 
 }

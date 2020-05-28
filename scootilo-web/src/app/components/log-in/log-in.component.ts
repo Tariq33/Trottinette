@@ -12,7 +12,6 @@ import {Utilisateur} from "../../model/utilisateur";
 })
 export class LogInComponent implements OnInit {
 
-  utilisateurTrouve:Utilisateur;
   identifiant:string;
   motDePasse:string;
 
@@ -24,10 +23,8 @@ export class LogInComponent implements OnInit {
   checkUser () {
     console.log("checkUser lancée");
     this.utilisateurService.findByIdentifiantAndMotDePasse(this.identifiant, this.motDePasse).subscribe(resp => {
-      this.utilisateurTrouve=resp;
       sessionStorage.setItem("utilisateur",JSON.stringify(resp));
       this.router.navigateByUrl('/accueil');
-
       },
       error => console.log(error)
     );

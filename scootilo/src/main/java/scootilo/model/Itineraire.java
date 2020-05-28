@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -71,7 +72,7 @@ public class Itineraire {
 	@OneToOne(mappedBy = "itineraire")
 //	@JsonView(Views.ViewItineraireDetail.class)
 	private PaiementFournisseur paiementFournisseur;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "transportMeans_id")
 	@JsonView(Views.ViewItineraire.class)
 	private MoyenDeTransport moyenDeTransport;
