@@ -24,14 +24,12 @@ const routes: Routes = [
   {path: "compteAdministrateur", component: MonCompteAdministrateurComponent},
   {path: "logIn", component: LogInComponent},
   {path: "plan", component: PlanReseauComponent},
-  {path: "logIn", component: LogInComponent},
   {path: "compteAdministrateur/ajoutUtilisateur", component: MonCompteAdministrateurAjoutUtilisateurComponent},
   {path: "compteAdministrateur/ajoutUtilisateur/:id", component: MonCompteAdministrateurAjoutUtilisateurComponent},
   {path: "compteAdministrateur/ajoutMoyenTransport", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
   {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
-  {path: "creationCompte", component: CreationCompteComponent}
+  {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteClient", component: MonCompteClientComponent},
-  {path: "logIn", component: LogInComponent}
   ];
 
 @NgModule({

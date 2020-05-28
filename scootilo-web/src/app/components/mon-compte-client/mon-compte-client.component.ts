@@ -15,10 +15,9 @@ export class MonCompteClientComponent implements OnInit {
 
   clientunique: Client = new Client();
   adresse :Adresse = new Adresse();
-  // preference: Preference = new Preference();
   reservation: Reservation = new Reservation();
   itineraire: Itineraire = new Itineraire();
-  histo: Array<undefined>;
+  histo: Array<object>;
 
 
   constructor(private clientService: ClientService) {

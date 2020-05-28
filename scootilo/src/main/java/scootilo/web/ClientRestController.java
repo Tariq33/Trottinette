@@ -1,5 +1,6 @@
 package scootilo.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,9 +75,11 @@ public class ClientRestController {
 
 	@GetMapping("/historique/{id}")
 	@JsonView(Views.ViewClient.class)
-	public Client FindHistorique(@PathVariable Long id) {
-
-		return clientRepo.FindHistorique(id);
+	public ArrayList<Object> FindHistorique(@PathVariable Long id) {
+		
+		ArrayList<Object> client = clientRepo.FindHistorique(id);
+		
+		return client;
 		
 	}
 
