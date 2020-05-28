@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
-import {Preference} from "../../model/Preference";
 import {SessionService} from "../../service/session.service";
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({

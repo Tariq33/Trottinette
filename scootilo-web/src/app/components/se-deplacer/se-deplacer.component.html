@@ -1,5 +1,13 @@
 <div class="row" style="padding-left: 15px;">
   <div>
+    <div style="text-align: center;">
+
+
+      <h6>Recherchez votre itinéraire</h6>
+      <h6>OU</h6>
+      <h6>Réservez directement sur la carte</h6>
+
+    </div>
     <div class="form-group">
       <label >Lieu de départ :</label>
       <input type="text" class="form-control" id="azeaze"
@@ -53,51 +61,12 @@
     <br> <a  class="btn-lg btn-secondary"
             style="margin-left: 130px;">Rechercher</a>
 
+
   <br>
   <br>
-  <div>
-    <ul  class="nav nav-tabs">
-      <li class="nav-item">
-        <a style="color: black;" class="nav-link active" >Plus rapide</a>
-      </li>
-      <li class="nav-item">
-        <a style="color: black;" class="nav-link" >Moins cher</a>
-      </li>
-      <li class="nav-item">
-        <a style="color: black;" class="nav-link" >Moins de marche</a>
-      </li>
-
-    </ul>
-
-    <table class="table">
-      <tbody>
-      <tr>
-        <td>Mode de transport :</td>
-        <td>A renseigner</td>
-      </tr>
-      <tr>
-        <td>Emplacement :</td>
-        <td>A renseigner</td>
-      </tr>
-      <tr>
-        <td>Durée totale :</td>
-        <td>A renseigner</td>
-      </tr>
-      <tr>
-        <td>Prix estimatif :</td>
-        <td>A renseigner</td>
-      </tr>
-      <tr>
-        <td>Temps de marche :</td>
-        <td>A renseigner</td>
-      </tr>
-      </tbody>
-    </table>
-    <br> <a  class="btn-lg btn-secondary"
-            style="margin-left: 160px;">Réserver</a>
-  </div>
-</div>
-
+    <div *ngIf="ongletReservationShow">
+<app-se-deplacer-reserver-sur-carte ></app-se-deplacer-reserver-sur-carte>
+    </div>
 
 <div >
   <div class="container" >
@@ -106,3 +75,4 @@
     </div>
   </div>
 </div>
+  </div>

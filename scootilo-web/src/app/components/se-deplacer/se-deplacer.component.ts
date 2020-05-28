@@ -4,6 +4,7 @@ import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
+import {SessionService} from '../../service/session.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class SeDeplacerComponent implements OnInit {
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client;
+  ongletReservationShow: boolean = false;
 
   veloIcon = new L.Icon({
     iconUrl: '../../../assets/icon-velo.png'
@@ -32,8 +34,11 @@ export class SeDeplacerComponent implements OnInit {
   hommeIcon = new L.Icon({
     iconUrl: '../../../assets/icon-homme.png'
   });
-
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) { }
+  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+    this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
+    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+  }
+ 
 
   /*ngAfterViewInit(): void {
     this.createMap();
@@ -41,7 +46,7 @@ export class SeDeplacerComponent implements OnInit {
 
   ngOnInit(): void {
     this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); } ,err => console.log(err))
-    this.clientService.findById(400).subscribe(resp => this.client = resp, err => console.log(err))
+    this.sessionService.getClient();
   }
 
   createMap(){
@@ -69,10 +74,15 @@ export class SeDeplacerComponent implements OnInit {
   addMarker(transport){
 
     if(transport.typeDeTransport=="velo"){
-      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
+      const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
+
+
       marker.addTo(this.map);
-      marker.on("click",function () {
+      marker.on("click",function (event) {
+        var clickedMarker = event.layer
         console.log("ON A CLIQUE");
+        this.ongletReservationShow = true;
+        console.log(this.ongletReservationShow);
       })
       marker.bindPopup('<h1>velo</h1>');
     }
@@ -88,5 +98,4 @@ export class SeDeplacerComponent implements OnInit {
       marker.bindPopup('<h1>trot</h1>');
     }
   }
-
-}
+  }

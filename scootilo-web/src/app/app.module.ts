@@ -31,6 +31,7 @@ import { MonCompteAdministrateurInfoComponent } from './components/mon-compte-ad
 import { MonCompteFournisseurInfoComponent } from './components/mon-compte-fournisseur-info/mon-compte-fournisseur-info.component';
 import { MonCompteFournisseurMajInfoComponent } from './components/mon-compte-fournisseur-maj-info/mon-compte-fournisseur-maj-info.component';
 import { MonCompteClientMajInfoComponent } from './components/mon-compte-client-maj-info/mon-compte-client-maj-info.component';
+import { SeDeplacerReserverSurCarteComponent } from './components/se-deplacer-reserver-sur-carte/se-deplacer-reserver-sur-carte.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { MonCompteClientMajInfoComponent } from './components/mon-compte-client-
     MonCompteFournisseurInfoComponent,
     MonCompteFournisseurMajInfoComponent,
     MonCompteFournisseurInfoComponent,
-    MonCompteClientMajInfoComponent
+    MonCompteClientMajInfoComponent,
+    SeDeplacerReserverSurCarteComponent
   ],
   imports: [
     BrowserModule,
