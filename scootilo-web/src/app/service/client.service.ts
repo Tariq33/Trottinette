@@ -22,6 +22,10 @@ export class ClientService {
     return this.http.get<Client>('http://localhost:8080/client/' + id);
   }
 
+  FindHistorique(id: number): Observable<Array<undefined>> {
+    return this.http.get<Array<undefined>>('http://localhost:8080/client/historique/' + id);
+  }
+
   create(client: Client) {
     return this.http.post<Client>('http://localhost:8080/client', client);
   }
