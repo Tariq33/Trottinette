@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 @DiscriminatorValue("admin")
 public class Administrateur extends Utilisateur {
 	@Column(name = "first_name", length = 100)
-	@JsonView(Views.ViewAdministrateur.class)
+	@JsonView(Views.ViewCommon.class)
 	private String prenom;
 
 	public Administrateur() {

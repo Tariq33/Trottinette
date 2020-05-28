@@ -65,8 +65,8 @@ public class MoyenDeTransport {
 	@Column(name = "inUse", length = 100)
 	@JsonView(Views.ViewCommon.class)
 	private Boolean enUtilisation;
-	@OneToOne(mappedBy = "moyenDeTransport", cascade=CascadeType.ALL)
-	@JsonView(Views.ViewCommon.class)
+	@OneToOne(mappedBy = "moyenDeTransport")
+	@JsonView(Views.ViewMoyenDeTransport.class)
 	private Itineraire itineraire;
 
 	public MoyenDeTransport() {
