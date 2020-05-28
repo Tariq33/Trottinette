@@ -16,6 +16,7 @@ import {MonCompteFournisseurComponent} from './components/mon-compte-fournisseur
 import {MonCompteClientComponent} from "./components/mon-compte-client/mon-compte-client.component";
 import {MonCompteCrediterComponent} from "./components/mon-compte-crediter/mon-compte-crediter.component";
 import {MonCompteClientMajInfoComponent} from "./components/mon-compte-client-maj-info/mon-compte-client-maj-info.component";
+import {SeDeplacerRechercheComponent} from "./components/se-deplacer-recherche/se-deplacer-recherche.component";
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: "compteCrediter", component: MonCompteCrediterComponent},
   {path: "compteClient/miseJourInfoPerso/:id", component: MonCompteClientMajInfoComponent },
   {path: "compteCrediter/:id", component: MonCompteCrediterComponent},
+  {path: "seDeplacerrecherche", component: SeDeplacerRechercheComponent},
   ];
 
 @NgModule({
