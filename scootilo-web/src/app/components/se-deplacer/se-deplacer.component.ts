@@ -38,7 +38,7 @@ export class SeDeplacerComponent implements OnInit {
     this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
     this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
   }
- 
+
 
   /*ngAfterViewInit(): void {
     this.createMap();
@@ -79,7 +79,6 @@ export class SeDeplacerComponent implements OnInit {
 
       marker.addTo(this.map);
       marker.on("click",function (event) {
-        var clickedMarker = event.layer
         console.log("ON A CLIQUE");
         this.ongletReservationShow = true;
         console.log(this.ongletReservationShow);
