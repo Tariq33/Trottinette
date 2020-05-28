@@ -14,8 +14,14 @@ export class MonCompteAdministrateurInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let identifiant: string = 'clement_admin';
-    this.administrateurService.findByIdentifiant(identifiant).subscribe(resp => this.administrateurForm = resp, error => console.log(error));
+    let identifiant: string = JSON.parse(sessionStorage.getItem("utilisateur")).identifiant;
+    console.log(identifiant);
+    console.log(sessionStorage.getItem("utilisateur"));
+    this.administrateurForm.prenom = JSON.parse(sessionStorage.getItem("utilisateur")).prenom;
+    this.administrateurForm.nom = JSON.parse(sessionStorage.getItem("utilisateur")).nom;
+    this.administrateurForm.email = JSON.parse(sessionStorage.getItem("utilisateur")).email;
+
+    // this.administrateurService.findByIdentifiant(identifiant).subscribe(resp => this.administrateurForm = resp, error => console.log(error));
 
   }
 
