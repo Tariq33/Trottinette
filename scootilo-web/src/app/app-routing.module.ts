@@ -37,7 +37,8 @@ const routes: Routes = [
   {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteClient", component: MonCompteClientComponent},
   {path: "compteCrediter", component: MonCompteCrediterComponent},
-  {path: "compteClient/miseJourInfoPerso/:id", component: MonCompteClientMajInfoComponent }
+  {path: "compteClient/miseJourInfoPerso/:id", component: MonCompteClientMajInfoComponent },
+  {path: "compteCrediter/:id", component: MonCompteCrediterComponent},
   ];
 
 @NgModule({

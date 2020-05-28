@@ -12,7 +12,7 @@ import {Preference} from "../../model/Preference";
 })
 export class MonCompteClientMajInfoComponent implements OnInit {
 
-  clientunique: Client = new Client();
+  clientunique: Client;
 
   constructor(private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute) { }
 
