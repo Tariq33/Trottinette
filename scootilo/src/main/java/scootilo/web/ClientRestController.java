@@ -107,6 +107,7 @@ public class ClientRestController {
 
 	
 	@PostMapping("")
+	@JsonView(Views.ViewClient.class)
 	public Client create(@RequestBody Client client) {
 		client = clientRepo.save(client);
 
@@ -114,6 +115,7 @@ public class ClientRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewClient.class)
 	public Client update(@RequestBody Client client, @PathVariable Long id) {
 		if (!clientRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

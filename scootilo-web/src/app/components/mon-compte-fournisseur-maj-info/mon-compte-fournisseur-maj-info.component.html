@@ -1,0 +1,36 @@
+<div class="container" style="padding-bottom: 20px;">
+  <div class="card">
+    <div class="card-header">
+      <h4>Mise à jour de vos informations personnelles</h4>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="nom">Nom de la société :</label>
+        <input type="text" class="form-control" id="nom" [(ngModel)]="fournisseurForm.nom">
+      </div>
+      <div class="form-group">
+        <label for="numeroSiret">Numéro de SIRET : </label>
+        <input type="text" class="form-control" id="numeroSiret" [(ngModel)]="fournisseurForm.numeroSiret">
+      </div>
+      <div class="form-group">
+        <label for="numeroTva">Numéro de TVA : </label>
+        <input type="text" class="form-control" id="numeroTva" [(ngModel)]="fournisseurForm.numeroTva">
+      </div>
+      <div class="form-group">
+        <label for="iban">Numéro de TVA : </label>
+        <input type="text" class="form-control" id="iban" [(ngModel)]="fournisseurForm.iban">
+      </div>
+      <div class="form-group">
+        <label for="bic">Numéro de TVA : </label>
+        <input type="text" class="form-control" id="bic" [(ngModel)]="fournisseurForm.bic">
+      </div>
+
+      <a type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteFournisseur">Ajouter</a>
+      <a class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteFournisseur">Annuler</a>
+
+    </div>
+  </div>
+</div>
+
+
+<app-mon-compte-ajout-adresse></app-mon-compte-ajout-adresse>

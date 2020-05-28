@@ -19,6 +19,8 @@ public class Views {
 		
 	public static class ViewUtilisateur extends ViewCommon {}
 	
+	public static class ViewAdresse extends ViewCommon {}
+	
 	public static class ViewFournisseur extends ViewUtilisateur {}
 	
 	public static class ViewAdministrateur extends ViewUtilisateur {}
