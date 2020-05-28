@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {SessionService} from "./service/session.service";
 
 @Component({
   selector: 'app-root',
@@ -8,18 +9,9 @@ import {Component} from '@angular/core';
 export class AppComponent {
   title = 'scootilo-web';
 
-  constructor() {
-    sessionStorage.setItem("utilisateur","");
+  constructor(public sessionService : SessionService) {
   }
 
-  getUser(): string {
-    if(sessionStorage.getItem("utilisateur")!="") return JSON.parse(sessionStorage.getItem("utilisateur")).identifiant;
-    else return "";
-  }
 
-  getType():string{
-    if(sessionStorage.getItem("utilisateur")!="") return JSON.parse(sessionStorage.getItem("utilisateur")).type;
-    else return "";
-  }
 
 }

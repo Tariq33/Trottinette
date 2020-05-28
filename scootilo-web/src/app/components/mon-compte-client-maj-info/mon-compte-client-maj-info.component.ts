@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
+import {Preference} from "../../model/Preference";
+import {SessionService} from "../../service/session.service";
 
 
 @Component({
@@ -12,20 +14,25 @@ export class MonCompteClientMajInfoComponent implements OnInit {
 
   clientunique: Client = new Client();
 
-  constructor(private clientService: ClientService) {
+  constructor(private sessionService : SessionService, private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+    this.clientunique=JSON.parse(sessionStorage.getItem("utilisateur"));
   }
 
   ngOnInit(): void {
-    let id = JSON.parse(sessionStorage.getItem("utilisateur")).id;
-    this.clientService.findById(id).subscribe(resp => this.clientunique = resp, error => console.log(error));
+  }
+
+  save() {
+      this.clientService.modify(this.clientunique).subscribe(resp => {
+        this.clientunique = null;
+        this.updateSessionStorage();
+      }, error => console.log(error));
 
   }
 
-  edit(id: number) {
-    console.log(this.clientunique)
-    this.clientService.modify(this.clientunique).subscribe(resp => {
-        this.clientunique = resp;
-        this.clientService.load();
+  updateSessionStorage() {
+    this.clientService.findById(JSON.parse(sessionStorage.getItem("utilisateur")).id).subscribe(resp => {
+        this.sessionService.setUtilisateur(resp);
+        this.router.navigateByUrl('/compteClient');
       },
       error => console.log(error)
     )
