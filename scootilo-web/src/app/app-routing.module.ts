@@ -14,6 +14,7 @@ import {CreationCompteComponent} from "./components/creation-compte/creation-com
 import {MonCompteAdministrateurMajInfoComponent} from './components/mon-compte-administrateur-maj-info/mon-compte-administrateur-maj-info.component';
 import {MonCompteFournisseurComponent} from './components/mon-compte-fournisseur/mon-compte-fournisseur.component';
 import {MonCompteClientComponent} from "./components/mon-compte-client/mon-compte-client.component";
+import {MonCompteCrediterComponent} from "./components/mon-compte-crediter/mon-compte-crediter.component";
 
 
 const routes: Routes = [
@@ -32,8 +33,9 @@ const routes: Routes = [
   {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
   {path: "compteAdministrateur/miseJourInfoPerso/:id", component: MonCompteAdministrateurMajInfoComponent },
   {path: "compteFournisseur", component: MonCompteFournisseurComponent},
-  {path: "creationCompte", component: CreationCompteComponent}
+  {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteClient", component: MonCompteClientComponent},
+  {path: "compteCrediter", component: MonCompteCrediterComponent}
   ];
 
 @NgModule({

@@ -73,13 +73,35 @@ public class ClientRestController {
 		}
 	}
 
+//	@GetMapping("/historique/{id}")
+//	@JsonView(Views.ViewClient.class)
+//	public ArrayList<Object> FindHistorique(@PathVariable Long id) {
+//		
+//		ArrayList<Object> client = clientRepo.FindHistorique(id);
+//		
+//		return client;
+//		
+//	}
+	
 	@GetMapping("/historique/{id}")
 	@JsonView(Views.ViewClient.class)
-	public ArrayList<Object> FindHistorique(@PathVariable Long id) {
+	public ArrayList<String[]> FindHistorique(@PathVariable Long id) {
 		
-		ArrayList<Object> client = clientRepo.FindHistorique(id);
+//		String[] arrfStrFull = null;
+		ArrayList<String[]> arrfStrFull = new ArrayList<String[]>();
 		
-		return client;
+		String[] client = clientRepo.FindHistorique(id);
+		
+		for (int j=0; j<client.length; j++) {
+			String i = (String)client[j];
+			
+			String[] arrOfStr = i.split(",");
+			
+			arrfStrFull.add(arrOfStr);
+						
+			}
+		
+		return arrfStrFull;
 		
 	}
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
 import {Adresse} from "../../model/adresse";
-import {Preference} from "../../model/Preference";
 import {Reservation} from "../../model/Reservation";
 import {Itineraire} from "../../model/itineraire";
 
@@ -17,14 +16,10 @@ export class MonCompteClientComponent implements OnInit {
   adresse :Adresse = new Adresse();
   reservation: Reservation = new Reservation();
   itineraire: Itineraire = new Itineraire();
-  histo: Array<object>;
+  histo: Array<object> = new Array<object>();
 
 
   constructor(private clientService: ClientService) {
-
-    this.clientService.findById(323).subscribe(resp => {
-      this.clientunique = resp;
-    }, error => console.log(error));
 
     clientService.FindHistorique(323).subscribe(resp => {
       this.histo = resp;
@@ -34,7 +29,19 @@ export class MonCompteClientComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+    this.clientunique.id = JSON.parse(sessionStorage.getItem("utilisateur")).id;
+    this.clientunique.solde = JSON.parse(sessionStorage.getItem("utilisateur")).solde;
+    this.clientunique.prenom = JSON.parse(sessionStorage.getItem("utilisateur")).prenom;
+    this.clientunique.nom = JSON.parse(sessionStorage.getItem("utilisateur")).nom;
+    this.clientunique.email = JSON.parse(sessionStorage.getItem("utilisateur")).email;
+    this.clientunique.preference = JSON.parse(sessionStorage.getItem("utilisateur")).preference;
 
+  }
+edit(id: number){
+  this.clientService.findById(id).subscribe(resp => {
+    this.clientunique = resp;
+  }, error => console.log(error));
+  }
 
 }

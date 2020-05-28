@@ -6,7 +6,7 @@
     <div class="card-body">
       <h6 class="card-title">Argent disponible :</h6>
       <h4 >{{clientunique.solde}} €</h4>
-      <br> <a href="#" class="btn btn-primary">Recharger votre
+      <br> <a href="#" class="btn btn-primary" (click)="edit(clientunique.id)" [routerLink]="['/compteCrediter', clientunique.id]">Recharger votre
       compte</a>
     </div>
   </div>
@@ -31,18 +31,18 @@
       <div>
         <h6 class="card-title">Préférences :</h6>
         <div class="form-check-inline">
-          <label class="form-check-label"> <input type="checkbox"
-                                                  class="form-check-input" [value]="">Trottinette
+          <label class="form-check-label" > <input type="checkbox"
+                                                  class="form-check-input" [(ngModel)]="clientunique.preference.trottinette">Trottinette
           </label>
         </div>
         <div class="form-check-inline">
           <label class="form-check-label"> <input type="checkbox"
-                                                  class="form-check-input" [value]="">Vélo
+                                                  class="form-check-input" [(ngModel)]="clientunique.preference.velo">Vélo
           </label>
         </div>
         <div class="form-check-inline">
           <label class="form-check-label"> <input type="checkbox"
-                                                  class="form-check-input" [value]="">Scooter
+                                                  class="form-check-input" [(ngModel)]="clientunique.preference.scooter">Scooter
           </label>
         </div>
       </div>
@@ -135,22 +135,21 @@
 
 
           <tr>
-            <td *ngFor="let ele of histo">{{ele}}</td>
-
+            <td *ngFor="let ele of histo[0]">{{ele}}</td>
           </tr>
 
-        <tr>
-          <td>A renseigner</td>
-          <td>A renseigner</td>
-          <td>A renseigner</td>
-          <td>A renseigner</td>
-        </tr>
-        <tr>
-          <td>A renseigner</td>
-          <td>A renseigner</td>
-          <td>A renseigner</td>
-          <td>A renseigner</td>
-        </tr>
+          <tr>
+            <td *ngFor="let ele of histo[1]">{{ele}}</td>
+          </tr>
+
+          <tr>
+            <td *ngFor="let ele of histo[2]">{{ele}}</td>
+          </tr>
+
+          <tr>
+            <td *ngFor="let ele of histo[3]">{{ele}}</td>
+          </tr>
+
         </tbody>
       </table>
 
