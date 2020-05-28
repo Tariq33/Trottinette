@@ -38,10 +38,11 @@ const routes: Routes = [
   {path: "compteFournisseur", component: MonCompteFournisseurComponent},
   {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent },
   {path: "compteClient", component: MonCompteClientComponent},
-  {path: "compteClient/miseJourInfoPerso/:id", component: MonCompteClientMajInfoComponent},
   {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteCrediter", component: MonCompteCrediterComponent},
   {path: "seDeplacerrecherche", component: SeDeplacerRechercheComponent},
+  {path: "compteCrediter/:id", component: MonCompteCrediterComponent}
+  {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent },
   ];
 
 @NgModule({
