@@ -15,6 +15,7 @@ import {MonCompteAdministrateurMajInfoComponent} from './components/mon-compte-a
 import {MonCompteFournisseurComponent} from './components/mon-compte-fournisseur/mon-compte-fournisseur.component';
 import {MonCompteClientComponent} from "./components/mon-compte-client/mon-compte-client.component";
 import {MonCompteCrediterComponent} from "./components/mon-compte-crediter/mon-compte-crediter.component";
+import {MonCompteClientMajInfoComponent} from "./components/mon-compte-client-maj-info/mon-compte-client-maj-info.component";
 
 
 const routes: Routes = [
@@ -35,7 +36,9 @@ const routes: Routes = [
   {path: "compteFournisseur", component: MonCompteFournisseurComponent},
   {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteClient", component: MonCompteClientComponent},
-  {path: "compteCrediter", component: MonCompteCrediterComponent}
+  {path: "compteCrediter", component: MonCompteCrediterComponent},
+  {path: "compteClient/miseJourInfoPerso/:id", component: MonCompteClientMajInfoComponent },
+  {path: "compteCrediter/:id", component: MonCompteCrediterComponent},
   ];
 
 @NgModule({

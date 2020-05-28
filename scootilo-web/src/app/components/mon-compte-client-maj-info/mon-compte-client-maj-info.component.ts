@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from "../../model/client";
-import {ClientService} from "../../service/client.service";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
+import {ClientService} from "../../service/client.service";
+import {Preference} from "../../model/Preference";
 
 @Component({
-  selector: 'app-mon-compte-crediter',
-  templateUrl: './mon-compte-crediter.component.html',
-  styleUrls: ['./mon-compte-crediter.component.scss']
+  selector: 'app-mon-compte-client-maj-info',
+  templateUrl: './mon-compte-client-maj-info.component.html',
+  styleUrls: ['./mon-compte-client-maj-info.component.scss']
 })
-export class MonCompteCrediterComponent implements OnInit {
+export class MonCompteClientMajInfoComponent implements OnInit {
 
   clientunique: Client;
 
@@ -23,7 +24,6 @@ export class MonCompteCrediterComponent implements OnInit {
 
     })
   }
-
 
 
   save() {

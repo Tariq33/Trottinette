@@ -1,0 +1,46 @@
+<div class="container" style="padding-bottom: 20px;">
+  <div class="card">
+    <div class="card-header">
+      <h4>Mise à jour de vos informations personnelles</h4>
+    </div>
+
+    <div class="card-body">
+
+      <div class="form-group">
+        <label for="prenom">Prénom :</label>
+        <input type="text" class="form-control" id="prenom" [(ngModel)]="clientunique.prenom">
+      </div>
+      <div class="form-group">
+        <label for="nom">Nom : </label>
+        <input type="text" class="form-control" id="nom" [(ngModel)]="clientunique.nom">
+      </div>
+      <div class="form-group">
+        <label for="email">Adresse mail : </label>
+        <input type="text" class="form-control" id="email" [(ngModel)]="clientunique.email">
+      </div>
+
+      <div>
+        <h6 class="card-title">Préférences :</h6>
+        <div class="form-check-inline">
+          <label class="form-check-label" > <input type="checkbox"
+                                                   class="form-check-input" [(ngModel)]="clientunique.preference.trottinette">Trottinette
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label"> <input type="checkbox"
+                                                  class="form-check-input" [(ngModel)]="clientunique.preference.velo">Vélo
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label"> <input type="checkbox"
+                                                  class="form-check-input" [(ngModel)]="clientunique.preference.scooter">Scooter
+          </label>
+        </div>
+      </div>
+
+      <a type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteClient">Ajouter</a>
+      <a class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteClient">Annuler</a>
+
+    </div>
+  </div>
+</div>
