@@ -58,8 +58,10 @@ export class PlanReseauComponent implements OnInit {
     const zoomLevel = 14;
     this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
 
-    const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    /*const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',*/
+    const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
       minZoom: 2,
       maxZoom: 19
     });
@@ -81,7 +83,6 @@ export class PlanReseauComponent implements OnInit {
   }
 
   addMarker(transport){
-
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
