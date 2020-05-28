@@ -4,6 +4,7 @@ import {ClientService} from "../../service/client.service";
 import {Router} from "@angular/router";
 import {UtilisateurService} from "../../service/utilisateur.service";
 import {Utilisateur} from "../../model/utilisateur";
+import {SessionService} from "../../service/session.service";
 
 @Component({
   selector: 'app-log-in',
@@ -15,7 +16,7 @@ export class LogInComponent implements OnInit {
   identifiant:string;
   motDePasse:string;
 
-  constructor(private utilisateurService : UtilisateurService, private router: Router) { }
+  constructor(private sessionService: SessionService, private utilisateurService : UtilisateurService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -23,7 +24,7 @@ export class LogInComponent implements OnInit {
   checkUser () {
     console.log("checkUser lancée");
     this.utilisateurService.findByIdentifiantAndMotDePasse(this.identifiant, this.motDePasse).subscribe(resp => {
-      sessionStorage.setItem("utilisateur",JSON.stringify(resp));
+      this.sessionService.setUtilisateur(resp);
       this.router.navigateByUrl('/accueil');
       },
       error => console.log(error)

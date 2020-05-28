@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClientService} from "../../service/client.service";
 import {Preference} from "../../model/Preference";
+import {SessionService} from "../../service/session.service";
 
 @Component({
   selector: 'app-mon-compte-client-maj-info',
@@ -14,34 +15,25 @@ export class MonCompteClientMajInfoComponent implements OnInit {
 
   clientunique: Client;
 
-  constructor(private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
+  constructor(private sessionService : SessionService, private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+    this.clientunique=JSON.parse(sessionStorage.getItem("utilisateur"));
+  }
 
   ngOnInit(): void {
-
-    this.route.params.subscribe(params => {
-      let id = params['id'];
-      console.log(id);
-      this.clientService.findById(id).subscribe(resp => {this.clientunique = resp; }, error => console.log(error));
-
-
-    })
   }
 
   save() {
-    console.log(this.clientunique);
-    if (this.clientunique.id) {
       this.clientService.modify(this.clientunique).subscribe(resp => {
         this.clientunique = null;
         this.updateSessionStorage();
-        this.router.navigateByUrl('/compteClient')
       }, error => console.log(error));
-    };
+
   }
 
   updateSessionStorage() {
-    this.clientService.findById(this.clientunique.id).subscribe(resp => {
-        sessionStorage.setItem("utilisateur",JSON.stringify(resp));
-
+    this.clientService.findById(JSON.parse(sessionStorage.getItem("utilisateur")).id).subscribe(resp => {
+        this.sessionService.setUtilisateur(resp);
+        this.router.navigateByUrl('/compteClient');
       },
       error => console.log(error)
     );

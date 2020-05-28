@@ -18,7 +18,7 @@
       <h4>Mes informations personnelles</h4>
     </div>
 
-    <div class="card-body">
+    <div *ngIf="clientunique" class="card-body">
       <div>
         <h6 class="card-title">Prénom :</h6>
         <p class="card-text">{{clientunique.prenom}}</p>
@@ -46,7 +46,7 @@
           </label>
         </div>
       </div>
-      <br> <a class="btn btn-primary"  (click)="edit(clientunique.id)" [routerLink]="['/compteClient/miseJourInfoPerso', clientunique.id]">Mettre à jour</a>
+      <br> <a class="btn btn-primary" [routerLink]="['/compteClient/miseJourInfoPerso']">Mettre à jour</a>
     </div>
   </div>
 
