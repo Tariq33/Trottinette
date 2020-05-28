@@ -38,10 +38,13 @@ export class MonCompteClientComponent implements OnInit {
     this.clientunique.preference = JSON.parse(sessionStorage.getItem("utilisateur")).preference;
 
   }
-edit(id: number){
-  this.clientService.findById(id).subscribe(resp => {
-    this.clientunique = resp;
-  }, error => console.log(error));
+  edit(id: number) {
+    this.clientService.findById(id).subscribe(resp => {
+        this.clientunique = resp;
+        this.clientService.load();
+      },
+      error => console.log(error)
+    )
   }
 
 }

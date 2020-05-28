@@ -30,6 +30,7 @@ import { MonCompteAdministrateurMajInfoComponent } from './components/mon-compte
 import { MonCompteAdministrateurInfoComponent } from './components/mon-compte-administrateur-info/mon-compte-administrateur-info.component';
 import { MonCompteFournisseurInfoComponent } from './components/mon-compte-fournisseur-info/mon-compte-fournisseur-info.component';
 import { MonCompteFournisseurMajInfoComponent } from './components/mon-compte-fournisseur-maj-info/mon-compte-fournisseur-maj-info.component';
+import { MonCompteClientMajInfoComponent } from './components/mon-compte-client-maj-info/mon-compte-client-maj-info.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,8 @@ import { MonCompteFournisseurMajInfoComponent } from './components/mon-compte-fo
     MonCompteAdministrateurInfoComponent,
     MonCompteFournisseurInfoComponent,
     MonCompteFournisseurMajInfoComponent
+    MonCompteFournisseurInfoComponent,
+    MonCompteClientMajInfoComponent
   ],
   imports: [
     BrowserModule,
