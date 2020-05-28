@@ -13,9 +13,17 @@ export class MonCompteCrediterComponent implements OnInit {
 
   clientunique: Client;
 
+  ajoutsolde: number = 0;
+
+  soldefinal:number = 0;
+
   constructor(private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+
+
+
     this.route.params.subscribe(params => {
       let id = params['id'];
 
@@ -28,6 +36,9 @@ export class MonCompteCrediterComponent implements OnInit {
 
   save() {
     if (!this.clientunique.id) {
+      this.soldefinal = (+this.clientunique.solde) + (+this.ajoutsolde);
+      console.log(this.soldefinal);
+      this.clientunique.solde = this.soldefinal;
       this.clientService.create(this.clientunique).subscribe(resp => {
           this.clientunique = null;
           this.clientService.load();
@@ -36,6 +47,9 @@ export class MonCompteCrediterComponent implements OnInit {
       )
 
     } else {
+      this.soldefinal = (+this.clientunique.solde) + (+this.ajoutsolde);
+      console.log(this.soldefinal);
+      this.clientunique.solde = this.soldefinal;
       this.clientService.modify(this.clientunique).subscribe(resp => {
         this.clientunique = null;
         this.clientService.load();

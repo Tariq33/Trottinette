@@ -31,6 +31,9 @@ import { MonCompteAdministrateurInfoComponent } from './components/mon-compte-ad
 import { MonCompteFournisseurInfoComponent } from './components/mon-compte-fournisseur-info/mon-compte-fournisseur-info.component';
 import { MonCompteFournisseurMajInfoComponent } from './components/mon-compte-fournisseur-maj-info/mon-compte-fournisseur-maj-info.component';
 import { MonCompteClientMajInfoComponent } from './components/mon-compte-client-maj-info/mon-compte-client-maj-info.component';
+import { ReservationItineraireComponent } from './components/reservation-itineraire/reservation-itineraire.component';
+import { FinDeTrajetComponent } from './components/fin-de-trajet/fin-de-trajet.component';
+import { FinalisationComponent } from './components/finalisation/finalisation.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import { MonCompteClientMajInfoComponent } from './components/mon-compte-client-
     MonCompteFournisseurInfoComponent,
     MonCompteFournisseurMajInfoComponent,
     MonCompteFournisseurInfoComponent,
-    MonCompteClientMajInfoComponent
+    MonCompteClientMajInfoComponent,
+    ReservationItineraireComponent,
+    FinDeTrajetComponent,
+    FinalisationComponent
   ],
   imports: [
     BrowserModule,

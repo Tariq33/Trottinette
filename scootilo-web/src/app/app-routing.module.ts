@@ -17,6 +17,10 @@ import {MonCompteFournisseurMajInfoComponent} from './components/mon-compte-four
 import {MonCompteClientComponent} from './components/mon-compte-client/mon-compte-client.component';
 import {MonCompteCrediterComponent} from "./components/mon-compte-crediter/mon-compte-crediter.component";
 import {MonCompteClientMajInfoComponent} from "./components/mon-compte-client-maj-info/mon-compte-client-maj-info.component";
+import {SeDeplacerRechercheComponent} from "./components/se-deplacer-recherche/se-deplacer-recherche.component";
+import {ReservationItineraireComponent} from "./components/reservation-itineraire/reservation-itineraire.component";
+import {FinDeTrajetComponent} from "./components/fin-de-trajet/fin-de-trajet.component";
+import {FinalisationComponent} from "./components/finalisation/finalisation.component";
 
 
 const routes: Routes = [
@@ -39,8 +43,12 @@ const routes: Routes = [
   {path: "compteClient", component: MonCompteClientComponent},
   {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteCrediter", component: MonCompteCrediterComponent},
+  {path: "seDeplacerrecherche", component: SeDeplacerRechercheComponent},
+  {path: "compteCrediter/:id", component: MonCompteCrediterComponent},
   {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent },
-  {path: "compteCrediter/:id", component: MonCompteCrediterComponent}
+  {path: "reservationItineraire", component: ReservationItineraireComponent},
+  {path: "finDeTrajet", component: FinDeTrajetComponent},
+  {path: "finalisation", component: FinalisationComponent},
   ];
 
 @NgModule({

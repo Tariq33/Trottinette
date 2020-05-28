@@ -18,6 +18,8 @@ export class SeDeplacerComponent implements OnInit {
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client;
 
+  clickrechercher: boolean = false;
+
   veloIcon = new L.Icon({
     iconUrl: '../../../assets/icon-velo.png'
   });
