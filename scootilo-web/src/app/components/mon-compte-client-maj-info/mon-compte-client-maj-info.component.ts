@@ -16,7 +16,7 @@ export class MonCompteClientMajInfoComponent implements OnInit {
   clientunique: Client;
 
   constructor(private sessionService : SessionService, private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
-    this.clientunique=JSON.parse(sessionStorage.getItem("utilisateur"));
+    this.clientunique=sessionService.getClient();
   }
 
   ngOnInit(): void {
