@@ -33,6 +33,7 @@ import { MonCompteFournisseurMajInfoComponent } from './components/mon-compte-fo
 import { MonCompteClientMajInfoComponent } from './components/mon-compte-client-maj-info/mon-compte-client-maj-info.component';
 import { ReservationItineraireComponent } from './components/reservation-itineraire/reservation-itineraire.component';
 import { FinDeTrajetComponent } from './components/fin-de-trajet/fin-de-trajet.component';
+import { FinalisationComponent } from './components/finalisation/finalisation.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { FinDeTrajetComponent } from './components/fin-de-trajet/fin-de-trajet.c
     MonCompteFournisseurInfoComponent,
     MonCompteClientMajInfoComponent,
     ReservationItineraireComponent,
-    FinDeTrajetComponent
+    FinDeTrajetComponent,
+    FinalisationComponent
   ],
   imports: [
     BrowserModule,

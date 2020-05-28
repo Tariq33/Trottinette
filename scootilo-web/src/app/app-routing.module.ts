@@ -20,6 +20,7 @@ import {MonCompteClientMajInfoComponent} from "./components/mon-compte-client-ma
 import {SeDeplacerRechercheComponent} from "./components/se-deplacer-recherche/se-deplacer-recherche.component";
 import {ReservationItineraireComponent} from "./components/reservation-itineraire/reservation-itineraire.component";
 import {FinDeTrajetComponent} from "./components/fin-de-trajet/fin-de-trajet.component";
+import {FinalisationComponent} from "./components/finalisation/finalisation.component";
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent },
   {path: "reservationItineraire", component: ReservationItineraireComponent},
   {path: "finDeTrajet", component: FinDeTrajetComponent},
+  {path: "finalisation", component: FinalisationComponent},
   ];
 
 @NgModule({
