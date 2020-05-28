@@ -6,6 +6,7 @@ import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
+import {SessionService} from "../../service/session.service";
 
 
 @Component({
@@ -35,8 +36,8 @@ export class PlanReseauComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService) {
-    this.clientService.findById(323).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
+  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+    this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
     this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
   }
 
@@ -58,8 +59,10 @@ export class PlanReseauComponent implements OnInit {
     const zoomLevel = 14;
     this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
 
-    const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    /*const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',*/
+    const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
       minZoom: 2,
       maxZoom: 19
     });
@@ -81,7 +84,6 @@ export class PlanReseauComponent implements OnInit {
   }
 
   addMarker(transport){
-
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
