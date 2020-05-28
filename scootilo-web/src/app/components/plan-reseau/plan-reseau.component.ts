@@ -41,7 +41,7 @@ export class PlanReseauComponent implements OnInit {
 
   ngOnInit(): void {
     this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); } ,err => console.log(err))
-    this.clientService.findById(400).subscribe(resp => this.client = resp, err => console.log(err))
+    this.clientService.findById(323).subscribe(resp => this.client = resp, err => console.log(err))
   }
 
   createMap(){

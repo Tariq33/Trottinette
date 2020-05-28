@@ -14,6 +14,7 @@ import {CreationCompteComponent} from "./components/creation-compte/creation-com
 import {MonCompteAdministrateurMajInfoComponent} from './components/mon-compte-administrateur-maj-info/mon-compte-administrateur-maj-info.component';
 import {MonCompteFournisseurComponent} from './components/mon-compte-fournisseur/mon-compte-fournisseur.component';
 import {MonCompteFournisseurMajInfoComponent} from './components/mon-compte-fournisseur-maj-info/mon-compte-fournisseur-maj-info.component';
+import {MonCompteClientComponent} from './components/mon-compte-client/mon-compte-client.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: "compteAdministrateur/miseJourInfoPerso/:id", component: MonCompteAdministrateurMajInfoComponent },
   {path: "compteFournisseur", component: MonCompteFournisseurComponent},
   {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent },
+  {path: "compteClient", component: MonCompteClientComponent},
   {path: "creationCompte", component: CreationCompteComponent}
   ];
 

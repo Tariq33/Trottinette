@@ -59,6 +59,7 @@ public class FournisseurRestController {
 	}
 
 	@PostMapping("")
+	@JsonView(Views.ViewFournisseur.class)
 	public Fournisseur create(@RequestBody Fournisseur fournisseur) {
 		fournisseur = fournisseurRepo.save(fournisseur);
 
@@ -66,6 +67,7 @@ public class FournisseurRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewFournisseur.class)
 	public Fournisseur update(@RequestBody Fournisseur fournisseur, @PathVariable Long id) {
 		if (!fournisseurRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
