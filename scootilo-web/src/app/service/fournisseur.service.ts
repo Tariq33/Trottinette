@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Fournisseur} from "../model/fournisseur";
+import {Administrateur} from '../model/administrateur';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class FournisseurService {
 
   findById(id: number): Observable<Fournisseur> {
     return this.http.get<Fournisseur>('http://localhost:8080/fournisseur/' + id);
+  }
+
+  findByIdentifiant(identifiant: string): Observable<Fournisseur> {
+    return this.http.get<Fournisseur>('http://localhost:8080/fournisseur/moncompte/' + identifiant);
   }
 
   create(fournisseur: Fournisseur) {
