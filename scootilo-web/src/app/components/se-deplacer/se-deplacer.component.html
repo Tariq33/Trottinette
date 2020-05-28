@@ -50,13 +50,13 @@
         </label>
       </div>
     </div>
-    <br> <a  class="btn-lg btn-secondary"
-            style="margin-left: 130px;" >Rechercher</a>
+    <br> <button  class="btn-lg btn-secondary"
+            style="margin-left: 130px;" (click)="clickrechercher = true">Rechercher</button>
 
   <br>
   <br>
 
-    <div>
+    <div *ngIf="clickrechercher">
     <app-se-deplacer-recherche></app-se-deplacer-recherche>
     </div>
 

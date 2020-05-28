@@ -18,6 +18,8 @@ import {MonCompteClientComponent} from './components/mon-compte-client/mon-compt
 import {MonCompteCrediterComponent} from "./components/mon-compte-crediter/mon-compte-crediter.component";
 import {MonCompteClientMajInfoComponent} from "./components/mon-compte-client-maj-info/mon-compte-client-maj-info.component";
 import {SeDeplacerRechercheComponent} from "./components/se-deplacer-recherche/se-deplacer-recherche.component";
+import {ReservationItineraireComponent} from "./components/reservation-itineraire/reservation-itineraire.component";
+import {FinDeTrajetComponent} from "./components/fin-de-trajet/fin-de-trajet.component";
 
 
 const routes: Routes = [
@@ -43,6 +45,8 @@ const routes: Routes = [
   {path: "seDeplacerrecherche", component: SeDeplacerRechercheComponent},
   {path: "compteCrediter/:id", component: MonCompteCrediterComponent},
   {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent },
+  {path: "reservationItineraire", component: ReservationItineraireComponent},
+  {path: "finDeTrajet", component: FinDeTrajetComponent},
   ];
 
 @NgModule({
