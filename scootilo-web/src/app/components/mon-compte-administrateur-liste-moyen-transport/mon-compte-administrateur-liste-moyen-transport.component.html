@@ -12,6 +12,8 @@
           <th>Type de moteur</th>
           <th>prix à la minute</th>
           <th>Disponible</th>
+          <th>Longitude</th>
+          <th>Latitude</th>
           <th></th>
         </tr>
         </thead>
@@ -22,6 +24,8 @@
           <td>{{moy.typeMoteur}}</td>
           <td>{{moy.prixMinute}}</td>
           <td>{{moy.disponible}}</td>
+          <td>{{moy.longitude}}</td>
+          <td>{{moy.latitude}}</td>
           <td>
             <div style="padding-top: 9px;" class="btn-group btn-group-sm">
               <a class="btn btn-primary" (click)="edit(moy.id)" [routerLink]="['/compteAdministrateur/ajoutMoyenTransport', moy.id]"><i class="fa fa-edit"></i></a>

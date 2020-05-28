@@ -22,6 +22,10 @@ export class AdministrateurService {
     return this.http.get<Administrateur>('http://localhost:8080/administrateur/' + id);
   }
 
+  findByIdentifiant(identifiant: string): Observable<Administrateur> {
+    return this.http.get<Administrateur>('http://localhost:8080/administrateur/moncompte/' + identifiant);
+  }
+
   create(administrateur: Administrateur) {
     return this.http.post<Administrateur>('http://localhost:8080/administrateur', administrateur);
   }

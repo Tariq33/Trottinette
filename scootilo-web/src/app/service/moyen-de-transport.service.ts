@@ -15,7 +15,6 @@ export class MoyenDeTransportService {
   }
 
   findAll(): Array<MoyenDeTransport> {
-    console.log(this.moyensDeTransport);
     return this.moyensDeTransport;
   }
 
