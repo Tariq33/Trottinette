@@ -49,6 +49,7 @@
           <th>Longitude</th>
           <th>Distance estimée</th>
           <th>Prix/minute</th>
+          <th>En utilisation</th>
         </tr>
         </thead>
 
@@ -77,6 +78,10 @@
 
         <tr>
           <td *ngFor="let ele of proximite[5]">{{ele}}</td>
+        </tr>
+
+        <tr>
+          <td *ngFor="let ele of proximite[6]">{{ele}}</td>
         </tr>
 
         </tbody>
