@@ -66,7 +66,10 @@ export class SeDeplacerComponent implements OnInit {
     }
 
     const zoomLevel = 14;
-    this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    var container = L.DomUtil.get('map');
+    if (container.style.position.valueOf() == "") {
+      this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    }
 
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
@@ -74,15 +77,19 @@ export class SeDeplacerComponent implements OnInit {
       maxZoom: 19
     });
 
-    mainLayer.addTo(this.map);
-    if (this.client != undefined) {
-      L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+    if (this.map != undefined) {
+      mainLayer.addTo(this.map);
+      if (this.client != undefined) {
+        L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+      }
     }
   }
 
   addTransports(){
-    for (let tranport of this.moyensDeTransportObs ){
-      this.addMarker(tranport);
+    if (this.map != undefined) {
+      for (let tranport of this.moyensDeTransportObs) {
+        this.addMarker(tranport);
+      }
     }
   }
 
