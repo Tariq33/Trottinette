@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FournisseurService} from '../../service/fournisseur.service';
 import {SessionService} from '../../service/session.service';
+import {Adresse} from "../../model/adresse";
+import {AdresseService} from "../../service/adresse.service";
 
 @Component({
   selector: 'app-mon-compte-fournisseur-maj-info',
@@ -13,9 +15,23 @@ import {SessionService} from '../../service/session.service';
 export class MonCompteFournisseurMajInfoComponent implements OnInit {
 
   fournisseurForm: Fournisseur = new Fournisseur();
+  adresse : Adresse=new Adresse();
+  idAdr : number;
 
-  constructor(private sessionService : SessionService, private fournisseurService: FournisseurService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+  constructor(private adresseService : AdresseService, private sessionService : SessionService, private fournisseurService: FournisseurService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+    this.route.params.subscribe(params => {
+      this.idAdr = params['id'];
+    });
+  console.log("on est dans la maj info");
+    this.load();
+
     this.fournisseurForm=sessionService.getFournisseur();
+  }
+
+  load(){
+    this.adresseService.findById(this.idAdr).subscribe(resp => {
+      this.adresse =  resp;
+    }, error => console.log(error));
   }
 
   ngOnInit(): void {
@@ -36,9 +52,5 @@ export class MonCompteFournisseurMajInfoComponent implements OnInit {
       },
       error => console.log(error)
     )
-  }
-
-  cancel() {
-    this.fournisseurForm = null;
   }
 }

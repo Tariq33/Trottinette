@@ -15,11 +15,9 @@
       <h6 class="card-title">BIC :</h6>
       <p class="card-text">{{fournisseurForm.bic}}</p>
       <h6 class="card-title">Adresse :</h6>
-      <p class="card-text">{{fournisseurForm.adresse?.rue}} {{fournisseurForm.adresse?.complement}}</p>
-      <p class="card-text">{{fournisseurForm.adresse?.codePostal}} {{fournisseurForm.adresse?.ville}}</p>
-      <br> <a class="btn btn-primary" (click)="edit(fournisseurForm.id)" [routerLink]="['/compteFournisseur/miseJourInfoPerso']">Mettre à jour les informations </a>
+      <p class="card-text">{{adresse.rue}} {{adresse.complement}} {{adresse.codePostal}} {{adresse.ville}}</p>
+      <br> <a class="btn btn-primary" [routerLink]="['/compteFournisseur/miseJourInfoPerso',adresse.id]">Mettre à jour les informations </a>
     </div>
   </div>
 </div>
-
 
