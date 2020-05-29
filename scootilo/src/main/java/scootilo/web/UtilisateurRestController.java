@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import scootilo.model.Utilisateur;
 import scootilo.model.Views;
 import scootilo.persistence.IUtilisateurRepository;
+import scootilo.web.dto.LoginDTO;
 
 @RestController
 @RequestMapping("/utilisateur")
@@ -36,11 +37,10 @@ public class UtilisateurRestController {
 		return utilisateurRepo.findAll();
 	}
 
-	@GetMapping("/connexion/{identifiant}|{motDePasse}")
+	@PostMapping("/connexion")
 	@JsonView(Views.ViewUtilisateur.class)
-	public Utilisateur findByIdentifiantAndMotDePasse(@PathVariable String identifiant,
-			@PathVariable String motDePasse) {
-		return utilisateurRepo.findByIdentifiantAndMotDePasse(identifiant, motDePasse);
+	public Utilisateur findByIdentifiantAndMotDePasse(@RequestBody LoginDTO login) {
+		return utilisateurRepo.findByIdentifiantAndMotDePasse(login.getIdentifiant(), login.getMotDePasse());
 	}
 
 	@GetMapping("/help/{email}")
