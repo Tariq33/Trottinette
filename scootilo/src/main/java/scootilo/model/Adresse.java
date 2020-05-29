@@ -38,6 +38,7 @@ public class Adresse {
 	private String ville;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+//	@JsonView(Views.ViewCommon.class)
 	private Utilisateur utilisateur;
 	
 	public Adresse() {
