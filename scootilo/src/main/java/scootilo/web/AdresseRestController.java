@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 import scootilo.model.Adresse;
+import scootilo.model.Client;
+import scootilo.model.Preference;
 import scootilo.model.Views;
 import scootilo.persistence.IAdresseRepository;
 
@@ -44,6 +46,15 @@ public class AdresseRestController {
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
+	}
+	
+	@GetMapping("/findbyid/{id}")
+	@JsonView(Views.ViewClient.class)
+	public List<Adresse> FindAddressByUserId(@PathVariable Long id) {
+		
+		List<Adresse> adresses = adresseRepo.FindAddressByUserId(id);
+		
+		return adresses;	
 	}
 
 	@PostMapping("")
