@@ -24,7 +24,6 @@ export class MonCompteClientMajInfoComponent implements OnInit {
 
   save() {
       this.clientService.modify(this.clientunique).subscribe(resp => {
-        this.clientunique = null;
         this.updateSessionStorage();
       }, error => console.log(error));
 

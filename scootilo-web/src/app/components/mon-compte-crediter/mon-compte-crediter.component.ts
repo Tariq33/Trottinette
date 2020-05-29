@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
 import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   selector: 'app-mon-compte-crediter',
@@ -11,50 +12,33 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class MonCompteCrediterComponent implements OnInit {
 
-  clientunique: Client;
-
+  clientunique: Client = new Client();
   ajoutsolde: number = 0;
-
   soldefinal:number = 0;
 
-  constructor(private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute) { }
-
-  ngOnInit(): void {
-
-
-
-
-    this.route.params.subscribe(params => {
-      let id = params['id'];
-
-      this.clientService.findById(id).subscribe(resp => this.clientunique = resp, error => console.log(error));
-
-    })
+  constructor(private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private sessionService: SessionService, private router: Router) {
+  this.clientunique=this.sessionService.getClient();
   }
 
-
+  ngOnInit(): void {
+  }
 
   save() {
-    if (!this.clientunique.id) {
-      this.soldefinal = (+this.clientunique.solde) + (+this.ajoutsolde);
-      console.log(this.soldefinal);
-      this.clientunique.solde = this.soldefinal;
-      this.clientService.create(this.clientunique).subscribe(resp => {
-          this.clientunique = null;
-          this.clientService.load();
-        },
-        error => console.log(error)
-      )
+    this.soldefinal = (+this.clientunique.solde) + (+this.ajoutsolde);
+    this.clientunique.solde = this.soldefinal;
+    this.clientService.modify(this.clientunique).subscribe(resp => {
+      this.clientunique = new Client();
+      this.updateSessionStorage();
+    }, error => console.log(error));
+  }
 
-    } else {
-      this.soldefinal = (+this.clientunique.solde) + (+this.ajoutsolde);
-      console.log(this.soldefinal);
-      this.clientunique.solde = this.soldefinal;
-      this.clientService.modify(this.clientunique).subscribe(resp => {
-        this.clientunique = null;
-        this.clientService.load();
-      }, error => console.log(error));
-    }
+  updateSessionStorage() {
+    this.clientService.findById(JSON.parse(sessionStorage.getItem("utilisateur")).id).subscribe(resp => {
+        this.sessionService.setUtilisateur(resp);
+        this.router.navigateByUrl('/compteClient');
+      },
+      error => console.log(error)
+    )
   }
 
   cancel() {
