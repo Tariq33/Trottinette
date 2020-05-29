@@ -19,6 +19,8 @@ export class PlanReseauComponent implements OnInit {
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client;
+  proximite: Array<object> = new Array<object>();
+
 
   veloIcon = new L.Icon({
     iconUrl: '../../../assets/icon-velo.png'
@@ -55,6 +57,7 @@ export class PlanReseauComponent implements OnInit {
   }
 
   createMap() {
+    console.log("1");
     const centre = {
       lat: 44.8377285,
       lng: -0.5765286,
@@ -63,12 +66,14 @@ export class PlanReseauComponent implements OnInit {
       centre.lat = this.client.latitude;
       centre.lng = this.client.longitude;
     }
+    console.log("2");
 
     const zoomLevel = 14;
     var container = L.DomUtil.get('map');
     if (container.style.position.valueOf() == "") {
       this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
     }
+    console.log("3");
 
     /*const mainLayer = L.tileLayer('https://{s}.tile .openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',*/
@@ -77,13 +82,19 @@ export class PlanReseauComponent implements OnInit {
       minZoom: 2,
       maxZoom: 19
     });
+    console.log("4");
 
     if (this.map != undefined) {
+      console.log("4bis");
       mainLayer.addTo(this.map);
       if (this.client != undefined) {
+        console.log("4bis2");
         L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+        //this.moyenDeTransportService.FindAllTransportsInArea(this.client.latitude, this.client.longitude).subscribe(resp => {this.proximite = resp; }, error => console.log(error));
       }
     }
+    console.log("5");
+
 
     /*L.Routing.control({
       geocoder: L.control.Geocoder.nominatim()

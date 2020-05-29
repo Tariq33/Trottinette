@@ -183,11 +183,11 @@ class SpringFormationBootApplicationTests {
 
 		System.out.println(reservations.get(0).getMontantTotal());
 
-		List<MoyenDeTransport> listes = moyenDeTransportDao.findAllMoyenDeTransportInArea(0F, 5F, 0F, 5F);
+		/*List<MoyenDeTransport> listes = moyenDeTransportDao.findAllMoyenDeTransportInArea(0F, 5F, 0F, 5F);
 
 		for (MoyenDeTransport moyen : listes) {
 			System.out.println(moyen.getClass().getSimpleName());
-		}
+		}*/
 
 		velo.setFournisseur(lime);
 		velo = moyenDeTransportDao.save(velo);

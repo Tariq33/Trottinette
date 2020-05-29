@@ -1,5 +1,6 @@
 package scootilo.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +40,28 @@ public class MoyenDeTransportRestController {
 	@GetMapping("/by-fournisseur/{nom}")
 	@JsonView(Views.ViewMoyenDeTransportFournisseur.class)
 	public List<MoyenDeTransport> findAllByFournisseur(@PathVariable String nom) {
-
-		
 		return moyendetransportRepo.findAllByFournisseur(nom);
 	}
 	
+	@GetMapping("/area/{latitude};;{longitude}")
+	@JsonView(Views.ViewMoyenDeTransport.class)
+	public ArrayList<String[]> FindAllTransportsInArea(@PathVariable Float latitude, @PathVariable Float longitude) {
+		ArrayList<String[]> arrfStrFull = new ArrayList<String[]>();
+		
+		String[] transport = moyendetransportRepo.FindAllTransportsInArea(latitude,longitude);
+		
+		for (int j=0; j<transport.length; j++) {
+			String i = (String)transport[j];
+			
+			String[] arrOfStr = i.split(",");
+			
+			arrfStrFull.add(arrOfStr);
+						
+			}
+		
+		return arrfStrFull;
+		//return moyendetransportRepo.FindAllTransportsInArea(latitude, longitude);
+	}
 	
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewMoyenDeTransport.class)

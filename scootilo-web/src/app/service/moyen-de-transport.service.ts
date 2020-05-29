@@ -30,6 +30,11 @@ export class MoyenDeTransportService {
     return this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport/by-fournisseur/" + nom);
   }
 
+  FindAllTransportsInArea(latitude: number, longitude: number,): Observable<Array<undefined>> {
+    return this.http.get<Array<undefined>>("http://localhost:8080/moyendetransport/area/" + latitude + ";;"+ longitude);
+  }
+
+
   create(moyenDeTransport: MoyenDeTransport) {
     return this.http.post<MoyenDeTransport>("http://localhost:8080/moyendetransport", moyenDeTransport);
   }
