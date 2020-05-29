@@ -67,7 +67,7 @@ import { FinalisationComponent } from './components/finalisation/finalisation.co
     MonCompteFournisseurMajInfoComponent,
     MonCompteFournisseurInfoComponent,
     MonCompteClientMajInfoComponent,
-    SeDeplacerReserverSurCarteComponent
+    SeDeplacerReserverSurCarteComponent,
     MonCompteClientMajInfoComponent,
     ReservationItineraireComponent,
     FinDeTrajetComponent,
