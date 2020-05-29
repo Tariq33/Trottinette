@@ -24,13 +24,24 @@
         <label for="bic">Numéro de TVA : </label>
         <input type="text" class="form-control" id="bic" [(ngModel)]="fournisseurForm.bic">
       </div>
-
+      <div class="form-group">
+        <label for="adresse.rue">Rue :</label>
+        <input type="text" class="form-control" id="adresse.rue" [(ngModel)]="adresse.rue">
+      </div>
+      <div class="form-group">
+        <label for="adresse.ville">Ville :</label>
+        <input type="text" class="form-control" id="adresse.ville" [(ngModel)]="adresse.ville">
+      </div>
+      <div class="form-group">
+        <label for="adresse.codePostal">Code Postal :</label>
+        <input type="text" class="form-control" id="adresse.codePostal" [(ngModel)]="adresse.codePostal">
+      </div>
+      <div class="form-group">
+        <label for="adresse.complement">Complement :</label>
+        <input type="text" class="form-control" id="adresse.complement" [(ngModel)]="adresse.complement">
+      </div>
       <a type="submit" class="btn btn-primary" (click)="save()">Ajouter</a>
-      <a class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteFournisseur">Annuler</a>
-
+      <a class="btn btn-danger" style="margin-left: 10px;"routerLink="/compteFournisseur">Annuler</a>
     </div>
   </div>
 </div>
-
-
-<app-mon-compte-ajout-adresse></app-mon-compte-ajout-adresse>

@@ -1,1 +1,19 @@
-<p>id-oublie works!</p>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h4>Identifiant et/ou Mot de passe oublié ?</h4>
+    </div>
+    <div class="card-body">
+      <p class="card-text">Saississez votre adresse mail, un courriel
+        vous sera envoyé avec votre identifiant et votre mot de passe.</p>
+      <div class="form-group">
+        <label >Email : </label> <input
+        type="email" class="form-control" id="titreAdresse">
+      </div>
+
+
+      <a href="#" class="btn btn-primary">Envoyer</a>
+      <a class="btn btn-danger" style="margin-left: 10px;" [routerLink]="['/logIn']">Annuler</a>
+    </div>
+  </div>
+</div>

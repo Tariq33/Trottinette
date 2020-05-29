@@ -49,7 +49,7 @@ public class AdresseRestController {
 	}
 	
 	@GetMapping("/findbyid/{id}")
-	@JsonView(Views.ViewClient.class)
+	@JsonView(Views.ViewAdresse.class)
 	public List<Adresse> FindAddressByUserId(@PathVariable Long id) {
 		
 		List<Adresse> adresses = adresseRepo.FindAddressByUserId(id);
@@ -65,6 +65,7 @@ public class AdresseRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewAdresse.class)
 	public Adresse update(@RequestBody Adresse adresse, @PathVariable Long id) {
 		if (!adresseRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");

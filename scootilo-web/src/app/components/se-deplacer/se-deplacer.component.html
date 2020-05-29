@@ -1,4 +1,4 @@
-<div class="row" style="padding-left: 15px;">
+<div class="row" style="padding-left: 50px;">
   <div>
     <div style="text-align: center;">
 
@@ -10,34 +10,35 @@
     </div>
     <div class="form-group">
       <label >Lieu de départ :</label>
-      <input type="text" class="form-control" id="azeaze"
-      style="width: 400px;">
+      <input [(ngModel)]="adrDepart" type="text" class="form-control"
+             style="width: 400px;" placeholder="Départ">
     </div>
-    <div class="dropdown show">
-      <a class="btn btn-secondary dropdown-toggle"  role="button"
-         id="aze" data-toggle="dropdown" aria-haspopup="true"
-         aria-expanded="false"> Mes adresses </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" >Adresse n°1</a>
-          <a class="dropdown-item" >Adresse n°2</a>
-          <a class="dropdown-item" >Adresse n°3</a>
-        </div>
+
+    <div *ngIf="client!=undefined">
+      <p>Ou choisissez parmi vos adresses : </p>
+
+      <input list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe" (ngModelChange)="charger($event)" placeholder="Choisir">
+      <datalist id="mesAdrs">
+        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
+      </datalist>
     </div>
+
+
+    <br/><br/>
 
     <div class="form-group">
-      <label >Lieu d'arrivée :</label> <input
-      type="text" class="form-control" style="width: 400px;">
+      <label >Lieu d'arrivée :</label>
+      <input [(ngModel)]="adrArrivee" type="text" class="form-control"
+             style="width: 400px;"  placeholder="Arrivée">
     </div>
-    <div class="dropdown show">
-      <a class="btn btn-secondary dropdown-toggle"  role="button"
-         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-         aria-expanded="false"> Mes adresses </a>
 
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" >Adresse n°1</a> <a
-        class="dropdown-item" >Adresse n°2</a> <a
-        class="dropdown-item" >Adresse n°3</a>
-      </div>
+    <div *ngIf="client!=undefined">
+      <p>Ou choisissez parmi vos adresses : </p>
+
+      <input list="mesAdrs2" id="adrArrivee" [ngModel]="adrArriveeListe" (ngModelChange)="charger2($event)" placeholder="Choisir">
+      <datalist id="mesAdrs2">
+        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
+      </datalist>
     </div>
 
     <div>

@@ -21,6 +21,8 @@ import {SeDeplacerRechercheComponent} from "./components/se-deplacer-recherche/s
 import {ReservationItineraireComponent} from "./components/reservation-itineraire/reservation-itineraire.component";
 import {FinDeTrajetComponent} from "./components/fin-de-trajet/fin-de-trajet.component";
 import {FinalisationComponent} from "./components/finalisation/finalisation.component";
+import {MonCompteAjoutAdresseComponent} from "./components/mon-compte-ajout-adresse/mon-compte-ajout-adresse.component";
+import {IdOublieComponent} from "./components/id-oublie/id-oublie.component";
 import {MonCompteFournisseurTableauDeBordComponent} from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-tableau-de-bord.component';
 
 
@@ -40,7 +42,7 @@ const routes: Routes = [
   {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
   {path: "compteAdministrateur/miseJourInfoPerso", component: MonCompteAdministrateurMajInfoComponent },
   {path: "compteFournisseur", component: MonCompteFournisseurComponent},
-  {path: "compteFournisseur/miseJourInfoPerso", component: MonCompteFournisseurMajInfoComponent },
+  {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent },
   {path: "compteClient", component: MonCompteClientComponent},
   {path: "creationCompte", component: CreationCompteComponent},
   {path: "compteCrediter", component: MonCompteCrediterComponent},
@@ -51,6 +53,8 @@ const routes: Routes = [
   {path: "finDeTrajet", component: FinDeTrajetComponent},
   {path: "compteFournisseur/tableauDeBord", component: MonCompteFournisseurTableauDeBordComponent},
   {path: "finalisation", component: FinalisationComponent},
+  {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent},
+  {path: "idOublie", component: IdOublieComponent},
   ];
 
 @NgModule({

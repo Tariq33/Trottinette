@@ -37,13 +37,11 @@ export class PlanReseauComponent implements OnInit {
   });
 
   constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
-    if(this.sessionService.getClient().id!=undefined){
-      console.log("if");
-      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+    if(this.sessionService.getClient().type=="customer"){
+      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; }, err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
     else{
-      console.log("else");
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
   }
@@ -57,23 +55,22 @@ export class PlanReseauComponent implements OnInit {
   }
 
   createMap() {
-    console.log("0");
     const centre = {
       lat: 44.8377285,
       lng: -0.5765286,
     };
-    console.log("1");
     if (this.client != undefined) {
-      console.log("1");
       centre.lat = this.client.latitude;
       centre.lng = this.client.longitude;
     }
-    console.log("3");
 
     const zoomLevel = 14;
-    this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    var container = L.DomUtil.get('map');
+    if (container.style.position.valueOf() == "") {
+      this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    }
 
-    /*const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    /*const mainLayer = L.tileLayer('https://{s}.tile .openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',*/
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
@@ -81,9 +78,11 @@ export class PlanReseauComponent implements OnInit {
       maxZoom: 19
     });
 
-    mainLayer.addTo(this.map);
-    if (this.client != undefined) {
-      L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+    if (this.map != undefined) {
+      mainLayer.addTo(this.map);
+      if (this.client != undefined) {
+        L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+      }
     }
 
     /*L.Routing.control({
@@ -94,8 +93,10 @@ export class PlanReseauComponent implements OnInit {
   }
 
   addTransports(){
-    for (let tranport of this.moyensDeTransportObs ){
-      this.addMarker(tranport);
+    if (this.map != undefined) {
+      for (let tranport of this.moyensDeTransportObs) {
+        this.addMarker(tranport);
+      }
     }
   }
 
@@ -106,18 +107,18 @@ export class PlanReseauComponent implements OnInit {
       marker.on("click",function () {
         console.log("ON A CLIQUE");
       })
-      marker.bindPopup('<h1>velo</h1>');
+      marker.bindPopup('<h1>Velo</h1>');
     }
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<p>OK</p>');
+      marker.bindPopup('<h1>Scooter</h1>');
       //marker.bindTooltip('test');
     }
     else{
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<h1>trot</h1>');
+      marker.bindPopup('<h1>Trottinette</h1>');
     }
   }
 

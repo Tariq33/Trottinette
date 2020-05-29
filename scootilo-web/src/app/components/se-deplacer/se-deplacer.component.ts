@@ -5,6 +5,8 @@ import {MoyenDeTransportService} from "../../service/moyen-de-transport.service"
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
 import {SessionService} from "../../service/session.service";
+import {Adresse} from "../../model/adresse";
+import {AdresseService} from "../../service/adresse.service";
 
 
 @Component({
@@ -14,6 +16,37 @@ import {SessionService} from "../../service/session.service";
 })
 //export class PlanReseauComponent implements AfterViewInit {
 export class SeDeplacerComponent implements OnInit {
+  adrDepart : string = null
+  adrDepartListe : string = null
+  adrArrivee : string = null
+  adrArriveeListe : string = null
+  adresses: Array<Adresse> = new Array<Adresse>();
+
+  charger(nom:string){
+    for (let adr of this.adresses){
+      if(adr.nomAdresse==nom){
+        this.adrDepart=adr.rue+" "+adr.codePostal+" "+adr.ville;
+        return;
+      }
+    }
+  }
+
+  charger2(nom:string){
+    for (let adr of this.adresses){
+      if(adr.nomAdresse==nom){
+        this.adrArrivee=adr.rue+" "+adr.codePostal+" "+adr.ville;
+        return;
+      }
+    }
+  }
+
+  load(){
+    this.adresseService.FindAddressByUserId(this.sessionService.getClient().id).subscribe(resp => {
+      this.adresses =  resp;
+    }, error => console.log(error));
+  }
+
+
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client;
@@ -37,9 +70,14 @@ export class SeDeplacerComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService, private cdRef:ChangeDetectorRef) {
-    this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
-    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+  constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+    if(this.sessionService.getClient().type=="customer"){
+      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.load();}, err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
+    else{
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
   }
 
   /*ngAfterViewInit(): void {
@@ -52,12 +90,19 @@ export class SeDeplacerComponent implements OnInit {
 
   createMap(){
     const centre = {
-      lat: this.client.latitude,
-      lng: this.client.longitude,
+      lat: 44.8377285,
+      lng: -0.5765286,
     };
+    if (this.client != undefined) {
+      centre.lat = this.client.latitude;
+      centre.lng = this.client.longitude;
+    }
 
     const zoomLevel = 14;
-    this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    var container = L.DomUtil.get('map');
+    if (container.style.position.valueOf() == "") {
+      this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    }
 
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
@@ -65,18 +110,19 @@ export class SeDeplacerComponent implements OnInit {
       maxZoom: 19
     });
 
-    mainLayer.addTo(this.map);
-    L.marker([centre.lat,centre.lng], {icon: this.hommeIcon}).addTo(this.map);
-
-    for (let tranport of this.moyensDeTransportObs ){
-      this.addMarker(tranport);
+    if (this.map != undefined) {
+      mainLayer.addTo(this.map);
+      if (this.client != undefined) {
+        L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+      }
     }
-
   }
 
   addTransports(){
-    for (let tranport of this.moyensDeTransportObs ){
-      this.addMarker(tranport);
+    if (this.map != undefined) {
+      for (let tranport of this.moyensDeTransportObs) {
+        this.addMarker(tranport);
+      }
     }
   }
 
@@ -100,24 +146,20 @@ export class SeDeplacerComponent implements OnInit {
       marker.addTo(this.map);
       marker.on("click",event => {
         console.log("ON A CLIQUE");
-        console.log(self.ongletReservationShow);
-        self.testShow(true);
-        this.cdRef.detectChanges();
-        console.log(marker.getLatLng());
-
-      }, )
-      marker.bindPopup('<h1>velo</h1>');
-
+        this.ongletReservationShow = true;
+        //console.log(this.ongletReservationShow);
+      })
+      marker.bindPopup('<h1>Velo</h1>');
     }
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<p>OK</p>');
+      marker.bindPopup('<h1>Scooter</h1>');
     }
     else{
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<h1>trot</h1>');
+      marker.bindPopup('<h1>Trottinette</h1>');
     }
   }
   }
