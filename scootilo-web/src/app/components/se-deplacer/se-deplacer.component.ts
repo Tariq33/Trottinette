@@ -148,7 +148,7 @@ export class SeDeplacerComponent implements OnInit {
 
       marker.addTo(this.map);
       marker.on("click",event => {
-        console.log("ON A CLIQUE");
+        console.log("VELO");
         this.isShow();
         this.getTransportClick(transport);
       })
@@ -157,11 +157,21 @@ export class SeDeplacerComponent implements OnInit {
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
+      marker.on("click",event => {
+        console.log("SCOOTER");
+        this.isShow();
+        this.getTransportClick(transport);
+      })
       marker.bindPopup('<h1>Scooter</h1>');
     }
     else{
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
       marker.addTo(this.map);
+      marker.on("click",event => {
+        console.log("TROTTINETTE");
+        this.isShow();
+        this.getTransportClick(transport);
+      })
       marker.bindPopup('<h1>Trottinette</h1>');
     }
   }
