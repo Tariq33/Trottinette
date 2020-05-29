@@ -5,6 +5,8 @@ import {MoyenDeTransportService} from "../../service/moyen-de-transport.service"
 import {Client} from "../../model/client";
 import {ClientService} from "../../service/client.service";
 import {SessionService} from "../../service/session.service";
+import {Adresse} from "../../model/adresse";
+import {AdresseService} from "../../service/adresse.service";
 
 
 @Component({
@@ -14,6 +16,37 @@ import {SessionService} from "../../service/session.service";
 })
 //export class PlanReseauComponent implements AfterViewInit {
 export class SeDeplacerComponent implements OnInit {
+  adrDepart : string = null
+  adrDepartListe : string = null
+  adrArrivee : string = null
+  adrArriveeListe : string = null
+  adresses: Array<Adresse> = new Array<Adresse>();
+
+  charger(nom:string){
+    for (let adr of this.adresses){
+      if(adr.nomAdresse==nom){
+        this.adrDepart=adr.rue+" "+adr.codePostal+" "+adr.ville;
+        return;
+      }
+    }
+  }
+
+  charger2(nom:string){
+    for (let adr of this.adresses){
+      if(adr.nomAdresse==nom){
+        this.adrArrivee=adr.rue+" "+adr.codePostal+" "+adr.ville;
+        return;
+      }
+    }
+  }
+
+  load(){
+    this.adresseService.FindAddressByUserId(this.sessionService.getClient().id).subscribe(resp => {
+      this.adresses =  resp;
+    }, error => console.log(error));
+  }
+
+
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client;
@@ -37,7 +70,7 @@ export class SeDeplacerComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+  constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
       this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; }, err => console.log(err));
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
@@ -45,6 +78,7 @@ export class SeDeplacerComponent implements OnInit {
     else{
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
+    this.load();
   }
 
   /*ngAfterViewInit(): void {

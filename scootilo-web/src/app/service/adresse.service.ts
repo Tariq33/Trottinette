@@ -37,8 +37,8 @@ export class AdresseService {
     return this.http.put<Administrateur>('http://localhost:8080/adresse/' + adresse.id, adresse);
   }
 
-  deleteById(id: number) {
-    this.http.delete('http://localhost:8080/adresse/' + id).subscribe(resp => this.load(), error => console.log(error));
+  deleteById(id: number) : Observable<Adresse> {
+    return this.http.delete<Adresse>('http://localhost:8080/adresse/' + id);
   }
 
   load() {

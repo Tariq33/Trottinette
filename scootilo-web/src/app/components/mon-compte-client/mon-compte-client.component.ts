@@ -41,8 +41,11 @@ export class MonCompteClientComponent implements OnInit {
   }
 
   delete(id:number){
-      this.adresseService.deleteById(id);
+      // this.adresseService.deleteById(id);
+
+    this.adresseService.deleteById(id).subscribe(resp => {
       this.load();
+    }, error => console.log(error));
   }
 
 
