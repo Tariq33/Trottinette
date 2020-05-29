@@ -127,11 +127,11 @@ export class SeDeplacerComponent implements OnInit {
   }
 
 
-  testShow(val:boolean) {
-    this.ongletReservationShow = val;
-    this.cdRef.detectChanges();
-    console.log(this.ongletReservationShow);
-  }
+  // testShow(val:boolean) {
+  //   this.ongletReservationShow = val;
+  //   this.cdRef.detectChanges();
+  //   console.log(this.ongletReservationShow);
+  // }
 
   isShow():boolean {
     return this.ongletReservationShow;
