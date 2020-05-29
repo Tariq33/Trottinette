@@ -32,17 +32,26 @@ export class MonCompteAjoutAdresseComponent implements OnInit {
     }
 
   load(){
-    this.adresseService.findById(this.idAdr).subscribe(resp => {
-      this.adresse =  resp;
-    }, error => console.log(error));
+    if(this.idAdr!=0){
+      this.adresseService.findById(this.idAdr).subscribe(resp => {
+        this.adresse =  resp;
+      }, error => console.log(error));
+    }
   }
 
   save(){
     this.adresse.utilisateur=this.sessionService.getClient();
-    this.adresseService.modify(this.adresse).subscribe(resp => {
-      this.adresseService.load();
-      this.router.navigateByUrl('/compteClient');
-    }, error => console.log(error));
+
+    if(this.idAdr==0){
+      this.adresseService.create(this.adresse).subscribe(resp => {
+        this.router.navigateByUrl('/compteClient');
+      }, error => console.log(error));
+    }
+    else{
+      this.adresseService.modify(this.adresse).subscribe(resp => {
+        this.router.navigateByUrl('/compteClient');
+      }, error => console.log(error));
+    }
   }
 
 
