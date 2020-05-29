@@ -11,33 +11,35 @@
     <div class="form-group">
       <label >Lieu de départ :</label>
       <input [(ngModel)]="adrDepart" type="text" class="form-control"
-             style="width: 400px;">
+             style="width: 400px;" placeholder="Départ">
     </div>
 
-    <p>Ou choisissez parmi vos adresses : </p>
+    <div *ngIf="client!=undefined">
+      <p>Ou choisissez parmi vos adresses : </p>
 
-    <input list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe" (ngModelChange)="charger($event)">
-    <datalist id="mesAdrs">
-      <option>Choisissez votre adresse : </option>
-      <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
-    </datalist>
+      <input list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe" (ngModelChange)="charger($event)" placeholder="Choisir">
+      <datalist id="mesAdrs">
+        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
+      </datalist>
+    </div>
 
 
     <br/><br/>
 
     <div class="form-group">
-      <label >Lieu d'arrivée' :</label>
+      <label >Lieu d'arrivée :</label>
       <input [(ngModel)]="adrArrivee" type="text" class="form-control"
-             style="width: 400px;">
+             style="width: 400px;"  placeholder="Arrivée">
     </div>
 
-    <p>Ou choisissez parmi vos adresses : </p>
+    <div *ngIf="client!=undefined">
+      <p>Ou choisissez parmi vos adresses : </p>
 
-    <input list="mesAdrs2" id="adrArrivee" [ngModel]="adrArriveeListe" (ngModelChange)="charger2($event)">
-    <datalist id="mesAdrs2">
-      <option>Choisissez votre adresse : </option>
-      <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
-    </datalist>
+      <input list="mesAdrs2" id="adrArrivee" [ngModel]="adrArriveeListe" (ngModelChange)="charger2($event)" placeholder="Choisir">
+      <datalist id="mesAdrs2">
+        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
+      </datalist>
+    </div>
 
     <div>
       <h6 class="card-title">Préférences :</h6>

@@ -72,13 +72,12 @@ export class SeDeplacerComponent implements OnInit {
 
   constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
-      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; }, err => console.log(err));
+      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.load();}, err => console.log(err));
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
     else{
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
-    this.load();
   }
 
   /*ngAfterViewInit(): void {
@@ -136,7 +135,7 @@ export class SeDeplacerComponent implements OnInit {
       marker.on("click",function (event) {
         console.log("ON A CLIQUE");
         this.ongletReservationShow = true;
-        console.log(this.ongletReservationShow);
+        //console.log(this.ongletReservationShow);
       })
       marker.bindPopup('<h1>Velo</h1>');
     }
