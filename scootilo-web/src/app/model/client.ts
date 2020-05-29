@@ -7,7 +7,7 @@ import {Transaction} from "./Transaction";
 export class Client extends Utilisateur {
   solde: number;
   prenom: string;
-  adresse: Adresse;
+  adresse: Array<Adresse>;
   preference: Preference;
   reservations: Array<Reservation>;
   transactions: Array<Transaction>;
@@ -16,7 +16,7 @@ export class Client extends Utilisateur {
   longitude: number;
 
 
-  constructor(solde?: number,type?:string,prenom?: string, adresse?: Adresse, preference?: Preference, reservations?: Array<Reservation>, transactions?: Array<Transaction>, latitude?: number, longitude?:number) {
+  constructor(solde?: number,type?:string,prenom?: string, adresse?: Array<Adresse>, preference?: Preference, reservations?: Array<Reservation>, transactions?: Array<Transaction>, latitude?: number, longitude?:number) {
     super();
     this.solde = solde
     this.prenom = prenom;

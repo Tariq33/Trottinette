@@ -9,11 +9,12 @@ export class Fournisseur extends Utilisateur {
   numeroTva: string;
   iban: string;
   bic: string;
-  adresse: Adresse;
+  adresse: Array<Adresse>;
   paiements: Array<PaiementFournisseur>;
   moyensDeTransport: Array<MoyenDeTransport>;
 
-  constructor(numeroSiret?: string,numeroTva?: string, iban?: string, bic?: string, adresse?: Adresse, paiements?: Array<PaiementFournisseur>, moyensDeTransport?: Array<MoyenDeTransport>) {
+
+  constructor(numeroSiret?: string,numeroTva?: string, iban?: string, bic?: string, adresse?: Array<Adresse>, paiements?: Array<PaiementFournisseur>, moyensDeTransport?: Array<MoyenDeTransport>) {
     super();
     this.numeroSiret = numeroSiret
     this.numeroTva = numeroTva;

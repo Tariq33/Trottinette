@@ -71,12 +71,15 @@
     <td>{{adr.complement}}</td>
     <td>
       <div class="btn-group btn-group-sm">
+
         <a class="btn btn-primary" [routerLink]="['/compteClient/ajoutAdresse',adr.id]"><i class="fa fa-edit"></i></a>
         <a class="btn btn-danger" (click)="delete(adr.id)"><i class="fa fa-trash"></i></a>
       </div>
     </td>
+
   </tr>
   </tbody>
+  <a class="btn btn-primary" [routerLink]="['/compteClient/ajoutAdresse',0]"><i class="fa fa-plus"></i></a>
 </table>
 </div>
 

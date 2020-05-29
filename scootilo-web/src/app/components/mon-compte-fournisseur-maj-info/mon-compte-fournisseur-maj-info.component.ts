@@ -16,6 +16,7 @@ export class MonCompteFournisseurMajInfoComponent implements OnInit {
 
   fournisseurForm: Fournisseur = new Fournisseur();
   adresse : Adresse=new Adresse();
+  adresses : Array<Adresse>;
   idAdr : number;
 
   constructor(private adresseService : AdresseService, private sessionService : SessionService, private fournisseurService: FournisseurService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
@@ -38,6 +39,13 @@ export class MonCompteFournisseurMajInfoComponent implements OnInit {
   }
 
   save() {
+    this.adresse.utilisateur=this.sessionService.getClient();
+    this.adresseService.modify(this.adresse).subscribe(resp => {
+      this.adresseService.load();
+      this.router.navigateByUrl('/compteFournisseur');
+    }, error => console.log(error));
+  console.log(this.adresse);
+
     this.fournisseurService.modify(this.fournisseurForm).subscribe(resp => {
       this.fournisseurForm = new Fournisseur();
       this.updateSessionStorage();
