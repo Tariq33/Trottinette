@@ -15,8 +15,10 @@ export class AppComponent {
 
   constructor(public sessionService : SessionService,public router: Router,
               private utilisateurService:UtilisateurService) {
-    
-    // this.connexionEnTantQueClient();
+
+        // POUR NE PAS AVOIR A SE RECONECTER A CHAQUE TEST ( penser a l'enlever avant utilisation final !! )
+
+    this.connexionEnTantQueClient();
     // this.connexionEnTantQueAdministrateur();
     // this.connexionEnTantQueFournisseur();
 
