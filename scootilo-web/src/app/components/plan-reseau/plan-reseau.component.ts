@@ -65,9 +65,12 @@ export class PlanReseauComponent implements OnInit {
     }
 
     const zoomLevel = 14;
-    this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    var container = L.DomUtil.get('map');
+    if (container.style.position.valueOf() == "") {
+      this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
+    }
 
-    /*const mainLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    /*const mainLayer = L.tileLayer('https://{s}.tile .openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',*/
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
@@ -75,9 +78,11 @@ export class PlanReseauComponent implements OnInit {
       maxZoom: 19
     });
 
-    mainLayer.addTo(this.map);
-    if (this.client != undefined) {
-      L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+    if (this.map != undefined) {
+      mainLayer.addTo(this.map);
+      if (this.client != undefined) {
+        L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
+      }
     }
 
     /*L.Routing.control({
@@ -88,8 +93,10 @@ export class PlanReseauComponent implements OnInit {
   }
 
   addTransports(){
-    for (let tranport of this.moyensDeTransportObs ){
-      this.addMarker(tranport);
+    if (this.map != undefined) {
+      for (let tranport of this.moyensDeTransportObs) {
+        this.addMarker(tranport);
+      }
     }
   }
 
