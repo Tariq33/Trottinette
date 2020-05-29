@@ -41,6 +41,7 @@ import {MenuItem} from 'primeng/api';                  //api
 import {ChartModule} from 'primeng/chart';
 import { MonCompteFournisseurGrapheGainComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-gain/mon-compte-fournisseur-graphe-gain.component';
 import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-repartition-transport/mon-compte-fournisseur-graphe-repartition-transport.component';
+import { DateCustomPipe } from './pipe/date-custom.pipe';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './compo
     FinalisationComponent,
     MonCompteFournisseurTableauDeBordComponent,
     MonCompteFournisseurGrapheGainComponent,
-    MonCompteFournisseurGrapheRepartitionTransportComponent
+    MonCompteFournisseurGrapheRepartitionTransportComponent,
+    DateCustomPipe
   ],
   imports: [
     BrowserModule,
