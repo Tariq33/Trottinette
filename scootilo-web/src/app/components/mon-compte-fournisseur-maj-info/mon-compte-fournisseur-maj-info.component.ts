@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Fournisseur} from '../../model/fournisseur';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FournisseurService} from '../../service/fournisseur.service';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   selector: 'app-mon-compte-fournisseur-maj-info',
@@ -13,27 +14,28 @@ export class MonCompteFournisseurMajInfoComponent implements OnInit {
 
   fournisseurForm: Fournisseur = new Fournisseur();
 
-  constructor(private fournisseurService: FournisseurService, private http: HttpClient) { }
+  constructor(private sessionService : SessionService, private fournisseurService: FournisseurService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+    this.fournisseurForm=sessionService.getFournisseur();
+  }
 
   ngOnInit(): void {
-    console.log(sessionStorage.getItem("utilisateur"));
-    this.fournisseurForm = JSON.parse(sessionStorage.getItem("utilisateur"));
-    // this.fournisseurForm.nom = JSON.parse(sessionStorage.getItem("utilisateur")).nom;
-    // this.fournisseurForm.numeroSiret = JSON.parse(sessionStorage.getItem("utilisateur")).numeroSiret;
-    // this.fournisseurForm.numeroTva = JSON.parse(sessionStorage.getItem("utilisateur")).numeroTva;
-    // this.fournisseurForm.iban = JSON.parse(sessionStorage.getItem("utilisateur")).iban;
-    // this.fournisseurForm.bic = JSON.parse(sessionStorage.getItem("utilisateur")).bic;
-
-
   }
 
   save() {
-    if (this.fournisseurForm.id) {
-      this.fournisseurService.modify(this.fournisseurForm).subscribe(resp => {
-        this.fournisseurForm = null;
-        this.fournisseurService.load();
-      }, error => console.log(error));
-    }
+    this.fournisseurService.modify(this.fournisseurForm).subscribe(resp => {
+      this.fournisseurForm = new Fournisseur();
+      this.updateSessionStorage();
+    }, error => console.log(error));
+
+  }
+
+  updateSessionStorage() {
+    this.fournisseurService.findById(JSON.parse(sessionStorage.getItem("utilisateur")).id).subscribe(resp => {
+        this.sessionService.setUtilisateur(resp);
+        this.router.navigateByUrl('/compteFournisseur');
+      },
+      error => console.log(error)
+    )
   }
 
   cancel() {

@@ -17,6 +17,7 @@ export class SeDeplacerComponent implements OnInit {
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client;
+  ongletReservationShow: boolean = false;
 
   clickrechercher: boolean = false;
 
@@ -87,10 +88,14 @@ export class SeDeplacerComponent implements OnInit {
 
   addMarker(transport){
     if(transport.typeDeTransport=="velo"){
-      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
+      const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
+
+
       marker.addTo(this.map);
-      marker.on("click",function () {
+      marker.on("click",function (event) {
         console.log("ON A CLIQUE");
+        this.ongletReservationShow = true;
+        console.log(this.ongletReservationShow);
       })
       marker.bindPopup('<h1>velo</h1>');
     }
@@ -105,5 +110,4 @@ export class SeDeplacerComponent implements OnInit {
       marker.bindPopup('<h1>trot</h1>');
     }
   }
-
-}
+  }

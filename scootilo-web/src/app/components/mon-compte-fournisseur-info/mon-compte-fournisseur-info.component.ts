@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Fournisseur} from '../../model/fournisseur';
+import {SessionService} from '../../service/session.service';
+import {AdministrateurService} from '../../service/administrateur.service';
 import {FournisseurService} from '../../service/fournisseur.service';
 
 @Component({
@@ -10,13 +12,11 @@ import {FournisseurService} from '../../service/fournisseur.service';
 export class MonCompteFournisseurInfoComponent implements OnInit {
   fournisseurForm: Fournisseur = new Fournisseur();
 
-  constructor(private fournisseurService: FournisseurService) {
+  constructor(private sessionService : SessionService, private fournisseurService: FournisseurService) {
+    this.fournisseurForm=this.sessionService.getFournisseur();
   }
 
   ngOnInit(): void {
-    let identifiant: string = 'Lime';
-    this.fournisseurService.findByIdentifiant(identifiant).subscribe(resp => this.fournisseurForm = resp, error => console.log(error));
-
   }
 
   edit(id: number) {

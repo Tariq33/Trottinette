@@ -3,7 +3,10 @@ import {Administrateur} from '../../model/administrateur';
 import {AdministrateurService} from '../../service/administrateur.service';
 import {MoyenDeTransport} from '../../model/moyenDeTransport';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Client} from '../../model/client';
+import {SessionService} from '../../service/session.service';
+import {ClientService} from '../../service/client.service';
 
 @Component({
   selector: 'app-mon-compte-administrateur-maj-info',
@@ -14,33 +17,29 @@ export class MonCompteAdministrateurMajInfoComponent implements OnInit {
 
   administrateurForm: Administrateur = new Administrateur();
 
-  constructor(private adminstrateurService: AdministrateurService, private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private sessionService : SessionService, private administrateurService: AdministrateurService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+    this.administrateurForm=sessionService.getClient();
+    console.log(this.administrateurForm);
+  }
 
   ngOnInit(): void {
-
-    this.route.params.subscribe(params => {
-      let id = params['id'];
-
-        this.adminstrateurService.findById(id).subscribe(resp => this.administrateurForm = resp, error => console.log(error));
-
-  })
   }
 
   save() {
-    if (!this.administrateurForm.id) {
-      this.adminstrateurService.create(this.administrateurForm).subscribe(resp => {
-          this.administrateurForm = null;
-          this.adminstrateurService.load();
-        },
-        error => console.log(error)
-      )
+    this.administrateurService.modify(this.administrateurForm).subscribe(resp => {
+      this.administrateurForm = new Administrateur();
+      this.updateSessionStorage();
+    }, error => console.log(error));
 
-    } else {
-      this.adminstrateurService.modify(this.administrateurForm).subscribe(resp => {
-        this.administrateurForm = null;
-        this.adminstrateurService.load();
-      }, error => console.log(error));
-    }
+  }
+
+  updateSessionStorage() {
+    this.administrateurService.findById(JSON.parse(sessionStorage.getItem("utilisateur")).id).subscribe(resp => {
+        this.sessionService.setUtilisateur(resp);
+        this.router.navigateByUrl('/compteAdministrateur');
+      },
+      error => console.log(error)
+    )
   }
 
   cancel() {
