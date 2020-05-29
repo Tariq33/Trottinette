@@ -46,7 +46,7 @@
       </div>
 
       <a *ngIf="typeUser == 'admin'" type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteAdministrateur">Ajouter</a>
-      <a *ngIf="typeUser == 'supplier'" type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteAFournisseur">Ajouter</a>
+      <a *ngIf="typeUser == 'supplier'" type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteFournisseur">Ajouter</a>
       <a *ngIf="typeUser == 'admin'" class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteAdministrateur">Annuler</a>
       <a *ngIf="typeUser == 'supplier'"class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteFournisseur">Annuler</a>
 

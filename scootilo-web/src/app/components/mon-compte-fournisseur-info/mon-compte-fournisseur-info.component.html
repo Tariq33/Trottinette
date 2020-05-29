@@ -17,7 +17,7 @@
       <h6 class="card-title">Adresse :</h6>
       <p class="card-text">{{fournisseurForm.adresse?.rue}} {{fournisseurForm.adresse?.complement}}</p>
       <p class="card-text">{{fournisseurForm.adresse?.codePostal}} {{fournisseurForm.adresse?.ville}}</p>
-      <br> <a class="btn btn-primary" (click)="edit(fournisseurForm.id)" [routerLink]="['/compteFournisseur/miseJourInfoPerso', fournisseurForm.id]">Mettre à jour les informations </a>
+      <br> <a class="btn btn-primary" (click)="edit(fournisseurForm.id)" [routerLink]="['/compteFournisseur/miseJourInfoPerso']">Mettre à jour les informations </a>
     </div>
   </div>
 </div>

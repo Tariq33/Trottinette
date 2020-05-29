@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from "../../model/client";
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from '@angular/router';
 import {ClientService} from "../../service/client.service";
-import {Preference} from "../../model/Preference";
 import {SessionService} from "../../service/session.service";
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-mon-compte-client-maj-info',
@@ -13,7 +13,7 @@ import {SessionService} from "../../service/session.service";
 })
 export class MonCompteClientMajInfoComponent implements OnInit {
 
-  clientunique: Client;
+  clientunique: Client = new Client();
 
   constructor(private sessionService : SessionService, private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
     this.clientunique=sessionService.getClient();
@@ -24,7 +24,6 @@ export class MonCompteClientMajInfoComponent implements OnInit {
 
   save() {
       this.clientService.modify(this.clientunique).subscribe(resp => {
-        this.clientunique = null;
         this.updateSessionStorage();
       }, error => console.log(error));
 
@@ -36,7 +35,7 @@ export class MonCompteClientMajInfoComponent implements OnInit {
         this.router.navigateByUrl('/compteClient');
       },
       error => console.log(error)
-    );
+    )
   }
 
   cancel() {
