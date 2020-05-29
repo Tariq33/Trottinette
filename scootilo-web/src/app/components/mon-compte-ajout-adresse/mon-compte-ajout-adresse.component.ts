@@ -3,10 +3,12 @@ import {Fournisseur} from '../../model/fournisseur';
 import { Client } from 'src/app/model/client';
 import {MoyenDeTransportService} from '../../service/moyen-de-transport.service';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FournisseurService} from '../../service/fournisseur.service';
 import {ClientService} from '../../service/client.service';
 import { Adresse } from 'src/app/model/adresse';
+import {AdresseService} from "../../service/adresse.service";
+import {SessionService} from "../../service/session.service";
 
 @Component({
   selector: 'app-mon-compte-ajout-adresse',
@@ -15,56 +17,37 @@ import { Adresse } from 'src/app/model/adresse';
 })
 export class MonCompteAjoutAdresseComponent implements OnInit {
 
-fournisseurForm: Fournisseur = new Fournisseur();
-clientForm: Client = new Client();
+  idAdr: number;
+  adresse : Adresse = new Adresse();
 
-  constructor(private fournisseurService: FournisseurService, private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private router: Router, private sessionService : SessionService,private adresseService: AdresseService, private http: HttpClient, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      this.idAdr = params['id'];
+    });
+    this.load();
+  }
 
   ngOnInit(): void {
-  this.fournisseurForm.adresse = new Adresse();
-    console.log(sessionStorage.getItem("utilisateur"));
-    this.fournisseurForm = JSON.parse(sessionStorage.getItem("utilisateur"));
-    if(!this.fournisseurForm.adresse)
-    this.fournisseurForm.adresse = new Adresse();
+
     }
 
+  load(){
+    this.adresseService.findById(this.idAdr).subscribe(resp => {
+      this.adresse =  resp;
+    }, error => console.log(error));
+  }
 
-
-
-  getType():string{
-    if(sessionStorage.getItem("utilisateur")!="") return JSON.parse(sessionStorage.getItem("utilisateur")).type;
-    else return "";
+  save(){
+    this.adresse.utilisateur=this.sessionService.getClient();
+    this.adresseService.modify(this.adresse).subscribe(resp => {
+      this.adresseService.load();
+      this.router.navigateByUrl('/compteClient');
+    }, error => console.log(error));
   }
 
 
-  saveFournisseur() {
-    console.log(this.fournisseurForm)
-    if (this.fournisseurForm.id) {
-      this.fournisseurService.modify(this.fournisseurForm).subscribe(resp => {
-          this.fournisseurForm.adresse = null;
-          this.fournisseurService.load();
-        },
-        error => console.log(error)
-      )
-    }
-  }
-
-  saveClient() {
-    if (!this.clientForm.id) {
-      this.clientService.create(this.clientForm).subscribe(resp => {
-          this.clientForm = null;
-          this.clientService.load();
-        },
-        error => console.log(error)
-      )
-    }
-  }
-
-  cancelFournisseur() {
-    this.fournisseurForm = null;
-  }
-  cancelClient() {
-    this.clientForm = null;
+  cancel(){
+    this.router.navigateByUrl('/compteClient');
   }
 
 }

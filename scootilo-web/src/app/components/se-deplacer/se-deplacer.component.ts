@@ -104,17 +104,17 @@ export class SeDeplacerComponent implements OnInit {
         this.ongletReservationShow = true;
         console.log(this.ongletReservationShow);
       })
-      marker.bindPopup('<h1>velo</h1>');
+      marker.bindPopup('<h1>Velo</h1>');
     }
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<p>OK</p>');
+      marker.bindPopup('<h1>Scooter</h1>');
     }
     else{
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<h1>trot</h1>');
+      marker.bindPopup('<h1>Trottinette</h1>');
     }
   }
   }

@@ -1,59 +1,34 @@
-<div class="container">
-  <div class="card">
-    <div class="card-header">
-      <h4>Ajout d'une nouvelle adresse</h4>
+
+
+<div class="card container">
+  <div class="card-body">
+    <div class="form-group">
+      <label for="adresse.rue">Rue :</label>
+      <input type="text" class="form-control" id="adresse.rue" [(ngModel)]="adresse.rue">
     </div>
-    <div *ngIf="getType() == 'customer'" class="card-body">
-
-        <div  class="form-group">
-          <label for="titreAdresse">Titre de l'adresse : </label> <input
-          type="text" class="form-control" id="titreAdresse">
-        </div>
-        <div class="form-group">
-          <label for="rue">Rue : </label> <input
-          type="text" class="form-control" id="rue" [(ngModel)]="clientForm.adresse.rue">
-        </div>
-        <div class="form-group">
-          <label for="complement">Complément : </label> <input
-          type="text" class="form-control" id="complement" [(ngModel)]="clientForm.adresse.complement">
-        </div>
-        <div class="form-group">
-          <label for="codePostal">Code postal : </label> <input
-          type="text" class="form-control" id="codePostal" [(ngModel)]="clientForm.adresse.codePostal">
-        </div>
-        <div class="form-group">
-          <label for="ville">Ville : </label> <input
-          type="text" class="form-control" id="ville" [(ngModel)]="clientForm.adresse.ville">
-        </div>
-
-
-      <a class="btn btn-primary" (click)="saveClient()" routerLink="/compteClient">Ajouter</a>
-      <a class="btn btn-danger" style="margin-left: 10px;" (click)="cancelClient()"  routerLink="/compteClient">Annuler</a>
+    <div class="form-group">
+      <label for="adresse.ville">Ville :</label>
+      <input type="text" class="form-control" id="adresse.ville" [(ngModel)]="adresse.ville">
     </div>
-
-    <div *ngIf="getType() == 'supplier'" class="card-body">
-
-        <div class="form-group">
-          <label for="rue">Rue : </label> <input
-          type="text" class="form-control" id="rue" [(ngModel)]="fournisseurForm.adresse.rue">
-        </div>
-        <div class="form-group">
-          <label for="complement">Complément : </label> <input
-          type="text" class="form-control" id="complement" [(ngModel)]="fournisseurForm.adresse.complement">
-        </div>
-        <div class="form-group">
-          <label for="codePostal">Code postal : </label> <input
-          type="text" class="form-control" id="codePostal" [(ngModel)]="fournisseurForm.adresse.codePostal">
-        </div>
-        <div class="form-group">
-          <label for="ville">Ville : </label> <input
-          type="text" class="form-control" id="ville" [(ngModel)]="fournisseurForm.adresse.ville">
-        </div>
-
-
-      <a class="btn btn-primary" (click)="saveFournisseur()" routerLink="/compteFournisseur">Ajouter</a>
-      <a class="btn btn-danger" style="margin-left: 10px;" (click)="cancelFournisseur()"  routerLink="/compteFournisseur">Annuler</a>
+    <div class="form-group">
+      <label for="adresse.codePostal">Code Postal :</label>
+      <input type="text" class="form-control" id="adresse.codePostal" [(ngModel)]="adresse.codePostal">
+    </div>
+    <div class="form-group">
+      <label for="adresse.complement">Complement :</label>
+      <input type="text" class="form-control" id="adresse.complement" [(ngModel)]="adresse.complement">
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="btn-group btn-group-lg">
+      <a class="btn btn-success" (click)="save()">
+        <i class="fa fa-check"></i>
+      </a>
+      <a class="btn btn-warning" (click)="cancel()">
+        <i class="fa fa-undo"></i>
+      </a>
     </div>
   </div>
 </div>
+
 

@@ -21,6 +21,8 @@ import {SeDeplacerRechercheComponent} from "./components/se-deplacer-recherche/s
 import {ReservationItineraireComponent} from "./components/reservation-itineraire/reservation-itineraire.component";
 import {FinDeTrajetComponent} from "./components/fin-de-trajet/fin-de-trajet.component";
 import {FinalisationComponent} from "./components/finalisation/finalisation.component";
+import {MonCompteAjoutAdresseComponent} from "./components/mon-compte-ajout-adresse/mon-compte-ajout-adresse.component";
+import {IdOublieComponent} from "./components/id-oublie/id-oublie.component";
 
 
 const routes: Routes = [
@@ -49,6 +51,8 @@ const routes: Routes = [
   {path: "reservationItineraire", component: ReservationItineraireComponent},
   {path: "finDeTrajet", component: FinDeTrajetComponent},
   {path: "finalisation", component: FinalisationComponent},
+  {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent},
+  {path: "idOublie", component: IdOublieComponent},
   ];
 
 @NgModule({
