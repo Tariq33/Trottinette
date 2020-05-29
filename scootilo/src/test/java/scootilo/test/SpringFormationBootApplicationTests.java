@@ -66,8 +66,6 @@ class SpringFormationBootApplicationTests {
 		adresse.setUtilisateur(jeremy);
 		adresse = adresseDao.save(adresse);
 		
-		
-		/*
 		MoyenDeTransport scoot = new MoyenDeTransport();
 		scoot.setTypeDeTransport(TypeDeTransport.scooter);
 		scoot.setDisponible(true);
@@ -117,7 +115,6 @@ class SpringFormationBootApplicationTests {
 
 		clement = utilisateurDao.save(clement);
 
-		Client jeremy = new Client();
 		jeremy.setNom("CHARTIER");
 		jeremy.setIdentifiant("jeje");
 		jeremy.setMotDePasse("dede");
@@ -201,7 +198,7 @@ class SpringFormationBootApplicationTests {
 //		
 //		System.out.println(moyensDeTransport.get(0));
 
-//		utilisateurDao.delete(clement);*/
+//		utilisateurDao.delete(clement);
 	}
 
 }

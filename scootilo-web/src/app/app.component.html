@@ -1,5 +1,6 @@
-<div style="margin-bottom: 80px;">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<!--style="margin-bottom: 80px;"-->
+<div>
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" [routerLink]="['/accueil']" >Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarsExampleDefault"
@@ -7,59 +8,58 @@
             aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active"><a [routerLink]="['/seDeplacer']" class="nav-link" >Se déplacer
-          <span class="sr-only"></span>
-        </a></li>
-        <li class="nav-item active"><a [routerLink]="['/tarifs']" class="nav-link" >Tarifs
-          <span class="sr-only"></span>
-        </a></li>
-<!--        <li class="nav-item active"><a [routerLink]="['/stagiaire']" class="nav-link" >Plan-->
-<!--          du réseau <span class="sr-only"></span>-->
-<!--        </a></li>-->
-        <li class="nav-item active"><a [routerLink]="['/partenaires']" class="nav-link" >Partenaires
-          <span class="sr-only"></span>
-        </a></li>
-        <li class="nav-item active"><a [routerLink]="['/contact']" class="nav-link" >Contact<span
-          class="sr-only"></span></a></li>
+        <li class="nav-item active">
+          <a [routerLink]="['/seDeplacer']" class="nav-link" >Se déplacer
+          <span class="sr-only"></span> </a>
+        </li>
+        <li class="nav-item active">
+          <a [routerLink]="['/tarifs']" class="nav-link" >Tarifs
+          <span class="sr-only"></span>  </a>
+        </li>
+        <li class="nav-item active">
+          <a [routerLink]="['/partenaires']" class="nav-link" >Partenaires
+          <span class="sr-only"></span> </a>
+        </li>
+        <li class="nav-item active">
+          <a [routerLink]="['/contact']" class="nav-link" >Contact<span
+          class="sr-only"></span></a>
+        </li>
         <li class="nav-item active"><a [routerLink]="['/plan']" class="nav-link" >Plan du réseau<span
           class="sr-only"></span></a></li>
-
-
-
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <button *ngIf="!sessionService.getIdentifiant(); else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se
-          connecter</button>
+      <div class="form-inline my-2 my-lg-0">
+        <button *ngIf="!sessionService.getIdentifiant(); else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se connecter</button>
         <ng-template #connecte>
           <button *ngIf="sessionService.getType()=='admin'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteAdministrateur']">Mon compte</button>
           <button *ngIf="sessionService.getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteClient']">Mon compte</button>
           <button *ngIf="sessionService.getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteFournisseur']">Mon compte</button>
         </ng-template>
-      </form>
+      </div>
     </div>
   </nav>
 </div>
 
+<p>{{this.router.url}}</p>
 
-<div class="container-fluid">
-
+<div *ngIf="this.router.url==='/' || this.router.url==='/accueil'; else lesAutresComposants">
   <router-outlet></router-outlet>
-
 </div>
+
+<ng-template #lesAutresComposants >
+  <div style="margin-top: 80px;">
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>
+
 <br>
 <br>
 <br>
 
 
 <footer id="sticky-footer" class="py-4 bg-dark text-white-50 fixed-bottom">
-
-<!--
-<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
--->
   <div class="container text-center">
-    <small>Copyright &copy; Scootilo</small>
+    <small style="color: white">Copyright &copy; Scootilo</small>
   </div>
 </footer>
