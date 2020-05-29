@@ -5,6 +5,9 @@ import {Adresse} from "../../model/adresse";
 import {Reservation} from "../../model/Reservation";
 import {Itineraire} from "../../model/itineraire";
 import {SessionService} from "../../service/session.service";
+import {AdresseService} from "../../service/adresse.service";
+import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-mon-compte-client',
@@ -13,35 +16,40 @@ import {SessionService} from "../../service/session.service";
 })
 export class MonCompteClientComponent implements OnInit {
 
-  clientunique: Client;
-  adresse: Adresse = new Adresse();
-  reservation: Reservation = new Reservation();
-  itineraire: Itineraire = new Itineraire();
+  client: Client;
+  adresses: Array<Adresse> = new Array<Adresse>();
+  // reservation: Reservation = new Reservation();
+  // itineraire: Itineraire = new Itineraire();
   histo: Array<object> = new Array<object>();
 
 
-  constructor(private sessionService : SessionService, private clientService: ClientService) {
-    this.clientunique=this.sessionService.getClient();
+  constructor(private adresseService : AdresseService, private sessionService : SessionService, private clientService: ClientService,private router: Router) {
+    this.client=this.sessionService.getClient();
+    this.load();
 
-    // clientService.FindHistorique(323).subscribe(resp => {
+    // clientService.FindHistorique(this.sessionService.getClient().id).subscribe(resp => {
     //   this.histo = resp;
     //   console.log(this.histo);
     // }, error => console.log(error));
 
   }
 
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   edit(id: number) {
-    this.clientService.findById(id).subscribe(resp => {
-        this.clientunique = resp;
-        this.clientService.load();
-      },
-      error => console.log(error)
-    )
+    this.router.navigateByUrl('/ajoutAdresse');
+  }
+
+  delete(id:number){
+      this.adresseService.deleteById(id);
+      this.load();
+  }
+
+
+  load(){
+    this.adresseService.FindAddressByUserId(this.sessionService.getClient().id).subscribe(resp => {
+      this.adresses =  resp;
+    }, error => console.log(error));
   }
 
 }

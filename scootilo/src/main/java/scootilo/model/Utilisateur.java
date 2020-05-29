@@ -57,6 +57,7 @@ public abstract class Utilisateur {
 	@JsonView(Views.ViewCommon.class)
 	private Boolean compteValide;
 	@OneToMany(mappedBy = "utilisateur")
+	@JsonView(Views.ViewUtilisateur.class)
 	private List<Adresse> adresses = new ArrayList<Adresse>();
 	
 	public Utilisateur() {
