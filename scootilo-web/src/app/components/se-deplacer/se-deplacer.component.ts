@@ -17,6 +17,7 @@ export class SeDeplacerComponent implements OnInit {
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client;
+  ongletReservationShow: boolean = false;
 
   clickrechercher: boolean = false;
 
@@ -37,8 +38,13 @@ export class SeDeplacerComponent implements OnInit {
   });
 
   constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
-    this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
-    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+    if(this.sessionService.getClient().type=="customer"){
+      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; }, err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
+    else{
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
   }
 
   /*ngAfterViewInit(): void {
@@ -51,9 +57,13 @@ export class SeDeplacerComponent implements OnInit {
 
   createMap(){
     const centre = {
-      lat: this.client.latitude,
-      lng: this.client.longitude,
+      lat: 44.8377285,
+      lng: -0.5765286,
     };
+    if (this.client != undefined) {
+      centre.lat = this.client.latitude;
+      centre.lng = this.client.longitude;
+    }
 
     const zoomLevel = 14;
     this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
@@ -65,12 +75,9 @@ export class SeDeplacerComponent implements OnInit {
     });
 
     mainLayer.addTo(this.map);
-    L.marker([centre.lat,centre.lng], {icon: this.hommeIcon}).addTo(this.map);
-
-    for (let tranport of this.moyensDeTransportObs ){
-      this.addMarker(tranport);
+    if (this.client != undefined) {
+      L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
     }
-
   }
 
   addTransports(){
@@ -81,23 +88,26 @@ export class SeDeplacerComponent implements OnInit {
 
   addMarker(transport){
     if(transport.typeDeTransport=="velo"){
-      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
+      const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
+
+
       marker.addTo(this.map);
-      marker.on("click",function () {
+      marker.on("click",function (event) {
         console.log("ON A CLIQUE");
+        this.ongletReservationShow = true;
+        console.log(this.ongletReservationShow);
       })
-      marker.bindPopup('<h1>velo</h1>');
+      marker.bindPopup('<h1>Velo</h1>');
     }
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<p>OK</p>');
+      marker.bindPopup('<h1>Scooter</h1>');
     }
     else{
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
       marker.addTo(this.map);
-      marker.bindPopup('<h1>trot</h1>');
+      marker.bindPopup('<h1>Trottinette</h1>');
     }
   }
-
-}
+  }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Administrateur} from '../../model/administrateur';
 import {AdministrateurService} from '../../service/administrateur.service';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   selector: 'app-mon-compte-administrateur-info',
@@ -10,27 +11,18 @@ import {AdministrateurService} from '../../service/administrateur.service';
 export class MonCompteAdministrateurInfoComponent implements OnInit {
   administrateurForm: Administrateur = new Administrateur();
 
-  constructor(private administrateurService: AdministrateurService) {
+  constructor(private sessionService : SessionService, private administrateurService: AdministrateurService) {
+    this.administrateurForm=this.sessionService.getClient();
   }
 
   ngOnInit(): void {
-    let identifiant: string = JSON.parse(sessionStorage.getItem("utilisateur")).identifiant;
-    console.log(identifiant);
-    console.log(sessionStorage.getItem("utilisateur"));
-    this.administrateurForm.prenom = JSON.parse(sessionStorage.getItem("utilisateur")).prenom;
-    this.administrateurForm.nom = JSON.parse(sessionStorage.getItem("utilisateur")).nom;
-    this.administrateurForm.email = JSON.parse(sessionStorage.getItem("utilisateur")).email;
-    this.administrateurForm.id = JSON.parse(sessionStorage.getItem("utilisateur")).id;
-
-    // this.administrateurService.findByIdentifiant(identifiant).subscribe(resp => this.administrateurForm = resp, error => console.log(error));
-
-  }
+      }
 
   edit(id: number) {
     this.administrateurService.findById(id).subscribe(resp => {
-      this.administrateurForm = resp;
-      this.administrateurService.load();
-    },
+        this.administrateurForm = resp;
+        this.administrateurService.load();
+      },
       error => console.log(error)
     )
   }
