@@ -51,7 +51,7 @@ const routes: Routes = [
   {path: "reservationItineraire", component: ReservationItineraireComponent},
   {path: "finDeTrajet", component: FinDeTrajetComponent},
   {path: "finalisation", component: FinalisationComponent},
-  {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent}
+  {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent},
   {path: "idOublie", component: IdOublieComponent},
   ];
 
