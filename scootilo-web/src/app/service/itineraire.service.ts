@@ -18,6 +18,10 @@ export class ItineraireService {
     return this.itineraires;
   }
 
+  findItineraireByFournisseur(nom: string): Observable<Array<Itineraire>> {
+    return this.http.get<Array<Itineraire>>('http://localhost:8080/itineraire/by-fournisseur/' + nom);
+  }
+
   findById(id: number): Observable<Itineraire> {
     return this.http.get<Itineraire>('http://localhost:8080/itineraire/' + id);
   }

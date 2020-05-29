@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UtilisateurService} from '../../service/utilisateur.service';
 import {Utilisateur} from '../../model/utilisateur';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-mon-compte-administrateur-liste-utilisateur',
@@ -13,7 +12,7 @@ export class MonCompteAdministrateurListeUtilisateurComponent implements OnInit 
   utilisateurForm: Utilisateur = null;
   private utilisateurs: Array<Utilisateur> = new Array<Utilisateur>();
 
-  constructor(private utilisateurService: UtilisateurService, private http: HttpClient) {
+  constructor(private utilisateurService: UtilisateurService) {
   }
 
   ngOnInit(): void {

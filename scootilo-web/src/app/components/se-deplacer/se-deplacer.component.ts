@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
@@ -37,7 +37,7 @@ export class SeDeplacerComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+  constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService, private cdRef:ChangeDetectorRef) {
     this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
     this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
   }
@@ -80,18 +80,34 @@ export class SeDeplacerComponent implements OnInit {
     }
   }
 
+
+  testShow(val:boolean) {
+    this.ongletReservationShow = val;
+    this.cdRef.detectChanges();
+    console.log(this.ongletReservationShow);
+  }
+
+  isShow():boolean {
+    return this.ongletReservationShow;
+  }
+
   addMarker(transport){
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
 
+      let self: any = this;
 
       marker.addTo(this.map);
-      marker.on("click",function (event) {
+      marker.on("click",event => {
         console.log("ON A CLIQUE");
-        this.ongletReservationShow = true;
-        console.log(this.ongletReservationShow);
-      })
+        console.log(self.ongletReservationShow);
+        self.testShow(true);
+        this.cdRef.detectChanges();
+        console.log(marker.getLatLng());
+
+      }, )
       marker.bindPopup('<h1>velo</h1>');
+
     }
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});

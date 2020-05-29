@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import scootilo.model.Itineraire;
+import scootilo.model.MoyenDeTransport;
 import scootilo.model.Views;
 import scootilo.persistence.IItineraireRepository;
 
@@ -48,6 +49,15 @@ public class ItineraireRestController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
 		}
 	}
+	
+	
+	@GetMapping("/by-fournisseur/{nom}")
+	@JsonView(Views.ViewItineraire.class)
+	public List<Itineraire> FindItineraireByFournisseur(@PathVariable String nom) {
+	
+		return itineraireRepo.findItineraireByFournisseur(nom);
+	}
+	
 
 	@PostMapping("")
 	@JsonView(Views.ViewItineraire.class)

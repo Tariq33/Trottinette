@@ -21,6 +21,7 @@ import {SeDeplacerRechercheComponent} from "./components/se-deplacer-recherche/s
 import {ReservationItineraireComponent} from "./components/reservation-itineraire/reservation-itineraire.component";
 import {FinDeTrajetComponent} from "./components/fin-de-trajet/fin-de-trajet.component";
 import {FinalisationComponent} from "./components/finalisation/finalisation.component";
+import {MonCompteFournisseurTableauDeBordComponent} from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-tableau-de-bord.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent },
   {path: "reservationItineraire", component: ReservationItineraireComponent},
   {path: "finDeTrajet", component: FinDeTrajetComponent},
+  {path: "compteFournisseur/tableauDeBord", component: MonCompteFournisseurTableauDeBordComponent},
   {path: "finalisation", component: FinalisationComponent},
   ];
 

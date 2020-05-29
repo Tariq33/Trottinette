@@ -27,7 +27,12 @@
           class="sr-only"></span></a>
         </li>
         <li class="nav-item active"><a [routerLink]="['/plan']" class="nav-link" >Plan du réseau<span
-          class="sr-only"></span></a></li>
+          class="sr-only"></span></a>
+        </li>
+        <li class="nav-item active" *ngIf="sessionService.getType()=='supplier'">
+          <a [routerLink]="['/compteFournisseur/tableauDeBord']" class="nav-link" >Tableau de Bord<span
+            class="sr-only"></span></a>
+        </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
         <button *ngIf="!sessionService.getIdentifiant(); else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se connecter</button>

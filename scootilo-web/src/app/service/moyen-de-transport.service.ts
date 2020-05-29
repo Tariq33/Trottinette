@@ -26,6 +26,10 @@ export class MoyenDeTransportService {
     return this.http.get<MoyenDeTransport>("http://localhost:8080/moyendetransport/" + id);
   }
 
+  findAllByFournisseur(nom: string): Observable<Array<MoyenDeTransport>> {
+    return this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport/by-fournisseur/" + nom);
+  }
+
   create(moyenDeTransport: MoyenDeTransport) {
     return this.http.post<MoyenDeTransport>("http://localhost:8080/moyendetransport", moyenDeTransport);
   }

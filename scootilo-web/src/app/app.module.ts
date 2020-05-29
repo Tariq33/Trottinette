@@ -35,6 +35,12 @@ import { SeDeplacerReserverSurCarteComponent } from './components/se-deplacer-re
 import { ReservationItineraireComponent } from './components/reservation-itineraire/reservation-itineraire.component';
 import { FinDeTrajetComponent } from './components/fin-de-trajet/fin-de-trajet.component';
 import { FinalisationComponent } from './components/finalisation/finalisation.component';
+import { MonCompteFournisseurTableauDeBordComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-tableau-de-bord.component';
+import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
+import {MenuItem} from 'primeng/api';                  //api
+import {ChartModule} from 'primeng/chart';
+import { MonCompteFournisseurGrapheGainComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-gain/mon-compte-fournisseur-graphe-gain.component';
+import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-repartition-transport/mon-compte-fournisseur-graphe-repartition-transport.component';
 
 @NgModule({
   declarations: [
@@ -71,13 +77,17 @@ import { FinalisationComponent } from './components/finalisation/finalisation.co
     MonCompteClientMajInfoComponent,
     ReservationItineraireComponent,
     FinDeTrajetComponent,
-    FinalisationComponent
+    FinalisationComponent,
+    MonCompteFournisseurTableauDeBordComponent,
+    MonCompteFournisseurGrapheGainComponent,
+    MonCompteFournisseurGrapheRepartitionTransportComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-	  HttpClientModule,
-    FormsModule
+    HttpClientModule,
+    FormsModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
