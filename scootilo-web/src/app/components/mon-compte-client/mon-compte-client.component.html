@@ -6,7 +6,7 @@
     <div class="card-body">
       <h6 class="card-title">Argent disponible :</h6>
       <h4 >{{client.solde}} €</h4>
-      <br> <a class="btn btn-primary" (click)="edit(client.id)" [routerLink]="['/compteCrediter', client.id]">Recharger votre
+      <br> <a class="btn btn-primary"[routerLink]="['/compteCrediter', client.id]">Recharger votre
       compte</a>
     </div>
   </div>
@@ -32,17 +32,17 @@
         <h6 class="card-title">Préférences :</h6>
         <div class="form-check-inline">
           <label class="form-check-label" > <input type="checkbox"
-                                                  class="form-check-input" [(ngModel)]="client.preference.trottinette">Trottinette
+                                                  class="form-check-input" disabled [(ngModel)]="client.preference.trottinette">Trottinette
           </label>
         </div>
         <div class="form-check-inline">
           <label class="form-check-label"> <input type="checkbox"
-                                                  class="form-check-input" [(ngModel)]="client.preference.velo">Vélo
+                                                  class="form-check-input" disabled [(ngModel)]="client.preference.velo">Vélo
           </label>
         </div>
         <div class="form-check-inline">
           <label class="form-check-label"> <input type="checkbox"
-                                                  class="form-check-input" [(ngModel)]="client.preference.scooter">Scooter
+                                                  class="form-check-input" disabled [(ngModel)]="client.preference.scooter">Scooter
           </label>
         </div>
       </div>

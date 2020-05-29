@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {MoyenDeTransport} from '../../model/moyenDeTransport';
 
 @Component({
   selector: 'app-se-deplacer-reserver-sur-carte',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./se-deplacer-reserver-sur-carte.component.scss']
 })
 export class SeDeplacerReserverSurCarteComponent implements OnInit {
+
+  @Input() moyenTransport: MoyenDeTransport;
 
   constructor() { }
 

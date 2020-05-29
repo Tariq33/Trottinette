@@ -21,6 +21,30 @@ export class SeDeplacerComponent implements OnInit {
   adrArrivee : string = null
   adrArriveeListe : string = null
   adresses: Array<Adresse> = new Array<Adresse>();
+  moyenTransportClick: MoyenDeTransport = new MoyenDeTransport();
+  ongletReservationItineraireShow: boolean = false;
+  map;
+  moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
+  client: Client = new Client();
+  ongletReservationShow: boolean = false;
+
+  veloIcon = new L.Icon({
+    iconUrl: '../../../assets/icon-velo.png'
+  });
+
+  scootIcon = new L.Icon({
+    iconUrl: '../../../assets/icon-scoot.png'
+  });
+
+  trotIcon = new L.Icon({
+    iconUrl: '../../../assets/icon-trot.png'
+  });
+
+  hommeIcon = new L.Icon({
+    iconUrl: '../../../assets/icon-homme.png'
+  });
+
+
 
   charger(nom:string){
     for (let adr of this.adresses){
@@ -47,32 +71,10 @@ export class SeDeplacerComponent implements OnInit {
   }
 
 
-  map;
-  moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
-  client: Client;
-  ongletReservationShow: boolean = false;
-
-  clickrechercher: boolean = false;
-
-  veloIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-velo.png'
-  });
-
-  scootIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-scoot.png'
-  });
-
-  trotIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-trot.png'
-  });
-
-  hommeIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-homme.png'
-  });
 
   constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
-      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.load();}, err => console.log(err));
+      this.client=sessionService.getClient();
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
     else{
@@ -120,23 +122,25 @@ export class SeDeplacerComponent implements OnInit {
 
   addTransports(){
     if (this.map != undefined) {
-      for (let tranport of this.moyensDeTransportObs) {
-        this.addMarker(tranport);
+      for (let transport of this.moyensDeTransportObs) {
+        this.addMarker(transport);
       }
     }
   }
 
-
-  testShow(val:boolean) {
-    this.ongletReservationShow = val;
-    console.log(this.ongletReservationShow);
+  isShowItineraire() {
+    this.ongletReservationShow = false;
+    this.ongletReservationItineraireShow = true;
   }
 
-  isShow():boolean {
-    return this.ongletReservationShow;
+  isShow() {
+    this.ongletReservationShow = true;
+    this.ongletReservationItineraireShow = false;
   }
 
-  addMarker(transport){
+ addMarker(transport){
+
+
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
 
@@ -145,8 +149,8 @@ export class SeDeplacerComponent implements OnInit {
       marker.addTo(this.map);
       marker.on("click",event => {
         console.log("ON A CLIQUE");
-        this.ongletReservationShow = true;
-        //console.log(this.ongletReservationShow);
+        this.isShow();
+        this.getTransportClick(transport);
       })
       marker.bindPopup('<h1>Velo</h1>');
     }
@@ -161,4 +165,10 @@ export class SeDeplacerComponent implements OnInit {
       marker.bindPopup('<h1>Trottinette</h1>');
     }
   }
+
+  getTransportClick(transport) {
+    this.moyenTransportClick = transport;
+  }
+
+
   }

@@ -45,31 +45,33 @@
       <h6 class="card-title">Préférences :</h6>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="">Trottinette
+          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.trottinette">Trottinette
         </label>
       </div>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="">Vélo
+          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.velo">Vélo
         </label>
       </div>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="">Scooter
+          <input type="checkbox" class="form-check-input" value=""[ngModel]="client.preference.scooter">Scooter
         </label>
       </div>
     </div>
     <br> <button  class="btn-lg btn-secondary"
-            style="margin-left: 130px;" (click)="ongletReservationShow = true">Rechercher</button>
+            style="margin-left: 130px;" (click)="isShowItineraire()">Rechercher</button>
 
 
   <br>
   <br>
 
+    <div *ngIf="ongletReservationItineraireShow">
+      <app-se-deplacer-recherche></app-se-deplacer-recherche>
+    </div>
 
-
-    <div *ngIf="isShow()">
-    <app-se-deplacer-recherche></app-se-deplacer-recherche>
+    <div *ngIf="ongletReservationShow">
+      <app-se-deplacer-reserver-sur-carte [moyenTransport]="moyenTransportClick"></app-se-deplacer-reserver-sur-carte>
     </div>
 
 </div>

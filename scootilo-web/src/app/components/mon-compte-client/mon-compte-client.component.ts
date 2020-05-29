@@ -18,8 +18,6 @@ export class MonCompteClientComponent implements OnInit {
 
   client: Client;
   adresses: Array<Adresse> = new Array<Adresse>();
-  // reservation: Reservation = new Reservation();
-  // itineraire: Itineraire = new Itineraire();
   histo: Array<object> = new Array<object>();
 
 
@@ -27,22 +25,17 @@ export class MonCompteClientComponent implements OnInit {
     this.client=this.sessionService.getClient();
     this.load();
 
-    // clientService.FindHistorique(this.sessionService.getClient().id).subscribe(resp => {
-    //   this.histo = resp;
-    //   console.log(this.histo);
-    // }, error => console.log(error));
+    clientService.FindHistorique(this.sessionService.getClient().id).subscribe(resp => {
+      this.histo = resp;
+      console.log(this.histo);
+    }, error => console.log(error));
 
   }
 
   ngOnInit(): void {}
 
-  edit(id: number) {
-    this.router.navigateByUrl('/ajoutAdresse');
-  }
 
   delete(id:number){
-      // this.adresseService.deleteById(id);
-
     this.adresseService.deleteById(id).subscribe(resp => {
       this.load();
     }, error => console.log(error));
