@@ -37,13 +37,11 @@ export class PlanReseauComponent implements OnInit {
   });
 
   constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
-    if(this.sessionService.getClient().id!=undefined){
-      console.log("if");
-      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+    if(this.sessionService.getClient().type=="customer"){
+      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; }, err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
     else{
-      console.log("else");
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
   }
@@ -57,18 +55,14 @@ export class PlanReseauComponent implements OnInit {
   }
 
   createMap() {
-    console.log("0");
     const centre = {
       lat: 44.8377285,
       lng: -0.5765286,
     };
-    console.log("1");
     if (this.client != undefined) {
-      console.log("1");
       centre.lat = this.client.latitude;
       centre.lng = this.client.longitude;
     }
-    console.log("3");
 
     const zoomLevel = 14;
     this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});

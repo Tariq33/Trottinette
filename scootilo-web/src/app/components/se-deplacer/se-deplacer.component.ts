@@ -37,8 +37,13 @@ export class SeDeplacerComponent implements OnInit {
   });
 
   constructor(private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
-    this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; this.createMap();}, err => console.log(err));
-    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.addTransports();} ,err => console.log(err));
+    if(this.sessionService.getClient().type=="customer"){
+      this.clientService.findById(this.sessionService.getClient().id).subscribe(resp => {this.client = resp; }, err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
+    else{
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
   }
 
   /*ngAfterViewInit(): void {
@@ -51,9 +56,13 @@ export class SeDeplacerComponent implements OnInit {
 
   createMap(){
     const centre = {
-      lat: this.client.latitude,
-      lng: this.client.longitude,
+      lat: 44.8377285,
+      lng: -0.5765286,
     };
+    if (this.client != undefined) {
+      centre.lat = this.client.latitude;
+      centre.lng = this.client.longitude;
+    }
 
     const zoomLevel = 14;
     this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
@@ -65,12 +74,9 @@ export class SeDeplacerComponent implements OnInit {
     });
 
     mainLayer.addTo(this.map);
-    L.marker([centre.lat,centre.lng], {icon: this.hommeIcon}).addTo(this.map);
-
-    for (let tranport of this.moyensDeTransportObs ){
-      this.addMarker(tranport);
+    if (this.client != undefined) {
+      L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
     }
-
   }
 
   addTransports(){
