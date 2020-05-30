@@ -149,6 +149,7 @@ export class SeDeplacerComponent implements OnInit {
       marker.addTo(this.map);
       marker.on("click",event => {
         console.log("VELO");
+        this.isShowItineraire();
         this.isShow();
         this.getTransportClick(transport);
       })
