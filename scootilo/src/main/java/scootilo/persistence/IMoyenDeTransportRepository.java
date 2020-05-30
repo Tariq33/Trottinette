@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import scootilo.model.MoyenDeTransport;
+import scootilo.model.TypeDeTransport;
 
 public interface IMoyenDeTransportRepository extends JpaRepository<MoyenDeTransport, Long> {
 
@@ -18,6 +19,9 @@ public interface IMoyenDeTransportRepository extends JpaRepository<MoyenDeTransp
 	@Query(value = "SELECT transport_means.type_of_transport, transport_means.supplier_id, transport_means.latitude, transport_means.longitude, transport_means.estimated_distance, transport_means.per_minute_cost, transport_means.in_use FROM transport_means WHERE (6371*RADIANS(ACOS(SIN(transport_means.latitude)*SIN(:latitude)+COS(transport_means.latitude)*COS(:latitude)*COS(:longitude-transport_means.longitude)))) < 2", nativeQuery = true)
 	String[] FindAllTransportsInArea(@Param("latitude") Float latitude, @Param("longitude") Float longitude);
 	
+	@Query("select t from MoyenDeTransport t where t.typeDeTransport = :typeDeTransport")
+	List<MoyenDeTransport> FindAllTransportsByType(@Param("typeDeTransport") TypeDeTransport typeDeTransport);
+
 	List<MoyenDeTransport> findMoyenDeTransportById(Long id);
 	
 	
