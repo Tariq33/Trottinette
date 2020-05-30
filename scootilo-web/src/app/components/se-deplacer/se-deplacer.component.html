@@ -14,7 +14,7 @@
              style="width: 400px;" placeholder="Départ">
     </div>
 
-    <div *ngIf="this.client.adresse!=undefined">
+    <div *ngIf="this.adresses.length!=0">
       <p>Ou choisissez parmi vos adresses : </p>
 
       <input list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe" (ngModelChange)="charger($event)" placeholder="Choisir">
@@ -32,7 +32,7 @@
              style="width: 400px;"  placeholder="Arrivée">
     </div>
 
-    <div *ngIf="this.client.adresse!=undefined">
+    <div *ngIf="this.adresses.length!=0">
       <p>Ou choisissez parmi vos adresses : </p>
 
       <input list="mesAdrs2" id="adrArrivee" [ngModel]="adrArriveeListe" (ngModelChange)="charger2($event)" placeholder="Choisir">
