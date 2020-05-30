@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {MoyenDeTransport} from "../model/moyenDeTransport";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {TypeDeTransport} from "../model/TypeDeTransport";
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,12 @@ export class MoyenDeTransportService {
     return this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport/by-fournisseur/" + nom);
   }
 
-  FindAllTransportsInArea(latitude: number, longitude: number,): Observable<Array<undefined>> {
+  FindAllTransportsInArea(latitude: number, longitude: number): Observable<Array<undefined>> {
     return this.http.get<Array<undefined>>("http://localhost:8080/moyendetransport/area/" + latitude + ":"+ longitude);
+  }
+
+  FindAllTransportsByType(typeDeTransport: TypeDeTransport): Observable<Array<MoyenDeTransport>> {
+    return this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport/by-type/"+ typeDeTransport);
   }
 
 

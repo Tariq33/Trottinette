@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import scootilo.model.MoyenDeTransport;
+import scootilo.model.TypeDeTransport;
 import scootilo.model.Views;
 import scootilo.persistence.IMoyenDeTransportRepository;
 
@@ -60,6 +61,12 @@ public class MoyenDeTransportRestController {
 			}
 		
 		return arrfStrFull;
+	}
+	
+	@GetMapping("/by-type/{typeDeTransport}")
+	@JsonView(Views.ViewMoyenDeTransport.class)
+	public List<MoyenDeTransport> FindAllTransportsByType(@PathVariable TypeDeTransport typeDeTransport) {
+		return moyendetransportRepo.FindAllTransportsByType(typeDeTransport);
 	}
 	
 	@GetMapping("/{id}")

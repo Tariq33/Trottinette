@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import scootilo.model.Client;
+import scootilo.model.MoyenDeTransport;
 import scootilo.model.Reservation;
 
 public interface IClientRepository extends JpaRepository<Client, Long> {
@@ -26,6 +27,9 @@ public interface IClientRepository extends JpaRepository<Client, Long> {
 
 //	@Query(value = "SELECT transport_means.type_of_transport, reservation.arrival_time, reservation.total_time, reservation.total_amount FROM itinerary JOIN reservation ON itinerary.reservation_id = reservation.id JOIN user_account ON reservation.client_id = user_account.id JOIN transport_means ON itinerary.transport_means_id = transport_means.id WHERE reservation.client_id = ?", nativeQuery = true)
 //	ArrayList<Object> FindHistorique(@Param("id") Long id);
+	
+	/*@Query("select t from MoyenDeTransport t where u.identifiant = :identifiant")
+	List<MoyenDeTransport> findTransportsByPreferences(@Param("identifiant") String identifiant);*/
 
 	@Query(value = "SELECT transport_means.type_of_transport, reservation.arrival_time, reservation.total_time, reservation.total_amount FROM itinerary JOIN reservation ON itinerary.reservation_id = reservation.id JOIN user_account ON reservation.client_id = user_account.id JOIN transport_means ON itinerary.transport_means_id = transport_means.id WHERE reservation.client_id = ? ORDER BY arrival_time desc", nativeQuery = true)
 	String[] FindHistorique(@Param("id") Long id);
