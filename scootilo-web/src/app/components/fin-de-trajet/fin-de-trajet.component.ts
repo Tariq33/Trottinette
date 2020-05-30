@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {timer} from 'rxjs';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   selector: 'app-fin-de-trajet',
@@ -8,7 +9,9 @@ import {timer} from 'rxjs';
 })
 export class FinDeTrajetComponent implements OnInit {
 
+  prixSeconde = (this.sessionService.getMoyenDeTransportReserve().prixMinute)/60;
   public time: number = 0;
+  public cout;
   public timerDisplay = {
     minutes: {digit1: "0", digit2: "0"},
     seconds: {digit1: "0", digit2: "0"}
@@ -19,14 +22,13 @@ export class FinDeTrajetComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(private sessionService: SessionService) {
     timer(0, 1000).subscribe(ellapsedCycles => {
       this.time++;
       this.timerDisplay = this.getDisplayTimer(this.time);
-
-
+      this.cout = (this.prixSeconde*this.time).toFixed(2);
+      console.log(this.cout);
     });
-
   }
 
 
