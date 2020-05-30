@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
@@ -53,7 +55,7 @@ public class Itineraire {
 	private Date heureDepart;
 	@Column(name = "endingHour", length = 100)
 	@JsonView(Views.ViewItineraire.class)
-	private Date heureArrivee;
+	private String heureArrivee;
 	@Column(name = "hourLimit", length = 100)
 	@JsonView(Views.ViewItineraire.class)
 	private Date heureLimite;
@@ -62,7 +64,7 @@ public class Itineraire {
 	private Float dureeEstimee;
 	@Column(name = "duration", length = 100)
 	@JsonView(Views.ViewItineraire.class)
-	private Float Duree;
+	private Float duree;
 	@Column(name = "amount", length = 100)
 	@JsonView(Views.ViewItineraire.class)
 	private Float montant;
@@ -125,11 +127,11 @@ public class Itineraire {
 		this.heureDepart = heureDepart;
 	}
 
-	public Date getHeureArrivee() {
+	public String getHeureArrivee() {
 		return heureArrivee;
 	}
 
-	public void setHeureArrivee(Date heureArrivee) {
+	public void setHeureArrivee(String heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 
@@ -150,11 +152,11 @@ public class Itineraire {
 	}
 
 	public Float getDuree() {
-		return Duree;
+		return duree;
 	}
 
 	public void setDuree(Float duree) {
-		Duree = duree;
+		this.duree = duree;
 	}
 
 	public Float getMontant() {

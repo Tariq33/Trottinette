@@ -178,6 +178,7 @@ export class SeDeplacerComponent implements OnInit {
 
   getTransportClick(transport) {
     this.moyenTransportClick = transport;
+    this.sessionService.setMoyenDeTransportReserve(transport);
   }
 
 
