@@ -12,21 +12,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let moyenDeTransport of list()">
 
-
-        <td *ngIf="moyenDeTransport.prixMinute; else elseBlock">{{moyenDeTransport.typeDeTransport}}</td>
-        <ng-template #elseBlock><td></td></ng-template>
-
-
-        <td *ngIf="moyenDeTransport.prixMinute && moyenDeTransport.fournisseur != null; else elseBlock">{{moyenDeTransport.fournisseur.nom}}</td>
-        <ng-template #elseBlock><td></td></ng-template>
-
-
-        <td *ngIf="moyenDeTransport.prixMinute; else elseBlock">{{moyenDeTransport.prixMinute}}€</td>
-        <ng-template #elseBlock></ng-template>
-
+      <tr *ngFor="let taille of arrayOne(result.length)">
+        <td *ngFor="let ele of result[taille]">{{ele}}</td>
       </tr>
+
       </tbody>
     </table>
   </div>

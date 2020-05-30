@@ -33,5 +33,8 @@ public interface IMoyenDeTransportRepository extends JpaRepository<MoyenDeTransp
 //	@Query("select distinct m.typeDeTransport, u.nom, m.prixMinute from MoyenDeTransport m left join Utilisateur u")
 //	List<Object> findRecapPrix();
 	
-
+	@Query(value = "SELECT DISTINCT transport_means.type_of_transport, user_account.last_name, transport_means.per_minute_cost FROM transport_means JOIN user_account ON transport_means.supplier_id = user_account.id", nativeQuery = true)
+	String[] FindAllPerso();
+	
+	
 }

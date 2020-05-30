@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-se-deplacer-tarif',
@@ -9,7 +10,16 @@ import {MoyenDeTransportService} from "../../service/moyen-de-transport.service"
 })
 export class SeDeplacerTarifComponent implements OnInit {
 
-  constructor(private moyenDeTransportService: MoyenDeTransportService) { }
+  result: Array<object> = new Array<object>();
+
+  constructor(private moyenDeTransportService: MoyenDeTransportService) {
+
+    moyenDeTransportService.FindAllPerso().subscribe(resp => {
+      this.result = resp;
+      console.log(this.result);
+    }, error => console.log(error));
+
+  }
 
   ngOnInit(): void {
   }
@@ -19,5 +29,17 @@ export class SeDeplacerTarifComponent implements OnInit {
   }
 
 
+  arrayOne(n: number): any[] {
+
+   let suite =Array.from(Array(n).keys())
+
+    return suite;
+  }
+
+
+
+
 
 }
+
+

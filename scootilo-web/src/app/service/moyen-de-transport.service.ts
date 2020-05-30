@@ -39,6 +39,10 @@ export class MoyenDeTransportService {
     return this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport/by-type/"+ typeDeTransport);
   }
 
+  FindAllPerso(): Observable<Array<MoyenDeTransport>> {
+    return this.http.get<Array<MoyenDeTransport>>("http://localhost:8080/moyendetransport/findallperso/");
+  }
+
 
   create(moyenDeTransport: MoyenDeTransport) {
     return this.http.post<MoyenDeTransport>("http://localhost:8080/moyendetransport", moyenDeTransport);
