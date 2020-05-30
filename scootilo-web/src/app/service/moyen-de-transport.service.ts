@@ -31,7 +31,7 @@ export class MoyenDeTransportService {
   }
 
   FindAllTransportsInArea(latitude: number, longitude: number,): Observable<Array<undefined>> {
-    return this.http.get<Array<undefined>>("http://localhost:8080/moyendetransport/area/" + latitude + ";;"+ longitude);
+    return this.http.get<Array<undefined>>("http://localhost:8080/moyendetransport/area/" + latitude + ":"+ longitude);
   }
 
 

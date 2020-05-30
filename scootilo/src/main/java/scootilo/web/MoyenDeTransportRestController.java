@@ -43,7 +43,7 @@ public class MoyenDeTransportRestController {
 		return moyendetransportRepo.findAllByFournisseur(nom);
 	}
 	
-	@GetMapping("/area/{latitude};;{longitude}")
+	@GetMapping("/area/{latitude}:{longitude}")
 	@JsonView(Views.ViewMoyenDeTransport.class)
 	public ArrayList<String[]> FindAllTransportsInArea(@PathVariable Float latitude, @PathVariable Float longitude) {
 		ArrayList<String[]> arrfStrFull = new ArrayList<String[]>();
@@ -60,7 +60,6 @@ public class MoyenDeTransportRestController {
 			}
 		
 		return arrfStrFull;
-		//return moyendetransportRepo.FindAllTransportsInArea(latitude, longitude);
 	}
 	
 	@GetMapping("/{id}")

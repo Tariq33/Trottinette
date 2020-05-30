@@ -14,9 +14,8 @@ public interface IMoyenDeTransportRepository extends JpaRepository<MoyenDeTransp
 	/*@Query("from MoyenDeTransport m where (m.longitude between :longitudeMin and :longitudeMax) and (m.latitude between :latitudeMin and :latitudeMax)")
 	List<MoyenDeTransport> findAllMoyenDeTransportInArea(@Param("longitudeMin") Float longitudeMin, @Param("longitudeMax") Float longitudeMax, @Param("latitudeMin") Float latitudeMin, @Param("latitudeMax") Float latitudeMax);*/
 	
-	
-	//@Query(value = "SELECT transport_means.type_of_transport, transport_means.supplier_id, transport_means.latitude, transport_means.longitude, transport_means.estimatedDistance, transport_means.perMinuteCost, transport_means.enUtilisation FROM transport_means WHERE (6371*RADIANS(ACOS(SIN(transport_means.latitude)*SIN(latitude)+COS(transport_means.latitude)*COS(latitude)*COS(longitude-transport_means.longitude)))) < 1", nativeQuery = true)
-	@Query(value = "SELECT transport_means.type_of_transport, transport_means.supplier_id, transport_means.latitude, transport_means.longitude, transport_means.estimatedDistance, transport_means.perMinuteCost, transport_means.enUtilisation FROM transport_means WHERE transport_means.latitude > 1", nativeQuery = true)
+
+	@Query(value = "SELECT transport_means.type_of_transport, transport_means.supplier_id, transport_means.latitude, transport_means.longitude, transport_means.estimated_distance, transport_means.per_minute_cost, transport_means.in_use FROM transport_means WHERE (6371*RADIANS(ACOS(SIN(transport_means.latitude)*SIN(:latitude)+COS(transport_means.latitude)*COS(:latitude)*COS(:longitude-transport_means.longitude)))) < 2", nativeQuery = true)
 	String[] FindAllTransportsInArea(@Param("latitude") Float latitude, @Param("longitude") Float longitude);
 	
 	List<MoyenDeTransport> findMoyenDeTransportById(Long id);
