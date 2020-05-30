@@ -17,9 +17,56 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
     options: any;
   private date: Date = new Date();
   private gain : number;
-  private gainTotal = 0;
 
-
+  private gainJanvier: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainFevrier: number = 0;
+  private gainFevrierVelo: number = 0;
+  private gainFevrierTrot: number = 0;
+  private gainFevrierScoot: number = 0;
+  private gainMars: number = 0;
+  private gainMarsVelo: number = 0;
+  private gainMarsTrot: number = 0;
+  private gainJMarsScoot: number = 0;
+  private gainAvril: number = 0;
+  private gainAvrilVelo: number = 0;
+  private gainAvrilTrot: number = 0;
+  private gainAvrilScoot: number = 0;
+  private gainMai: number = 0;
+  private gainMaiVelo: number = 0;
+  private gainMaiTrot: number = 0;
+  private gainMaiScoot: number = 0;
+  private gainJuin: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainJuillet: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainAout: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainSeptembre: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainOctobre: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainNovembre: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainDecembre: number = 0;
+  private gainJanvierVelo: number = 0;
+  private gainJanvierTrot: number = 0;
+  private gainJanvierScoot: number = 0;
+  private gainTotal: number[];
 
   ngOnInit(): void {
   }
@@ -31,10 +78,7 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
       this.itineraires = resp;
       console.log(this.itineraires)
 
-      var gainJanvier: number = 0;
-      var gainFevrier: number = 0;
-      var gainMars: number = 0;
-      var gainAvril: number = 0;
+
 
       // var gainTotal: number = 0;
 
@@ -46,7 +90,7 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
 
       var dateIti = JSON.parse(JSON.stringify({ date: iti.heureArrivee }));
       this.gain = iti.moyenDeTransport.prixMinute * iti.duree;
-      this.gainTotal += this.gainTotal;
+      // this.gainTotal += this.gainTotal;
       let mois= dateIti.date.substr(8,2);
       let annee = dateIti.date.substr(0,4);
 
@@ -56,18 +100,39 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
       if (annee == ToDay.getFullYear()) {
 
         if (mois == "01") {
-          gainJanvier +=  this.gain;
+          // this.gainJanvier +=  this.gain;
+          this.gainTotal[0] += this.gain;
         } else if (mois == "02") {
-          gainFevrier += this.gain;
-        } else if (mois == "03") {
-          gainMars += this.gain;
-        } else if (mois == "04") {
-          gainAvril += this.gain;
+          this.gainTotal[1] += this.gain;
         }
-      }
+          // this.gainFevrier += this.gain;
+              // if(iti.moyenDeTransport.typeDeTransport == "velo")
 
-    }
-    this.gainTotal =  gainJanvier + gainFevrier + gainMars + gainAvril;
+
+        } else if (mois == "03") {
+          this.gainMars += this.gain;
+        } else if (mois == "04") {
+          this.gainAvril += this.gain;
+        }  else if (mois == "05") {
+          this.gainMai += this.gain;
+        } else if (mois == "06") {
+          this.gainJuin += this.gain;
+        } else if (mois == "07") {
+          this.gainJuillet += this.gain;
+        } else if (mois == "08") {
+          this.gainAout += this.gain;
+        } else if (mois == "09") {
+          this.gainSeptembre += this.gain;
+        } else if (mois == "10") {
+          this.gainOctobre += this.gain;
+        } else if (mois == "11") {
+          this.gainNovembre += this.gain;
+        } else if (mois == "12") {
+          this.gainDecembre += this.gain;
+        }
+
+      }
+    // this.gainTotal =  gainJanvier + gainFevrier + gainMars + gainAvril;
     var dataGainTotal = [gainJanvier, gainFevrier, gainMars, gainAvril];
 
 
@@ -83,7 +148,7 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
           label: 'Total',
           backgroundColor: '#9CCC65',
           borderColor: '#7CB342',
-          data: [gainJanvier, gainFevrier, gainMars, gainAvril, 0, 0, 0]
+          data: [this.gainTotal]
         },
         {
           label: 'Vélo',
