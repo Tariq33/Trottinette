@@ -42,6 +42,7 @@ import {ChartModule} from 'primeng/chart';
 import { MonCompteFournisseurGrapheGainComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-gain/mon-compte-fournisseur-graphe-gain.component';
 import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-repartition-transport/mon-compte-fournisseur-graphe-repartition-transport.component';
 import { DateCustomPipe } from './pipe/date-custom.pipe';
+import { AbsoluPipe } from './pipe/absolu';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { DateCustomPipe } from './pipe/date-custom.pipe';
     MonCompteFournisseurTableauDeBordComponent,
     MonCompteFournisseurGrapheGainComponent,
     MonCompteFournisseurGrapheRepartitionTransportComponent,
-    DateCustomPipe
+    DateCustomPipe,
+    AbsoluPipe
   ],
   imports: [
     BrowserModule,

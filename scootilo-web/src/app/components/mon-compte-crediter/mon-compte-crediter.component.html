@@ -14,11 +14,12 @@
 
           <div class="form-group">
             <h6 for="solde" class="card-title" >Ajouter :</h6>
-            <input type="text" class="form-control" id="solde" [(ngModel)]="ajoutsolde">
+            <input type="number" onkeypress="return event.charCode >= 48" class="form-control" id="solde" [(ngModel)]="ajoutsolde">
+<!--            Ca marche mais code deprecated pour event !!-->
           </div>
 
           <h6 class="card-title">Nouveau Solde :</h6>
-          <p class="card-text">{{clientunique.solde -- ajoutsolde}}</p>
+          <p class="card-text">{{clientunique.solde -- (ajoutsolde | absolu)}}</p>
 
           <br>
         </div>

@@ -24,7 +24,7 @@ export class MonCompteCrediterComponent implements OnInit {
   }
 
   save() {
-    this.soldefinal = (+this.clientunique.solde) + (+this.ajoutsolde);
+    this.soldefinal = (+this.clientunique.solde) + Math.abs((+this.ajoutsolde));
     this.clientunique.solde = this.soldefinal;
     this.clientService.modify(this.clientunique).subscribe(resp => {
       this.clientunique = new Client();
