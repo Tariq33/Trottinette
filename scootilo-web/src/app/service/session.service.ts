@@ -3,6 +3,7 @@ import {Utilisateur} from "../model/utilisateur";
 import {Client} from "../model/client";
 import {Fournisseur} from "../model/fournisseur";
 import {MoyenDeTransport} from '../model/moyenDeTransport';
+import {Administrateur} from "../model/administrateur";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class SessionService {
   }
 
   getFournisseur(): Fournisseur{
+    return JSON.parse(sessionStorage.getItem("utilisateur"));
+  }
+
+  getAdmin(): Administrateur{
     return JSON.parse(sessionStorage.getItem("utilisateur"));
   }
 
@@ -37,7 +42,6 @@ export class SessionService {
   sessionStorage.removeItem("moyenDeTransport");
   }
 
-
   getIdentifiant(): string {
     return JSON.parse(sessionStorage.getItem("utilisateur")).identifiant;
   }
@@ -46,5 +50,10 @@ export class SessionService {
     return JSON.parse(sessionStorage.getItem("utilisateur")).type;
   }
 
+  offUtilisateur(){
+    sessionStorage.clear();
+    window.location.reload();
+    location.replace('/accueil');
+  }
 
 }
