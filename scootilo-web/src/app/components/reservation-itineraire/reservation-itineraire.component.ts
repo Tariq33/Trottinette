@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   selector: 'app-reservation-itineraire',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationItineraireComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sessionService: SessionService) {
+    console.log(this.sessionService.getMoyenDeTransportReserve())
+  }
 
   ngOnInit(): void {
   }
+
+  cancelClick() {
+  this.sessionService.removeSessionStorageMoyenDeTransport();
+}
 
 }

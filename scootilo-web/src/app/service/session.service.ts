@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Utilisateur} from "../model/utilisateur";
 import {Client} from "../model/client";
 import {Fournisseur} from "../model/fournisseur";
+import {MoyenDeTransport} from '../model/moyenDeTransport';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,19 @@ export class SessionService {
   setUtilisateur(utilisateur: Utilisateur){
     sessionStorage.setItem("utilisateur",JSON.stringify(utilisateur));
   }
+
+  setMoyenDeTransportReserve(moyenDeTransport: MoyenDeTransport){
+    sessionStorage.setItem("moyenDeTransport",JSON.stringify(moyenDeTransport));
+  }
+
+  getMoyenDeTransportReserve(): MoyenDeTransport {
+    return JSON.parse(sessionStorage.getItem("moyenDeTransport"));
+  }
+
+  removeSessionStorageMoyenDeTransport() {
+  sessionStorage.removeItem("moyenDeTransport");
+  }
+
 
   getIdentifiant(): string {
     return JSON.parse(sessionStorage.getItem("utilisateur")).identifiant;

@@ -11,62 +11,19 @@ import {Itineraire} from '../../../model/itineraire';
   styleUrls: ['./mon-compte-fournisseur-graphe-gain.component.scss']
 })
 export class MonCompteFournisseurGrapheGainComponent implements OnInit {
-    data: any;
-    private fournisseurForm = new Fournisseur();
+  data: any;
+  private fournisseurForm = new Fournisseur();
   private itineraires: Array<Itineraire> = new Array<Itineraire>();
-    options: any;
-  private date: Date = new Date();
+  options: any;
   private gain : number;
+  private gainTotal = [0,0,0,0,0,0,0,0,0,0,0,0];
+  private gainVelo = [0,0,0,0,0,0,0,0,0,0,0,0];
+  private gainTrot = [0,0,0,0,0,0,0,0,0,0,0,0];
+  private gainScoot = [0,0,0,0,0,0,0,0,0,0,0,0];
+  public gainTot = 0;
+  // @ts-ignore
+  public Today : Date = new Date();
 
-  private gainJanvier: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainFevrier: number = 0;
-  private gainFevrierVelo: number = 0;
-  private gainFevrierTrot: number = 0;
-  private gainFevrierScoot: number = 0;
-  private gainMars: number = 0;
-  private gainMarsVelo: number = 0;
-  private gainMarsTrot: number = 0;
-  private gainJMarsScoot: number = 0;
-  private gainAvril: number = 0;
-  private gainAvrilVelo: number = 0;
-  private gainAvrilTrot: number = 0;
-  private gainAvrilScoot: number = 0;
-  private gainMai: number = 0;
-  private gainMaiVelo: number = 0;
-  private gainMaiTrot: number = 0;
-  private gainMaiScoot: number = 0;
-  private gainJuin: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainJuillet: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainAout: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainSeptembre: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainOctobre: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainNovembre: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainDecembre: number = 0;
-  private gainJanvierVelo: number = 0;
-  private gainJanvierTrot: number = 0;
-  private gainJanvierScoot: number = 0;
-  private gainTotal: number[];
 
   ngOnInit(): void {
   }
@@ -80,66 +37,132 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
 
 
 
-      // var gainTotal: number = 0;
-
-
     for(let iti of this.itineraires) {
-
-
-
-
+      //récupérer les mois de la date en format string
       var dateIti = JSON.parse(JSON.stringify({ date: iti.heureArrivee }));
       this.gain = iti.moyenDeTransport.prixMinute * iti.duree;
-      // this.gainTotal += this.gainTotal;
+      this.gainTot += this.gain;
       let mois= dateIti.date.substr(8,2);
       let annee = dateIti.date.substr(0,4);
 
+      // @ts-ignore
       let ToDay: Date = new Date();
 
 
       if (annee == ToDay.getFullYear()) {
 
         if (mois == "01") {
-          // this.gainJanvier +=  this.gain;
           this.gainTotal[0] += this.gain;
+            if(iti.moyenDeTransport.typeDeTransport == "velo") {
+              this.gainVelo[0] += this.gain;
+            } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+              this.gainScoot[0] += this.gain;
+            } else {
+              this.gainTrot[0] += this.gain;
+            }
         } else if (mois == "02") {
           this.gainTotal[1] += this.gain;
+            if(iti.moyenDeTransport.typeDeTransport == "velo") {
+              this.gainVelo[1] += this.gain;
+            } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+              this.gainScoot[1] += this.gain;
+            } else {
+              this.gainTrot[1] += this.gain;
+            }
         }
-          // this.gainFevrier += this.gain;
-              // if(iti.moyenDeTransport.typeDeTransport == "velo")
-
-
         } else if (mois == "03") {
-          this.gainMars += this.gain;
+        this.gainTotal[2] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[2] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[2] += this.gain;
+          } else {
+            this.gainTrot[2] += this.gain;
+          }
         } else if (mois == "04") {
-          this.gainAvril += this.gain;
+        this.gainTotal[3] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[3] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[3] += this.gain;
+          } else {
+            this.gainTrot[3] += this.gain;
+          }
         }  else if (mois == "05") {
-          this.gainMai += this.gain;
+        this.gainTotal[4] += this.gain;;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[4] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[4] += this.gain;
+          } else {
+            this.gainTrot[4] += this.gain;
+          }
         } else if (mois == "06") {
-          this.gainJuin += this.gain;
+        this.gainTotal[5] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[5] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[5] += this.gain;
+          } else {
+            this.gainTrot[5] += this.gain;
+          }
         } else if (mois == "07") {
-          this.gainJuillet += this.gain;
+        this.gainTotal[6] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[6] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[6] += this.gain;
+          } else {
+            this.gainTrot[6] += this.gain;
+          }
         } else if (mois == "08") {
-          this.gainAout += this.gain;
+        this.gainTotal[7] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[7] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[7] += this.gain;
+          } else {
+            this.gainTrot[7] += this.gain;
+          }
         } else if (mois == "09") {
-          this.gainSeptembre += this.gain;
+        this.gainTotal[8] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[8] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[8] += this.gain;
+          } else {
+            this.gainTrot[8] += this.gain;
+          }
         } else if (mois == "10") {
-          this.gainOctobre += this.gain;
+        this.gainTotal[9] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[9] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[9] += this.gain;
+          } else {
+            this.gainTrot[9] += this.gain;
+          }
         } else if (mois == "11") {
-          this.gainNovembre += this.gain;
+        this.gainTotal[10] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[10] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[10] += this.gain;
+          } else {
+            this.gainTrot[10] += this.gain;
+          }
         } else if (mois == "12") {
-          this.gainDecembre += this.gain;
+        this.gainTotal[11] += this.gain;
+          if(iti.moyenDeTransport.typeDeTransport == "velo") {
+            this.gainVelo[11] += this.gain;
+          } else if (iti.moyenDeTransport.typeDeTransport == "scooter") {
+            this.gainScoot[11] += this.gain;
+          } else {
+            this.gainTrot[11] += this.gain;
+          }
         }
 
       }
-    // this.gainTotal =  gainJanvier + gainFevrier + gainMars + gainAvril;
-    var dataGainTotal = [gainJanvier, gainFevrier, gainMars, gainAvril];
-
-
-
-
-
-
 
     this.data = {
       labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
@@ -148,25 +171,25 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
           label: 'Total',
           backgroundColor: '#9CCC65',
           borderColor: '#7CB342',
-          data: [this.gainTotal]
+          data: this.gainTotal
         },
         {
           label: 'Vélo',
           backgroundColor: '#FFCE56',
           borderColor: '#FFCE56',
-          data: [65, 59, 80, 81, 56, 55, 40]
+          data: this.gainVelo
         },
         {
           label: 'Trottinette',
           backgroundColor: '#FF6384',
           borderColor: '#FF6384',
-          data: [28, 48, 40, 19, 86, 27, 90]
+          data: this.gainTrot
         },
         {
           label: 'Scooter',
           backgroundColor: '#36A2EB',
           borderColor: '#36A2EB',
-          data: [28, 48, 40, 19, 86, 27, 90]
+          data: this.gainScoot
         }
       ]
     }

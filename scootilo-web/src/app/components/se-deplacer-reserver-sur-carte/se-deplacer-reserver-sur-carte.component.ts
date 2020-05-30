@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MoyenDeTransport} from '../../model/moyenDeTransport';
+import {SessionService} from '../../service/session.service';
 
 @Component({
   selector: 'app-se-deplacer-reserver-sur-carte',
@@ -10,9 +11,11 @@ export class SeDeplacerReserverSurCarteComponent implements OnInit {
 
   @Input() moyenTransport: MoyenDeTransport;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }
+
+
 
 }
