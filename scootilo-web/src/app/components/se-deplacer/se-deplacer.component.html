@@ -14,7 +14,7 @@
              style="width: 400px;" placeholder="Départ">
     </div>
 
-    <div *ngIf="client!=undefined">
+    <div *ngIf="this.adresses.length!=0">
       <p>Ou choisissez parmi vos adresses : </p>
 
       <input list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe" (ngModelChange)="charger($event)" placeholder="Choisir">
@@ -32,7 +32,7 @@
              style="width: 400px;"  placeholder="Arrivée">
     </div>
 
-    <div *ngIf="client!=undefined">
+    <div *ngIf="this.adresses.length!=0">
       <p>Ou choisissez parmi vos adresses : </p>
 
       <input list="mesAdrs2" id="adrArrivee" [ngModel]="adrArriveeListe" (ngModelChange)="charger2($event)" placeholder="Choisir">
@@ -41,7 +41,7 @@
       </datalist>
     </div>
 
-    <div>
+    <div *ngIf="this.client.preference!=undefined">
       <h6 class="card-title">Préférences :</h6>
       <div class="form-check-inline">
         <label class="form-check-label">
@@ -71,7 +71,7 @@
     </div>
 
     <div *ngIf="ongletReservationShow">
-      <app-se-deplacer-reserver-sur-carte [moyenTransport]="moyenTransportClick"></app-se-deplacer-reserver-sur-carte>
+      <app-se-deplacer-reserver-sur-carte></app-se-deplacer-reserver-sur-carte>
     </div>
 
 </div>

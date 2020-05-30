@@ -96,7 +96,7 @@ export class SeDeplacerComponent implements OnInit {
       lat: 44.8377285,
       lng: -0.5765286,
     };
-    if (this.client != undefined) {
+    if(this.sessionService.getClient().type=="customer"){
       centre.lat = this.client.latitude;
       centre.lng = this.client.longitude;
     }
@@ -115,7 +115,7 @@ export class SeDeplacerComponent implements OnInit {
 
     if (this.map != undefined) {
       mainLayer.addTo(this.map);
-      if (this.client != undefined) {
+      if(this.sessionService.getClient().type=="customer"){
         L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
       }
     }
@@ -140,41 +140,72 @@ export class SeDeplacerComponent implements OnInit {
   }
 
  addMarker(transport){
+   if(this.sessionService.getClient().type!="customer"){
 
+     if (transport.typeDeTransport == "velo") {
+       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
+       marker.addTo(this.map);
+       marker.on("click", event => {
+         console.log("VELO");
+         this.isShow();
+         this.getTransportClick(transport);
+       })
+       marker.bindPopup('<h1>Velo</h1>');
+     } else if (transport.typeDeTransport == "scooter") {
+       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.scootIcon});
+       marker.addTo(this.map);
+       marker.on("click", event => {
+         console.log("SCOOTER");
+         this.isShow();
+         this.getTransportClick(transport);
+       })
+       marker.bindPopup('<h1>Scooter</h1>');
+     } else {
+       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.trotIcon});
+       marker.addTo(this.map);
+       marker.on("click", event => {
+         console.log("TROTTINETTE");
+         this.isShow();
+         this.getTransportClick(transport);
+       })
+       marker.bindPopup('<h1>Trottinette</h1>');
+     }
 
-    if(transport.typeDeTransport=="velo"){
-      const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
+   }
+   else{
 
-      let self: any = this;
+     if ((transport.typeDeTransport == "velo" && this.client.preference.velo) || (this.client.preference.velo==false && this.client.preference.scooter==false && this.client.preference.trottinette==false)) {
+       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
+       marker.addTo(this.map);
+       marker.on("click", event => {
+         console.log("VELO");
+         //this.isShowItineraire();
+         this.isShow();
+         this.getTransportClick(transport);
+       })
+       marker.bindPopup('<h1>Velo</h1>');
+     } else if ((transport.typeDeTransport === "scooter" && this.client.preference.scooter) || (this.client.preference.velo==false && this.client.preference.scooter==false && this.client.preference.trottinette==false)) {
+       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.scootIcon});
+       marker.addTo(this.map);
+       marker.on("click", event => {
+         console.log("SCOOTER");
+         this.isShow();
+         this.getTransportClick(transport);
+       })
+       marker.bindPopup('<h1>Scooter</h1>');
+     } else if((transport.typeDeTransport === "trottinette" && this.client.preference.trottinette) || (this.client.preference.velo==false && this.client.preference.scooter==false && this.client.preference.trottinette==false)){
+       const marker = L.marker([transport.latitude, transport.longitude], {icon: this.trotIcon});
+       marker.addTo(this.map);
+       marker.on("click", event => {
+         console.log("TROTTINETTE");
+         this.isShow();
+         this.getTransportClick(transport);
+       })
+       marker.bindPopup('<h1>Trottinette</h1>');
+     }
 
-      marker.addTo(this.map);
-      marker.on("click",event => {
-        console.log("VELO");
-        this.isShow();
-        this.getTransportClick(transport);
-      })
-      marker.bindPopup('<h1>Velo</h1>');
-    }
-    else if(transport.typeDeTransport=="scooter"){
-      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
-      marker.addTo(this.map);
-      marker.on("click",event => {
-        console.log("SCOOTER");
-        this.isShow();
-        this.getTransportClick(transport);
-      })
-      marker.bindPopup('<h1>Scooter</h1>');
-    }
-    else{
-      const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
-      marker.addTo(this.map);
-      marker.on("click",event => {
-        console.log("TROTTINETTE");
-        this.isShow();
-        this.getTransportClick(transport);
-      })
-      marker.bindPopup('<h1>Trottinette</h1>');
-    }
+   }
+
   }
 
   getTransportClick(transport) {
