@@ -80,7 +80,7 @@ public class Itineraire {
 	private MoyenDeTransport moyenDeTransport;
 	@ManyToOne
 	@JoinColumn(name = "reservation_id")
-//	@JsonView(Views.ViewItineraireDetail.class)
+	@JsonView(Views.ViewItineraire.class)
 	private Reservation reservation;
 
 	public Itineraire() {
