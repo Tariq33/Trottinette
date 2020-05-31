@@ -66,6 +66,7 @@ public class MoyenDeTransport {
 	@JsonView(Views.ViewCommon.class)
 	private Boolean enUtilisation;
 	@OneToOne(mappedBy = "moyenDeTransport")
+	@JsonView(Views.ViewCommon.class)
 	private Itineraire itineraire;
 
 	public MoyenDeTransport() {

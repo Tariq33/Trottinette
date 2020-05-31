@@ -32,7 +32,7 @@ export class FinDeTrajetComponent implements OnInit {
     'ville': null,
     'tempsDeMarche': null,
   };
-  public itineraireRes = new Itineraire();
+  public itineraire = new Itineraire();
 
   ngOnInit(): void {
   }
@@ -41,10 +41,9 @@ export class FinDeTrajetComponent implements OnInit {
   constructor(private sessionService: SessionService, private itineraireService: ItineraireService) {
     this.reservationItineraire = this.sessionService.getAdresseMoyenDeTransportReservee();
     this.reservation = this.sessionService.getReservation();
-    this.itineraireRes.moyenDeTransport = this.reservationItineraire.moyendeTransportClick;
-    this.itineraireRes.reservation = this.reservation;
+    this.itineraire.moyenDeTransport = this.reservationItineraire.moyendeTransportClick;
+    this.itineraire.reservation = this.reservation;
     this.createItineraire();
-    console.log(this.itineraireRes);
     this.prixSeconde = this.reservationItineraire.moyendeTransportClick.prixMinute / 60;
     timer(0, 1000).subscribe(ellapsedCycles => {
       this.time++;
@@ -55,9 +54,10 @@ export class FinDeTrajetComponent implements OnInit {
 
   }
   createItineraire() {
-    this.itineraireService.create(this.itineraireRes).subscribe(resp => {
-      this.itineraireRes.id = resp.id;
-      this.sessionService.setItineraire(this.itineraireRes);
+    console.log(this.itineraire);
+    this.itineraireService.create(this.itineraire).subscribe(resp => {
+      this.itineraire.id = resp.id;
+      this.sessionService.setItineraire(this.itineraire);
     })
   }
 

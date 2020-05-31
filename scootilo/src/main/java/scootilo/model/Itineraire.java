@@ -55,7 +55,7 @@ public class Itineraire {
 	private Date heureDepart;
 	@Column(name = "endingHour", length = 100)
 	@JsonView(Views.ViewItineraire.class)
-	private String heureArrivee;
+	private Date heureArrivee;
 	@Column(name = "hourLimit", length = 100)
 	@JsonView(Views.ViewItineraire.class)
 	private Date heureLimite;
@@ -127,11 +127,11 @@ public class Itineraire {
 		this.heureDepart = heureDepart;
 	}
 
-	public String getHeureArrivee() {
+	public Date getHeureArrivee() {
 		return heureArrivee;
-	}
+	}	
 
-	public void setHeureArrivee(String heureArrivee) {
+	public void setHeureArrivee(Date heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 
