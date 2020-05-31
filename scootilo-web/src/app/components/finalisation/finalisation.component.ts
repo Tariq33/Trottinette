@@ -12,4 +12,28 @@ export class FinalisationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
+
+  imagePath;
+  imgURL: any;
+
+  preview(files) {
+    if (files.length === 0) {
+      return;
+    }
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+    }
+  }
+
+
+
+
+
+
 }
