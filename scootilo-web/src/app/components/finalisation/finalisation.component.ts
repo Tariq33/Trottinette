@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Itineraire} from "../../model/itineraire";
+import {Router} from "@angular/router";
+import {SessionService} from "../../service/session.service";
 
 @Component({
   selector: 'app-finalisation',
@@ -7,13 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FinalisationComponent implements OnInit {
 
-  constructor() { }
+  itineraire : Itineraire;
+
+  constructor(private router: Router, private sessionService: SessionService) {
+    this.itineraire = sessionService.getItineraire();
+  }
 
   ngOnInit(): void {
   }
 
 
+  creationFinDeTrajet(){
 
+    // Creer l'item fin de trajet  et l'associer à la réservation
+  }
 
   imagePath;
   imgURL: any;

@@ -8,6 +8,7 @@ import { Client } from 'src/app/model/client';
 import {Reservation} from '../../model/Reservation';
 import {Itineraire} from '../../model/itineraire';
 import {ItineraireService} from '../../service/itineraire.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-fin-de-trajet',
@@ -15,7 +16,7 @@ import {ItineraireService} from '../../service/itineraire.service';
   styleUrls: ['./fin-de-trajet.component.scss']
 })
 export class FinDeTrajetComponent implements OnInit {
-  public map;
+
   public prixSeconde;
   public time: number = 0;
   public cout;
@@ -25,40 +26,20 @@ export class FinDeTrajetComponent implements OnInit {
   };
   public client: Client = new Client();
   public reservation: Reservation = new Reservation();
-  reservationItineraire = {
-    'moyendeTransportClick': new MoyenDeTransport(),
-    'numeroRue': null,
-    'rue': null,
-    'ville': null,
-    'tempsDeMarche': null,
-  };
+  public reservationItineraire = null;
   public itineraire = new Itineraire();
+
+  public validationDuMoyenDeTransport : boolean;
+  public qrCodeInput : string;
 
   ngOnInit(): void {
   }
 
 
-  constructor(private sessionService: SessionService, private itineraireService: ItineraireService) {
+  constructor(private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService) {
     this.reservationItineraire = this.sessionService.getAdresseMoyenDeTransportReservee();
-    this.reservation = this.sessionService.getReservation();
-    this.itineraire.moyenDeTransport = this.reservationItineraire.moyendeTransportClick;
-    this.itineraire.reservation = this.reservation;
-    this.createItineraire();
-    this.prixSeconde = this.reservationItineraire.moyendeTransportClick.prixMinute / 60;
-    timer(0, 1000).subscribe(ellapsedCycles => {
-      this.time++;
-      this.timerDisplay = this.getDisplayTimer(this.time);
-      this.cout = (this.prixSeconde * this.time).toFixed(2);
-    });
 
 
-  }
-  createItineraire() {
-    console.log(this.itineraire);
-    this.itineraireService.create(this.itineraire).subscribe(resp => {
-      this.itineraire.id = resp.id;
-      this.sessionService.setItineraire(this.itineraire);
-    })
   }
 
   getDisplayTimer(time: number) {
@@ -71,6 +52,36 @@ export class FinDeTrajetComponent implements OnInit {
       minutes: {digit1: minutes.slice(-2, -1), digit2: minutes.slice(-1)},
       seconds: {digit1: seconds.slice(-2, -1), digit2: seconds.slice(-1)},
     };
+  }
+
+  finDuTrajet(){
+    this.itineraire=this.sessionService.getItineraire();
+    this.itineraire.montant=this.cout;
+    this.itineraire.duree=this.time;
+    this.sessionService.setItineraire(this.itineraire);
+
+    // creer paiement fournisseur ici et l'associer à l'itinéraire
+
+
+    this.router.navigateByUrl('/finalisation');
+  }
+
+  validationDuQrCode(qrCodeRenseigne : string){
+    if(qrCodeRenseigne==this.reservationItineraire.moyendeTransportClick.qrCode){
+      this.validationDuMoyenDeTransport=true;
+
+      //On lance le timer et le compteur de prix
+      this.prixSeconde = this.reservationItineraire.moyendeTransportClick.prixMinute / 60;
+      timer(0, 1000).subscribe(ellapsedCycles => {
+        this.time++;
+        this.timerDisplay = this.getDisplayTimer(this.time);
+        this.cout = (this.prixSeconde * this.time).toFixed(2);
+      });
+    }
+    else {
+      console.log("C'est pas le bon qrCode");
+    }
+
   }
 
 }

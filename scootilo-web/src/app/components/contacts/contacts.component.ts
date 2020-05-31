@@ -15,8 +15,7 @@ export class ContactsComponent implements OnInit {
   adresse : any;
 
   constructor(private geocodingService : GeocodingService) {
-
-    this.load();
+  this.load();
 
   }
 

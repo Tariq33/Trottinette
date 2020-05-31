@@ -1,4 +1,11 @@
-<div class="container">
+
+
+
+<div> Renseigner le qrCode pour commencer la réservation : </div>
+<input type="text" [(ngModel)]="qrCodeInput" placeholder="Renseignez le qrCode">
+<button (click)="validationDuQrCode(qrCodeInput)"> Valider le qrCode</button>
+
+<div *ngIf="validationDuMoyenDeTransport" class="container">
   <div class="card">
     <div class="card-header">
       <h4>Fin de trajet</h4>
@@ -18,7 +25,7 @@
 
 
       <div style="margin: 0 auto; margin-bottom: 15px;">
-        <button class="btn-lg btn-secondary"  [routerLink]="['/finalisation']">Fin du trajet</button>
+        <button class="btn-lg btn-secondary" (click)="finDuTrajet()" >Fin du trajet</button>
       </div>
     </div>
   </div>

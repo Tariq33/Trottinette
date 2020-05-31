@@ -8,6 +8,8 @@ import {ClientService} from '../../service/client.service';
 import {Router} from '@angular/router';
 import {Itineraire} from '../../model/itineraire';
 import {ItineraireService} from '../../service/itineraire.service';
+import {Adresse} from "../../model/adresse";
+import {AdresseItineraire} from "../../model/adresseItineraire";
 
 @Component({
   selector: 'app-reservation-sur-carte',
@@ -15,20 +17,14 @@ import {ItineraireService} from '../../service/itineraire.service';
   styleUrls: ['./reservation-sur-carte.component.scss']
 })
 export class ReservationSurCarteComponent implements OnInit {
-  reservationItineraire = {
-    'moyendeTransportClick' : new MoyenDeTransport(),
-    'numeroRue' : null,
-    'rue' : null,
-    'ville' : null,
-    'tempsDeMarche' : null,
-  };
+  reservationItineraire = null
+  itineraire : Itineraire = new Itineraire();
 
   reservation = new Reservation();
-  // @ts-ignore
-  dateReservation: Date = new Date();
   client = new Client();
 
   constructor(private sessionService: SessionService, private reservationService: ReservationService, private router: Router, private itineraireService: ItineraireService) {
+    console.log(JSON.parse(sessionStorage.getItem("adresseMoyenDeTransportReservee")));
     this.reservationItineraire = this.sessionService.getAdresseMoyenDeTransportReservee();
       }
 
@@ -36,22 +32,40 @@ export class ReservationSurCarteComponent implements OnInit {
   }
 
   save() {
-    //Attributs de la réservation
-    this.reservation.date = this.dateReservation;
-    this.reservation.heureDepart = this.dateReservation;
+    //Renseigne la réservation
+    this.reservation.adrDepart= new AdresseItineraire();
+    console.log("on passe");
+    this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + this.reservationItineraire.rue;
+    this.reservation.adrDepart.codePostal= "33000";
+    this.reservation.adrDepart.ville= this.reservationItineraire.ville;
+    this.reservation.date = new Date();
+    this.reservation.heureDepart = new Date();
     this.reservation.client = this.sessionService.getClient();
-
-    //pour heureLimite
-    // this.dateReservation.setMinutes(this.dateReservation.getMinutes() + 15);
     this.reservation.expiree = false;
-    console.log(this.reservation);
+
+    // Crée la réservation
     this.reservationService.create(this.reservation).subscribe(resp => {
-      this.reservation.id = resp.id;
-      this.sessionService.setReservation(this.reservation);
-      this.router.navigateByUrl('/finDeTrajet/');
+        this.reservation=resp;
+        this.sessionService.setReservation(this.reservation);
+
+        this.itineraire.adrDepart= this.reservation.adrDepart
+        this.itineraire.heureArrivee= new Date();
+        this.itineraire.acompte=1;
+        this.itineraire.reservation=this.reservation;
+
+        this.itineraireService.create(this.itineraire).subscribe(resp => {
+            //renseigner le itineraireSession
+            this.itineraire=resp;
+            this.sessionService.setItineraire(this.itineraire);
+            this.router.navigateByUrl('/finDeTrajet/');
+          },
+          error => console.log(error)
+        )
       },
       error => console.log(error)
     )
+
+
   }
 
   cancelClick() {

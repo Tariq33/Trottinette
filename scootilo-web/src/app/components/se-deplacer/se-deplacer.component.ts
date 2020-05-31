@@ -34,8 +34,8 @@ export class SeDeplacerComponent implements OnInit {
   scootMarkers = new L.LayerGroup();
   veloMarkers = new L.LayerGroup();
 
-
-    reservationItineraire = {
+    //Variable dans laquelle on va mettre les données du moyen de transport choisi
+    donneesDuMoyenDeTransportChoisi = {
     'moyendeTransportClick' : new MoyenDeTransport(),
     'numeroRue' : null,
     'rue' : null,
@@ -43,21 +43,11 @@ export class SeDeplacerComponent implements OnInit {
     'tempsDeMarche' : null,
   };
 
-  veloIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-velo.png'
-  });
-
-  scootIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-scoot.png'
-  });
-
-  trotIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-trot.png'
-  });
-
-  hommeIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-homme.png'
-  });
+  // On récupère les icônes des moyens de transport
+  veloIcon = new L.Icon({ iconUrl: '../../../assets/icon-velo.png' });
+  scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' });
+  trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' });
+  hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' });
 
 
 
@@ -121,32 +111,40 @@ export class SeDeplacerComponent implements OnInit {
     }
   }
 
-  load(){
-    this.adresseService.FindAddressByUserId(this.sessionService.getClient().id).subscribe(resp => {
-      this.adresses =  resp;
-    }, error => console.log(error));
-  }
+
 
 
 
   constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
       this.client=sessionService.getClient();
-      this.load();
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+      this.loadCustomerAddresses();
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
+      {
+        this.moyensDeTransportObs = resp;
+        this.createMap();
+        this.addTransports();
+      } ,err => console.log(err));
     }
     else{
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
+      {
+        this.moyensDeTransportObs = resp;
+        this.createMap(); this.addTransports();
+      } ,err => console.log(err));
     }
   }
 
 
-  /*ngAfterViewInit(): void {
-    this.createMap();
-  }*/
-
   ngOnInit(): void {
 
+  }
+
+  // Récupère les adresses du clients
+  loadCustomerAddresses(){
+    this.adresseService.FindAddressByUserId(this.sessionService.getClient().id).subscribe(resp => {
+      this.adresses =  resp;
+    }, error => console.log(error));
   }
 
   createMap(){
@@ -200,6 +198,8 @@ export class SeDeplacerComponent implements OnInit {
     this.ongletReservationItineraireShow = false;
   }
 
+
+  //Gère l'affichage des moyens de transport sur la carte
  addMarker(transport){
    if (transport.typeDeTransport == "velo") {
      const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
@@ -246,21 +246,23 @@ export class SeDeplacerComponent implements OnInit {
 
  }
 
+  //Récupère les données du moyen de transport sur lequel on a cliqué
   getTransportClick(transport) {
-    this.reservationItineraire.moyendeTransportClick = transport;
-    this.geocodingService.getAddressWithGps(this.reservationItineraire.moyendeTransportClick.latitude, this.reservationItineraire.moyendeTransportClick.longitude).subscribe(resp => {
-    this.reservationItineraire.numeroRue = resp.address.house_number;
-    this.reservationItineraire.rue = resp.address.road;
-    this.reservationItineraire.ville = resp.address.city;
+    this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick = transport;
+    this.geocodingService.getAddressWithGps(this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude).subscribe(resp => {
+    this.donneesDuMoyenDeTransportChoisi.numeroRue = resp.address.house_number;
+    this.donneesDuMoyenDeTransportChoisi.rue = resp.address.road;
+    this.donneesDuMoyenDeTransportChoisi.ville = resp.address.city;
     //on part sur le postulat de 5km/h
-      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.reservationItineraire.moyendeTransportClick.latitude, this.reservationItineraire.moyendeTransportClick.longitude]);
+      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude]);
       let temps = distance / (5/3.6);  //km/h en m/s => /3.6
       this.secondsToHms(temps);
-      this.reservationItineraire.tempsDeMarche = this.secondsToHms(temps);
-    this.sessionService.setAdresseMoyenDeTransportReservee(this.reservationItineraire);
+      this.donneesDuMoyenDeTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
+    this.sessionService.setAdresseMoyenDeTransportReservee(this.donneesDuMoyenDeTransportChoisi);
       })
     }
 
+  //Calcule la distance entre deux points
   getDistance(origin, destination) {
     // return distance in meters
     var lon1 = this.toRadian(origin[1]),
@@ -277,10 +279,12 @@ export class SeDeplacerComponent implements OnInit {
     return c * EARTH_RADIUS * 1000;
   }
 
+  //Convertit en degrés
   toRadian(degree) {
     return degree*Math.PI/180;
   }
 
+  //Transport un nombre de secondes en un objet heure/minute/seconde
   secondsToHms(d: number) {
     var h = Math.floor(d / 3600);
     var m = Math.floor(d % 3600 / 60);
