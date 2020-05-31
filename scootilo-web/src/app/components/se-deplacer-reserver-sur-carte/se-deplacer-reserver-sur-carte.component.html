@@ -5,22 +5,22 @@
     <tbody>
     <tr>
       <td>Mode de transport :</td>
-      <td>{{this.moyenTransport.typeDeTransport}}</td>
+      <td>{{this.reservationItineraire.moyendeTransportClick.typeDeTransport}}</td>
     </tr>
     <tr>
       <td>Emplacement :</td>
-      <td>{{this.adresseMoyenDeTransport.numeroRue}} {{this.adresseMoyenDeTransport.rue}} {{this.adresseMoyenDeTransport.ville}}</td>
+      <td>{{this.reservationItineraire.numeroRue}} {{this.reservationItineraire.rue}} {{this.reservationItineraire.ville}}</td>
     </tr>
     <tr>
       <td>Prix (€/min) :</td>
-      <td>{{this.moyenTransport.prixMinute}}</td>
+      <td>{{this.reservationItineraire.moyendeTransportClick.prixMinute}}</td>
     </tr>
     <tr>
       <td>Temps de marche :</td>
-      <td>A renseigner</td>
+      <td>{{this.reservationItineraire.tempsDeMarche}}</td>
     </tr>
     </tbody>
   </table>
   <br> <a class="btn-lg btn-secondary"
-          style="margin-left: 160px;" [routerLink]="['/reservationItineraire']">Réserver</a>
+          style="margin-left: 160px;" [routerLink]="['/reservationSurCarte']">Réserver</a>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SessionService} from '../../service/session.service';
+import {MoyenDeTransport} from '../../model/moyenDeTransport';
+import {Reservation} from '../../model/Reservation';
 
 @Component({
   selector: 'app-reservation-itineraire',
@@ -8,15 +10,25 @@ import {SessionService} from '../../service/session.service';
 })
 export class ReservationItineraireComponent implements OnInit {
 
+  reservationItineraire = {
+    'moyendeTransportClick' : new MoyenDeTransport(),
+    'numeroRue' : null,
+    'rue' : null,
+    'ville' : null,
+    'tempsDeMarche' : null,
+  };
+
+  reservation = new Reservation();
+
   constructor(private sessionService: SessionService) {
-    console.log(this.sessionService.getMoyenDeTransportReserve())
+    this.reservationItineraire = this.sessionService.getAdresseMoyenDeTransportReservee()
   }
 
   ngOnInit(): void {
   }
 
   cancelClick() {
-  this.sessionService.removeSessionStorageMoyenDeTransport();
+  this.sessionService.removeSessionStorageAdresseMoyenDeTransportReservee();
 }
 
 }

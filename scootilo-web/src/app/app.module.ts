@@ -43,6 +43,7 @@ import { MonCompteFournisseurGrapheGainComponent } from './components/mon-compte
 import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-repartition-transport/mon-compte-fournisseur-graphe-repartition-transport.component';
 import { DateCustomPipe } from './pipe/date-custom.pipe';
 import { AbsoluPipe } from './pipe/absolu';
+import { ReservationSurCarteComponent } from './components/reservation-sur-carte/reservation-sur-carte.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { AbsoluPipe } from './pipe/absolu';
     MonCompteFournisseurGrapheGainComponent,
     MonCompteFournisseurGrapheRepartitionTransportComponent,
     DateCustomPipe,
-    AbsoluPipe
+    AbsoluPipe,
+    ReservationSurCarteComponent
   ],
   imports: [
     BrowserModule,

@@ -67,11 +67,76 @@
   <br>
 
     <div *ngIf="ongletReservationItineraireShow">
-      <app-se-deplacer-recherche></app-se-deplacer-recherche>
+      <div>
+        <ul  class="nav nav-tabs">
+          <li class="nav-item">
+            <a style="color: black;" class="nav-link active" >Plus rapide</a>
+          </li>
+          <li class="nav-item">
+            <a style="color: black;" class="nav-link" >Moins cher</a>
+          </li>
+          <li class="nav-item">
+            <a style="color: black;" class="nav-link" >Moins de marche</a>
+          </li>
+
+        </ul>
+
+        <table class="table">
+          <tbody>
+          <tr>
+            <td>Mode de transport :</td>
+            <td>A renseigner</td>
+          </tr>
+          <tr>
+            <td>Emplacement :</td>
+            <td>A renseigner</td>
+          </tr>
+          <tr>
+            <td>Durée totale :</td>
+            <td>A renseigner</td>
+          </tr>
+          <tr>
+            <td>Prix estimatif :</td>
+            <td>A renseigner</td>
+          </tr>
+          <tr>
+            <td>Temps de marche :</td>
+            <td>A renseigner</td>
+          </tr>
+          </tbody>
+        </table>
+        <br> <button  class="btn-lg btn-secondary"
+                      style="margin-left: 160px;" [routerLink]="['/reservationItineraire']">Réserver</button>
+      </div>
     </div>
 
     <div *ngIf="ongletReservationShow">
-      <app-se-deplacer-reserver-sur-carte></app-se-deplacer-reserver-sur-carte>
+      <div>
+        <h4>Moyen de transport sélectionné :</h4>
+
+        <table class="table">
+          <tbody>
+          <tr>
+            <td>Mode de transport :</td>
+            <td>{{this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.typeDeTransport}}</td>
+          </tr>
+          <tr>
+            <td>Emplacement :</td>
+            <td>{{this.donneesDuMoyenDeTransportChoisi.numeroRue}} {{this.donneesDuMoyenDeTransportChoisi.rue}} {{this.donneesDuMoyenDeTransportChoisi.ville}}</td>
+          </tr>
+          <tr>
+            <td>Prix (€/min) :</td>
+            <td>{{this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.prixMinute}}</td>
+          </tr>
+          <tr>
+            <td>Temps de marche :</td>
+            <td>{{this.donneesDuMoyenDeTransportChoisi.tempsDeMarche}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <br> <a class="btn-lg btn-secondary"
+                style="margin-left: 160px;" [routerLink]="['/reservationSurCarte']">Réserver</a>
+      </div>
     </div>
 
 </div>

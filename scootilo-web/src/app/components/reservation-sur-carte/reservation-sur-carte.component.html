@@ -19,22 +19,18 @@
             <td>{{this.reservationItineraire.numeroRue}} {{this.reservationItineraire.rue}} {{this.reservationItineraire.ville}}</td>
           </tr>
           <tr>
-            <td>Durée totale estimative :</td>
-            <td>A renseigner</td>
-          </tr>
-          <tr>
-            <td>Prix estimatif :</td>
-            <td>A renseigner</td>
+            <td>Prix à la minute :</td>
+            <td>{{this.reservationItineraire.moyendeTransportClick.prixMinute}} €</td>
           </tr>
           <tr>
             <td>Temps de marche :</td>
-            <td>A renseigner</td>
+            <td>{{this.reservationItineraire.tempsDeMarche}}</td>
           </tr>
           </tbody>
         </table>
         <div>
-        <a type="submit" class="btn btn-primary"  [routerLink]="['/finDeTrajet']">Confirmer</a>
-        <a class="btn btn-danger" (click)="cancelClick()" [routerLink]="['/seDeplacer']">Annuler</a>
+          <a type="submit" class="btn btn-primary" (click)="save()">Confirmer</a>
+          <a class="btn btn-danger" (click)="cancelClick()" [routerLink]="['/seDeplacer']">Annuler</a>
         </div>
       </div>
 

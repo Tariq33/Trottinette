@@ -10,6 +10,7 @@ import {AdresseService} from "../../service/adresse.service";
 import {control} from "leaflet";
 import layers = control.layers;
 import {Pref} from "../../model/preference2";
+import {GeocodingService} from '../../service/geocoding.service';
 
 
 @Component({
@@ -34,21 +35,22 @@ export class SeDeplacerComponent implements OnInit {
   scootMarkers = new L.LayerGroup();
   veloMarkers = new L.LayerGroup();
 
-  veloIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-velo.png'
-  });
+    //Variable dans laquelle on va mettre les données du moyen de transport choisi
+    donneesDuMoyenDeTransportChoisi = {
+    'moyendeTransportClick' : new MoyenDeTransport(),
+    'numeroRue' : null,
+    'rue' : null,
+    'ville' : null,
+    'tempsDeMarche' : null,
+  };
 
-  scootIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-scoot.png'
-  });
+  // On récupère les icônes des moyens de transport
+  veloIcon = new L.Icon({ iconUrl: '../../../assets/icon-velo.png' });
+  scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' });
+  trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' });
+  hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' });
 
-  trotIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-trot.png'
-  });
 
-  hommeIcon = new L.Icon({
-    iconUrl: '../../../assets/icon-homme.png'
-  });
 
   constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
@@ -129,7 +131,37 @@ export class SeDeplacerComponent implements OnInit {
 
   }
 
-  load(){
+
+
+
+
+  constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+    if(this.sessionService.getClient().type=="customer"){
+      this.client=sessionService.getClient();
+      this.loadCustomerAddresses();
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
+      {
+        this.moyensDeTransportObs = resp;
+        this.createMap();
+        this.addTransports();
+      } ,err => console.log(err));
+    }
+    else{
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
+      {
+        this.moyensDeTransportObs = resp;
+        this.createMap(); this.addTransports();
+      } ,err => console.log(err));
+    }
+  }
+
+
+  ngOnInit(): void {
+
+  }
+
+  // Récupère les adresses du clients
+  loadCustomerAddresses(){
     this.adresseService.FindAddressByUserId(this.sessionService.getClient().id).subscribe(resp => {
       this.adresses =  resp;
     }, error => console.log(error));
@@ -186,6 +218,8 @@ export class SeDeplacerComponent implements OnInit {
     this.ongletReservationItineraireShow = false;
   }
 
+
+  //Gère l'affichage des moyens de transport sur la carte
  addMarker(transport){
    if (transport.typeDeTransport == "velo") {
      const marker = L.marker([transport.latitude, transport.longitude], {icon: this.veloIcon});
@@ -231,10 +265,54 @@ export class SeDeplacerComponent implements OnInit {
    }
  }
 
+  //Récupère les données du moyen de transport sur lequel on a cliqué
   getTransportClick(transport) {
-    this.moyenTransportClick = transport;
-    this.sessionService.setMoyenDeTransportReserve(transport);
+    this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick = transport;
+    this.geocodingService.getAddressWithGps(this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude).subscribe(resp => {
+    this.donneesDuMoyenDeTransportChoisi.numeroRue = resp.address.house_number;
+    this.donneesDuMoyenDeTransportChoisi.rue = resp.address.road;
+    this.donneesDuMoyenDeTransportChoisi.ville = resp.address.city;
+    //on part sur le postulat de 5km/h
+      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude]);
+      let temps = distance / (5/3.6);  //km/h en m/s => /3.6
+      this.secondsToHms(temps);
+      this.donneesDuMoyenDeTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
+    this.sessionService.setAdresseMoyenDeTransportReservee(this.donneesDuMoyenDeTransportChoisi);
+      })
+    }
+
+  //Calcule la distance entre deux points
+  getDistance(origin, destination) {
+    // return distance in meters
+    var lon1 = this.toRadian(origin[1]),
+      lat1 = this.toRadian(origin[0]),
+      lon2 = this.toRadian(destination[1]),
+      lat2 = this.toRadian(destination[0]);
+
+    var deltaLat = lat2 - lat1;
+    var deltaLon = lon2 - lon1;
+
+    var a = Math.pow(Math.sin(deltaLat/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon/2), 2);
+    var c = 2 * Math.asin(Math.sqrt(a));
+    var EARTH_RADIUS = 6371;
+    return c * EARTH_RADIUS * 1000;
+  }
+
+  //Convertit en degrés
+  toRadian(degree) {
+    return degree*Math.PI/180;
+  }
+
+  //Transport un nombre de secondes en un objet heure/minute/seconde
+  secondsToHms(d: number) {
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    return hDisplay + mDisplay + sDisplay;
   }
 
 
-  }
+}

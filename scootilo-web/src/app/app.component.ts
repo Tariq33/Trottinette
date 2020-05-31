@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(public sessionService : SessionService,public router: Router,
               private utilisateurService:UtilisateurService) {
 
-    // this.connexionEnTantQueClient();
+    this.connexionEnTantQueClient();
     // this.connexionEnTantQueAdministrateur();
     // this.connexionEnTantQueFournisseur();
 
@@ -52,6 +52,14 @@ export class AppComponent {
       },
       error => console.log(error)
     );
+  }
+
+  redirectOffLineUser() {
+    if (Object.keys(this.sessionService.getClient()).length === 0) {
+      this.router.navigateByUrl('/creationCompte')
+    } else {
+      this.router.navigateByUrl('/seDeplacer')
+    }
   }
 
 
