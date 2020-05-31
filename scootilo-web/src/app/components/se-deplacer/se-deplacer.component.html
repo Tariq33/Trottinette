@@ -45,17 +45,17 @@
       <h6 class="card-title">Préférences :</h6>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.trottinette">Trottinette
+          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.trottinette" (ngModelChange)="charger3($event, 'trottinette')">Trottinette
         </label>
       </div>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.velo">Vélo
+          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.velo" (ngModelChange)="charger3($event, 'velo')">Vélo
         </label>
       </div>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value=""[ngModel]="client.preference.scooter">Scooter
+          <input type="checkbox" class="form-check-input" value=""[ngModel]="client.preference.scooter" (ngModelChange)="charger3($event, 'scooter')">Scooter
         </label>
       </div>
     </div>
