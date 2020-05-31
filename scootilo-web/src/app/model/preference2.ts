@@ -1,4 +1,4 @@
-export class Preference {
+export class Pref{
   velo: boolean;
   scooter: boolean;
   trottinette: boolean;
