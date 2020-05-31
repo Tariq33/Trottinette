@@ -1,7 +1,9 @@
-import {TypeDeTransport} from "./typeDeTransport";
-import {TypeMoteur} from "./typeMoteur";
+// import {TypeDeTransport} from "./typeDeTransport";
+// import {TypeMoteur} from "./typeMoteur";
 import {Fournisseur} from "./fournisseur";
 import {Itineraire} from "./itineraire";
+import {TypeDeTransport} from "./type-de-transport.enum";
+import {TypeMoteur} from "./type-moteur.enum";
 
 export class MoyenDeTransport{
   id: number;
