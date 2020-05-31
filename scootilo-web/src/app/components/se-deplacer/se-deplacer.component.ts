@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
@@ -50,15 +50,13 @@ export class SeDeplacerComponent implements OnInit {
   trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' });
   hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' });
 
-
-
-  constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+  constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
       this.client=sessionService.getClient();
       if(this.client.preference==null){
         this.client.preference = new Pref(true,true,true,false,false,false);
       }
-      this.load();
+      this.loadCustomerAddresses();
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
     else{
@@ -128,35 +126,6 @@ export class SeDeplacerComponent implements OnInit {
         }
       }
     }
-
-  }
-
-
-
-
-
-  constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
-    if(this.sessionService.getClient().type=="customer"){
-      this.client=sessionService.getClient();
-      this.loadCustomerAddresses();
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
-      {
-        this.moyensDeTransportObs = resp;
-        this.createMap();
-        this.addTransports();
-      } ,err => console.log(err));
-    }
-    else{
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
-      {
-        this.moyensDeTransportObs = resp;
-        this.createMap(); this.addTransports();
-      } ,err => console.log(err));
-    }
-  }
-
-
-  ngOnInit(): void {
 
   }
 
