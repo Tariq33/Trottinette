@@ -24,6 +24,7 @@ import {FinalisationComponent} from "./components/finalisation/finalisation.comp
 import {MonCompteAjoutAdresseComponent} from "./components/mon-compte-ajout-adresse/mon-compte-ajout-adresse.component";
 import {IdOublieComponent} from "./components/id-oublie/id-oublie.component";
 import {MonCompteFournisseurTableauDeBordComponent} from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-tableau-de-bord.component';
+import {ReservationSurCarteComponent} from './components/reservation-sur-carte/reservation-sur-carte.component';
 
 
 const routes: Routes = [
@@ -50,7 +51,8 @@ const routes: Routes = [
   {path: "compteCrediter/:id", component: MonCompteCrediterComponent},
   {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent },
   {path: "reservationItineraire", component: ReservationItineraireComponent},
-  {path: "finDeTrajet", component: FinDeTrajetComponent},
+  {path: "reservationSurCarte", component: ReservationSurCarteComponent},
+  {path: "finDeTrajet/:id", component: FinDeTrajetComponent},
   {path: "compteFournisseur/tableauDeBord", component: MonCompteFournisseurTableauDeBordComponent},
   {path: "finalisation", component: FinalisationComponent},
   {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent},

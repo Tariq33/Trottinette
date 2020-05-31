@@ -4,6 +4,8 @@ import {Client} from "../model/client";
 import {Fournisseur} from "../model/fournisseur";
 import {MoyenDeTransport} from '../model/moyenDeTransport';
 import {Administrateur} from "../model/administrateur";
+import {Reservation} from '../model/Reservation';
+import {Itineraire} from '../model/itineraire';
 
 @Injectable({
   providedIn: 'root'
@@ -34,12 +36,40 @@ export class SessionService {
     sessionStorage.setItem("moyenDeTransport",JSON.stringify(moyenDeTransport));
   }
 
+  setAdresseMoyenDeTransportReservee(adresseMoyenDeTransportReservee: any) {
+    sessionStorage.setItem("adresseMoyenDeTransportReservee", JSON.stringify(adresseMoyenDeTransportReservee));
+  }
+
+  getAdresseMoyenDeTransportReservee(): any {
+    return JSON.parse(sessionStorage.getItem("adresseMoyenDeTransportReservee"));
+  }
+
+  removeSessionStorageAdresseMoyenDeTransportReservee() {
+    sessionStorage.removeItem("adresseMoyenDeTransportReservee");
+  }
+
   getMoyenDeTransportReserve(): MoyenDeTransport {
     return JSON.parse(sessionStorage.getItem("moyenDeTransport"));
   }
 
   removeSessionStorageMoyenDeTransport() {
   sessionStorage.removeItem("moyenDeTransport");
+  }
+
+  setReservation(reservation: Reservation) {
+    sessionStorage.setItem("reservation", JSON.stringify(reservation));
+  }
+
+  getReservation(): Reservation {
+    return  JSON.parse(sessionStorage.getItem("reservation"));
+  }
+
+  setItineraire(itineraire: Itineraire) {
+    sessionStorage.setItem("itineraire", JSON.stringify(itineraire));
+  }
+
+  getItineraire(): Itineraire {
+    return  JSON.parse(sessionStorage.getItem("itineraire"));
   }
 
   getIdentifiant(): string {

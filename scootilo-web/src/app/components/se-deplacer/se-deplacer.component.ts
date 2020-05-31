@@ -7,6 +7,7 @@ import {ClientService} from "../../service/client.service";
 import {SessionService} from "../../service/session.service";
 import {Adresse} from "../../model/adresse";
 import {AdresseService} from "../../service/adresse.service";
+import {GeocodingService} from '../../service/geocoding.service';
 
 
 @Component({
@@ -27,6 +28,15 @@ export class SeDeplacerComponent implements OnInit {
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client = new Client();
   ongletReservationShow: boolean = false;
+
+
+    reservationItineraire = {
+    'moyendeTransportClick' : new MoyenDeTransport(),
+    'numeroRue' : null,
+    'rue' : null,
+    'ville' : null,
+    'tempsDeMarche' : null,
+  };
 
   veloIcon = new L.Icon({
     iconUrl: '../../../assets/icon-velo.png'
@@ -72,7 +82,7 @@ export class SeDeplacerComponent implements OnInit {
 
 
 
-  constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+  constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
       this.client=sessionService.getClient();
       this.load();
@@ -82,6 +92,7 @@ export class SeDeplacerComponent implements OnInit {
       this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
     }
   }
+
 
   /*ngAfterViewInit(): void {
     this.createMap();
@@ -209,9 +220,49 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   getTransportClick(transport) {
-    this.moyenTransportClick = transport;
-    this.sessionService.setMoyenDeTransportReserve(transport);
+    this.reservationItineraire.moyendeTransportClick = transport;
+    this.geocodingService.getAddressWithGps(this.reservationItineraire.moyendeTransportClick.latitude, this.reservationItineraire.moyendeTransportClick.longitude).subscribe(resp => {
+    this.reservationItineraire.numeroRue = resp.address.house_number;
+    this.reservationItineraire.rue = resp.address.road;
+    this.reservationItineraire.ville = resp.address.city;
+    //on part sur le postulat de 5km/h
+      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.reservationItineraire.moyendeTransportClick.latitude, this.reservationItineraire.moyendeTransportClick.longitude]);
+      let temps = distance / (5/3.6);  //km/h en m/s => /3.6
+      this.secondsToHms(temps);
+      this.reservationItineraire.tempsDeMarche = this.secondsToHms(temps);
+    this.sessionService.setAdresseMoyenDeTransportReservee(this.reservationItineraire);
+      })
+    }
+
+  getDistance(origin, destination) {
+    // return distance in meters
+    var lon1 = this.toRadian(origin[1]),
+      lat1 = this.toRadian(origin[0]),
+      lon2 = this.toRadian(destination[1]),
+      lat2 = this.toRadian(destination[0]);
+
+    var deltaLat = lat2 - lat1;
+    var deltaLon = lon2 - lon1;
+
+    var a = Math.pow(Math.sin(deltaLat/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon/2), 2);
+    var c = 2 * Math.asin(Math.sqrt(a));
+    var EARTH_RADIUS = 6371;
+    return c * EARTH_RADIUS * 1000;
+  }
+
+  toRadian(degree) {
+    return degree*Math.PI/180;
+  }
+
+  secondsToHms(d: number) {
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    return hDisplay + mDisplay + sDisplay;
   }
 
 
-  }
+}
