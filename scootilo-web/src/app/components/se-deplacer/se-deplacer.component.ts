@@ -9,6 +9,7 @@ import {Adresse} from "../../model/adresse";
 import {AdresseService} from "../../service/adresse.service";
 import {control} from "leaflet";
 import layers = control.layers;
+import {Pref} from "../../model/preference2";
 
 
 @Component({
@@ -49,7 +50,23 @@ export class SeDeplacerComponent implements OnInit {
     iconUrl: '../../../assets/icon-homme.png'
   });
 
+  constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+    if(this.sessionService.getClient().type=="customer"){
+      this.client=sessionService.getClient();
+      if(this.client.preference==null){
+        this.client.preference = new Pref(true,true,true,false,false,false);
+      }
+      this.load();
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
+    else{
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+    }
+  }
 
+  ngOnInit(): void {
+
+  }
 
   charger(nom:string){
     for (let adr of this.adresses){
@@ -109,33 +126,13 @@ export class SeDeplacerComponent implements OnInit {
         }
       }
     }
+
   }
 
   load(){
     this.adresseService.FindAddressByUserId(this.sessionService.getClient().id).subscribe(resp => {
       this.adresses =  resp;
     }, error => console.log(error));
-  }
-
-
-
-  constructor(private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
-    if(this.sessionService.getClient().type=="customer"){
-      this.client=sessionService.getClient();
-      this.load();
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
-    }
-    else{
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
-    }
-  }
-
-  /*ngAfterViewInit(): void {
-    this.createMap();
-  }*/
-
-  ngOnInit(): void {
-
   }
 
   createMap(){
@@ -199,7 +196,7 @@ export class SeDeplacerComponent implements OnInit {
      })
      marker.bindPopup('<h1>Velo</h1>');
      if(this.sessionService.getClient().type=="customer"){
-        if(!this.client.preference.velo){
+        if(!this.client.preference.velo && (this.client.preference.scooter || this.client.preference.trottinette)){
           this.veloMarkers.getLayers()[this.veloMarkers.getLayers().length-1].removeFrom(this.map);
         }
      }
@@ -213,7 +210,7 @@ export class SeDeplacerComponent implements OnInit {
      })
      marker.bindPopup('<h1>Scooter</h1>');
      if(this.sessionService.getClient().type=="customer"){
-       if(!this.client.preference.scooter){
+       if(!this.client.preference.scooter && (this.client.preference.velo || this.client.preference.trottinette)){
          this.scootMarkers.getLayers()[this.scootMarkers.getLayers().length-1].removeFrom(this.map);
        }
      }
@@ -227,12 +224,11 @@ export class SeDeplacerComponent implements OnInit {
      })
      marker.bindPopup('<h1>Trottinette</h1>');
      if(this.sessionService.getClient().type=="customer"){
-       if(!this.client.preference.trottinette){
+       if(!this.client.preference.trottinette && (this.client.preference.scooter || this.client.preference.velo)){
          this.trotMarkers.getLayers()[this.trotMarkers.getLayers().length-1].removeFrom(this.map);
        }
      }
    }
-
  }
 
   getTransportClick(transport) {
