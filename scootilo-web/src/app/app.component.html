@@ -1,6 +1,7 @@
 <!--style="margin-bottom: 80px;"-->
 <div>
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background: rgba(220, 220, 220, 0.7);">
+    <img  src="../../../assets/LOGO_scootilo.png" width="10%" height="10%" />
     <a class="navbar-brand" [routerLink]="['/accueil']" >Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarsExampleDefault"
@@ -11,22 +12,22 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a [routerLink]="['/seDeplacer']" class="nav-link" >Se déplacer
+          <a [routerLink]="['/seDeplacer']" class="nav-link" style="font-size: 20px">Se déplacer
           <span class="sr-only"></span> </a>
         </li>
         <li class="nav-item active">
-          <a [routerLink]="['/tarifs']" class="nav-link" >Tarifs
+          <a [routerLink]="['/tarifs']" class="nav-link" style="font-size: 20px">Tarifs
           <span class="sr-only"></span>  </a>
         </li>
         <li class="nav-item active">
-          <a [routerLink]="['/partenaires']" class="nav-link" >Partenaires
+          <a [routerLink]="['/partenaires']" class="nav-link" style="font-size: 20px">Partenaires
           <span class="sr-only"></span> </a>
         </li>
         <li class="nav-item active">
-          <a [routerLink]="['/contact']" class="nav-link" >Contact<span
+          <a [routerLink]="['/contact']" class="nav-link" style="font-size: 20px">Contact<span
           class="sr-only"></span></a>
         </li>
-        <li class="nav-item active"><a [routerLink]="['/plan']" class="nav-link" >Plan du réseau<span
+        <li class="nav-item active"><a [routerLink]="['/plan']" class="nav-link" style="font-size: 20px">Plan du réseau<span
           class="sr-only"></span></a>
         </li>
         <li class="nav-item active" *ngIf="sessionService.getType()=='supplier'">
@@ -47,8 +48,6 @@
   </nav>
 </div>
 
-<p>{{this.router.url}}</p>
-
 <div *ngIf="this.router.url==='/' || this.router.url==='/accueil'; else lesAutresComposants">
   <router-outlet></router-outlet>
 </div>
@@ -65,7 +64,7 @@
 <br>
 
 
-<footer id="sticky-footer" class="py-4 bg-dark text-white-50 fixed-bottom">
+<footer id="sticky-footer" class="py-4 text-white-50 fixed-bottom" style="background: rgba(220, 220, 2202, 0.7);">
   <div class="container text-center">
     <small style="color: white">Copyright &copy; Scootilo</small>
   </div>
