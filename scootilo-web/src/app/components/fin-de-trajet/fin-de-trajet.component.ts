@@ -9,6 +9,10 @@ import {Reservation} from '../../model/Reservation';
 import {Itineraire} from '../../model/itineraire';
 import {ItineraireService} from '../../service/itineraire.service';
 import {Router} from "@angular/router";
+import {PaiementFournisseur} from '../../model/paiementFournisseur';
+import {PaiementFournisseurService} from '../../service/paiement-fournisseur.service';
+import {ReservationService} from '../../service/reservation.service';
+import {Fournisseur} from '../../model/fournisseur';
 
 @Component({
   selector: 'app-fin-de-trajet',
@@ -26,20 +30,20 @@ export class FinDeTrajetComponent implements OnInit {
   };
   public client: Client = new Client();
   public reservation: Reservation = new Reservation();
-  public reservationItineraire = null;
+  public moyenDeTransportChoisi = new MoyenDeTransport();
   public itineraire = new Itineraire();
 
   public validationDuMoyenDeTransport : boolean;
   public qrCodeInput : string;
+  public paiementFournisseur = new PaiementFournisseur();
+
 
   ngOnInit(): void {
   }
 
-
-  constructor(private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService) {
-    this.reservationItineraire = this.sessionService.getAdresseMoyenDeTransportReservee();
-
-
+  constructor(private reservationService: ReservationService, private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService, private paiementFournisseurService: PaiementFournisseurService) {
+    this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
+    this.reservation = this.sessionService.getReservation();
   }
 
   getDisplayTimer(time: number) {
@@ -55,23 +59,54 @@ export class FinDeTrajetComponent implements OnInit {
   }
 
   finDuTrajet(){
+    //Modifier la réservation puis envoie la MAJ au serveur
+    this.reservation.expiree = true;
+    this.reservation.dureeTotale = this.time;
+    // @ts-ignore
+    this.reservation.heureArrivee = new Date();
+    this.reservation.montantTotal = this.cout;
+
+    this.reservationService.modify(this.reservation).subscribe( resp => {
+    }, error => console.log(error));
+
+    //Modifier l'itinéraire puis envoie la MAJ en base
     this.itineraire=this.sessionService.getItineraire();
     this.itineraire.montant=this.cout;
     this.itineraire.duree=this.time;
     this.sessionService.setItineraire(this.itineraire);
 
-    // creer paiement fournisseur ici et l'associer à l'itinéraire
+    this.itineraireService.modify(this.itineraire).subscribe(resp => {
+      this.paiementFournisseur.fournisseur = new Fournisseur();
+      // creer paiement fournisseur et l'associer à l'itinéraire
+      // @ts-ignore
+      this.paiementFournisseur.Date = new Date();
+      this.paiementFournisseur.montant = this.cout;
+      this.paiementFournisseur.numeroDeTransaction = "TRANS-" + this.itineraire.id;
+      console.log("1")
+      this.paiementFournisseur.itineraire = this.itineraire;
+      console.log("2")
+      console.log(this.moyenDeTransportChoisi.fournisseur);
+      console.log("3")
+      console.log(this.paiementFournisseur);
+      this.paiementFournisseur.fournisseur = this.moyenDeTransportChoisi.fournisseur;
+
+      console.log(this.paiementFournisseur);
+
+      this.paiementFournisseurService.create(this.paiementFournisseur).subscribe(resp => {
+      }, error => console.log(error));
+    }, error => console.log(error));
+
 
 
     this.router.navigateByUrl('/finalisation');
   }
 
   validationDuQrCode(qrCodeRenseigne : string){
-    if(qrCodeRenseigne==this.reservationItineraire.moyendeTransportClick.qrCode){
+    if(qrCodeRenseigne==this.moyenDeTransportChoisi.qrCode){
       this.validationDuMoyenDeTransport=true;
 
       //On lance le timer et le compteur de prix
-      this.prixSeconde = this.reservationItineraire.moyendeTransportClick.prixMinute / 60;
+      this.prixSeconde = this.moyenDeTransportChoisi.prixMinute / 60;
       timer(0, 1000).subscribe(ellapsedCycles => {
         this.time++;
         this.timerDisplay = this.getDisplayTimer(this.time);

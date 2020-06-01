@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-partenaires',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartenairesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToWebSiteGoogle(): void {
+    document.location.href = 'https://www.google.fr/';
+  }
+
+  goToWebSiteBordeaux(): void {
+    document.location.href = 'http://www.bordeaux.fr/';
+  }
+
+  goToWebSiteHSBC(): void {
+    document.location.href = 'https://www.hsbc.fr/';
   }
 
 }

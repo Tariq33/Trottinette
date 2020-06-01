@@ -35,11 +35,9 @@ export class SeDeplacerComponent implements OnInit {
   veloMarkers = new L.LayerGroup();
 
     //Variable dans laquelle on va mettre les données du moyen de transport choisi
-    donneesDuMoyenDeTransportChoisi = {
-    'moyendeTransportClick' : new MoyenDeTransport(),
-    'numeroRue' : null,
-    'rue' : null,
-    'ville' : null,
+  moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
+  adresseAndTempsDeMarcheTransportChoisi = {
+    'adresse' : null,
     'tempsDeMarche' : null,
   };
 
@@ -110,10 +108,6 @@ export class SeDeplacerComponent implements OnInit {
       }
     }
   }
-
-
-
-
 
   constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
@@ -248,17 +242,16 @@ export class SeDeplacerComponent implements OnInit {
 
   //Récupère les données du moyen de transport sur lequel on a cliqué
   getTransportClick(transport) {
-    this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick = transport;
-    this.geocodingService.getAddressWithGps(this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude).subscribe(resp => {
-    this.donneesDuMoyenDeTransportChoisi.numeroRue = resp.address.house_number;
-    this.donneesDuMoyenDeTransportChoisi.rue = resp.address.road;
-    this.donneesDuMoyenDeTransportChoisi.ville = resp.address.city;
+    this.moyenDeTransportChoisi = transport;
+    this.geocodingService.getAddressWithGps(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude).subscribe(resp => {
+    this.adresseAndTempsDeMarcheTransportChoisi.adresse = resp.display_name;
     //on part sur le postulat de 5km/h
-      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude]);
+      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude]);
       let temps = distance / (5/3.6);  //km/h en m/s => /3.6
       this.secondsToHms(temps);
-      this.donneesDuMoyenDeTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
-    this.sessionService.setAdresseMoyenDeTransportReservee(this.donneesDuMoyenDeTransportChoisi);
+      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
+    this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
+    this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
       })
     }
 

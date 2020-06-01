@@ -36,14 +36,13 @@ import { ReservationItineraireComponent } from './components/reservation-itinera
 import { FinDeTrajetComponent } from './components/fin-de-trajet/fin-de-trajet.component';
 import { FinalisationComponent } from './components/finalisation/finalisation.component';
 import { MonCompteFournisseurTableauDeBordComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-tableau-de-bord.component';
-import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
-import {MenuItem} from 'primeng/api';                  //api
 import {ChartModule} from 'primeng/chart';
 import { MonCompteFournisseurGrapheGainComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-gain/mon-compte-fournisseur-graphe-gain.component';
 import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-graphe-repartition-transport/mon-compte-fournisseur-graphe-repartition-transport.component';
 import { DateCustomPipe } from './pipe/date-custom.pipe';
 import { AbsoluPipe } from './pipe/absolu';
 import { ReservationSurCarteComponent } from './components/reservation-sur-carte/reservation-sur-carte.component';
+import {CardModule} from 'primeng';
 
 @NgModule({
   declarations: [
@@ -86,15 +85,16 @@ import { ReservationSurCarteComponent } from './components/reservation-sur-carte
     MonCompteFournisseurGrapheRepartitionTransportComponent,
     DateCustomPipe,
     AbsoluPipe,
-    ReservationSurCarteComponent
+    ReservationSurCarteComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ChartModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ChartModule,
+        CardModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

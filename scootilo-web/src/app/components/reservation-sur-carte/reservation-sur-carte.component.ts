@@ -4,11 +4,9 @@ import {SessionService} from '../../service/session.service';
 import {ReservationService} from '../../service/reservation.service';
 import {Reservation} from '../../model/Reservation';
 import {Client} from '../../model/client';
-import {ClientService} from '../../service/client.service';
 import {Router} from '@angular/router';
 import {Itineraire} from '../../model/itineraire';
 import {ItineraireService} from '../../service/itineraire.service';
-import {Adresse} from "../../model/adresse";
 import {AdresseItineraire} from "../../model/adresseItineraire";
 
 @Component({
@@ -19,13 +17,18 @@ import {AdresseItineraire} from "../../model/adresseItineraire";
 export class ReservationSurCarteComponent implements OnInit {
   reservationItineraire = null
   itineraire : Itineraire = new Itineraire();
+  moyenDeTransportChoisi = new MoyenDeTransport();
+  adresseAndTempsDeMarcheTransportChoisi = {
+    'adresse' : null,
+    'tempsDeMarche' : null,
+  };
 
   reservation = new Reservation();
   client = new Client();
 
   constructor(private sessionService: SessionService, private reservationService: ReservationService, private router: Router, private itineraireService: ItineraireService) {
-    console.log(JSON.parse(sessionStorage.getItem("adresseMoyenDeTransportReservee")));
-    this.reservationItineraire = this.sessionService.getAdresseMoyenDeTransportReservee();
+    this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
+    this.adresseAndTempsDeMarcheTransportChoisi = this.sessionService.getAdresseAndTempsDeMarche();
       }
 
   ngOnInit(): void {
@@ -35,10 +38,13 @@ export class ReservationSurCarteComponent implements OnInit {
     //Renseigne la réservation
     this.reservation.adrDepart= new AdresseItineraire();
     console.log("on passe");
-    this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + this.reservationItineraire.rue;
-    this.reservation.adrDepart.codePostal= "33000";
-    this.reservation.adrDepart.ville= this.reservationItineraire.ville;
+    // this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + " " + this.reservationItineraire.rue;
+    // this.reservation.adrDepart.codePostal= "33000";
+    this.reservation.adrDepart.complement = this.adresseAndTempsDeMarcheTransportChoisi.adresse;
+    // this.reservation.adrDepart.ville= this.reservationItineraire.ville;
+    // @ts-ignore
     this.reservation.date = new Date();
+    // @ts-ignore
     this.reservation.heureDepart = new Date();
     this.reservation.client = this.sessionService.getClient();
     this.reservation.expiree = false;
@@ -49,10 +55,13 @@ export class ReservationSurCarteComponent implements OnInit {
         this.sessionService.setReservation(this.reservation);
 
         this.itineraire.adrDepart= this.reservation.adrDepart
+        // @ts-ignore
         this.itineraire.heureArrivee= new Date();
         this.itineraire.acompte=1;
         this.itineraire.reservation=this.reservation;
-
+        // this.itineraire.moyenDeTransport = this.moyenDeTransportChoisi;
+        console.log("ITINERAIRE :")
+        console.log(this.itineraire);
         this.itineraireService.create(this.itineraire).subscribe(resp => {
             //renseigner le itineraireSession
             this.itineraire=resp;

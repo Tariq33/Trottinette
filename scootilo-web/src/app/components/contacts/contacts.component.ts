@@ -36,5 +36,4 @@ export class ContactsComponent implements OnInit {
       console.log(resp[0].lon);
     }, error => console.log(error));
   }
-
 }

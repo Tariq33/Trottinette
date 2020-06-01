@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {PaiementFournisseur} from "../model/PaiementFournisseur";
+import {PaiementFournisseur} from "../model/paiementFournisseur";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
@@ -21,23 +21,23 @@ export class PaiementFournisseurService {
   }
 
   findById(id: number): Observable<PaiementFournisseur> {
-    return this.http.get<PaiementFournisseur>("http://localhost:8080/paiementFournisseur/" + id);
+    return this.http.get<PaiementFournisseur>("http://localhost:8080/paiementfournisseur/" + id);
   }
 
   create(paiementFournisseur: PaiementFournisseur) {
-    return this.http.post<PaiementFournisseur>("http://localhost:8080/paiementFournisseur", paiementFournisseur);
+    return this.http.post<PaiementFournisseur>("http://localhost:8080/paiementfournisseur", paiementFournisseur);
   }
 
   modify(paiementFournisseur: PaiementFournisseur) {
-    return this.http.put<PaiementFournisseur>("http://localhost:8080/paiementFournisseur/" + paiementFournisseur.id, paiementFournisseur);
+    return this.http.put<PaiementFournisseur>("http://localhost:8080/paiementfournisseur/" + paiementFournisseur.id, paiementFournisseur);
   }
 
   deleteById(id: number) {
-    this.http.delete("http://localhost:8080/paiementFournisseur/" + id).subscribe(resp => this.load(), error => console.log(error))
+    this.http.delete("http://localhost:8080/paiementfournisseur/" + id).subscribe(resp => this.load(), error => console.log(error))
   }
 
   load() {
-    this.http.get<Array<PaiementFournisseur>>("http://localhost:8080/paiementFournisseur").subscribe(resp => {
+    this.http.get<Array<PaiementFournisseur>>("http://localhost:8080/paiementfournisseur").subscribe(resp => {
       this.paiementsFournisseur = resp;
     }, error => console.log(error))
   }
