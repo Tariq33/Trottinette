@@ -11,6 +11,11 @@ import {control} from "leaflet";
 import layers = control.layers;
 import {Pref} from "../../model/preference2";
 import {GeocodingService} from '../../service/geocoding.service';
+import {AdresseItineraire} from "../../model/adresseItineraire";
+import {TypeDeTransport} from "../../model/type-de-transport.enum";
+import {TypeMoteur} from "../../model/type-moteur.enum";
+import {Observable} from "rxjs";
+import {FinDeTrajet} from "../../model/finDeTrajet";
 
 
 @Component({
@@ -39,7 +44,13 @@ export class SeDeplacerComponent implements OnInit {
   scootMarkers = new L.LayerGroup();
   veloMarkers = new L.LayerGroup();
 
-  lessWalkingTransport: MoyenDeTransport;
+  transportAvecLeMoinsDeMarche: MoyenDeTransport  = new MoyenDeTransport();
+  transportLeMoinsCher: MoyenDeTransport = new MoyenDeTransport();
+  transportLeMoinsLong: MoyenDeTransport = new MoyenDeTransport();
+  donneesDuMoinsDeMarche : Array<number>;
+  donneesDuMoinsCher : Array<number>;
+  donneesDuMoinsLong : Array<number>;
+
 
   //Variable dans laquelle on va mettre les données du moyen de transport choisi
   donneesDuMoyenDeTransportChoisi = {
@@ -184,49 +195,26 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
+    var adresseDepart = new AdresseItineraire();
+    var adresseArrivee = new AdresseItineraire();
+
     this.geocodingService.getGpsWithAddress(this.adrDepart).subscribe(resp => {
-      this.latDepart = resp[0].lat;
-      //console.log(this.latDepart);
-      this.lonDepart = resp[0].lon;
-      //console.log(this.lonDepart);
-      this.saveCoord();
-    }, error => console.log(error));
-    this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
-      this.latArrivee = resp[0].lat;
-      //console.log(this.latArrivee);
-      this.lonArrivee = resp[0].lon;
-      //console.log(this.lonArrivee);
-      this.saveCoord();
-      this.lessWalking();
+      adresseDepart.latitude = resp[0].lat;
+      adresseDepart.longitude = resp[0].lon;
+
+      this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
+        adresseArrivee.latitude = resp[0].lat;
+        adresseArrivee.longitude = resp[0].lon;
+        this.testMoyenDeTransport(this.moyensDeTransportObs,this.client, adresseDepart, adresseArrivee);
+        this.ongletReservationShow = false;
+        this.ongletReservationItineraireShow = true;
+      }, error => console.log(error));
+
     }, error => console.log(error));
 
-    this.ongletReservationShow = false;
-    this.ongletReservationItineraireShow = true;
-  }
 
-  saveCoord(){
 
-  }
 
-  lessWalking(){
-    console.log("DEPART -> lat : ", this.latDepart," - long : ", this.lonDepart);
-    console.log("ARRIVEE -> lat : ", this.latArrivee," - long : ", this.lonArrivee);
-    let distance = -1;
-    for (let t of this.moyensDeTransportObs){
-      console.log(t.typeDeTransport, t.numeroDeSerie);
-      console.log("this.client.preference.velo",this.client.preference.velo, "this.client.preference.scooter", this.client.preference.scooter, "this.client.preference.trottinette", this.client.preference.trottinette);
-      if( (t.typeDeTransport=="velo" && this.client.preference.velo) || (t.typeDeTransport=="scooter" && this.client.preference.scooter) ||(t.typeDeTransport=="trottinette" && this.client.preference.trottinette) ){
-        if(distance == -1){
-          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
-          this.lessWalkingTransport = t;
-        }
-        else if(distance > this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude) ){
-          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
-          this.lessWalkingTransport = t;
-        }
-      }
-    }
-    //this.getDistance2(this.latDepart, this.lonDepart);
   }
 
   isShow() {
@@ -337,5 +325,81 @@ export class SeDeplacerComponent implements OnInit {
     return hDisplay + mDisplay + sDisplay;
   }
 
+
+  testMoyenDeTransport(moyensDeTransport: Array<MoyenDeTransport>, client : Client, adresseDepart:AdresseItineraire, adresseArrivee : AdresseItineraire ): Array<MoyenDeTransport> {
+    console.log("on rentre dans la fonction");
+
+    // On filtre selon les préférences
+    let preferences = client.preference;
+    let moyensDeTransportFiltres: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
+
+    for(let i in moyensDeTransport){
+      if((preferences.velo==true && moyensDeTransport[i].typeDeTransport=="velo")
+        || (preferences.scooter==true && moyensDeTransport[i].typeDeTransport=="scooter")
+        || (preferences.trottinette==true && moyensDeTransport[i].typeDeTransport=="trottinette")) {
+        moyensDeTransportFiltres.push(moyensDeTransport[i]);
+      }
+    }
+
+    // A partir de là on cherche l'id du moins cher du plus rapide et du moins de marche;
+
+    let tempsLeMoinsLong= 99999999;
+    let prixLeMoinsCher = 99999999;
+    let tempsDeMarcheLeMoinsLong = 99999999;
+
+    let idDuMoinsLong : MoyenDeTransport
+    let idDuMoinscher : MoyenDeTransport
+    let idDuMoinsDeMarche : MoyenDeTransport
+
+    for(let moyenDeTransport of moyensDeTransportFiltres){
+
+      // en m
+      var distanceEnMoyenDeTransport = this.getDistance([moyenDeTransport.latitude,moyenDeTransport.longitude], [adresseArrivee.latitude,adresseArrivee.longitude]);
+
+      // en m/s
+      let vitesseMoyenne;
+      if(moyenDeTransport.typeDeTransport==TypeDeTransport.velo) vitesseMoyenne=16/3.6; // (16km/h en m/s)
+      else if(moyenDeTransport.typeDeTransport==TypeDeTransport.scooter) vitesseMoyenne=30/3.6; // (30 étant donné que ce sont des scooters électriques ?)
+      else vitesseMoyenne =25/3.6; // en trottinette
+
+      // en s puis en minutes pour multiplier par la donnée prixParMinute
+      let dureeEstimeeEnSecondes = distanceEnMoyenDeTransport / vitesseMoyenne;
+      let dureeEstimeeEnMinutes = dureeEstimeeEnSecondes/60;
+
+      // en m
+      let distanceDeMarche = this.getDistance([client.latitude,client.longitude], [moyenDeTransport.latitude,moyenDeTransport.longitude]);
+
+      // On a ce qu'on recherche :
+      let tempsDeMarche = distanceDeMarche/(5/3.6); // On marche à 4 km/h qu'on met en m/s
+      let dureeTotaleDeLaCourse = dureeEstimeeEnSecondes + tempsDeMarche;
+      let prixDeLaCourse = moyenDeTransport.prixMinute * dureeEstimeeEnMinutes;
+
+
+
+      if(tempsDeMarche<tempsDeMarcheLeMoinsLong) {
+        tempsDeMarcheLeMoinsLong=tempsDeMarche;
+        idDuMoinsDeMarche = moyenDeTransport;
+        this.donneesDuMoinsDeMarche=[prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+      }
+      if(prixDeLaCourse<prixLeMoinsCher) {
+        prixLeMoinsCher=prixDeLaCourse;
+        idDuMoinscher = moyenDeTransport;
+        this.donneesDuMoinsCher=[prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+      }
+      if(dureeTotaleDeLaCourse<tempsLeMoinsLong) {
+        tempsLeMoinsLong=dureeTotaleDeLaCourse;
+        idDuMoinsLong = moyenDeTransport;
+        this.donneesDuMoinsLong=[prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+      }
+    }
+
+
+
+    this.transportAvecLeMoinsDeMarche=idDuMoinsDeMarche;
+    this.transportLeMoinsLong=idDuMoinsLong;
+    this.transportLeMoinsCher=idDuMoinscher;
+
+    return [idDuMoinsDeMarche, idDuMoinscher, idDuMoinsLong];
+  }
 
 }

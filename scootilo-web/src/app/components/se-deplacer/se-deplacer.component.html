@@ -78,30 +78,79 @@
           <li class="nav-item">
             <a style="color: black;" class="nav-link active" >Moins de marche</a>
           </li>
-
         </ul>
 
         <table class="table">
           <tbody>
           <tr>
             <td>Mode de transport :</td>
-            <td>{{this.lessWalkingTransport.typeDeTransport}}</td>
+            <td>{{this.transportAvecLeMoinsDeMarche.typeDeTransport}}</td>
           </tr>
           <tr>
             <td>Emplacement :</td>
-            <td>{{this.lessWalkingTransport.latitude}} : {{this.lessWalkingTransport.longitude}}</td>
+            <td>{{this.transportAvecLeMoinsDeMarche.latitude}} : {{this.transportAvecLeMoinsDeMarche.longitude}}</td>
           </tr>
           <tr>
             <td>Durée totale :</td>
-            <td>A renseigner</td>
+            <td>{{this.donneesDuMoinsDeMarche[1]}}</td>
           </tr>
           <tr>
             <td>Prix estimatif :</td>
-            <td>A renseigner</td>
+            <td>{{this.donneesDuMoinsDeMarche[0]}}</td>
           </tr>
           <tr>
             <td>Temps de marche :</td>
-            <td>A renseigner</td>
+            <td>{{this.donneesDuMoinsDeMarche[2]}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <table class="table">
+          <tbody>
+          <tr>
+            <td>Mode de transport :</td>
+            <td>{{this.transportLeMoinsLong.typeDeTransport}}</td>
+          </tr>
+          <tr>
+            <td>Emplacement :</td>
+            <td>{{this.transportLeMoinsLong.latitude}} : {{this.transportLeMoinsLong.longitude}}</td>
+          </tr>
+          <tr>
+            <td>Durée totale :</td>
+            <td>{{this.donneesDuMoinsLong[1]}}</td>
+          </tr>
+          <tr>
+            <td>Prix estimatif :</td>
+            <td>{{this.donneesDuMoinsLong[0]}}</td>
+          </tr>
+          <tr>
+            <td>Temps de marche :</td>
+            <td>{{this.donneesDuMoinsLong[2]}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <table class="table">
+          <tbody>
+          <tr>
+            <td>Mode de transport :</td>
+            <td>{{this.transportLeMoinsCher.typeDeTransport}}</td>
+          </tr>
+          <tr>
+            <td>Emplacement :</td>
+            <td>{{this.transportLeMoinsCher.latitude}} : {{this.transportLeMoinsCher.longitude}}</td>
+          </tr>
+          <tr>
+            <td>Durée totale :</td>
+            <td>{{this.donneesDuMoinsCher[1]}}</td>
+          </tr>
+          <tr>
+            <td>Prix estimatif :</td>
+            <td>{{this.donneesDuMoinsCher[0]}}</td>
+          </tr>
+          <tr>
+            <td>Temps de marche :</td>
+            <td>{{this.donneesDuMoinsCher[2]}}</td>
           </tr>
           </tbody>
         </table>
@@ -109,6 +158,7 @@
                       style="margin-left: 160px;" [routerLink]="['/reservationItineraire']">Réserver</button>
       </div>
     </div>
+
 
     <div *ngIf="ongletReservationShow">
       <div>
