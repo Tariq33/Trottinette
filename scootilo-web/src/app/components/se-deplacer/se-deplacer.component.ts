@@ -182,22 +182,19 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
-    this.geocodingService.getGpsWithAddress(this.adrDepart).subscribe(resp => {
-      this.latDepart = resp[0].lat;
-      //console.log(this.latDepart);
-      this.lonDepart = resp[0].lon;
-      //console.log(this.lonDepart);
-      this.saveCoord();
-    }, error => console.log(error));
-    this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
-      this.latArrivee = resp[0].lat;
-      //console.log(this.latArrivee);
-      this.lonArrivee = resp[0].lon;
-      //console.log(this.lonArrivee);
-      this.saveCoord();
-      this.lessWalking();
-    }, error => console.log(error));
-
+    if(this.adrDepart!=null && this.adrArrivee!=null) {
+      this.geocodingService.getGpsWithAddress(this.adrDepart).subscribe(resp => {
+        this.latDepart = resp[0].lat;
+        this.lonDepart = resp[0].lon;
+        this.saveCoord();
+      }, error => console.log(error));
+      this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
+        this.latArrivee = resp[0].lat;
+        this.lonArrivee = resp[0].lon;
+        this.saveCoord();
+        this.lessWalking();
+      }, error => console.log(error));
+    }
     this.ongletReservationShow = false;
     this.ongletReservationItineraireShow = true;
   }
@@ -207,24 +204,27 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   lessWalking(){
+    console.log("--------------");
     console.log("DEPART -> lat : ", this.latDepart," - long : ", this.lonDepart);
     console.log("ARRIVEE -> lat : ", this.latArrivee," - long : ", this.lonArrivee);
-    let distance = -1;
+    this.distance = -1;
+    this.lessWalkingTransport = null;
     for (let t of this.moyensDeTransportObs){
-      console.log(t.typeDeTransport, t.numeroDeSerie);
+      console.log(t.typeDeTransport, "n°", t.numeroDeSerie, "disponible? ", t.disponible);
       console.log("this.client.preference.velo",this.client.preference.velo, "this.client.preference.scooter", this.client.preference.scooter, "this.client.preference.trottinette", this.client.preference.trottinette);
-      if( (t.typeDeTransport=="velo" && this.client.preference.velo) || (t.typeDeTransport=="scooter" && this.client.preference.scooter) ||(t.typeDeTransport=="trottinette" && this.client.preference.trottinette) ){
-        if(distance == -1){
-          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
-          this.lessWalkingTransport = t;
-        }
-        else if(distance > this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude) ){
-          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
-          this.lessWalkingTransport = t;
+      if(t.disponible){
+        if( (t.typeDeTransport=="velo" && this.client.preference.velo) || (t.typeDeTransport=="scooter" && this.client.preference.scooter) ||(t.typeDeTransport=="trottinette" && this.client.preference.trottinette) ){
+          if(this.distance == -1){
+            this.distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
+            this.lessWalkingTransport = t;
+          }
+          else if(this.distance > this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude) ){
+            this.distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
+            this.lessWalkingTransport = t;
+          }
         }
       }
     }
-    //this.getDistance2(this.latDepart, this.lonDepart);
   }
 
   isShow() {
