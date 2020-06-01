@@ -51,6 +51,8 @@ export class SeDeplacerComponent implements OnInit {
   donneesDuMoinsCher : Array<number>;
   donneesDuMoinsLong : Array<number>;
 
+  affichage : number =1;
+
   pasDePreferencesCochees : boolean;
 
   adresseAndTempsDeMarcheTransportChoisi = {
@@ -402,6 +404,11 @@ export class SeDeplacerComponent implements OnInit {
     this.transportLeMoinsCher=idDuMoinscher;
 
     return [idDuMoinsDeMarche, idDuMoinscher, idDuMoinsLong];
+  }
+
+  affichageFunction(nombre : number){
+    this.affichage=nombre;
+
   }
 
 }
