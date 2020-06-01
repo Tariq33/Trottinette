@@ -244,7 +244,8 @@ export class SeDeplacerComponent implements OnInit {
        this.isShow();
        this.getTransportClick(transport);
      })
-     marker.bindPopup('<h1>Velo</h1>');
+     marker.bindPopup('<h6>Velo n°</h6>' + transport.numeroDeSerie);
+     //marker.;
      if(this.sessionService.getClient().type=="customer"){
         if(!this.client.preference.velo && (this.client.preference.scooter || this.client.preference.trottinette)){
           this.veloMarkers.getLayers()[this.veloMarkers.getLayers().length-1].removeFrom(this.map);
@@ -258,7 +259,7 @@ export class SeDeplacerComponent implements OnInit {
        this.isShow();
        this.getTransportClick(transport);
      })
-     marker.bindPopup('<h1>Scooter</h1>');
+     marker.bindPopup('<h6>Scooter n°</h6>' + transport.numeroDeSerie);
      if(this.sessionService.getClient().type=="customer"){
        if(!this.client.preference.scooter && (this.client.preference.velo || this.client.preference.trottinette)){
          this.scootMarkers.getLayers()[this.scootMarkers.getLayers().length-1].removeFrom(this.map);
@@ -272,13 +273,14 @@ export class SeDeplacerComponent implements OnInit {
        this.isShow();
        this.getTransportClick(transport);
      })
-     marker.bindPopup('<h1>Trottinette</h1>');
+     marker.bindPopup('<h6>Trottinette n°</h6>' + transport.numeroDeSerie);
      if(this.sessionService.getClient().type=="customer"){
        if(!this.client.preference.trottinette && (this.client.preference.scooter || this.client.preference.velo)){
          this.trotMarkers.getLayers()[this.trotMarkers.getLayers().length-1].removeFrom(this.map);
        }
      }
    }
+   L.circle([transport.latitude, transport.longitude], 5, {color: transport.disponible ? 'green':'red', fillColor: transport.disponible ? '#74ff3e' : '#f03', fillOpacity: 0.5}).addTo(this.map);
  }
 
   //Récupère les données du moyen de transport sur lequel on a cliqué

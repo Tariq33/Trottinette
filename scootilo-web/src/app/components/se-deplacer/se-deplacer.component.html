@@ -185,8 +185,14 @@
           </tr>
           </tbody>
         </table>
-        <br> <a class="btn-lg btn-secondary"
-                style="margin-left: 160px;" [routerLink]="['/reservationSurCarte']">Réserver</a>
+        <div *ngIf="this.moyenDeTransportChoisi.disponible;else indisponible">
+        <a class="btn-lg btn-secondary"
+           style="margin-left: 160px;" [routerLink]="['/reservationSurCarte']">Réserver</a>
+        </div>
+        <ng-template #indisponible>
+          <a class="btn-lg btn-secondary"
+             style="margin-left: 160px; color: darkred;" >Indisponible</a>
+        </ng-template>
       </div>
     </div>
 
