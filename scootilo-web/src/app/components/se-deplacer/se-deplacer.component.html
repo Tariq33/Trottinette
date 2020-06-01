@@ -67,7 +67,7 @@
   <br>
 
     <div *ngIf="ongletReservationItineraireShow">
-      <div *ngIf="lessWalkingTransport!=null;else pasDeTransport">
+      <div *ngIf="!pasDePreferencesCochees;else pasDeTransport">
         <ul  class="nav nav-tabs">
           <li class="nav-item">
             <a style="color: black;" class="nav-link" >Plus rapide</a>

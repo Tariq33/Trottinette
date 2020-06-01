@@ -51,13 +51,10 @@ export class SeDeplacerComponent implements OnInit {
   donneesDuMoinsCher : Array<number>;
   donneesDuMoinsLong : Array<number>;
 
+  pasDePreferencesCochees : boolean;
 
-  //Variable dans laquelle on va mettre les données du moyen de transport choisi
-  donneesDuMoyenDeTransportChoisi = {
-    'moyendeTransportClick' : new MoyenDeTransport(),
-    'numeroRue' : null,
-    'rue' : null,
-    'ville' : null,
+  adresseAndTempsDeMarcheTransportChoisi = {
+    'adresse' : null,
     'tempsDeMarche' : null,
   };
 
@@ -199,6 +196,19 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
+    this.ongletReservationItineraireShow = true;
+
+  if(this.adrDepart==null || this.adrArrivee==null){
+    this.pasDePreferencesCochees=true;
+    return;
+  }
+
+  if((this.client.preference.velo==false && this.client.preference.scooter==false && this.client.preference.trottinette==false)){
+    this.pasDePreferencesCochees=true;
+    return;
+  }
+  else this.pasDePreferencesCochees=false;
+
     var adresseDepart = new AdresseItineraire();
     var adresseArrivee = new AdresseItineraire();
 
@@ -215,10 +225,6 @@ export class SeDeplacerComponent implements OnInit {
       }, error => console.log(error));
 
     }, error => console.log(error));
-
-
-
-
   }
 
   isShow() {
@@ -288,13 +294,6 @@ export class SeDeplacerComponent implements OnInit {
       })
   }
 
-
-  getDistance2(lat1: number, lon1: number, lat2: number, lon2: number){
-    console.log(6371*this.toRadian(Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))));
-    return 6371*this.toRadian(Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1)));
-
-  }
-
   //Calcule la distance entre deux points
   getDistance(origin, destination) {
     // return distance in meters
@@ -345,7 +344,6 @@ export class SeDeplacerComponent implements OnInit {
     }
 
     // A partir de là on cherche l'id du moins cher du plus rapide et du moins de marche;
-
     let tempsLeMoinsLong= 99999999;
     let prixLeMoinsCher = 99999999;
     let tempsDeMarcheLeMoinsLong = 99999999;
@@ -355,44 +353,45 @@ export class SeDeplacerComponent implements OnInit {
     let idDuMoinsDeMarche : MoyenDeTransport
 
     for(let moyenDeTransport of moyensDeTransportFiltres){
+      if(moyenDeTransport.disponible && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude])) {
 
-      // en m
-      var distanceEnMoyenDeTransport = this.getDistance([moyenDeTransport.latitude,moyenDeTransport.longitude], [adresseArrivee.latitude,adresseArrivee.longitude]);
+        // en m
+        var distanceEnMoyenDeTransport = this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude], [adresseArrivee.latitude, adresseArrivee.longitude]);
 
-      // en m/s
-      let vitesseMoyenne;
-      if(moyenDeTransport.typeDeTransport==TypeDeTransport.velo) vitesseMoyenne=16/3.6; // (16km/h en m/s)
-      else if(moyenDeTransport.typeDeTransport==TypeDeTransport.scooter) vitesseMoyenne=30/3.6; // (30 étant donné que ce sont des scooters électriques ?)
-      else vitesseMoyenne =25/3.6; // en trottinette
+        // en m/s
+        let vitesseMoyenne;
+        if (moyenDeTransport.typeDeTransport == TypeDeTransport.velo) vitesseMoyenne = 16 / 3.6; // (16km/h en m/s)
+        else if (moyenDeTransport.typeDeTransport == TypeDeTransport.scooter) vitesseMoyenne = 30 / 3.6; // (30 étant donné que ce sont des scooters électriques ?)
+        else vitesseMoyenne = 25 / 3.6; // en trottinette
 
-      // en s puis en minutes pour multiplier par la donnée prixParMinute
-      let dureeEstimeeEnSecondes = distanceEnMoyenDeTransport / vitesseMoyenne;
-      let dureeEstimeeEnMinutes = dureeEstimeeEnSecondes/60;
+        // en s puis en minutes pour multiplier par la donnée prixParMinute
+        let dureeEstimeeEnSecondes = distanceEnMoyenDeTransport / vitesseMoyenne;
+        let dureeEstimeeEnMinutes = dureeEstimeeEnSecondes / 60;
 
-      // en m
-      let distanceDeMarche = this.getDistance([client.latitude,client.longitude], [moyenDeTransport.latitude,moyenDeTransport.longitude]);
+        // en m
+        let distanceDeMarche = this.getDistance([client.latitude, client.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]);
 
-      // On a ce qu'on recherche :
-      let tempsDeMarche = distanceDeMarche/(5/3.6); // On marche à 4 km/h qu'on met en m/s
-      let dureeTotaleDeLaCourse = dureeEstimeeEnSecondes + tempsDeMarche;
-      let prixDeLaCourse = moyenDeTransport.prixMinute * dureeEstimeeEnMinutes;
+        // On a ce qu'on recherche :
+        let tempsDeMarche = distanceDeMarche / (5 / 3.6); // On marche à 4 km/h qu'on met en m/s
+        let dureeTotaleDeLaCourse = dureeEstimeeEnSecondes + tempsDeMarche;
+        let prixDeLaCourse = moyenDeTransport.prixMinute * dureeEstimeeEnMinutes;
 
 
-
-      if(tempsDeMarche<tempsDeMarcheLeMoinsLong) {
-        tempsDeMarcheLeMoinsLong=tempsDeMarche;
-        idDuMoinsDeMarche = moyenDeTransport;
-        this.donneesDuMoinsDeMarche=[prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
-      }
-      if(prixDeLaCourse<prixLeMoinsCher) {
-        prixLeMoinsCher=prixDeLaCourse;
-        idDuMoinscher = moyenDeTransport;
-        this.donneesDuMoinsCher=[prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
-      }
-      if(dureeTotaleDeLaCourse<tempsLeMoinsLong) {
-        tempsLeMoinsLong=dureeTotaleDeLaCourse;
-        idDuMoinsLong = moyenDeTransport;
-        this.donneesDuMoinsLong=[prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+        if (tempsDeMarche < tempsDeMarcheLeMoinsLong) {
+          tempsDeMarcheLeMoinsLong = tempsDeMarche;
+          idDuMoinsDeMarche = moyenDeTransport;
+          this.donneesDuMoinsDeMarche = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+        }
+        if (prixDeLaCourse < prixLeMoinsCher) {
+          prixLeMoinsCher = prixDeLaCourse;
+          idDuMoinscher = moyenDeTransport;
+          this.donneesDuMoinsCher = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+        }
+        if (dureeTotaleDeLaCourse < tempsLeMoinsLong) {
+          tempsLeMoinsLong = dureeTotaleDeLaCourse;
+          idDuMoinsLong = moyenDeTransport;
+          this.donneesDuMoinsLong = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+        }
       }
     }
 
