@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ClientService} from "../../service/client.service";
 import {Client} from "../../model/client";
 import {Router} from '@angular/router';
+//import { Preference } from '@app/shared/Preference';
 
 @Component({
   selector: 'app-creation-compte',

@@ -35,7 +35,7 @@ public class Client extends Utilisateur {
 	@JsonView(Views.ViewCommon.class)
 	private Preference preference;
 	@OneToMany(mappedBy = "client")
-	@JsonView(Views.ViewClientReservation.class)
+//	@JsonView(Views.ViewClientReservation.class)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 	@OneToMany(mappedBy = "client")
 //	@JsonView(Views.ViewClientDetail.class)

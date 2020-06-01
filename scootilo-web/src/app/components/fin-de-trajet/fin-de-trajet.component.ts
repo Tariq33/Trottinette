@@ -75,29 +75,21 @@ export class FinDeTrajetComponent implements OnInit {
     this.itineraire.duree=this.time;
     this.sessionService.setItineraire(this.itineraire);
 
-    this.itineraireService.modify(this.itineraire).subscribe(resp => {
-      this.paiementFournisseur.fournisseur = new Fournisseur();
-      // creer paiement fournisseur et l'associer à l'itinéraire
-      // @ts-ignore
-      this.paiementFournisseur.Date = new Date();
-      this.paiementFournisseur.montant = this.cout;
-      this.paiementFournisseur.numeroDeTransaction = "TRANS-" + this.itineraire.id;
-      console.log("1")
-      this.paiementFournisseur.itineraire = this.itineraire;
-      console.log("2")
-      console.log(this.moyenDeTransportChoisi.fournisseur);
-      console.log("3")
-      console.log(this.paiementFournisseur);
-      this.paiementFournisseur.fournisseur = this.moyenDeTransportChoisi.fournisseur;
+    // creer paiement fournisseur et l'associer à l'itinéraire
+    // @ts-ignore
+    this.paiementFournisseur.Date = new Date();
+    this.paiementFournisseur.montant = this.cout;
+    this.paiementFournisseur.numeroDeTransaction = "TRANS-" + this.itineraire.id;
+    this.paiementFournisseur.itineraire = this.itineraire;
+    this.paiementFournisseur.fournisseur = this.moyenDeTransportChoisi.fournisseur;
 
-      console.log(this.paiementFournisseur);
-
-      this.paiementFournisseurService.create(this.paiementFournisseur).subscribe(resp => {
-      }, error => console.log(error));
+    this.paiementFournisseurService.create(this.paiementFournisseur).subscribe(resp => {
     }, error => console.log(error));
 
-
-
+    //Supprime le moyen de transport de l'itinéraire car lien OneOne entre eux et stock en base
+    this.itineraire.moyenDeTransport = null;
+    this.itineraireService.modify(this.itineraire).subscribe(resp => {
+    }, error => console.log(error));
     this.router.navigateByUrl('/finalisation');
   }
 

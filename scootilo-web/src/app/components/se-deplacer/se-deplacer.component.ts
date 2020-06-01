@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import {MoyenDeTransport} from "../../model/moyenDeTransport";
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
@@ -9,6 +9,7 @@ import {Adresse} from "../../model/adresse";
 import {AdresseService} from "../../service/adresse.service";
 import {control} from "leaflet";
 import layers = control.layers;
+import {Pref} from "../../model/preference2";
 import {GeocodingService} from '../../service/geocoding.service';
 
 
@@ -23,8 +24,12 @@ export class SeDeplacerComponent implements OnInit {
   adrDepartListe : string = null
   adrArrivee : string = null
   adrArriveeListe : string = null
+  latDepart: number;
+  lonDepart: number;
+  latArrivee: number;
+  lonArrivee: number;
   adresses: Array<Adresse> = new Array<Adresse>();
-  moyenTransportClick: MoyenDeTransport = new MoyenDeTransport();
+  moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
@@ -34,10 +39,9 @@ export class SeDeplacerComponent implements OnInit {
   scootMarkers = new L.LayerGroup();
   veloMarkers = new L.LayerGroup();
 
-    //Variable dans laquelle on va mettre les données du moyen de transport choisi
-  moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
+  lessWalkingTransport: MoyenDeTransport;
   adresseAndTempsDeMarcheTransportChoisi = {
-    'adresse' : null,
+  'adresse': null,
     'tempsDeMarche' : null,
   };
 
@@ -47,7 +51,31 @@ export class SeDeplacerComponent implements OnInit {
   trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' });
   hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' });
 
+  constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
+    if(this.sessionService.getClient().type=="customer"){
+      this.client=sessionService.getClient();
+      if(this.client.preference==null){
+        this.client.preference = new Pref(true,true,true,false,false,false);
+      }
+      this.loadCustomerAddresses();
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {
+        this.moyensDeTransportObs = resp;
+        this.createMap();
+        this.addTransports();
+        },err => console.log(err));
+    }
+    else{
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {
+        this.moyensDeTransportObs = resp;
+        this.createMap();
+        this.addTransports();
+        },err => console.log(err));
+    }
+  }
 
+  ngOnInit(): void {
+
+  }
 
   charger(nom:string){
     for (let adr of this.adresses){
@@ -67,41 +95,36 @@ export class SeDeplacerComponent implements OnInit {
     }
   }
 
-  charger3(bool:boolean, type: string){
-    if(type=="trottinette"){
+  charger3(bool:boolean, type: string) {
+    if (type == "trottinette") {
       this.client.preference.trottinette = bool;
-      if(!bool) {
+      if (!bool) {
         for (let i = 0; i < this.trotMarkers.getLayers().length; i++) {
           this.trotMarkers.getLayers()[i].removeFrom(this.map);
         }
-      }
-      else{
+      } else {
         for (let i = 0; i < this.trotMarkers.getLayers().length; i++) {
           this.trotMarkers.getLayers()[i].addTo(this.map);
         }
       }
-    }
-    else if(type=="velo"){
+    } else if (type == "velo") {
       this.client.preference.velo = bool;
-      if(!bool) {
+      if (!bool) {
         for (let i = 0; i < this.veloMarkers.getLayers().length; i++) {
           this.veloMarkers.getLayers()[i].removeFrom(this.map);
         }
-      }
-      else{
+      } else {
         for (let i = 0; i < this.veloMarkers.getLayers().length; i++) {
           this.veloMarkers.getLayers()[i].addTo(this.map);
         }
       }
-    }
-    else{
+    } else {
       this.client.preference.scooter = bool;
-      if(!bool) {
+      if (!bool) {
         for (let i = 0; i < this.scootMarkers.getLayers().length; i++) {
           this.scootMarkers.getLayers()[i].removeFrom(this.map);
         }
-      }
-      else{
+      } else {
         for (let i = 0; i < this.scootMarkers.getLayers().length; i++) {
           this.scootMarkers.getLayers()[i].addTo(this.map);
         }
@@ -109,30 +132,6 @@ export class SeDeplacerComponent implements OnInit {
     }
   }
 
-  constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
-    if(this.sessionService.getClient().type=="customer"){
-      this.client=sessionService.getClient();
-      this.loadCustomerAddresses();
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
-      {
-        this.moyensDeTransportObs = resp;
-        this.createMap();
-        this.addTransports();
-      } ,err => console.log(err));
-    }
-    else{
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp =>
-      {
-        this.moyensDeTransportObs = resp;
-        this.createMap(); this.addTransports();
-      } ,err => console.log(err));
-    }
-  }
-
-
-  ngOnInit(): void {
-
-  }
 
   // Récupère les adresses du clients
   loadCustomerAddresses(){
@@ -183,8 +182,49 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
+    this.geocodingService.getGpsWithAddress(this.adrDepart).subscribe(resp => {
+      this.latDepart = resp[0].lat;
+      //console.log(this.latDepart);
+      this.lonDepart = resp[0].lon;
+      //console.log(this.lonDepart);
+      this.saveCoord();
+    }, error => console.log(error));
+    this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
+      this.latArrivee = resp[0].lat;
+      //console.log(this.latArrivee);
+      this.lonArrivee = resp[0].lon;
+      //console.log(this.lonArrivee);
+      this.saveCoord();
+      this.lessWalking();
+    }, error => console.log(error));
+
     this.ongletReservationShow = false;
     this.ongletReservationItineraireShow = true;
+  }
+
+  saveCoord(){
+
+  }
+
+  lessWalking(){
+    console.log("DEPART -> lat : ", this.latDepart," - long : ", this.lonDepart);
+    console.log("ARRIVEE -> lat : ", this.latArrivee," - long : ", this.lonArrivee);
+    let distance = -1;
+    for (let t of this.moyensDeTransportObs){
+      console.log(t.typeDeTransport, t.numeroDeSerie);
+      console.log("this.client.preference.velo",this.client.preference.velo, "this.client.preference.scooter", this.client.preference.scooter, "this.client.preference.trottinette", this.client.preference.trottinette);
+      if( (t.typeDeTransport=="velo" && this.client.preference.velo) || (t.typeDeTransport=="scooter" && this.client.preference.scooter) ||(t.typeDeTransport=="trottinette" && this.client.preference.trottinette) ){
+        if(distance == -1){
+          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
+          this.lessWalkingTransport = t;
+        }
+        else if(distance > this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude) ){
+          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
+          this.lessWalkingTransport = t;
+        }
+      }
+    }
+    //this.getDistance2(this.latDepart, this.lonDepart);
   }
 
   isShow() {
@@ -204,7 +244,7 @@ export class SeDeplacerComponent implements OnInit {
      })
      marker.bindPopup('<h1>Velo</h1>');
      if(this.sessionService.getClient().type=="customer"){
-        if(!this.client.preference.velo){
+        if(!this.client.preference.velo && (this.client.preference.scooter || this.client.preference.trottinette)){
           this.veloMarkers.getLayers()[this.veloMarkers.getLayers().length-1].removeFrom(this.map);
         }
      }
@@ -218,7 +258,7 @@ export class SeDeplacerComponent implements OnInit {
      })
      marker.bindPopup('<h1>Scooter</h1>');
      if(this.sessionService.getClient().type=="customer"){
-       if(!this.client.preference.scooter){
+       if(!this.client.preference.scooter && (this.client.preference.velo || this.client.preference.trottinette)){
          this.scootMarkers.getLayers()[this.scootMarkers.getLayers().length-1].removeFrom(this.map);
        }
      }
@@ -232,12 +272,11 @@ export class SeDeplacerComponent implements OnInit {
      })
      marker.bindPopup('<h1>Trottinette</h1>');
      if(this.sessionService.getClient().type=="customer"){
-       if(!this.client.preference.trottinette){
+       if(!this.client.preference.trottinette && (this.client.preference.scooter || this.client.preference.velo)){
          this.trotMarkers.getLayers()[this.trotMarkers.getLayers().length-1].removeFrom(this.map);
        }
      }
    }
-
  }
 
   //Récupère les données du moyen de transport sur lequel on a cliqué
@@ -253,7 +292,14 @@ export class SeDeplacerComponent implements OnInit {
     this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
     this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
       })
-    }
+  }
+
+
+  getDistance2(lat1: number, lon1: number, lat2: number, lon2: number){
+    console.log(6371*this.toRadian(Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))));
+    return 6371*this.toRadian(Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1)));
+
+  }
 
   //Calcule la distance entre deux points
   getDistance(origin, destination) {
