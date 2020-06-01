@@ -24,6 +24,10 @@ export class SeDeplacerComponent implements OnInit {
   adrDepartListe : string = null
   adrArrivee : string = null
   adrArriveeListe : string = null
+  latDepart: number;
+  lonDepart: number;
+  latArrivee: number;
+  lonArrivee: number;
   adresses: Array<Adresse> = new Array<Adresse>();
   moyenTransportClick: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
@@ -35,8 +39,10 @@ export class SeDeplacerComponent implements OnInit {
   scootMarkers = new L.LayerGroup();
   veloMarkers = new L.LayerGroup();
 
-    //Variable dans laquelle on va mettre les données du moyen de transport choisi
-    donneesDuMoyenDeTransportChoisi = {
+  lessWalkingTransport: MoyenDeTransport;
+
+  //Variable dans laquelle on va mettre les données du moyen de transport choisi
+  donneesDuMoyenDeTransportChoisi = {
     'moyendeTransportClick' : new MoyenDeTransport(),
     'numeroRue' : null,
     'rue' : null,
@@ -178,8 +184,49 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
+    this.geocodingService.getGpsWithAddress(this.adrDepart).subscribe(resp => {
+      this.latDepart = resp[0].lat;
+      //console.log(this.latDepart);
+      this.lonDepart = resp[0].lon;
+      //console.log(this.lonDepart);
+      this.saveCoord();
+    }, error => console.log(error));
+    this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
+      this.latArrivee = resp[0].lat;
+      //console.log(this.latArrivee);
+      this.lonArrivee = resp[0].lon;
+      //console.log(this.lonArrivee);
+      this.saveCoord();
+      this.lessWalking();
+    }, error => console.log(error));
+
     this.ongletReservationShow = false;
     this.ongletReservationItineraireShow = true;
+  }
+
+  saveCoord(){
+
+  }
+
+  lessWalking(){
+    console.log("DEPART -> lat : ", this.latDepart," - long : ", this.lonDepart);
+    console.log("ARRIVEE -> lat : ", this.latArrivee," - long : ", this.lonArrivee);
+    let distance = -1;
+    for (let t of this.moyensDeTransportObs){
+      console.log(t.typeDeTransport, t.numeroDeSerie);
+      console.log("this.client.preference.velo",this.client.preference.velo, "this.client.preference.scooter", this.client.preference.scooter, "this.client.preference.trottinette", this.client.preference.trottinette);
+      if( (t.typeDeTransport=="velo" && this.client.preference.velo) || (t.typeDeTransport=="scooter" && this.client.preference.scooter) ||(t.typeDeTransport=="trottinette" && this.client.preference.trottinette) ){
+        if(distance == -1){
+          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
+          this.lessWalkingTransport = t;
+        }
+        else if(distance > this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude) ){
+          distance = this.getDistance2(this.latDepart, this.lonDepart, t.latitude, t.longitude);
+          this.lessWalkingTransport = t;
+        }
+      }
+    }
+    //this.getDistance2(this.latDepart, this.lonDepart);
   }
 
   isShow() {
@@ -248,7 +295,14 @@ export class SeDeplacerComponent implements OnInit {
       this.donneesDuMoyenDeTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
     this.sessionService.setAdresseMoyenDeTransportReservee(this.donneesDuMoyenDeTransportChoisi);
       })
-    }
+  }
+
+
+  getDistance2(lat1: number, lon1: number, lat2: number, lon2: number){
+    console.log(6371*this.toRadian(Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))));
+    return 6371*this.toRadian(Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1)));
+
+  }
 
   //Calcule la distance entre deux points
   getDistance(origin, destination) {

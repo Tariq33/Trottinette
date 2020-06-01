@@ -70,13 +70,13 @@
       <div>
         <ul  class="nav nav-tabs">
           <li class="nav-item">
-            <a style="color: black;" class="nav-link active" >Plus rapide</a>
+            <a style="color: black;" class="nav-link" >Plus rapide</a>
           </li>
           <li class="nav-item">
             <a style="color: black;" class="nav-link" >Moins cher</a>
           </li>
           <li class="nav-item">
-            <a style="color: black;" class="nav-link" >Moins de marche</a>
+            <a style="color: black;" class="nav-link active" >Moins de marche</a>
           </li>
 
         </ul>
@@ -85,11 +85,11 @@
           <tbody>
           <tr>
             <td>Mode de transport :</td>
-            <td>A renseigner</td>
+            <td>{{this.lessWalkingTransport.typeDeTransport}}</td>
           </tr>
           <tr>
             <td>Emplacement :</td>
-            <td>A renseigner</td>
+            <td>{{this.lessWalkingTransport.latitude}} : {{this.lessWalkingTransport.longitude}}</td>
           </tr>
           <tr>
             <td>Durée totale :</td>

@@ -15,8 +15,7 @@ export class ContactsComponent implements OnInit {
   adresse : any;
 
   constructor(private geocodingService : GeocodingService) {
-  this.load();
-
+    this.load();
   }
 
   ngOnInit(): void {
@@ -26,14 +25,14 @@ export class ContactsComponent implements OnInit {
     // Premier exemple en rentrer la latitude et la longitude
     this.geocodingService.getAddressWithGps(this.lat,this.long).subscribe(resp => {
       this.adresse =  resp.display_name;
-      console.log(this.adresse);
+      console.log("exemple adr", this.adresse);
     }, error => console.log(error));
 
     // Deuxième exemple en rentrant une adresse en string, attention il peut y avoir plusieurs résultats donc faut être précis mais c'est pas ouf niveau précision
     this.geocodingService.getGpsWithAddress("86 Avenue John Fitzgerald Kennedy 33700 Merignac").subscribe(resp => {
-      console.log(resp);
-      console.log(resp[0].lat);
-      console.log(resp[0].lon);
+      console.log("exemple", resp);
+      console.log("exemple lat", resp[0].lat);
+      console.log("exemple long", resp[0].lon);
     }, error => console.log(error));
   }
 
