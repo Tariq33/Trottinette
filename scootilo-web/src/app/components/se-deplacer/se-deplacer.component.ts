@@ -50,6 +50,7 @@ export class SeDeplacerComponent implements OnInit {
   scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' });
   trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' });
   hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' });
+  distance: number;
 
   constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){

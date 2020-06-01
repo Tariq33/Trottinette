@@ -87,7 +87,7 @@ export class FinDeTrajetComponent implements OnInit {
     }, error => console.log(error));
 
     //Supprime le moyen de transport de l'itinéraire car lien OneOne entre eux et stock en base
-    this.itineraire.moyenDeTransport = null;
+    // this.itineraire.moyenDeTransport = null;
     this.itineraireService.modify(this.itineraire).subscribe(resp => {
     }, error => console.log(error));
     this.router.navigateByUrl('/finalisation');
