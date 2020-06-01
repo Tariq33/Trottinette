@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {MoyenDeTransport} from "../model/moyenDeTransport";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {TypeDeTransport} from "../model/TypeDeTransport";
+import {TypeDeTransport} from "../model/type-de-transport.enum";
+// import {TypeDeTransport} from "../model/TypeDeTransport";
 
 @Injectable({
   providedIn: 'root'
