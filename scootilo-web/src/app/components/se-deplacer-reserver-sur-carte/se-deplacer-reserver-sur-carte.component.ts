@@ -10,17 +10,15 @@ import {GeocodingService} from '../../service/geocoding.service';
 })
 export class SeDeplacerReserverSurCarteComponent implements OnInit {
   // @Input() moyenTransport: MoyenDeTransport;
-  reservationItineraire = {
-    'moyendeTransportClick' : new MoyenDeTransport(),
-    'numeroRue' : null,
-    'rue' : null,
-    'ville' : null,
+  moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
+  adresseAndTempsDeMarcheTransportChoisi = {
+    'adresse' : null,
     'tempsDeMarche' : null,
   };
 
   constructor(public cd: ChangeDetectorRef, private geocodingService: GeocodingService, private sessionService: SessionService) {
-    this.reservationItineraire = this.sessionService.getAdresseMoyenDeTransportReservee();
-    console.log(this.reservationItineraire);
+    this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
+    this.adresseAndTempsDeMarcheTransportChoisi = this.sessionService.getAdresseAndTempsDeMarche();
   }
 
   ngOnInit(): void {

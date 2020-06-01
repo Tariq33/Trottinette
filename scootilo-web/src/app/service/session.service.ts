@@ -36,21 +36,23 @@ export class SessionService {
     sessionStorage.setItem("moyenDeTransport",JSON.stringify(moyenDeTransport));
   }
 
-  setAdresseMoyenDeTransportReservee(adresseMoyenDeTransportReservee: any) {
-    sessionStorage.setItem("adresseMoyenDeTransportReservee", JSON.stringify(adresseMoyenDeTransportReservee));
+  getMoyenDeTransportReserve(): MoyenDeTransport {
+    return JSON.parse(sessionStorage.getItem("moyenDeTransport"));
   }
 
-  getAdresseMoyenDeTransportReservee(): any {
-    return JSON.parse(sessionStorage.getItem("adresseMoyenDeTransportReservee"));
+  setAdresseAndTempsDeMarche(adresseAndTempsDeMarche: any) {
+    sessionStorage.setItem("adresseAndTempsDeMarche", JSON.stringify(adresseAndTempsDeMarche));
+  }
+
+  getAdresseAndTempsDeMarche(): any {
+    return JSON.parse(sessionStorage.getItem("adresseAndTempsDeMarche"));
   }
 
   removeSessionStorageAdresseMoyenDeTransportReservee() {
     sessionStorage.removeItem("adresseMoyenDeTransportReservee");
   }
 
-  getMoyenDeTransportReserve(): MoyenDeTransport {
-    return JSON.parse(sessionStorage.getItem("moyenDeTransport"));
-  }
+
 
   removeSessionStorageMoyenDeTransport() {
   sessionStorage.removeItem("moyenDeTransport");

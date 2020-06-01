@@ -1,7 +1,7 @@
 import {Utilisateur} from "./utilisateur";
 import {Adresse} from "./adresse";
 import {FinDeTrajet} from "./finDeTrajet";
-import {PaiementFournisseur} from "./PaiementFournisseur";
+import {PaiementFournisseur} from "./paiementFournisseur";
 import {MoyenDeTransport} from "./moyenDeTransport";
 
 export class Fournisseur extends Utilisateur {

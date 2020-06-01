@@ -34,7 +34,7 @@ export class SeDeplacerComponent implements OnInit {
   latArrivee: number;
   lonArrivee: number;
   adresses: Array<Adresse> = new Array<Adresse>();
-  moyenTransportClick: MoyenDeTransport = new MoyenDeTransport();
+  moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
   map;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
@@ -66,6 +66,7 @@ export class SeDeplacerComponent implements OnInit {
   scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' });
   trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' });
   hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' });
+  distance: number;
 
   constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
@@ -74,10 +75,18 @@ export class SeDeplacerComponent implements OnInit {
         this.client.preference = new Pref(true,true,true,false,false,false);
       }
       this.loadCustomerAddresses();
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {
+        this.moyensDeTransportObs = resp;
+        this.createMap();
+        this.addTransports();
+        },err => console.log(err));
     }
     else{
-      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.moyensDeTransportObs = resp; this.createMap(); this.addTransports();} ,err => console.log(err));
+      this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {
+        this.moyensDeTransportObs = resp;
+        this.createMap();
+        this.addTransports();
+        },err => console.log(err));
     }
   }
 
@@ -103,48 +112,43 @@ export class SeDeplacerComponent implements OnInit {
     }
   }
 
-  charger3(bool:boolean, type: string){
-    if(type=="trottinette"){
+  charger3(bool:boolean, type: string) {
+    if (type == "trottinette") {
       this.client.preference.trottinette = bool;
-      if(!bool) {
+      if (!bool) {
         for (let i = 0; i < this.trotMarkers.getLayers().length; i++) {
           this.trotMarkers.getLayers()[i].removeFrom(this.map);
         }
-      }
-      else{
+      } else {
         for (let i = 0; i < this.trotMarkers.getLayers().length; i++) {
           this.trotMarkers.getLayers()[i].addTo(this.map);
         }
       }
-    }
-    else if(type=="velo"){
+    } else if (type == "velo") {
       this.client.preference.velo = bool;
-      if(!bool) {
+      if (!bool) {
         for (let i = 0; i < this.veloMarkers.getLayers().length; i++) {
           this.veloMarkers.getLayers()[i].removeFrom(this.map);
         }
-      }
-      else{
+      } else {
         for (let i = 0; i < this.veloMarkers.getLayers().length; i++) {
           this.veloMarkers.getLayers()[i].addTo(this.map);
         }
       }
-    }
-    else{
+    } else {
       this.client.preference.scooter = bool;
-      if(!bool) {
+      if (!bool) {
         for (let i = 0; i < this.scootMarkers.getLayers().length; i++) {
           this.scootMarkers.getLayers()[i].removeFrom(this.map);
         }
-      }
-      else{
+      } else {
         for (let i = 0; i < this.scootMarkers.getLayers().length; i++) {
           this.scootMarkers.getLayers()[i].addTo(this.map);
         }
       }
     }
-
   }
+
 
   // Récupère les adresses du clients
   loadCustomerAddresses(){
@@ -271,17 +275,16 @@ export class SeDeplacerComponent implements OnInit {
 
   //Récupère les données du moyen de transport sur lequel on a cliqué
   getTransportClick(transport) {
-    this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick = transport;
-    this.geocodingService.getAddressWithGps(this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude).subscribe(resp => {
-    this.donneesDuMoyenDeTransportChoisi.numeroRue = resp.address.house_number;
-    this.donneesDuMoyenDeTransportChoisi.rue = resp.address.road;
-    this.donneesDuMoyenDeTransportChoisi.ville = resp.address.city;
+    this.moyenDeTransportChoisi = transport;
+    this.geocodingService.getAddressWithGps(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude).subscribe(resp => {
+    this.adresseAndTempsDeMarcheTransportChoisi.adresse = resp.display_name;
     //on part sur le postulat de 5km/h
-      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.latitude, this.donneesDuMoyenDeTransportChoisi.moyendeTransportClick.longitude]);
+      let distance = this.getDistance([this.client.latitude, this.client.longitude], [this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude]);
       let temps = distance / (5/3.6);  //km/h en m/s => /3.6
       this.secondsToHms(temps);
-      this.donneesDuMoyenDeTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
-    this.sessionService.setAdresseMoyenDeTransportReservee(this.donneesDuMoyenDeTransportChoisi);
+      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
+    this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
+    this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
       })
   }
 
