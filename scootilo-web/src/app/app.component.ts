@@ -29,6 +29,7 @@ export class AppComponent {
 
   connexionEnTantQueClient () {
     this.utilisateurService.findByIdentifiantAndMotDePasse("jeje", "dede").subscribe(resp => {
+    //this.utilisateurService.findByIdentifiantAndMotDePasse("test", "ht").subscribe(resp => {
         this.sessionService.setUtilisateur(resp);
         this.router.navigateByUrl('/accueil');
       },

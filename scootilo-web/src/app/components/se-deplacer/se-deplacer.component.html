@@ -67,7 +67,7 @@
   <br>
 
     <div *ngIf="ongletReservationItineraireShow">
-      <div>
+      <div *ngIf="lessWalkingTransport!=null;else pasDeTransport">
         <ul  class="nav nav-tabs">
           <li class="nav-item">
             <a style="color: black;" class="nav-link" >Plus rapide</a>
@@ -101,13 +101,14 @@
           </tr>
           <tr>
             <td>Temps de marche :</td>
-            <td>A renseigner</td>
+            <td>{{this.distance}}km</td>
           </tr>
           </tbody>
         </table>
         <br> <button  class="btn-lg btn-secondary"
                       style="margin-left: 160px;" [routerLink]="['/reservationItineraire']">Réserver</button>
       </div>
+      <ng-template #pasDeTransport> <div style="border: solid 2px;border-color: crimson; padding: 10px;"><h4> Aucun véhicule disponible. <br/> Veuillez attendre ou modifier vos préférences.</h4></div></ng-template>
     </div>
 
     <div *ngIf="ongletReservationShow">
