@@ -73,8 +73,6 @@ export class ReservationSurCarteComponent implements OnInit {
       },
       error => console.log(error)
     )
-
-
   }
 
   cancelClick() {
