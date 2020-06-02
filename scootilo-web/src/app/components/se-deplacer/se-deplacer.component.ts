@@ -459,11 +459,11 @@ export class SeDeplacerComponent implements OnInit {
 
     setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportAvecLeMoinsDeMarche.latitude, this.transportAvecLeMoinsDeMarche.longitude).subscribe(resp => {
       this.emplacementTransportAvecLeMoinsDeMarche = resp.display_name;
-    }) }, 0);
+    }) }, 1200);
 
     setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportLeMoinsLong.latitude, this.transportLeMoinsLong.longitude).subscribe(resp => {
       this.emplacementTransportLeMoinsLong = resp.display_name;
-    }) }, 1200);
+    }) }, 2400);
 
     setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportLeMoinsCher.latitude, this.transportLeMoinsCher.longitude).subscribe(resp => {
       this.emplacementTransportLeMoinsCher = resp.display_name;
@@ -471,7 +471,7 @@ export class SeDeplacerComponent implements OnInit {
       this.ongletReservationShow = false;
       this.ongletReservationItineraireShow = true;
 
-    }) }, 1200);
+    }) }, 2400);
 
 
     // this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
