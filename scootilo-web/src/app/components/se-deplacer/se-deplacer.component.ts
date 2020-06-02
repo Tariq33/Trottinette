@@ -198,7 +198,6 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
-
   if(this.adrDepart==null || this.adrArrivee==null){
     this.pasDePreferencesCochees=true;
     return;
