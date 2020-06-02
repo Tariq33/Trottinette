@@ -34,6 +34,7 @@ export class ReservationItineraireComponent implements OnInit {
   save() {
     //Renseigne la réservation
     this.reservation.adrDepart= new AdresseItineraire();
+    this.reservation.adrArrivee= new AdresseItineraire();
     console.log("on passe");
     // this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + " " + this.reservationItineraire.rue;
     // this.reservation.adrDepart.codePostal= "33000";
