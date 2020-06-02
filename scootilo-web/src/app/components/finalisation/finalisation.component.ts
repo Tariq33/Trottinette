@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {Itineraire} from "../../model/itineraire";
 import {Router} from "@angular/router";
 import {SessionService} from "../../service/session.service";
-import {Client} from "../../model/client";
 import {FinDeTrajet} from "../../model/finDeTrajet";
 import {FinDeTrajetService} from "../../service/fin-de-trajet.service";
 
@@ -16,7 +15,7 @@ export class FinalisationComponent implements OnInit {
   itineraire : Itineraire;
   final: FinDeTrajet = new FinDeTrajet();
 
-  constructor(private router: Router, private sessionService: SessionService, private  finDeTrajetService: FinDeTrajetService) {
+  constructor(private router: Router, private sessionService: SessionService, private  FinDeTrajetService: FinDeTrajetService) {
     this.itineraire = sessionService.getItineraire();
   }
 
@@ -46,15 +45,15 @@ export class FinalisationComponent implements OnInit {
   }
 
   save() {
-    this.finDeTrajetService.modify(this.final).subscribe(resp => {
+    this.FinDeTrajetService.modify(this.final).subscribe(resp => {
       this.updateSessionStorage();
     }, error => console.log(error));
 
   }
 
   updateSessionStorage() {
-    this.finDeTrajetService.findById(JSON.parse(sessionStorage.getItem("utilisateur")).id).subscribe(resp => {
-
+    this.FinDeTrajetService.findById(JSON.parse(sessionStorage.getItem("finDeTrajet")).id).subscribe(resp => {
+        this.sessionService.setFinDeTrajet(resp);
         this.router.navigateByUrl('/accueil');
       },
       error => console.log(error)

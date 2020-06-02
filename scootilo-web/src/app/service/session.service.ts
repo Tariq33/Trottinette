@@ -6,6 +6,7 @@ import {MoyenDeTransport} from '../model/moyenDeTransport';
 import {Administrateur} from "../model/administrateur";
 import {Reservation} from '../model/Reservation';
 import {Itineraire} from '../model/itineraire';
+import {FinDeTrajet} from "../model/finDeTrajet";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class SessionService {
     sessionStorage.setItem("utilisateur",JSON.stringify(utilisateur));
   }
 
+  setFinDeTrajet(finDeTrajet: FinDeTrajet){
+    sessionStorage.setItem("finDeTrajet",JSON.stringify(finDeTrajet));
+  }
+
   setMoyenDeTransportReserve(moyenDeTransport: MoyenDeTransport){
     sessionStorage.setItem("moyenDeTransport",JSON.stringify(moyenDeTransport));
   }
@@ -51,8 +56,6 @@ export class SessionService {
   removeSessionStorageAdresseMoyenDeTransportReservee() {
     sessionStorage.removeItem("adresseMoyenDeTransportReservee");
   }
-
-
 
   removeSessionStorageMoyenDeTransport() {
   sessionStorage.removeItem("moyenDeTransport");
