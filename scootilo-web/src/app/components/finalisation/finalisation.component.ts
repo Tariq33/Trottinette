@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Itineraire} from "../../model/itineraire";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SessionService} from "../../service/session.service";
 import {FinDeTrajet} from "../../model/finDeTrajet";
 import {FinDeTrajetService} from "../../service/fin-de-trajet.service";
+import {ReservationService} from "../../service/reservation.service";
+import {Reservation} from "../../model/Reservation";
+import {AdresseService} from "../../service/adresse.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-finalisation',
@@ -13,19 +17,16 @@ import {FinDeTrajetService} from "../../service/fin-de-trajet.service";
 export class FinalisationComponent implements OnInit {
 
   itineraire : Itineraire;
+  reservation : Reservation;
   final: FinDeTrajet = new FinDeTrajet();
 
-  constructor(private router: Router, private sessionService: SessionService, private  FinDeTrajetService: FinDeTrajetService) {
-    this.itineraire = sessionService.getItineraire();
+  constructor(private router: Router, private sessionService: SessionService, private  finDeTrajetService: FinDeTrajetService, private  reservationService: ReservationService, private http: HttpClient, private route: ActivatedRoute) {
+    // this.itineraire = sessionService.getItineraire();
+    this.reservation = sessionService.getReservation();
+
   }
 
   ngOnInit(): void {
-  }
-
-
-  creationFinDeTrajet(){
-
-    // Creer l'item fin de trajet  et l'associer à la réservation
   }
 
   imagePath;
@@ -44,25 +45,16 @@ export class FinalisationComponent implements OnInit {
     }
   }
 
-  save() {
-    this.final.photo = this.imgURL;
+  save(){
+    this.final.reservation=this.sessionService.getReservation();
+    this.final.photo = this.imagePath[0].name;
+    console.log(this.imagePath);
 
-    this.FinDeTrajetService.modify(this.final).subscribe(resp => {
-      this.updateSessionStorage();
-    }, error => console.log(error));
-
-  }
-
-  updateSessionStorage() {
-    this.FinDeTrajetService.findById(JSON.parse(sessionStorage.getItem("finDeTrajet")).id).subscribe(resp => {
-        this.sessionService.setFinDeTrajet(resp);
+      this.finDeTrajetService.create(this.final).subscribe(resp => {
         this.router.navigateByUrl('/accueil');
-      },
-      error => console.log(error)
-    )
+      }, error => console.log(error));
+
   }
-
-
 
 
 }
