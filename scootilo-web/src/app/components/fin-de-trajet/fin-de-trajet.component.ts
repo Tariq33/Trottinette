@@ -73,6 +73,7 @@ export class FinDeTrajetComponent implements OnInit {
     this.itineraire=this.sessionService.getItineraire();
     this.itineraire.montant=this.cout;
     this.itineraire.duree=this.time;
+    this.itineraire.moyenDeTransport=this.moyenDeTransportChoisi;
     this.sessionService.setItineraire(this.itineraire);
 
     // creer paiement fournisseur et l'associer à l'itinéraire

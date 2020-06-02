@@ -34,6 +34,8 @@ export class SeDeplacerComponent implements OnInit {
   moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
   map;
+  //polyline : number[][];
+  ligne;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client = new Client();
   ongletReservationShow: boolean = false;
@@ -68,10 +70,10 @@ export class SeDeplacerComponent implements OnInit {
   };
 
   // On récupère les icônes des moyens de transport
-  veloIcon = new L.Icon({ iconUrl: '../../../assets/icon-velo.png' });
-  scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' });
-  trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' });
-  hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' });
+  veloIcon = new L.Icon({ iconUrl: '../../../assets/icon-velo.png' , iconAnchor:   [10, 5]});
+  scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' , iconAnchor:   [10, 5]});
+  trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' , iconAnchor:   [15, 20]});
+  hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' , iconAnchor:   [32, 60]});
   distance: number;
 
   constructor(private router: Router, private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
@@ -101,7 +103,6 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   charger(nom:string){
-    console.log(nom);
     for (let adr of this.adresses){
       if(adr.nomAdresse==nom){
         this.adrDepart=adr.rue+" "+adr.codePostal+" "+adr.ville;
@@ -296,6 +297,9 @@ export class SeDeplacerComponent implements OnInit {
 
   //Récupère les données du moyen de transport sur lequel on a cliqué puis les envoie dans le sessionStorage
   getTransportClick(transport) {
+    if(this.ligne != undefined){
+      this.ligne.removeFrom(this.map);
+    }
     this.moyenDeTransportChoisi = transport;
     this.geocodingService.getAddressWithGps(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude).subscribe(resp => {
     this.adresseAndTempsDeMarcheTransportChoisi.adresse = resp.display_name;
@@ -306,7 +310,18 @@ export class SeDeplacerComponent implements OnInit {
       this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
     this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
     this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
-      })
+    /*let polyline = [
+      [this.client.latitude, this.client.longitude],
+      [this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude],
+    ];*/
+      let pointA = new L.LatLng(this.client.latitude, this.client.longitude);
+      let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
+      //var pointList = [pointA, pointB];
+    //L.latLng(polyline[0],polyline[1]);
+    //this.ligne = new L.Polyline(L.latLng(50.5, 30.5);L.latLng(50.5, 30.5);).addTo(this.map);
+      this.ligne = new L.Polyline([pointA,pointB], undefined ).addTo(this.map);
+
+    })
   }
 
   //Récupère les données du moyen de transport via la recherche itinéraire puis les envoie dans le sessionStorage
@@ -375,8 +390,6 @@ export class SeDeplacerComponent implements OnInit {
 
 
   testMoyenDeTransport(moyensDeTransport: Array<MoyenDeTransport>, client : Client, adresseDepart:AdresseItineraire, adresseArrivee : AdresseItineraire ){
-    console.log("on rentre dans la fonction");
-
 
     // On filtre selon les préférences
     let preferences = client.preference;

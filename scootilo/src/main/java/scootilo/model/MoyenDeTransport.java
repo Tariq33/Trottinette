@@ -1,5 +1,8 @@
 package scootilo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -65,8 +69,9 @@ public class MoyenDeTransport {
 	@Column(name = "inUse", length = 100)
 	@JsonView(Views.ViewCommon.class)
 	private Boolean enUtilisation;
-	@OneToOne(mappedBy = "moyenDeTransport")
-	private Itineraire itineraire;
+	@OneToMany(mappedBy = "moyenDeTransport")
+	private List<Itineraire> itineraires = new ArrayList<Itineraire>();
+
 
 	public MoyenDeTransport() {
 		super();
@@ -184,13 +189,16 @@ public class MoyenDeTransport {
 		this.enUtilisation = enUtilisation;
 	}
 
-	public Itineraire getItineraire() {
-		return itineraire;
+	public List<Itineraire> getItineraires() {
+		return itineraires;
 	}
 
-	public void setItineraire(Itineraire itineraire) {
-		this.itineraire = itineraire;
+	public void setItineraires(List<Itineraire> itineraires) {
+		this.itineraires = itineraires;
 	}
 
+	public void addItineraire(Itineraire itineraire) {
+		this.itineraires.add(itineraire);
+	}
 	
 }
