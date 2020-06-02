@@ -16,7 +16,6 @@ export class SeDeplacerTarifComponent implements OnInit {
 
     moyenDeTransportService.FindAllPerso().subscribe(resp => {
       this.result = resp;
-      console.log(this.result);
     }, error => console.log(error));
 
   }

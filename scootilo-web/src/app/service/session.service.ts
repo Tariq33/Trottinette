@@ -52,8 +52,6 @@ export class SessionService {
     sessionStorage.removeItem("adresseMoyenDeTransportReservee");
   }
 
-
-
   removeSessionStorageMoyenDeTransport() {
   sessionStorage.removeItem("moyenDeTransport");
   }

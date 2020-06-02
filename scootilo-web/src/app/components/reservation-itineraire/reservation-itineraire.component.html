@@ -12,33 +12,31 @@
           <tbody>
           <tr>
             <td>Mode de transport :</td>
-            <td></td>
+            <td>{{this.moyenDeTransportChoisi.typeDeTransport}}</td>
           </tr>
           <tr>
             <td>Emplacement :</td>
-            <td></td>
+            <td>{{this.adresseAndTempsDeMarcheTransportChoisi.adresse}}</td>
           </tr>
           <tr>
             <td>Durée totale estimative :</td>
-            <td>A renseigner</td>
+            <td>{{this.adresseAndTempsDeMarcheTransportChoisi.dureeEstime}} minutes</td>
           </tr>
           <tr>
             <td>Prix estimatif :</td>
-            <td>A renseigner</td>
+            <td>{{this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif}} €</td>
           </tr>
           <tr>
             <td>Temps de marche :</td>
-            <td>A renseigner</td>
+            <td>{{this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche}} minutes</td>
           </tr>
           </tbody>
         </table>
         <div>
-        <a type="submit" class="btn btn-primary"  [routerLink]="['/finDeTrajet']">Confirmer</a>
+        <a type="submit" class="btn btn-primary"  (click)="save()">Confirmer</a>
         <a class="btn btn-danger" (click)="cancelClick()" [routerLink]="['/seDeplacer']">Annuler</a>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>
