@@ -332,7 +332,7 @@ export class SeDeplacerComponent implements OnInit {
   }
 
 
-  testMoyenDeTransport(moyensDeTransport: Array<MoyenDeTransport>, client : Client, adresseDepart:AdresseItineraire, adresseArrivee : AdresseItineraire ): Array<MoyenDeTransport> {
+  testMoyenDeTransport(moyensDeTransport: Array<MoyenDeTransport>, client : Client, adresseDepart:AdresseItineraire, adresseArrivee : AdresseItineraire ){
     console.log("on rentre dans la fonction");
 
     // On filtre selon les préférences
@@ -352,9 +352,9 @@ export class SeDeplacerComponent implements OnInit {
     let prixLeMoinsCher = 99999999;
     let tempsDeMarcheLeMoinsLong = 99999999;
 
-    let idDuMoinsLong : MoyenDeTransport
-    let idDuMoinscher : MoyenDeTransport
-    let idDuMoinsDeMarche : MoyenDeTransport
+    let moyenDeTransportLeMoinsLong : MoyenDeTransport;
+    let moyenDeTransportLeMoinsCher : MoyenDeTransport;
+    let moyenDeTransportAvecLeMoinsDeMarche : MoyenDeTransport;
 
     for(let moyenDeTransport of moyensDeTransportFiltres){
       if(moyenDeTransport.disponible && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude])) {
@@ -383,29 +383,27 @@ export class SeDeplacerComponent implements OnInit {
 
         if (tempsDeMarche < tempsDeMarcheLeMoinsLong) {
           tempsDeMarcheLeMoinsLong = tempsDeMarche;
-          idDuMoinsDeMarche = moyenDeTransport;
+          moyenDeTransportAvecLeMoinsDeMarche = moyenDeTransport;
           this.donneesDuMoinsDeMarche = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
         }
         if (prixDeLaCourse < prixLeMoinsCher) {
           prixLeMoinsCher = prixDeLaCourse;
-          idDuMoinscher = moyenDeTransport;
+          moyenDeTransportLeMoinsLong = moyenDeTransport;
           this.donneesDuMoinsCher = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
         }
         if (dureeTotaleDeLaCourse < tempsLeMoinsLong) {
           tempsLeMoinsLong = dureeTotaleDeLaCourse;
-          idDuMoinsLong = moyenDeTransport;
+          moyenDeTransportLeMoinsCher = moyenDeTransport;
           this.donneesDuMoinsLong = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
         }
       }
     }
 
+    this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
+    this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
+    this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
 
-
-    this.transportAvecLeMoinsDeMarche=idDuMoinsDeMarche;
-    this.transportLeMoinsLong=idDuMoinsLong;
-    this.transportLeMoinsCher=idDuMoinscher;
-
-    return [idDuMoinsDeMarche, idDuMoinscher, idDuMoinsLong];
+    return [moyenDeTransportAvecLeMoinsDeMarche, moyenDeTransportLeMoinsLong, moyenDeTransportLeMoinsCher];
   }
 
   affichageFunction(nombre : number){
