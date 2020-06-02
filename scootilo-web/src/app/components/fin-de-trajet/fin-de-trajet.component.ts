@@ -36,14 +36,16 @@ export class FinDeTrajetComponent implements OnInit {
   public validationDuMoyenDeTransport : boolean;
   public qrCodeInput : string;
   public paiementFournisseur = new PaiementFournisseur();
+  private ancientSolde: number;
 
 
   ngOnInit(): void {
   }
 
-  constructor(private reservationService: ReservationService, private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService, private paiementFournisseurService: PaiementFournisseurService) {
+  constructor(private reservationService: ReservationService, private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService, private paiementFournisseurService: PaiementFournisseurService, private clientService: ClientService) {
     this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
     this.reservation = this.sessionService.getReservation();
+    this.client=sessionService.getClient();
   }
 
   getDisplayTimer(time: number) {
@@ -86,6 +88,16 @@ export class FinDeTrajetComponent implements OnInit {
 
     this.paiementFournisseurService.create(this.paiementFournisseur).subscribe(resp => {
     }, error => console.log(error));
+
+    // retirer au solde le prix du trajet
+
+    this.ancientSolde = this.client.solde;
+    this.client.solde = this.ancientSolde - this.cout;
+
+    this.clientService.modify(this.client).subscribe(resp => {
+      this.sessionService.setUtilisateur(this.client);
+    }, error => console.log(error));
+
 
     //Supprime le moyen de transport de l'itinéraire car lien OneOne entre eux et stock en base
     // this.itineraire.moyenDeTransport = null;
