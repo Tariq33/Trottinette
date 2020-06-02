@@ -1,15 +1,15 @@
 <body>
 
 <div class="img-trait-bleu container-fluid">
-
+<br/>
 <div class="container">
-  <div class="card">
-    <div class="card-header">
-      <h2>Liste des tarifs</h2>
+  <div style="border-color: rgba(50,162,228,0.5);" class="card">
+    <div style="background-color: rgba(50,162,228,0.5);" class="card-header">
+      <h2 style="text-align: center ;font-size: 60px" >Tarifs</h2>
     </div>
-    <table class="table">
+    <table style="text-align: center" class="table">
       <thead class="thead-light">
-      <tr>
+      <tr style="font-size: 35px">
         <th>Type de transport</th>
         <th>Compagnie</th>
         <th>Tarif/minute (€)</th>
@@ -17,7 +17,7 @@
       </thead>
       <tbody>
 
-      <tr *ngFor="let taille of arrayOne(result.length)">
+      <tr style="font-size: 25px" *ngFor="let taille of arrayOne(result.length)">
         <td *ngFor="let ele of result[taille]">{{ele}}</td>
       </tr>
 
@@ -26,4 +26,5 @@
   </div>
 </div>
 </div>
+
 </body>
