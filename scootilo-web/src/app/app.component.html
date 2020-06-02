@@ -1,15 +1,11 @@
 <!--style="margin-bottom: 80px;"-->
 <div>
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" [routerLink]="['/accueil']" >Accueil</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false"
-            aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
+  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="height: 80px;">
+<li style="margin-left: -20px;">
+    <a class="navbar-brand" [routerLink]="['/accueil']" ><img src="../../../assets/LOGO_scootilo.png" alt="logo" width="180px" height="90"></a>
+</li>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto container" style="font-size: 20px;">
         <li class="nav-item active">
           <a [routerLink]="['/seDeplacer']" class="nav-link" >Se déplacer
           <span class="sr-only"></span> </a>
@@ -34,20 +30,18 @@
             class="sr-only"></span></a>
         </li>
       </ul>
-      <div class="form-inline my-2 my-lg-0">
-        <button *ngIf="!sessionService.getIdentifiant(); else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']">Se connecter</button>
+      <div class="form-inline my-2 my-lg-0" >
+        <button *ngIf="!sessionService.getIdentifiant(); else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']"  style="font-size: 20px;font-weight: bold">Se connecter</button>
         <ng-template #connecte>
-          <button *ngIf="sessionService.getType()=='admin'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteAdministrateur']">Mon compte</button>
-          <button *ngIf="sessionService.getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteClient']">Mon compte</button>
-          <button *ngIf="sessionService.getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteFournisseur']">Mon compte</button>
-          <button *ngIf="sessionService" class="btn btn-outline-info my-2 my-sm-0" (click)="sessionService.offUtilisateur()">Se deconnecter</button>
+          <button *ngIf="sessionService.getType()=='admin'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteAdministrateur']"  style="font-size: 20px;font-weight: bold">Mon compte</button>
+          <button *ngIf="sessionService.getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteClient']"  style="font-size: 20px;font-weight: bold">Mon compte</button>
+          <button *ngIf="sessionService.getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteFournisseur']"  style="font-size: 20px;font-weight: bold">Mon compte</button>
+          <button *ngIf="sessionService" class="btn btn-outline-info my-2 my-sm-0" (click)="sessionService.offUtilisateur()"  style="font-size: 20px;font-weight: bold; margin-left: 5px;">Se deconnecter</button>
         </ng-template>
       </div>
     </div>
   </nav>
 </div>
-
-<p>{{this.router.url}}</p>
 
 <div *ngIf="this.router.url==='/' || this.router.url==='/accueil'; else lesAutresComposants">
   <router-outlet></router-outlet>
@@ -65,8 +59,8 @@
 <br>
 
 
-<footer id="sticky-footer" class="py-4 bg-dark text-white-50 fixed-bottom">
+<footer id="sticky-footer" class="py-4 bg-light text-white-50 fixed-bottom">
   <div class="container text-center">
-    <small style="color: white">Copyright &copy; Scootilo</small>
+    <small style="color: black; font-size: 15px;"><b>Copyright &copy; Scootilo</b></small>
   </div>
 </footer>

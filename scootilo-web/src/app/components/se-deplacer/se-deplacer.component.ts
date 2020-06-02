@@ -25,10 +25,10 @@ import {FinDeTrajet} from "../../model/finDeTrajet";
 })
 //export class PlanReseauComponent implements AfterViewInit {
 export class SeDeplacerComponent implements OnInit {
-  adrDepart : string = null
-  adrDepartListe : string = null
-  adrArrivee : string = null
-  adrArriveeListe : string = null
+  adrDepart : string = null;
+  adrDepartListe : string = null;
+  adrArrivee : string = null;
+  adrArriveeListe : string = null;
   latDepart: number;
   lonDepart: number;
   latArrivee: number;
