@@ -1,4 +1,4 @@
-<div class="row" style="padding-left: 50px;">
+<div class="row" style="padding-left: 50px; padding-top: 15px;">
   <div>
     <div style="text-align: center;">
 
@@ -23,9 +23,6 @@
         <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
       </datalist>
     </div>
-
-
-    <br/><br/>
 
     <div class="form-group">
       <label >Lieu d'arrivée :</label>
@@ -60,6 +57,10 @@
         </label>
       </div>
     </div>
+<br>
+    <h3 class="first" style="font-size: 24px;">Distance de marche Max: {{distanceClientMarcheMax}} m</h3>
+    <p-slider [(ngModel)]="distanceClientMarcheMax" [style]="{'width':'25em'}" [step]="100" [min]="100" [max]="5000"></p-slider>
+
     <br> <button  class="btn-lg btn-secondary"
             style="margin-left: 130px;" (click)="isShowItineraire()">Rechercher</button>
 

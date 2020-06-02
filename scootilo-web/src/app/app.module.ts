@@ -42,7 +42,7 @@ import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './compo
 import { DateCustomPipe } from './pipe/date-custom.pipe';
 import { AbsoluPipe } from './pipe/absolu';
 import { ReservationSurCarteComponent } from './components/reservation-sur-carte/reservation-sur-carte.component';
-import {CardModule} from 'primeng';
+import {CardModule, SliderModule} from 'primeng';
 
 @NgModule({
   declarations: [
@@ -93,7 +93,8 @@ import {CardModule} from 'primeng';
         HttpClientModule,
         FormsModule,
         ChartModule,
-        CardModule
+        CardModule,
+        SliderModule
     ],
   providers: [],
   bootstrap: [AppComponent]

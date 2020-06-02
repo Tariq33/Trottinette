@@ -67,6 +67,7 @@ export class SeDeplacerComponent implements OnInit {
     'dureeEstime' : null,
     'prixEstimatif' : null,
   };
+  distanceClientMarcheMax: number = 1000;
 
   // On récupère les icônes des moyens de transport
   veloIcon = new L.Icon({ iconUrl: '../../../assets/icon-velo.png' , iconAnchor:   [10, 5]});
@@ -389,6 +390,8 @@ export class SeDeplacerComponent implements OnInit {
 
 
   testMoyenDeTransport(moyensDeTransport: Array<MoyenDeTransport>, client : Client, adresseDepart:AdresseItineraire, adresseArrivee : AdresseItineraire ){
+    //boolean pour savoir si on rentre dans la boucle
+    let flag: boolean = false;
 
     // On filtre selon les préférences
     let preferences = client.preference;
@@ -412,8 +415,9 @@ export class SeDeplacerComponent implements OnInit {
     let moyenDeTransportAvecLeMoinsDeMarche : MoyenDeTransport = new MoyenDeTransport();
 
     for(let moyenDeTransport of moyensDeTransportFiltres){
-      if(moyenDeTransport.disponible && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude])) {
+      if(moyenDeTransport.disponible && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude]) && this.getDistance([adresseDepart.latitude, adresseDepart.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]) < this.distanceClientMarcheMax) {
         console.log(moyenDeTransport);
+        flag = true;
         // en m
         var distanceEnMoyenDeTransport = this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude], [adresseArrivee.latitude, adresseArrivee.longitude]);
 
@@ -457,6 +461,13 @@ export class SeDeplacerComponent implements OnInit {
     this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
     this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
     this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
+
+    if(flag ==false) {
+      this.pasDePreferencesCochees = true;
+      return;
+    } else {
+      this.pasDePreferencesCochees = false;
+    }
 
     setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportAvecLeMoinsDeMarche.latitude, this.transportAvecLeMoinsDeMarche.longitude).subscribe(resp => {
       this.emplacementTransportAvecLeMoinsDeMarche = resp.display_name;
