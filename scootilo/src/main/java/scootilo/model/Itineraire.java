@@ -74,10 +74,14 @@ public class Itineraire {
 	@OneToOne(mappedBy = "itineraire")
 //	@JsonView(Views.ViewItineraireDetail.class)
 	private PaiementFournisseur paiementFournisseur;
-	@OneToOne(cascade = CascadeType.PERSIST)
+	
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "transportMeans_id")
 	@JsonView(Views.ViewItineraire.class)
 	private MoyenDeTransport moyenDeTransport;
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "reservation_id")
 	@JsonView(Views.ViewItineraire.class)

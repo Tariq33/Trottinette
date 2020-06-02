@@ -20,9 +20,9 @@ export class MoyenDeTransport{
   disponible: boolean;
   enUtilisation: boolean;
   fournisseur: Fournisseur;
-  itineraire: Itineraire;
+  itineraires: Array<Itineraire>;
 
-  constructor(id?: number, version?: number, longitude?: number, latitude?: number, typeDeTransport?: TypeDeTransport, distanceEstimee?: number, typeMoteur?: TypeMoteur, capacite?: number, prixMinute?: number, numeroDeSerie?: string, qrCode?: string, disponible?: boolean, enUtilisation?: boolean, fournisseur?: Fournisseur, itineraire?: Itineraire) {
+  constructor(id?: number, version?: number, longitude?: number, latitude?: number, typeDeTransport?: TypeDeTransport, distanceEstimee?: number, typeMoteur?: TypeMoteur, capacite?: number, prixMinute?: number, numeroDeSerie?: string, qrCode?: string, disponible?: boolean, enUtilisation?: boolean, fournisseur?: Fournisseur, itineraires?: Array<Itineraire>) {
     this.id=id;
     this.version = version;
     this.longitude = longitude;
@@ -37,7 +37,7 @@ export class MoyenDeTransport{
     this.disponible = disponible;
     this.enUtilisation = enUtilisation;
     this.fournisseur = fournisseur;
-    this.itineraire = itineraire;
+    this.itineraires = itineraires;
   }
 
 }

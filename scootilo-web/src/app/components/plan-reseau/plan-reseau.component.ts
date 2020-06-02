@@ -48,10 +48,6 @@ export class PlanReseauComponent implements OnInit {
     }
   }
 
-  /*ngAfterViewInit(): void {
-    this.createMap();
-  }*/
-
   ngOnInit(): void {
 
   }
@@ -72,8 +68,6 @@ export class PlanReseauComponent implements OnInit {
       this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
     }
 
-    /*const mainLayer = L.tileLayer('https://{s}.tile .openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',*/
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
       minZoom: 2,
@@ -87,12 +81,6 @@ export class PlanReseauComponent implements OnInit {
         this.moyenDeTransportService.FindAllTransportsInArea(this.client.latitude, this.client.longitude).subscribe(resp => {this.proximite = resp; }, error => console.log(error));
       }
     }
-
-
-    /*L.Routing.control({
-      geocoder: L.control.Geocoder.nominatim()
-    }).addTo(this.map);
-    L.Control.geocoder().addTo(this.map);*/
 
   }
 
@@ -108,16 +96,12 @@ export class PlanReseauComponent implements OnInit {
     if(transport.typeDeTransport=="velo"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
-      marker.on("click",function () {
-        console.log("ON A CLIQUE");
-      })
       marker.bindPopup('<h1>Velo</h1>');
     }
     else if(transport.typeDeTransport=="scooter"){
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.scootIcon});
       marker.addTo(this.map);
       marker.bindPopup('<h1>Scooter</h1>');
-      //marker.bindTooltip('test');
     }
     else{
       const marker = L.marker([transport.latitude,transport.longitude], {icon: this.trotIcon});
