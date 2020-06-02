@@ -56,6 +56,7 @@ public class ReservationRestController {
 	}
 
 	@PostMapping("")
+	@JsonView(Views.ViewReservation.class)
 	public Reservation create(@RequestBody Reservation reservation) {
 		reservation = reservationRepo.save(reservation);
 
@@ -63,6 +64,7 @@ public class ReservationRestController {
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(Views.ViewReservation.class)
 	public Reservation update(@RequestBody Reservation reservation, @PathVariable Long id) {
 		if (!reservationRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to find resource");
