@@ -40,7 +40,7 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
     for(let iti of this.itineraires) {
       //récupérer les mois de la date en format string
       var dateIti = JSON.parse(JSON.stringify({ date: iti.heureArrivee }));
-      this.gain = iti.moyenDeTransport.prixMinute * iti.duree;
+      this.gain = iti.montant;
       this.gainTot += this.gain;
       let mois= dateIti.date.substr(8,2);
       let annee = dateIti.date.substr(0,4);
@@ -161,7 +161,6 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
             this.gainTrot[11] += this.gain;
           }
         }
-
       }
 
     this.data = {
