@@ -14,7 +14,7 @@ import {GeocodingService} from '../../service/geocoding.service';
 import {AdresseItineraire} from "../../model/adresseItineraire";
 import {TypeDeTransport} from "../../model/type-de-transport.enum";
 import {TypeMoteur} from "../../model/type-moteur.enum";
-import {Observable} from "rxjs";
+import {Observable, timer} from 'rxjs';
 import {FinDeTrajet} from "../../model/finDeTrajet";
 
 
@@ -29,10 +29,6 @@ export class SeDeplacerComponent implements OnInit {
   adrDepartListe : string = null;
   adrArrivee : string = null;
   adrArriveeListe : string = null;
-  latDepart: number;
-  lonDepart: number;
-  latArrivee: number;
-  lonArrivee: number;
   adresses: Array<Adresse> = new Array<Adresse>();
   moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
@@ -47,9 +43,14 @@ export class SeDeplacerComponent implements OnInit {
   transportAvecLeMoinsDeMarche: MoyenDeTransport  = new MoyenDeTransport();
   transportLeMoinsCher: MoyenDeTransport = new MoyenDeTransport();
   transportLeMoinsLong: MoyenDeTransport = new MoyenDeTransport();
-  donneesDuMoinsDeMarche : Array<number>;
+  donneesDuMoinsDeMarche : Array<number> = null;
   donneesDuMoinsCher : Array<number>;
   donneesDuMoinsLong : Array<number>;
+  emplacementTransportAvecLeMoinsDeMarche: string = null;
+  emplacementTransportLeMoinsLong : string = null;
+  emplacementTransportLeMoinsCher : string = null;
+
+  time: number = 0;
 
   affichage : number =1;
 
@@ -332,9 +333,9 @@ export class SeDeplacerComponent implements OnInit {
     var h = Math.floor(d / 3600);
     var m = Math.floor(d % 3600 / 60);
     var s = Math.floor(d % 3600 % 60);
-    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    var hDisplay = h > 0 ? h + (h == 1 ? " heure, " : " heures, ") : "";
     var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " seconde" : " secondes") : "";
     return hDisplay + mDisplay + sDisplay;
   }
 
@@ -384,9 +385,9 @@ export class SeDeplacerComponent implements OnInit {
         let distanceDeMarche = this.getDistance([adresseDepart.latitude, adresseDepart.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]);
 
         // On a ce qu'on recherche :
-        let tempsDeMarche = distanceDeMarche / (5 / 3.6); // On marche à 4 km/h qu'on met en m/s
-        let dureeTotaleDeLaCourse = dureeEstimeeEnSecondes + tempsDeMarche;
-        let prixDeLaCourse = moyenDeTransport.prixMinute * dureeEstimeeEnMinutes;
+        let tempsDeMarche = Math.round((distanceDeMarche / (5 / 3.6))/60); // On marche à 4 km/h qu'on met en m/s
+        let dureeTotaleDeLaCourse = Math.round((dureeEstimeeEnSecondes + tempsDeMarche*60)/60);
+        let prixDeLaCourse = Math.round(moyenDeTransport.prixMinute * dureeEstimeeEnMinutes*100)/100;
 
 
         if (tempsDeMarche < tempsDeMarcheLeMoinsLong) {
@@ -407,6 +408,28 @@ export class SeDeplacerComponent implements OnInit {
       }
     }
 
+    timer(0, 1000).subscribe(ellapsedCycles => {
+      if(this.time == 0) {
+        this.geocodingService.getAddressWithGps(this.transportAvecLeMoinsDeMarche.latitude, this.transportAvecLeMoinsDeMarche.longitude).subscribe(resp => {
+          this.emplacementTransportAvecLeMoinsDeMarche = resp.display_name;
+        })
+      }
+      if(this.time == 1) {
+        this.geocodingService.getAddressWithGps(this.transportLeMoinsLong.latitude, this.transportLeMoinsLong.longitude).subscribe(resp => {
+          this.emplacementTransportLeMoinsLong = resp.display_name;
+        })
+      }
+      if(this.time == 2) {
+
+        this.geocodingService.getAddressWithGps(this.transportLeMoinsCher.latitude, this.transportLeMoinsCher.longitude).subscribe(resp => {
+          this.emplacementTransportLeMoinsCher = resp.display_name;
+        })
+      }
+      if(this.time == 4) {
+        //A définir comment stopper un starter
+      }
+      this.time++;
+    });
     this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
     this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
     this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
