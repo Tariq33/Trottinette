@@ -71,13 +71,13 @@
       <div *ngIf="!pasDePreferencesCochees;else pasDeTransport">
         <ul  class="nav nav-tabs">
           <li  style="cursor : pointer" class="nav-item">
-            <a (click)="affichageFunction(1)" style="color: black;" class="nav-link" >Plus rapide</a>
+            <a (click)="affichageFunction(1)" style="color: black;" class="nav-link" >Moins de marche</a>
           </li>
           <li  style="cursor : pointer" class="nav-item">
-            <a (click)="affichageFunction(2)" style="color: black;" class="nav-link" >Moins cher</a>
+            <a (click)="affichageFunction(2)" style="color: black;" class="nav-link" >Moins long</a>
           </li>
           <li  style="cursor : pointer" class="nav-item">
-            <a (click)="affichageFunction(3)" style="color: black;" class="nav-link" >Moins de marche</a>
+            <a (click)="affichageFunction(3)" style="color: black;" class="nav-link" >Moins cher</a>
           </li>
         </ul>
 
@@ -92,17 +92,18 @@
             <td>{{this.emplacementTransportAvecLeMoinsDeMarche}}</td>
           </tr>
           <tr>
+            <td>Temps de marche :</td>
+            <td>{{this.donneesDuMoinsDeMarche[0]}} minutes</td>
+          </tr>
+          <tr>
             <td>Durée totale :</td>
             <td>{{this.donneesDuMoinsDeMarche[1]}} minutes</td>
           </tr>
           <tr>
             <td>Prix estimatif :</td>
-            <td>{{this.donneesDuMoinsDeMarche[0]}} €</td>
+            <td>{{this.donneesDuMoinsDeMarche[2]}} €</td>
           </tr>
-          <tr>
-            <td>Temps de marche :</td>
-            <td>{{this.donneesDuMoinsDeMarche[2]}} minutes</td>
-          </tr>
+
           </tbody>
         </table>
 
@@ -117,16 +118,16 @@
             <td>{{this.emplacementTransportLeMoinsLong}}</td>
           </tr>
           <tr>
+            <td>Temps de marche :</td>
+            <td>{{this.donneesDuMoinsLong[0]}} minutes</td>
+          </tr>
+          <tr>
             <td>Durée totale :</td>
             <td>{{this.donneesDuMoinsLong[1]}} minutes</td>
           </tr>
           <tr>
             <td>Prix estimatif :</td>
-            <td>{{this.donneesDuMoinsLong[0]}} €</td>
-          </tr>
-          <tr>
-            <td>Temps de marche :</td>
-            <td>{{this.donneesDuMoinsLong[2]}} minutes</td>
+            <td>{{this.donneesDuMoinsLong[2]}} €</td>
           </tr>
           </tbody>
         </table>
@@ -142,16 +143,16 @@
             <td>{{this.emplacementTransportLeMoinsCher}}</td>
           </tr>
           <tr>
+            <td>Temps de marche :</td>
+            <td>{{this.donneesDuMoinsCher[0]}} minutes</td>
+          </tr>
+          <tr>
             <td>Durée totale :</td>
             <td>{{this.donneesDuMoinsCher[1]}} minutes</td>
           </tr>
           <tr>
             <td>Prix estimatif :</td>
-            <td>{{this.donneesDuMoinsCher[0]}} €</td>
-          </tr>
-          <tr>
-            <td>Temps de marche :</td>
-            <td>{{this.donneesDuMoinsCher[2]}} minutes</td>
+            <td>{{this.donneesDuMoinsCher[2]}} €</td>
           </tr>
           </tbody>
         </table>
@@ -200,9 +201,9 @@
 </div>
 
 
-<div >
+<div>
   <div class="container" >
-    <div class="map-wrapper" style="left: 500px">
+    <div class="map-wrapper" style="margin: 150px">
       <div id="map"> </div>
     </div>
   </div>

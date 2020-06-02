@@ -34,7 +34,6 @@ export class SeDeplacerComponent implements OnInit {
   moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
   map;
-  //polyline : number[][];
   ligne;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client = new Client();
@@ -74,7 +73,6 @@ export class SeDeplacerComponent implements OnInit {
   scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' , iconAnchor:   [10, 5]});
   trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' , iconAnchor:   [15, 20]});
   hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' , iconAnchor:   [32, 60]});
-  distance: number;
 
   constructor(private router: Router, private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
@@ -234,8 +232,8 @@ export class SeDeplacerComponent implements OnInit {
         adresseArrivee.latitude = resp[0].lat;
         adresseArrivee.longitude = resp[0].lon;
         this.testMoyenDeTransport(this.moyensDeTransportObs,this.client, adresseDepart, adresseArrivee);
-        this.ongletReservationShow = false;
-        this.ongletReservationItineraireShow = true;
+        // this.ongletReservationShow = false;
+        // this.ongletReservationItineraireShow = true;
       }, error => console.log(error));
 
     }, error => console.log(error));
@@ -414,7 +412,7 @@ export class SeDeplacerComponent implements OnInit {
 
     for(let moyenDeTransport of moyensDeTransportFiltres){
       if(moyenDeTransport.disponible && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude])) {
-
+        console.log(moyenDeTransport);
         // en m
         var distanceEnMoyenDeTransport = this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude], [adresseArrivee.latitude, adresseArrivee.longitude]);
 
@@ -435,51 +433,50 @@ export class SeDeplacerComponent implements OnInit {
         let tempsDeMarche = Math.round((distanceDeMarche / (5 / 3.6))/60); // On marche à 4 km/h qu'on met en m/s
         let dureeTotaleDeLaCourse = Math.round((dureeEstimeeEnSecondes + (tempsDeMarche*60))/60);
         let prixDeLaCourse = Math.round(moyenDeTransport.prixMinute * dureeEstimeeEnMinutes*100)/100;
-
+        console.log(prixDeLaCourse);
 
         if (tempsDeMarche < tempsDeMarcheLeMoinsLong) {
           tempsDeMarcheLeMoinsLong = tempsDeMarche;
           moyenDeTransportAvecLeMoinsDeMarche = moyenDeTransport;
-          this.donneesDuMoinsDeMarche = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+          this.donneesDuMoinsDeMarche = [tempsDeMarche, dureeTotaleDeLaCourse,prixDeLaCourse];
         }
         if (prixDeLaCourse < prixLeMoinsCher) {
           prixLeMoinsCher = prixDeLaCourse;
-          moyenDeTransportLeMoinsLong = moyenDeTransport;
-          this.donneesDuMoinsCher = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+          moyenDeTransportLeMoinsCher = moyenDeTransport;
+          this.donneesDuMoinsCher = [tempsDeMarche, dureeTotaleDeLaCourse,prixDeLaCourse];
         }
         if (dureeTotaleDeLaCourse < tempsLeMoinsLong) {
           tempsLeMoinsLong = dureeTotaleDeLaCourse;
-          moyenDeTransportLeMoinsCher = moyenDeTransport;
-          this.donneesDuMoinsLong = [prixDeLaCourse, dureeTotaleDeLaCourse, tempsDeMarche];
+          moyenDeTransportLeMoinsLong = moyenDeTransport;
+          this.donneesDuMoinsLong  = [tempsDeMarche, dureeTotaleDeLaCourse,prixDeLaCourse];
         }
       }
     }
 
-    timer(0, 1000).subscribe(ellapsedCycles => {
-      if(this.time == 0) {
-        this.geocodingService.getAddressWithGps(this.transportAvecLeMoinsDeMarche.latitude, this.transportAvecLeMoinsDeMarche.longitude).subscribe(resp => {
-          this.emplacementTransportAvecLeMoinsDeMarche = resp.display_name;
-        })
-      }
-      if(this.time == 1) {
-        this.geocodingService.getAddressWithGps(this.transportLeMoinsLong.latitude, this.transportLeMoinsLong.longitude).subscribe(resp => {
-          this.emplacementTransportLeMoinsLong = resp.display_name;
-        })
-      }
-      if(this.time == 2) {
-
-        this.geocodingService.getAddressWithGps(this.transportLeMoinsCher.latitude, this.transportLeMoinsCher.longitude).subscribe(resp => {
-          this.emplacementTransportLeMoinsCher = resp.display_name;
-        })
-      }
-      if(this.time == 4) {
-        //A définir comment stopper un starter
-      }
-      this.time++;
-    });
     this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
     this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
     this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
+
+    setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportAvecLeMoinsDeMarche.latitude, this.transportAvecLeMoinsDeMarche.longitude).subscribe(resp => {
+      this.emplacementTransportAvecLeMoinsDeMarche = resp.display_name;
+    }) }, 0);
+
+    setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportLeMoinsLong.latitude, this.transportLeMoinsLong.longitude).subscribe(resp => {
+      this.emplacementTransportLeMoinsLong = resp.display_name;
+    }) }, 1200);
+
+    setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportLeMoinsCher.latitude, this.transportLeMoinsCher.longitude).subscribe(resp => {
+      this.emplacementTransportLeMoinsCher = resp.display_name;
+
+      this.ongletReservationShow = false;
+      this.ongletReservationItineraireShow = true;
+
+    }) }, 1200);
+
+
+    // this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
+    // this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
+    // this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
   }
 
   affichageFunction(nombre : number){
