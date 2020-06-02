@@ -48,4 +48,11 @@ export class MonCompteClientComponent implements OnInit {
     }, error => console.log(error));
   }
 
+  arrayOne(n: number): any[] {
+
+    let suite =Array.from(Array(n).keys())
+
+    return suite;
+  }
+
 }
