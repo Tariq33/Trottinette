@@ -34,7 +34,7 @@
         Merci de nous laisser votre avis :</h5>
     </div>
     <div style="text-align: center">
-				<textarea id="commentaire" name="comment" maxlength="400" cols="40" rows="6">
+				<textarea id="commentaire" name="comment" maxlength="400" cols="40" rows="6" [(ngModel)]="final.commentaire">
 
 				</textarea>
     </div>
@@ -43,7 +43,7 @@
   <div class="col-xl-8" style="text-align: center; ">
     <figure>
 
-      <img [src]="imgURL" *ngIf="imgURL">
+      <img [src]="imgURL" *ngIf="imgURL" [(ngModel)]="final.photo">
 
     </figure>
   </div>
