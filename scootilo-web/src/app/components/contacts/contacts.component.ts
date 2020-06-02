@@ -18,18 +18,8 @@ export class ContactsComponent implements OnInit {
 
 
   constructor(private geocodingService : GeocodingService) {
-
   }
 
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
-
-  sayHi(){
-    console.log("hello ");
-    setTimeout(() => {  console.log("World!"); }, 2000);
-    console.log("ou pas");
-  }
 
   ngOnInit(): void {
   }
