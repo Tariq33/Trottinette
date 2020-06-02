@@ -14,7 +14,7 @@
 
           <div class="form-group">
             <h6 for="solde" class="card-title" >Ajouter :</h6>
-            <input type="number" onkeypress="return event.charCode >= 48" class="form-control" id="solde" [(ngModel)]="ajoutsolde">
+            <input type="number" min="0" onkeypress="return event.charCode >= 48" class="form-control" id="solde" [(ngModel)]="ajoutsolde">
 <!--            Ca marche mais code deprecated pour event !!-->
           </div>
 
