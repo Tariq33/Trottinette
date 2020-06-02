@@ -37,7 +37,14 @@ export class ReservationItineraireComponent implements OnInit {
     console.log("on passe");
     // this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + " " + this.reservationItineraire.rue;
     // this.reservation.adrDepart.codePostal= "33000";
-    this.reservation.adrDepart.complement = this.adresseAndTempsDeMarcheTransportChoisi.adresse;
+
+    let adresse = this.adresseAndTempsDeMarcheTransportChoisi.adresse;
+    this.reservation.adrDepart.rue = adresse.slice(0,adresse.indexOf("Bordeaux")-2);
+    this.reservation.adrDepart.ville="Bordeaux";
+    this.reservation.adrDepart.codePostal="33000";
+
+    this.reservation.adrArrivee.ville="Bordeaux";
+    this.reservation.adrArrivee.codePostal="33000";
     // this.reservation.adrDepart.ville= this.reservationItineraire.ville;
     // @ts-ignore
     this.reservation.date = new Date();
@@ -50,6 +57,7 @@ export class ReservationItineraireComponent implements OnInit {
     this.reservationService.create(this.reservation).subscribe(resp => {
         this.reservation=resp;
         this.sessionService.setReservation(this.reservation);
+
 
         this.itineraire.adrDepart= this.reservation.adrDepart
         // @ts-ignore

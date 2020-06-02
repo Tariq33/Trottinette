@@ -327,25 +327,26 @@ export class SeDeplacerComponent implements OnInit {
     if (this.affichage == 1) {
       this.moyenDeTransportChoisi = this.transportAvecLeMoinsDeMarche;
       this.adresseAndTempsDeMarcheTransportChoisi.adresse = this.emplacementTransportAvecLeMoinsDeMarche;
-      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.donneesDuMoinsDeMarche[2];
+      console.log(this.adresseAndTempsDeMarcheTransportChoisi.adresse);
+      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.donneesDuMoinsDeMarche[0];
       this.adresseAndTempsDeMarcheTransportChoisi.dureeEstime = this.donneesDuMoinsDeMarche[1];
-      this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif = this.donneesDuMoinsDeMarche[0];
+      this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif = this.donneesDuMoinsDeMarche[2];
       this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
       this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
     } else if (this.affichage == 2) {
       this.moyenDeTransportChoisi = this.transportLeMoinsLong;
       this.adresseAndTempsDeMarcheTransportChoisi.adresse = this.emplacementTransportLeMoinsLong;
-      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.donneesDuMoinsLong[2];
+      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.donneesDuMoinsLong[0];
       this.adresseAndTempsDeMarcheTransportChoisi.dureeEstime = this.donneesDuMoinsLong[1];
-      this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif = this.donneesDuMoinsLong[0];
+      this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif = this.donneesDuMoinsLong[2];
       this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
       this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
     } else {
       this.moyenDeTransportChoisi = this.transportLeMoinsCher;
       this.adresseAndTempsDeMarcheTransportChoisi.adresse = this.emplacementTransportLeMoinsCher;
-      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.donneesDuMoinsCher[2];
+      this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.donneesDuMoinsCher[0];
       this.adresseAndTempsDeMarcheTransportChoisi.dureeEstime = this.donneesDuMoinsCher[1];
-      this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif = this.donneesDuMoinsCher[0];
+      this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif = this.donneesDuMoinsCher[2];
       this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
       this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
     }
