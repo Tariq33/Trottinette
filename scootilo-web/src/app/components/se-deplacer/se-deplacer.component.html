@@ -15,10 +15,11 @@
     </div>
 
     <div *ngIf="this.adresses.length!=0">
-      <p>Ou choisissez parmi vos adresses : </p>
+      <p>Ou choisissez parmi vos adresses ou votre position: </p>
 
       <input list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe" (ngModelChange)="charger($event)" placeholder="Choisir">
       <datalist id="mesAdrs">
+        <option value={{this.nomAdressePositionclient}} > {{this.nomAdressePositionclient}} </option>
         <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
       </datalist>
     </div>

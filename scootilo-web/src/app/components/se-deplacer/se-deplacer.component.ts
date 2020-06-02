@@ -53,7 +53,10 @@ export class SeDeplacerComponent implements OnInit {
 
   affichage : number =1;
 
+  departPositionClient : boolean = false;
+
   pasDePreferencesCochees : boolean;
+  nomAdressePositionclient : string = "Ma position";
 
   adresseAndTempsDeMarcheTransportChoisi = {
     'adresse' : null,
@@ -94,11 +97,17 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   charger(nom:string){
+    console.log(nom);
     for (let adr of this.adresses){
       if(adr.nomAdresse==nom){
         this.adrDepart=adr.rue+" "+adr.codePostal+" "+adr.ville;
         return;
       }
+    }
+    if(nom==this.nomAdressePositionclient){
+      this.geocodingService.getAddressWithGps(this.client.latitude, this.client.longitude).subscribe(resp => {
+        this.adrDepart=resp.display_name;
+      }, error => console.log(error));
     }
   }
 
@@ -333,6 +342,7 @@ export class SeDeplacerComponent implements OnInit {
   testMoyenDeTransport(moyensDeTransport: Array<MoyenDeTransport>, client : Client, adresseDepart:AdresseItineraire, adresseArrivee : AdresseItineraire ){
     console.log("on rentre dans la fonction");
 
+
     // On filtre selon les préférences
     let preferences = client.preference;
     let moyensDeTransportFiltres: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
@@ -371,7 +381,7 @@ export class SeDeplacerComponent implements OnInit {
         let dureeEstimeeEnMinutes = dureeEstimeeEnSecondes / 60;
 
         // en m
-        let distanceDeMarche = this.getDistance([client.latitude, client.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]);
+        let distanceDeMarche = this.getDistance([adresseDepart.latitude, adresseDepart.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]);
 
         // On a ce qu'on recherche :
         let tempsDeMarche = distanceDeMarche / (5 / 3.6); // On marche à 4 km/h qu'on met en m/s
@@ -400,8 +410,6 @@ export class SeDeplacerComponent implements OnInit {
     this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
     this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
     this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
-
-    return [moyenDeTransportAvecLeMoinsDeMarche, moyenDeTransportLeMoinsLong, moyenDeTransportLeMoinsCher];
   }
 
   affichageFunction(nombre : number){
