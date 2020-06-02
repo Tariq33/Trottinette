@@ -350,9 +350,9 @@ export class SeDeplacerComponent implements OnInit {
     let prixLeMoinsCher = 99999999;
     let tempsDeMarcheLeMoinsLong = 99999999;
 
-    let moyenDeTransportLeMoinsLong : MoyenDeTransport;
-    let moyenDeTransportLeMoinsCher : MoyenDeTransport;
-    let moyenDeTransportAvecLeMoinsDeMarche : MoyenDeTransport;
+    let moyenDeTransportLeMoinsLong : MoyenDeTransport = new MoyenDeTransport();
+    let moyenDeTransportLeMoinsCher : MoyenDeTransport = new MoyenDeTransport();
+    let moyenDeTransportAvecLeMoinsDeMarche : MoyenDeTransport = new MoyenDeTransport();
 
     for(let moyenDeTransport of moyensDeTransportFiltres){
       if(moyenDeTransport.disponible && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude])) {
