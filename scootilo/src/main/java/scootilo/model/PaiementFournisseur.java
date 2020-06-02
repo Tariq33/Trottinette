@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -27,6 +29,7 @@ public class PaiementFournisseur {
 	@Column(name = "amount", length = 100)
 	@JsonView(Views.ViewCommon.class)
 	private Float montant;
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date", length = 100)
 	@JsonView(Views.ViewCommon.class)
 	private Date date;

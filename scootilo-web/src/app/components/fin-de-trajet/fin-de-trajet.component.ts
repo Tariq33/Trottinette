@@ -77,7 +77,7 @@ export class FinDeTrajetComponent implements OnInit {
 
     // creer paiement fournisseur et l'associer à l'itinéraire
     // @ts-ignore
-    this.paiementFournisseur.Date = new Date();
+    this.paiementFournisseur.date = new Date();
     this.paiementFournisseur.montant = this.cout;
     this.paiementFournisseur.numeroDeTransaction = "TRANS-" + this.itineraire.id;
     this.paiementFournisseur.itineraire = this.itineraire;
