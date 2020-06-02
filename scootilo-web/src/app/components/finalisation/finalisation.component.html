@@ -1,12 +1,9 @@
+<!--<div>-->
 
-<div>
+<!--  <p> Duree = : {{this.itineraire.duree}} </p>-->
+<!--  <p> Prix = : {{this.itineraire.montant}} </p>-->
 
-  <p> Duree = : {{this.itineraire.duree}} </p>
-  <p> Prix = : {{this.itineraire.montant}} </p>
-
-
-
-</div>
+<!--</div>-->
 
 <div class="row" style="padding-left: 2%;" xmlns="http://www.w3.org/1999/html">
   <div class="col-xl-4" >
@@ -34,7 +31,7 @@
         Merci de nous laisser votre avis :</h5>
     </div>
     <div style="text-align: center">
-				<textarea id="commentaire" name="comment" maxlength="400" cols="40" rows="6">
+				<textarea id="commentaire" name="comment" maxlength="400" cols="40" rows="6" [(ngModel)]="final.commentaire">
 
 				</textarea>
     </div>
@@ -51,5 +48,5 @@
 
 <div class="card-header" style="text-align: center; margin-left:15%;margin-right:15%;">
   <h5>Si vous avez rencontré un soucis durant votre trajet, merci de prendre contact avec notre service SAV.</h5> <br/>
-  <button class="btn-lg btn-secondary" (click)="creationFinDeTrajet()" [routerLink]="['/accueil']">Envoyer</button>
+  <button class="btn-lg btn-secondary" (click)="save()" [routerLink]="['/accueil']">Envoyer</button>
 </div>
