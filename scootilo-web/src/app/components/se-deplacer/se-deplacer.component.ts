@@ -33,7 +33,6 @@ export class SeDeplacerComponent implements OnInit {
   moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
   map;
-  //polyline : number[][];
   ligne;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
   client: Client = new Client();
@@ -71,7 +70,6 @@ export class SeDeplacerComponent implements OnInit {
   scootIcon = new L.Icon({ iconUrl: '../../../assets/icon-scoot.png' , iconAnchor:   [10, 5]});
   trotIcon = new L.Icon({ iconUrl: '../../../assets/icon-trot.png' , iconAnchor:   [15, 20]});
   hommeIcon = new L.Icon({ iconUrl: '../../../assets/icon-homme.png' , iconAnchor:   [32, 60]});
-  distance: number;
 
   constructor(private geocodingService: GeocodingService, private adresseService : AdresseService, private moyenDeTransportService: MoyenDeTransportService, private clientService: ClientService, private sessionService: SessionService) {
     if(this.sessionService.getClient().type=="customer"){
