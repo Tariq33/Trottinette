@@ -45,6 +45,8 @@ export class FinalisationComponent implements OnInit {
   }
 
   save() {
+    this.final.photo = this.imgURL;
+
     this.FinDeTrajetService.modify(this.final).subscribe(resp => {
       this.updateSessionStorage();
     }, error => console.log(error));
