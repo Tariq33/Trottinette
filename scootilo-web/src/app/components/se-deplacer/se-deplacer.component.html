@@ -73,7 +73,7 @@
 </div>
 
 
-<p-progressSpinner *ngIf="this.spinnerShow"  style="margin-left: 180px; fill: white" ></p-progressSpinner>
+<p-progressSpinner *ngIf="this.spinnerShow"></p-progressSpinner>
 
 
 <div *ngIf="ongletReservationItineraireShow"
@@ -212,23 +212,23 @@
       <tr>
         <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Mode de transport</td>
         <td
-          style="font-size: 17px; text-align: center; vertical-align: middle">{{this.moyenDeTransportChoisi.typeDeTransport}}</td>
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.moyenDeTransportChoisi.typeDeTransport}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Emplacement</td>
         <td
-          style="font-size: 17px; text-align: center;vertical-align: middle">{{this.adresseAndTempsDeMarcheTransportChoisi.adresse}}</td>
+          style="font-size: 17px; text-align: left;vertical-align: middle">{{this.adresseAndTempsDeMarcheTransportChoisi.adresse}}</td>
       </tr>
       <tr>
         <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Prix (€/min)</td>
         <td
-          style="font-size: 17px; text-align: center;vertical-align: middle">{{this.moyenDeTransportChoisi.prixMinute}}€
+          style="font-size: 17px; text-align: left;vertical-align: middle">{{this.moyenDeTransportChoisi.prixMinute}}€
         </td>
       </tr>
       <tr>
         <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Temps de marche</td>
         <td
-          style="font-size: 17px; text-align: center;vertical-align: middle">{{this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche}}</td>
+          style="font-size: 17px; text-align: left;vertical-align: middle">{{this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche}}</td>
       </tr>
       </tbody>
     </table>
