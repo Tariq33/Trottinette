@@ -17,7 +17,7 @@ export class AppComponent {
 
   constructor(public sessionService : SessionService,public router: Router, private utilisateurService:UtilisateurService) {
 
-    this.connexionEnTantQueClient();
+    // this.connexionEnTantQueClient();
     // this.connexionEnTantQueAdministrateur();
     // this.connexionEnTantQueFournisseur();
 
@@ -84,7 +84,7 @@ export class AppComponent {
   }
 
   themeSombre() {
-    document.documentElement.style.setProperty('--border-color', "grey");
+    document.documentElement.style.setProperty('--border-color', "white");
     document.documentElement.style.setProperty('--bg-color', "grey");
     document.documentElement.style.setProperty('--img-accueil', "url('/assets/bg2.jpg')");
     document.documentElement.style.setProperty('--bg-navbar', "grey");
