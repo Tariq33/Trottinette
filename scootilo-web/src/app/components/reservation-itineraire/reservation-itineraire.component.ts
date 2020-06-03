@@ -33,24 +33,12 @@ export class ReservationItineraireComponent implements OnInit {
 
   save() {
     //Renseigne la réservation
-    this.reservation.adrDepart= new AdresseItineraire();
-    this.reservation.adrArrivee= new AdresseItineraire();
-
-    // this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + " " + this.reservationItineraire.rue;
-    // this.reservation.adrDepart.codePostal= "33000";
-
-    let adresse = this.adresseAndTempsDeMarcheTransportChoisi.adresse;
-    this.reservation.adrDepart.rue = adresse.slice(0,adresse.indexOf("Bordeaux")-2);
-    this.reservation.adrDepart.ville="Bordeaux";
-    this.reservation.adrDepart.codePostal="33000";
-
-    this.reservation.adrArrivee.ville="Bordeaux";
-    this.reservation.adrArrivee.codePostal="33000";
 
     this.reservation.date = new Date();
     this.reservation.heureDepart = new Date();
     this.reservation.client = this.sessionService.getClient();
     this.reservation.expiree = false;
+    this.reservation.montantEstime=this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif;
     // console.log("la résa : ");
     // console.log(this.reservation);
 
@@ -58,9 +46,10 @@ export class ReservationItineraireComponent implements OnInit {
     this.reservationService.create(this.reservation).subscribe(resp => {
         this.reservation=resp;
         this.sessionService.setReservation(this.reservation);
-
+        this.itineraire.dureeEstimee=this.adresseAndTempsDeMarcheTransportChoisi.dureeEstime;
         this.itineraire.adrDepart= this.reservation.adrDepart;
-        this.itineraire.heureArrivee= new Date();
+        this.itineraire.heureDepart= new Date();
+        this.itineraire.heureLimite=new Date(new Date().getTime() + 15*60000);
         this.itineraire.acompte=1;
         this.itineraire.reservation=this.reservation;
         // this.itineraire.moyenDeTransport = this.moyenDeTransportChoisi;

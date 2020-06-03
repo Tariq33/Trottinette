@@ -36,15 +36,7 @@ export class ReservationSurCarteComponent implements OnInit {
 
   save() {
     //Renseigne la réservation
-    this.reservation.adrDepart= new AdresseItineraire();
-    // console.log("on passe");
-    // this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + " " + this.reservationItineraire.rue;
-    // this.reservation.adrDepart.codePostal= "33000";
-    this.reservation.adrDepart.complement = this.adresseAndTempsDeMarcheTransportChoisi.adresse;
-    // this.reservation.adrDepart.ville= this.reservationItineraire.ville;
-    // @ts-ignore
     this.reservation.date = new Date();
-    // @ts-ignore
     this.reservation.heureDepart = new Date();
     this.reservation.client = this.sessionService.getClient();
     this.reservation.expiree = false;
@@ -55,13 +47,10 @@ export class ReservationSurCarteComponent implements OnInit {
         this.sessionService.setReservation(this.reservation);
 
         this.itineraire.adrDepart= this.reservation.adrDepart
-        // @ts-ignore
         this.itineraire.heureArrivee= new Date();
         this.itineraire.acompte=1;
         this.itineraire.reservation=this.reservation;
         // this.itineraire.moyenDeTransport = this.moyenDeTransportChoisi;
-        // console.log("ITINERAIRE :")
-        // console.log(this.itineraire);
         this.itineraireService.create(this.itineraire).subscribe(resp => {
             //renseigner le itineraireSession
             this.itineraire=resp;

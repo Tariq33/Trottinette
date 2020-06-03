@@ -230,7 +230,7 @@ export class SeDeplacerComponent implements OnInit {
     this.geocodingService.getGpsWithAddress(this.adrDepart).subscribe(resp => {
       adresseDepart.latitude = resp[0].lat;
       adresseDepart.longitude = resp[0].lon;
-
+      this.sessionService.setDepartCoords(adresseDepart.latitude, adresseDepart.longitude);
       this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
         adresseArrivee.latitude = resp[0].lat;
         adresseArrivee.longitude = resp[0].lon;
