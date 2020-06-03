@@ -24,7 +24,7 @@ export class LogInComponent implements OnInit {
   checkUser () {
     this.utilisateurService.findByIdentifiantAndMotDePasse(this.identifiant, this.motDePasse).subscribe(resp => {
       this.sessionService.setUtilisateur(resp);
-      console.log(resp);
+      // console.log(resp);
       this.router.navigateByUrl('/accueil');
       },
       error => console.log(error)

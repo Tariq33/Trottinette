@@ -19,7 +19,7 @@ export class MonCompteAdministrateurMajInfoComponent implements OnInit {
 
   constructor(private sessionService : SessionService, private administrateurService: AdministrateurService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
     this.administrateurForm=sessionService.getClient();
-    console.log(this.administrateurForm);
+    // console.log(this.administrateurForm);
   }
 
   ngOnInit(): void {

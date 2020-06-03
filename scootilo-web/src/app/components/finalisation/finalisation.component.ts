@@ -48,7 +48,7 @@ export class FinalisationComponent implements OnInit {
   save(){
     this.final.reservation=this.sessionService.getReservation();
     this.final.photo = this.imagePath[0].name;
-    console.log(this.imagePath);
+    // console.log(this.imagePath);
 
       this.finDeTrajetService.create(this.final).subscribe(resp => {
         this.router.navigateByUrl('/accueil');
