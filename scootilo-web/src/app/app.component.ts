@@ -10,21 +10,32 @@ import {UtilisateurService} from "./service/utilisateur.service";
 })
 export class AppComponent {
   title = 'scootilo-web';
+  identifiant:string;
+  motDePasse:string;
 
   public href: string = "";
 
-  constructor(public sessionService : SessionService,public router: Router,
-              private utilisateurService:UtilisateurService) {
+  constructor(public sessionService : SessionService,public router: Router, private utilisateurService:UtilisateurService) {
 
      // this.connexionEnTantQueClient();
     // this.connexionEnTantQueAdministrateur();
-    this.connexionEnTantQueFournisseur();
+    // this.connexionEnTantQueFournisseur();
 
   }
 
   ngOnInit() {
     this.href = this.router.url;
     console.log(this.router.url);
+  }
+
+  checkUser () {
+    this.utilisateurService.findByIdentifiantAndMotDePasse(this.identifiant, this.motDePasse).subscribe(resp => {
+        this.sessionService.setUtilisateur(resp);
+        console.log(resp);
+        // this.router.navigateByUrl('/accueil');
+      },
+      error => console.log(error)
+    );
   }
 
   connexionEnTantQueClient () {
