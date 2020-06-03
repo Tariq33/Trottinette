@@ -25,7 +25,10 @@ import {MonCompteAjoutAdresseComponent} from "./components/mon-compte-ajout-adre
 import {IdOublieComponent} from "./components/id-oublie/id-oublie.component";
 import {MonCompteFournisseurTableauDeBordComponent} from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-tableau-de-bord.component';
 import {ReservationSurCarteComponent} from './components/reservation-sur-carte/reservation-sur-carte.component';
-import {AuthGuardService} from "./guards/auth-guard.service";
+import {AuthGuardAdminService} from "./guards/auth-guard-admin.service";
+import {AuthGuardSupplierService} from "./guards/auth-guard-supplier.service";
+import {AuthGuardCustomerService} from "./guards/auth-guard-customer.service";
+import {AuthGuardConnecterService} from "./guards/auth-guard-connecter.service";
 
 
 const routes: Routes = [
@@ -35,28 +38,28 @@ const routes: Routes = [
   {path: "tarifs", component: SeDeplacerTarifComponent},
   {path: "partenaires", component: PartenairesComponent},
   {path: "contact", component: ContactsComponent},
-  {path: "compteAdministrateur", component: MonCompteAdministrateurComponent, canActivate: [AuthGuardService]},
+  {path: "compteAdministrateur", component: MonCompteAdministrateurComponent, canActivate: [AuthGuardAdminService]},
   {path: "logIn", component: LogInComponent},
   {path: "plan", component: PlanReseauComponent},
-  {path: "compteAdministrateur/ajoutUtilisateur", component: MonCompteAdministrateurAjoutUtilisateurComponent},
-  {path: "compteAdministrateur/ajoutUtilisateur/:id", component: MonCompteAdministrateurAjoutUtilisateurComponent},
-  {path: "compteAdministrateur/ajoutMoyenTransport", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
-  {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent },
-  {path: "compteAdministrateur/miseJourInfoPerso", component: MonCompteAdministrateurMajInfoComponent },
-  {path: "compteFournisseur", component: MonCompteFournisseurComponent},
-  {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent },
-  {path: "compteClient", component: MonCompteClientComponent},
+  {path: "compteAdministrateur/ajoutUtilisateur", component: MonCompteAdministrateurAjoutUtilisateurComponent, canActivate: [AuthGuardAdminService]},
+  {path: "compteAdministrateur/ajoutUtilisateur/:id", component: MonCompteAdministrateurAjoutUtilisateurComponent, canActivate: [AuthGuardAdminService]},
+  {path: "compteAdministrateur/ajoutMoyenTransport", component: MonCompteAdministrateurAjoutMoyenTransportComponent, canActivate: [AuthGuardAdminService]},
+  {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent, canActivate: [AuthGuardAdminService]},
+  {path: "compteAdministrateur/miseJourInfoPerso", component: MonCompteAdministrateurMajInfoComponent, canActivate: [AuthGuardAdminService]},
+  {path: "compteFournisseur", component: MonCompteFournisseurComponent, canActivate: [AuthGuardSupplierService]},
+  {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent, canActivate: [AuthGuardSupplierService]},
+  {path: "compteClient", component: MonCompteClientComponent, canActivate: [AuthGuardCustomerService]},
   {path: "creationCompte", component: CreationCompteComponent},
-  {path: "compteCrediter", component: MonCompteCrediterComponent},
+  {path: "compteCrediter", component: MonCompteCrediterComponent, canActivate: [AuthGuardCustomerService]},
   {path: "seDeplacerrecherche", component: SeDeplacerRechercheComponent},
-  {path: "compteCrediter/:id", component: MonCompteCrediterComponent},
-  {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent },
-  {path: "reservationItineraire", component: ReservationItineraireComponent},
-  {path: "reservationSurCarte", component: ReservationSurCarteComponent},
-  {path: "finDeTrajet/:id", component: FinDeTrajetComponent},
-  {path: "compteFournisseur/tableauDeBord", component: MonCompteFournisseurTableauDeBordComponent},
-  {path: "finalisation", component: FinalisationComponent},
-  {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent},
+  {path: "compteCrediter/:id", component: MonCompteCrediterComponent, canActivate: [AuthGuardCustomerService]},
+  {path: "compteClient/miseJourInfoPerso", component: MonCompteClientMajInfoComponent, canActivate: [AuthGuardCustomerService]},
+  {path: "reservationItineraire", component: ReservationItineraireComponent, canActivate: [AuthGuardCustomerService]},
+  {path: "reservationSurCarte", component: ReservationSurCarteComponent, canActivate: [AuthGuardCustomerService]},
+  {path: "finDeTrajet/:id", component: FinDeTrajetComponent, canActivate: [AuthGuardConnecterService]},
+  {path: "compteFournisseur/tableauDeBord", component: MonCompteFournisseurTableauDeBordComponent, canActivate: [AuthGuardSupplierService]},
+  {path: "finalisation", component: FinalisationComponent, canActivate: [AuthGuardConnecterService]},
+  {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent, canActivate: [AuthGuardCustomerService]},
   {path: "idOublie", component: IdOublieComponent},
   ];
 

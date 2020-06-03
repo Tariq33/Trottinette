@@ -6,7 +6,7 @@ import {Utilisateur} from "../model/utilisateur";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate{
+export class AuthGuardCustomerService implements CanActivate{
 
   utilisateur: Utilisateur;
 
@@ -15,18 +15,17 @@ export class AuthGuardService implements CanActivate{
     console.log(this.utilisateur);
   }
 
-
-  canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): boolean {
-
-
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log(this.utilisateur);
-    if (this.utilisateur.type != "admin")  {
-      alert('You are not allowed to view this page');
-        location.replace('/accueil');
-        return false;
+    if (this.utilisateur.type != "customer")  {
+      alert('Vous n\'avez pas le droit d\'acceder à cette page');
+      location.replace('/accueil');
+      return false;
     }
     return true;
   }
-  
+
+
+
+
 }
