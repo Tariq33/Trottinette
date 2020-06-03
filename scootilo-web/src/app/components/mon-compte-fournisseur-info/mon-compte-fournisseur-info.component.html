@@ -1,6 +1,7 @@
+<br/>
 <div class="container">
-  <div class="card">
-    <div class="card-header">
+  <div class="divBorder card">
+    <div class=" divBg card-header">
       <h4>Information de la société</h4>
     </div>
     <div class="card-body">
@@ -16,7 +17,10 @@
       <p class="card-text">{{fournisseurForm.bic}}</p>
       <h6 class="card-title">Adresse :</h6>
       <p class="card-text">{{adresse.rue}} {{adresse.complement}} {{adresse.codePostal}} {{adresse.ville}}</p>
-      <br> <a class="btn btn-primary" [routerLink]="['/compteFournisseur/miseJourInfoPerso',adresse.id]">Mettre à jour les informations </a>
+      <br>
+      <div class="container" style="text-align: center">
+        <a class="btn btn-primary" [routerLink]="['/compteFournisseur/miseJourInfoPerso',adresse.id]">Mettre à jour les informations </a>
+      </div>
     </div>
   </div>
 </div>

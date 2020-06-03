@@ -234,9 +234,8 @@ export class SeDeplacerComponent implements OnInit {
       this.geocodingService.getGpsWithAddress(this.adrArrivee).subscribe(resp => {
         adresseArrivee.latitude = resp[0].lat;
         adresseArrivee.longitude = resp[0].lon;
+        this.sessionService.setArriveeCoords(adresseArrivee.latitude, adresseArrivee.longitude);
         this.testMoyenDeTransport(this.moyensDeTransportObs,this.client, adresseDepart, adresseArrivee);
-        // this.ongletReservationShow = false;
-        // this.ongletReservationItineraireShow = true;
       }, error => console.log(error));
 
     }, error => console.log(error));
@@ -331,7 +330,6 @@ export class SeDeplacerComponent implements OnInit {
     if (this.affichage == 1) {
       this.moyenDeTransportChoisi = this.transportAvecLeMoinsDeMarche;
       this.adresseAndTempsDeMarcheTransportChoisi.adresse = this.emplacementTransportAvecLeMoinsDeMarche;
-      console.log(this.adresseAndTempsDeMarcheTransportChoisi.adresse);
       this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.donneesDuMoinsDeMarche[0];
       this.adresseAndTempsDeMarcheTransportChoisi.dureeEstime = this.donneesDuMoinsDeMarche[1];
       this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif = this.donneesDuMoinsDeMarche[2];
@@ -354,7 +352,7 @@ export class SeDeplacerComponent implements OnInit {
       this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
       this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
     }
-    console.log(this.adresseAndTempsDeMarcheTransportChoisi);
+
     this.router.navigateByUrl('/reservationItineraire');
   }
 
@@ -443,7 +441,6 @@ export class SeDeplacerComponent implements OnInit {
         let tempsDeMarche = Math.round((distanceDeMarche / (5 / 3.6))/60); // On marche à 4 km/h qu'on met en m/s
         let dureeTotaleDeLaCourse = Math.round((dureeEstimeeEnSecondes + (tempsDeMarche*60))/60);
         let prixDeLaCourse = Math.round(moyenDeTransport.prixMinute * dureeEstimeeEnMinutes*100)/100;
-        console.log(prixDeLaCourse);
 
         if (tempsDeMarche < tempsDeMarcheLeMoinsLong) {
           tempsDeMarcheLeMoinsLong = tempsDeMarche;

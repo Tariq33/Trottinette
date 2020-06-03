@@ -1,7 +1,7 @@
 <div class="container" style="padding-bottom: 20px;">
-  <div class="card">
-    <div class="card-header">
-      <h4>Ajout d'un moyen de transport</h4>
+  <div class="divBorder card">
+    <div class=" divBg card-header">
+      <h4>Edition d'un moyen de transport</h4>
     </div>
 
     <div class="card-body">
@@ -45,10 +45,12 @@
         <input type="number" class="form-control" id="latitude" [(ngModel)]="moyenDeTransportForm.latitude">
       </div>
 
-      <a *ngIf="typeUser == 'admin'" type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteAdministrateur">Ajouter</a>
-      <a *ngIf="typeUser == 'supplier'" type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteFournisseur">Ajouter</a>
-      <a *ngIf="typeUser == 'admin'" class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteAdministrateur">Annuler</a>
-      <a *ngIf="typeUser == 'supplier'"class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteFournisseur">Annuler</a>
+      <div class="container" style="text-align: center">
+        <a *ngIf="typeUser == 'admin'" type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteAdministrateur">Ajouter</a>
+        <a *ngIf="typeUser == 'supplier'" type="submit" class="btn btn-primary" (click)="save()" routerLink="/compteFournisseur">Ajouter</a>
+        <a *ngIf="typeUser == 'admin'" class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteAdministrateur">Annuler</a>
+        <a *ngIf="typeUser == 'supplier'"class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteFournisseur">Annuler</a>
+      </div>
 
     </div>
   </div>
