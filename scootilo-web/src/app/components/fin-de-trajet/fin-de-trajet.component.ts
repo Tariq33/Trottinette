@@ -52,7 +52,7 @@ export class FinDeTrajetComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private reservationService: ReservationService, private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService, private paiementFournisseurService: PaiementFournisseurService, private clientService: ClientService) {
+  constructor(private reservationService: ReservationService, private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService, private paiementFournisseurService: PaiementFournisseurService, private clientService: ClientService, private moyenDeTransportService: MoyenDeTransportService) {
     this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
     this.reservation = this.sessionService.getReservation();
     this.client=sessionService.getClient();
@@ -119,14 +119,14 @@ export class FinDeTrajetComponent implements OnInit {
   validationDuQrCode(qrCodeRenseigne : string){
     if(qrCodeRenseigne==this.moyenDeTransportChoisi.qrCode){
       this.validationDuMoyenDeTransport=true;
-      this.createMap();
-      this.addMarker();
       //On lance le timer et le compteur de prix
       this.prixSeconde = this.moyenDeTransportChoisi.prixMinute / 60;
       timer(0, 1000).subscribe(ellapsedCycles => {
         this.time++;
         this.timerDisplay = this.getDisplayTimer(this.time);
         this.cout = (this.prixSeconde * this.time).toFixed(2);
+        this.createMap();
+        this.addMarker();
       });
     }
     else {
@@ -147,6 +147,7 @@ export class FinDeTrajetComponent implements OnInit {
       this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
     }
 
+
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
       minZoom: 2,
@@ -159,9 +160,11 @@ export class FinDeTrajetComponent implements OnInit {
         L.marker([centre.lat, centre.lng], {icon: this.hommeIcon}).addTo(this.map);
       }
     }
+
   }
 
   addMarker(){
+
     if (this.moyenDeTransportChoisi.typeDeTransport == "velo") {
       const marker = L.marker([this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude], {icon: this.veloIcon});
       marker.addTo(this.map);
@@ -177,9 +180,15 @@ export class FinDeTrajetComponent implements OnInit {
       marker.addTo(this.map);
       marker.bindPopup('<h6>Trottinette n°</h6>' + this.moyenDeTransportChoisi.numeroDeSerie);
     }
-    L.circle([this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude], 5, {color: 'green', fillColor: '#74ff3e', fillOpacity: 0.5}).addTo(this.map);
-    L.circle([this.itineraire.adrArrivee.latitude, this.itineraire.adrArrivee.longitude], 5, {color: 'blue', fillColor: '#3ebfff', fillOpacity: 0.5}).addTo(this.map);
+    L.circle([this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude], 5, {color: 'blue', fillColor: '#3ebfff', fillOpacity: 0.5}).addTo(this.map);
+    L.circle([this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]], 5, {color: 'green', fillColor: '#74ff3e', fillOpacity: 0.5}).addTo(this.map);
 
+    let pointA = new L.LatLng(this.client.latitude, this.client.longitude);
+    let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
+    let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
+    
+    this.ligne = new L.Polyline([pointA,pointB], undefined ).addTo(this.map);
+    this.ligne = new L.Polyline([pointB,pointC], {color: 'green'} ).addTo(this.map);
   }
 
 }
