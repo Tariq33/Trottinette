@@ -48,7 +48,7 @@ export class FinalisationComponent implements OnInit {
   }
 
   save(){
-    this.final.commentaire = "Note : " + this.rating + "Commentaire : " + this.commentaire;
+    this.final.commentaire = "Note : " + this.rating + " Commentaire : " + this.commentaire;
     this.final.reservation=this.sessionService.getReservation();
     this.final.photo = this.imagePath[0].name;
     // console.log(this.imagePath);

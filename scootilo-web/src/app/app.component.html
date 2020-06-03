@@ -23,12 +23,12 @@
           <a [routerLink]="['/contact']" class="textNavBar" style="font-size: 20px">Contact<span
             class="sr-only"></span></a>
         </li>
-        <li class="nav-item active"><a [routerLink]="['/plan']" class="  textNavBar" style="font-size: 20px">Plan du
+        <li class="nav-item active"><a [routerLink]="['/plan']" class="textNavBar" style="font-size: 20px">Plan du
           réseau<span
             class="sr-only"></span></a>
         </li>
         <li class="nav-item active" *ngIf="sessionService.getType()=='supplier'">
-          <a [routerLink]="['/compteFournisseur/tableauDeBord']" class=" " style="font-size: 20px">Tableau de
+          <a [routerLink]="['/compteFournisseur/tableauDeBord']" class="textNavBar" style="font-size: 20px">Tableau de
             Bord<span
               class="sr-only"></span></a>
         </li>
