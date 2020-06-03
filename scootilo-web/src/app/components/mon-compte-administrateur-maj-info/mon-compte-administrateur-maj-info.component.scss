@@ -1,0 +1,11 @@
+.btn-primary {
+  background-color: rgb(50,162,228);
+  color:  white;
+  border-color: rgb(50,162,228);
+}
+
+.btn-primary:hover, .btn-outline-info:focus, .btn-outline-info:active, .btn-outline-info.active, .open>.dropdown-toggle.btn-outline-info {
+  background-color: rgb(28,140,208);
+  color:  white;
+  border-color: rgb(28,140,208);
+}

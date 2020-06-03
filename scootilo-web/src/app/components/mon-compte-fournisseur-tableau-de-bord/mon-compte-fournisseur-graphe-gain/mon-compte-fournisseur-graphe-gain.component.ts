@@ -30,10 +30,10 @@ export class MonCompteFournisseurGrapheGainComponent implements OnInit {
 
   constructor(private sessionService: SessionService, private itineraireService: ItineraireService) {
     this.fournisseurForm=this.sessionService.getFournisseur();
-    console.log(this.fournisseurForm);
+    // console.log(this.fournisseurForm);
     this.itineraireService.findItineraireByFournisseur(this.fournisseurForm.nom).subscribe( resp => {
       this.itineraires = resp;
-      console.log(this.itineraires)
+      // console.log(this.itineraires)
 
 
 

@@ -26,9 +26,18 @@
           <td>{{util.compteValide}}</td>
           <td>
             <div style="padding-top: 9px;" class="btn-group btn-group-sm">
-              <a class="btn btn-primary" [routerLink]="['/compteAdministrateur/ajoutUtilisateur', util.id]"><i class="fa fa-edit"></i></a> <a
-              class="btn btn-danger"><i class="fa fa-trash" (click)="delete(util.id)"></i></a>
+              <a class="btn btn-primary" [routerLink]="['/compteAdministrateur/ajoutUtilisateur', util.id]"><i class="fa fa-edit"></i></a>
+              <a class="btn btn-danger" (click)="delete(util.id)">
+                <span style="color: white">
+                <i class="fa fa-trash"></i>
+                </span>
+              </a>
             </div>
+
+
+
+
+
           </td>
         </tr>
         </tbody>

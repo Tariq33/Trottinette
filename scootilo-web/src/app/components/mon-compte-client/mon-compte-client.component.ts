@@ -27,7 +27,7 @@ export class MonCompteClientComponent implements OnInit {
 
     clientService.FindHistorique(this.sessionService.getClient().id).subscribe(resp => {
       this.histo = resp;
-      console.log(this.histo);
+      // console.log(this.histo);
     }, error => console.log(error));
 
   }

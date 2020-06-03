@@ -1,42 +1,54 @@
 <!--style="margin-bottom: 80px;"-->
-<div>
-  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="height: 80px;">
-<li style="margin-left: -20px;">
-    <a class="navbar-brand" [routerLink]="['/accueil']" ><img src="../../../assets/LOGO_scootilo.png" alt="logo" width="180px" height="90"></a>
-</li>
-    <div class="collapse navbar-collapse">
+<div >
+  <nav class="navbar navbar-expand-md navbar-light bgNavBar fixed-top" style="height: 80px;">
+    <li style="margin-left: -20px;">
+      <a class="navbar-brand" [routerLink]="['/accueil']"><img src="../../../assets/LOGO_scootilo.png" alt="logo"
+                                                               width="180px" height="90"></a>
+    </li>
+    <div  class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto container" style="font-size: 20px;">
         <li class="nav-item active">
-          <a [routerLink]="['/seDeplacer']" class="nav-link" style="font-size: 20px">Se déplacer
-          <span class="sr-only"></span> </a>
+          <a [routerLink]="['/seDeplacer']" class=" textNavBar">Se déplacer
+            <span class="sr-only"></span> </a>
         </li>
         <li class="nav-item active">
-          <a [routerLink]="['/tarifs']" class="nav-link" style="font-size: 20px">Tarifs
-          <span class="sr-only"></span>  </a>
+          <a [routerLink]="['/tarifs']" class="  textNavBar" style="font-size: 20px">Tarifs
+            <span class="sr-only"></span> </a>
         </li>
         <li class="nav-item active">
-          <a [routerLink]="['/partenaires']" class="nav-link" style="font-size: 20px">Partenaires
-          <span class="sr-only"></span> </a>
+          <a [routerLink]="['/partenaires']" class="  textNavBar" style="font-size: 20px">Partenaires
+            <span class="sr-only"></span> </a>
         </li>
         <li class="nav-item active">
-          <a [routerLink]="['/contact']" class="nav-link" style="font-size: 20px">Contact<span
-          class="sr-only"></span></a>
+          <a [routerLink]="['/contact']" class="textNavBar" style="font-size: 20px">Contact<span
+            class="sr-only"></span></a>
         </li>
-        <li class="nav-item active"><a [routerLink]="['/plan']" class="nav-link" style="font-size: 20px">Plan du réseau<span
-          class="sr-only"></span></a>
+        <li class="nav-item active"><a [routerLink]="['/plan']" class="  textNavBar" style="font-size: 20px">Plan du
+          réseau<span
+            class="sr-only"></span></a>
         </li>
         <li class="nav-item active" *ngIf="sessionService.getType()=='supplier'">
-          <a [routerLink]="['/compteFournisseur/tableauDeBord']" class="nav-link" style="font-size: 20px">Tableau de Bord<span
-            class="sr-only"></span></a>
+          <a [routerLink]="['/compteFournisseur/tableauDeBord']" class=" " style="font-size: 20px">Tableau de
+            Bord<span
+              class="sr-only"></span></a>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0" >
-        <button *ngIf="!sessionService.getIdentifiant(); else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" [routerLink]="['/logIn']"  style="font-size: 20px;font-weight: bold">Se connecter</button>
+        <button *ngIf="!sessionService.getIdentifiant(); else connecte" class="btn btn-outline-info my-2 my-sm-0" type="submit" style="font-size: 20px;font-weight: bold" data-toggle="modal" data-target="#myModal" >Se connecter</button>
         <ng-template #connecte>
-          <button *ngIf="sessionService.getType()=='admin'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteAdministrateur']"  style="font-size: 20px;font-weight: bold">Mon compte</button>
-          <button *ngIf="sessionService.getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteClient']"  style="font-size: 20px;font-weight: bold">Mon compte</button>
-          <button *ngIf="sessionService.getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0" [routerLink]="['/compteFournisseur']"  style="font-size: 20px;font-weight: bold">Mon compte</button>
-          <button *ngIf="sessionService" class="btn btn-outline-info my-2 my-sm-0" (click)="sessionService.offUtilisateur()"  style="font-size: 20px;font-weight: bold; margin-left: 5px;">Se deconnecter</button>
+          <button *ngIf="sessionService.getType()=='admin'" class="btn btn-outline-info my-2 my-sm-0"
+                  [routerLink]="['/compteAdministrateur']" style="font-size: 20px;font-weight: bold">Mon compte
+          </button>
+          <button *ngIf="sessionService.getType()=='customer'" class="btn btn-outline-info my-2 my-sm-0"
+                  [routerLink]="['/compteClient']" style="font-size: 20px;font-weight: bold">Mon compte
+          </button>
+          <button *ngIf="sessionService.getType()=='supplier'" class="btn btn-outline-info my-2 my-sm-0"
+                  [routerLink]="['/compteFournisseur']" style="font-size: 20px;font-weight: bold">Mon compte
+          </button>
+          <button *ngIf="sessionService" class="btn btn-outline-info my-2 my-sm-0"
+                  (click)="sessionService.offUtilisateur()"
+                  style="font-size: 20px;font-weight: bold; margin-left: 5px;">Se deconnecter
+          </button>
         </ng-template>
       </div>
     </div>
@@ -47,20 +59,64 @@
   <router-outlet></router-outlet>
 </div>
 
-<ng-template #lesAutresComposants >
+<ng-template #lesAutresComposants>
   <div style="margin-top: 80px;">
     <router-outlet></router-outlet>
   </div>
 </ng-template>
 
-
-<br>
-<br>
-<br>
-
-
-<footer id="sticky-footer" class="py-4 text-white-50 fixed-bottom" style="background: rgba(247, 247, 247, 0.7);">
-  <div class="container text-center">
-    <small style="color: black; font-size: 15px;"><b>Copyright &copy; Scootilo</b></small>
+<!-- The Modal -->
+<div class="modal" id="myModal" style="background-color: transparent; padding-top: 160px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" style="padding-bottom: 0px; padding-top: 0px">
+        <div class="row" style="height: 650px;">
+          <div class="col-sm-3 color-side" style="margin: -1px; padding: -1px;">
+          </div>
+          <div class="col-sm-9 ">
+            <div class="brand-wrapper" style="text-align: center; margin-top: 15px">
+              <img src="../../../assets/LOGO_scootilo.png" alt="logo" class="logo">
+            </div>
+            <h3>Connectez-vous à votre compte : </h3>
+            <div class="form-group mb-4">
+              <input type="text" name="identifiant" id="identifiant" class="form-control" placeholder="Identifiant"
+                     [(ngModel)]="identifiant">
+            </div>
+            <div class="form-group mb-4">
+              <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe"
+                     [(ngModel)]="motDePasse">
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-lg btn-primary login-btn mb-4 container" (click)="checkUser()" data-dismiss="modal">
+                Se connecter
+              </button>
+            </div>
+            <a [routerLink]="['/idOublie']" style="font-size: 19px;" data-dismiss="modal">Mot de passe oublié ?</a>
+            <br>
+            <br>
+            <p style="font-size: 19px;">Vous ne possédez pas de compte?</p>
+            <br>
+            <button [routerLink]="['/creationCompte']" type="button" class="btn btn-lg btn-dark"
+                    style="width: 50%; margin-left: 110px;" data-dismiss="modal">Inscrivez-vous ici!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
+<br>
+<br>
+<br>
+
+
+<footer  id="sticky-footer" class="text-white-50 fixed-bottom bgNavBar">
+<div class="textNavBar" style="text-align:center;font-size: 15px;vertical-align: middle;">
+  <b>Copyright &copy; Scootilo</b>
+  <button style="margin: 10px 3px 10px 3px;" class="float-right btn btn-primary" (click)="themeClair()"> <i class="far fa-sun"></i></button>
+  <button style="margin: 10px 3px 10px 3px;" class="float-right btn btn-primary" (click)="themeSombre()"><i class="far fa-moon"></i></button>
+</div>
 </footer>

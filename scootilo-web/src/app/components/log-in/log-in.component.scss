@@ -23,6 +23,18 @@ body {
   height : 700px;
   margin: 0 auto;
 }
+
+.modal-content {
+
+    border: 0;
+    border-radius: 27.5px;
+    box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
+    overflow: hidden;
+    width: 720px;
+    height : 650px;
+    //margin: 0 auto;
+
+}
 /*   .login-card-img { */
 /*     border-radius: 0; */
 /*     position: absolute; */
@@ -90,3 +102,21 @@ body {
   color: #919aa3; }
 
 /*# sourceMappingURL=login.css.map */
+
+
+.zoom{
+  zoom: 120%;
+}
+
+.btn-primary {
+  background-color: rgb(50,162,228);
+  color:  white;
+  border-color: rgb(50,162,228);
+}
+
+.btn-primary:hover, .btn-outline-info:focus, .btn-outline-info:active, .btn-outline-info.active, .open>.dropdown-toggle.btn-outline-info {
+  background-color: rgb(28,140,208);
+  color:  white;
+  border-color: rgb(28,140,208);
+}
+

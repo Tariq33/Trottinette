@@ -1,43 +1,45 @@
-
-
-<div *ngIf="!validationDuMoyenDeTransport">
-  <div> Renseigner le qrCode pour commencer la réservation : </div>
-  <input type="text" [(ngModel)]="qrCodeInput" placeholder="Renseignez le qrCode">
-  <button (click)="validationDuQrCode(qrCodeInput)"> Valider le qrCode</button>
+<br/>
+<div *ngIf="!validationDuMoyenDeTransport" class="container">
+  <div style="text-align: center" class="divBorder card">
+    <div class="divBg card-header">
+      <h4>Renseigner le qrCode pour commencer la réservation :</h4>
+    </div>
+    <br/>
+    <div class="card-body">
+      <div class="form-group">
+        <input class="col-md-5 form-control" type="text" [(ngModel)]="qrCodeInput" placeholder="Renseignez le qrCode">
+      </div>
+    </div>
+    <div style="text-align: center">
+      <a style="color: white" type="submit" class="btn btn-primary" (click)="validationDuQrCode(qrCodeInput)">Valider le qrCode</a>
+    </div>
+    <br/>
+  </div>
 </div>
 
 <div *ngIf="validationDuMoyenDeTransport" class="container">
-  <div class="card">
-    <div class="card-header">
+  <div class="divBorder card">
+    <div class="divBg card-header">
       <h4>Fin de trajet</h4>
-
     </div>
-
-
     <div style="text-align: center;">
-
-
-      <h4>Durée du trajet en cours : {{this.timerDisplay.minutes.digit1}}{{this.timerDisplay.minutes.digit2}}:{{this.timerDisplay.seconds.digit1}}{{this.timerDisplay.seconds.digit2}}</h4>
-
+      <h4>Durée du trajet en cours : {{this.timerDisplay.minutes.digit1}}{{this.timerDisplay.minutes.digit2}}
+        :{{this.timerDisplay.seconds.digit1}}{{this.timerDisplay.seconds.digit2}}</h4>
       <h4>Prix total : {{this.cout}} € </h4>
-
     </div>
-
     <div class="row" style="padding-left: 15px;">
-
-
       <div style="margin: 0 auto; margin-bottom: 15px;">
-        <button class="btn-lg btn-secondary" (click)="finDuTrajet()" >Fin du trajet</button>
+        <button class="btn-lg btn-secondary" (click)="finDuTrajet()">Fin du trajet</button>
       </div>
     </div>
   </div>
 </div>
 
-
+<br/>
 <div>
-  <div class="container" >
-    <div class="map-wrapper" style="margin-top: 300px">
-      <div id="map"> </div>
+  <div class="container">
+    <div class="map-wrapper" style="margin-top: 400px">
+      <div id="map"></div>
     </div>
   </div>
 </div>

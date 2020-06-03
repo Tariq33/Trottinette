@@ -51,8 +51,8 @@ export class ReservationItineraireComponent implements OnInit {
     this.reservation.heureDepart = new Date();
     this.reservation.client = this.sessionService.getClient();
     this.reservation.expiree = false;
-    console.log("la résa : ");
-    console.log(this.reservation);
+    // console.log("la résa : ");
+    // console.log(this.reservation);
 
     // Crée la réservation
     this.reservationService.create(this.reservation).subscribe(resp => {

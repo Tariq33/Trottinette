@@ -72,15 +72,15 @@ export class FinDeTrajetComponent implements OnInit {
   finDuTrajet(){
     //Modifier la réservation puis envoie la MAJ au serveur
     this.reservation.expiree = true;
-    this.reservation.dureeTotale = this.time;
+    this.reservation.dureeTotale = this.time/60;
 
     this.reservation.heureArrivee = new Date();
     this.reservation.montantTotal = this.cout;
 
-    console.log(this.reservation);
+    // console.log(this.reservation);
     this.reservationService.modify(this.reservation).subscribe( resp => {
       this.reservation=resp;
-      console.log(this.reservation);
+      // console.log(this.reservation);
     }, error => console.log(error));
 
     //Modifier l'itinéraire puis envoie la MAJ en base
@@ -104,7 +104,7 @@ export class FinDeTrajetComponent implements OnInit {
     // retirer au solde le prix du trajet
 
     this.client.solde = this.client.solde - this.cout;
-    console.log(this.client);
+    // console.log(this.client);
     this.clientService.modify(this.client).subscribe(resp => {
       this.sessionService.setUtilisateur(resp);
       this.client=this.sessionService.getClient();
@@ -145,9 +145,13 @@ export class FinDeTrajetComponent implements OnInit {
 
     const zoomLevel = 14;
     var container = L.DomUtil.get('map');
+    if(container == null) {
+      return;
+    }
     if (container.style.position.valueOf() == "") {
       this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
     }
+
 
 
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
