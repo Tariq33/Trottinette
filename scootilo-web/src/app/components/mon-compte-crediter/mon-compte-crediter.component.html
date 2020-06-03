@@ -11,23 +11,23 @@
       <div class="card-body">
         <div>
           <h6 class="card-title">Ancien Solde :</h6>
-          <p class="card-text" >{{clientunique.solde}}</p>
+          <p class="card-text" >{{clientunique.solde}} €</p>
 
           <div class="form-group">
             <h6 for="solde" class="card-title" >Ajouter :</h6>
-            <input type="number" min="0" onkeypress="return event.charCode >= 48" class="form-control" id="solde" [(ngModel)]="ajoutsolde">
+            <input type="number" style="width: 25%;" min="0" onkeypress="return event.charCode >= 48" class="form-control" id="solde" [(ngModel)]="ajoutsolde">
 <!--            Ca marche mais code deprecated pour event !!-->
           </div>
 
           <h6 class="card-title">Nouveau Solde :</h6>
-          <p class="card-text">{{clientunique.solde -- (ajoutsolde | absolu)}}</p>
+          <p class="card-text">{{clientunique.solde -- (ajoutsolde | absolu)}} €</p>
 
           <br>
         </div>
 
         <div class="container" style="text-align: center">
-          <a type="submit" style="color: white" class="btn btn-primary" (click)="save()" >Valider</a>
-          <a class="btn btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteClient">Annuler</a>
+          <a type="submit" style="color: white" class="btn btn-lg btn-primary" (click)="save()" >Valider</a>
+          <a class="btn btn-lg btn-danger" style="margin-left: 10px;" (click)="cancel()"  routerLink="/compteClient">Annuler</a>
         </div>
 
 
