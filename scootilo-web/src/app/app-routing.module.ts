@@ -30,6 +30,7 @@ import {AuthGuardSupplierService} from "./guards/auth-guard-supplier.service";
 import {AuthGuardCustomerService} from "./guards/auth-guard-customer.service";
 import {AuthGuardConnecterService} from "./guards/auth-guard-connecter.service";
 import {AccesDeniedComponent} from "./components/acces-denied/acces-denied.component";
+import {AuthGuardAjoutService} from "./guards/auth-guard-ajout.service";
 
 
 const routes: Routes = [
@@ -44,8 +45,8 @@ const routes: Routes = [
   {path: "plan", component: PlanReseauComponent},
   {path: "compteAdministrateur/ajoutUtilisateur", component: MonCompteAdministrateurAjoutUtilisateurComponent, canActivate: [AuthGuardAdminService]},
   {path: "compteAdministrateur/ajoutUtilisateur/:id", component: MonCompteAdministrateurAjoutUtilisateurComponent, canActivate: [AuthGuardAdminService]},
-  {path: "compteAdministrateur/ajoutMoyenTransport", component: MonCompteAdministrateurAjoutMoyenTransportComponent, canActivate: [AuthGuardAdminService]},
-  {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent, canActivate: [AuthGuardAdminService]},
+  {path: "compteAdministrateur/ajoutMoyenTransport", component: MonCompteAdministrateurAjoutMoyenTransportComponent, canActivate: [AuthGuardAjoutService]},
+  {path: "compteAdministrateur/ajoutMoyenTransport/:id", component: MonCompteAdministrateurAjoutMoyenTransportComponent, canActivate: [AuthGuardAjoutService]},
   {path: "compteAdministrateur/miseJourInfoPerso", component: MonCompteAdministrateurMajInfoComponent, canActivate: [AuthGuardAdminService]},
   {path: "compteFournisseur", component: MonCompteFournisseurComponent, canActivate: [AuthGuardSupplierService]},
   {path: "compteFournisseur/miseJourInfoPerso/:id", component: MonCompteFournisseurMajInfoComponent, canActivate: [AuthGuardSupplierService]},
