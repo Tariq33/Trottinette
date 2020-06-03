@@ -55,6 +55,7 @@ export class FinDeTrajetComponent implements OnInit {
     this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
     this.reservation = this.sessionService.getReservation();
     this.client=sessionService.getClient();
+    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.createMap(); this.addMarker();} ,err => console.log(err));
   }
 
   getDisplayTimer(time: number) {
@@ -127,8 +128,11 @@ export class FinDeTrajetComponent implements OnInit {
         this.time++;
         this.timerDisplay = this.getDisplayTimer(this.time);
         this.cout = (this.prixSeconde * this.time).toFixed(2);
-        this.createMap();
-        this.addMarker();
+
+        let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
+        let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
+        this.ligne = new L.Polyline([pointB,pointC], {color: 'green'} ).addTo(this.map);
+
       });
     }
     else {
@@ -151,8 +155,6 @@ export class FinDeTrajetComponent implements OnInit {
     if (container.style.position.valueOf() == "") {
       this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
     }
-
-
 
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
@@ -191,10 +193,8 @@ export class FinDeTrajetComponent implements OnInit {
 
     let pointA = new L.LatLng(this.client.latitude, this.client.longitude);
     let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
-    let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
 
     this.ligne = new L.Polyline([pointA,pointB], undefined ).addTo(this.map);
-    this.ligne = new L.Polyline([pointB,pointC], {color: 'green'} ).addTo(this.map);
   }
 
 }
