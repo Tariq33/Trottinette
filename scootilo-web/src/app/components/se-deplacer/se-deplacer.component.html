@@ -77,9 +77,9 @@
 
 
 <div *ngIf="ongletReservationItineraireShow"
-     style="margin: 15px 15px 15px 15px; width: 470px; border: 1px solid rgb(50,162,228); border-radius: 7px">
+     style="margin: 15px 15px 15px 15px; width: 470px; border: 2px solid rgb(50,162,228); border-radius: 7px">
 
-  <div *ngIf="!pasDePreferencesCochees;else pasDeTransport">
+  <div *ngIf="!pasDePreferencesCochees && !pasDeTransportProche &&!this.spinnerShow;else pasDeTransport">
     <ul class="nav nav-tabs card-header" style="text-align: center; background-color: rgba(50,162,228,0.5);">
 
       <li style="cursor : pointer" class="nav-item pill1">
@@ -193,14 +193,17 @@
   </div>
 
   <ng-template #pasDeTransport>
-    <div style="border: solid 2px;border-color: #dc143c; padding: 10px;"><h4> Aucun véhicule disponible. <br/> Veuillez
+    <div *ngIf="!this.spinnerShow" style="border: 2px solid;border-color: rgb(50,162,228); padding: 10px; border-radius: 7px;"><h4> Aucun véhicule disponible. <br/> Veuillez
       attendre ou modifier vos préférences.</h4></div>
   </ng-template>
 </div>
 
+<div *ngIf="(ongletReservationItineraireShow != null) && (!ongletReservationItineraireShow || pasDePreferencesCochees) && this.spinnerShow!=true" style="margin: 15px 15px 15px 15px; width: 470px; padding: 10px; border: 2px solid; border-radius: 7px; border-color: rgb(50,162,228);"><h4> Aucun véhicule disponible. <br/> Veuillez
+  attendre ou modifier vos préférences.</h4></div>
+
 
 <div *ngIf="ongletReservationShow"
-     style="margin: 15px 15px 15px 15px; width: 470px; border: 1px solid rgb(50,162,228); border-radius: 7px">
+     style="margin: 15px 15px 15px 15px; width: 470px; border: 2px solid rgb(50,162,228); border-radius: 7px">
   <div class="card-header" style="text-align: center; background-color: rgba(50,162,228,0.5);">
 
 
@@ -251,4 +254,3 @@
     </div>
   </div>
 </div>
-<!--</div>-->
