@@ -32,6 +32,10 @@ export class SessionService {
     sessionStorage.setItem("utilisateur",JSON.stringify(utilisateur));
   }
 
+  getUtilisateur(){
+    return JSON.parse(sessionStorage.getItem("utilisateur"));
+  }
+
   setMoyenDeTransportReserve(moyenDeTransport: MoyenDeTransport){
     sessionStorage.setItem("moyenDeTransport",JSON.stringify(moyenDeTransport));
   }

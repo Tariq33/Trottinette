@@ -25,6 +25,7 @@ import {MonCompteAjoutAdresseComponent} from "./components/mon-compte-ajout-adre
 import {IdOublieComponent} from "./components/id-oublie/id-oublie.component";
 import {MonCompteFournisseurTableauDeBordComponent} from './components/mon-compte-fournisseur-tableau-de-bord/mon-compte-fournisseur-tableau-de-bord.component';
 import {ReservationSurCarteComponent} from './components/reservation-sur-carte/reservation-sur-carte.component';
+import {AuthGuardService} from "./guards/auth-guard.service";
 
 
 const routes: Routes = [
@@ -34,7 +35,7 @@ const routes: Routes = [
   {path: "tarifs", component: SeDeplacerTarifComponent},
   {path: "partenaires", component: PartenairesComponent},
   {path: "contact", component: ContactsComponent},
-  {path: "compteAdministrateur", component: MonCompteAdministrateurComponent},
+  {path: "compteAdministrateur", component: MonCompteAdministrateurComponent, canActivate: [AuthGuardService]},
   {path: "logIn", component: LogInComponent},
   {path: "plan", component: PlanReseauComponent},
   {path: "compteAdministrateur/ajoutUtilisateur", component: MonCompteAdministrateurAjoutUtilisateurComponent},
