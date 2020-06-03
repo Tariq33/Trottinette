@@ -1,104 +1,123 @@
+<br/>
 <div>
-  <h1 style="text-align: center">Créez votre compte :</h1> <br/> <br/>
+  <div class="container" style="width: 1000px">
+    <div style="text-align: center" class="divBorder card">
+      <div class=" divBg card-header">
+        <h4>Créez votre compte :</h4>
+      </div>
+      <br/>
+      <label for="nom" md-5>Nom :</label>
+      <input id="nom" name="nom" class="form-control col-md-5" style="display:block; margin:auto"
+             required minlength="2" pattern="[a-zA-Z ]*"
+             [(ngModel)]="clientForm.nom" #nom="ngModel">
+      <div *ngIf="nom.invalid && (nom.dirty || nom.touched)"
+           class="alert alert-danger col-md-5" style="display:block; margin:auto">
+        <div *ngIf="nom.errors.pattern">
+          Le nom ne doit contenir que des lettres.
+        </div>
+        <div *ngIf="nom.errors.required">
+          Le nom est requis.
+        </div>
+        <div *ngIf="nom.errors.minlength">
+          Le nom doit contenir au moins 2 lettres.
+        </div>
+      </div>
 
-  <label for="nom" style="margin-left: 37.5%;">Nom :</label>
-  <input id="nom" name="nom" class="form-control col-md-3" style="display:block; margin:auto"
-         required minlength="2" pattern="[a-zA-Z ]*"
-         [(ngModel)]="clientForm.nom" #nom="ngModel" >
-  <div *ngIf="nom.invalid && (nom.dirty || nom.touched)"
-       class="alert alert-danger col-md-3" style="display:block; margin:auto">
-    <div *ngIf="nom.errors.pattern">
-      Le nom ne doit contenir que des lettres.
-    </div>
-    <div *ngIf="nom.errors.required">
-      Le nom est requis.
-    </div>
-    <div *ngIf="nom.errors.minlength">
-      Le nom doit contenir au moins 2 lettres.
-    </div>
-  </div>
+      <label for="email" md-5>Email : </label>
+      <input id="email" name="email" class="form-control col-md-5" style="display:block; margin:auto"
+             required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+             [(ngModel)]="clientForm.email" #email="ngModel">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+           class="alert alert-danger col-md-5" style="display:block; margin:auto">
+        <div *ngIf="email.errors.pattern">
+          L'adresse mail doit être valide.
+        </div>
+        <div *ngIf="email.errors.required">
+          L'adresse mail est requise.
+        </div>
+      </div>
 
-  <label for="email" style="margin-left: 37.5%;">Email : </label>
-  <input id="email" name="email" class="form-control col-md-3" style="display:block; margin:auto"
-         required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-         [(ngModel)]="clientForm.email" #email="ngModel" >
-  <div *ngIf="email.invalid && (email.dirty || email.touched)"
-       class="alert alert-danger col-md-3" style="display:block; margin:auto">
-    <div *ngIf="email.errors.pattern">
-      L'adresse mail doit être valide.
-    </div>
-    <div *ngIf="email.errors.required">
-      L'adresse mail est requise.
-    </div>
-  </div>
+      <label for="identifiant" md-5>Identifiant : </label>
+      <input id="identifiant" name="identifiant" class="form-control col-md-5" style="display:block; margin:auto"
+             required minlength="4" pattern="[0-9a-zA-Z ]*"
+             [(ngModel)]="clientForm.identifiant" #identifiant="ngModel">
+      <div *ngIf="identifiant.invalid && (identifiant.dirty || identifiant.touched)"
+           class="alert alert-danger col-md-5" style="display:block; margin:auto">
+        <div *ngIf="identifiant.errors.pattern">
+          L'identifiant doit contenir que des lettres et des chiffres.
+        </div>
+        <div *ngIf="identifiant.errors.required">
+          L'identifiant est requis.
+        </div>
+        <div *ngIf="identifiant.errors.minlength">
+          L'identifiant doit contenir au moins 4 caractères.
+        </div>
+      </div>
 
-  <label for="identifiant" style="margin-left: 37.5%;">Identifiant : </label>
-  <input id="identifiant" name="identifiant" class="form-control col-md-3" style="display:block; margin:auto"
-         required minlength="4" pattern="[0-9a-zA-Z ]*"
-         [(ngModel)]="clientForm.identifiant" #identifiant="ngModel" >
-  <div *ngIf="identifiant.invalid && (identifiant.dirty || identifiant.touched)"
-       class="alert alert-danger col-md-3" style="display:block; margin:auto">
-    <div *ngIf="identifiant.errors.pattern">
-      L'identifiant doit contenir que des lettres et des chiffres.
-    </div>
-    <div *ngIf="identifiant.errors.required">
-      L'identifiant est requis.
-    </div>
-    <div *ngIf="identifiant.errors.minlength">
-      L'identifiant doit contenir au moins 4 caractères.
-    </div>
-  </div>
+      <label for="motDePasse" md-5>Mot de passe : </label>
+      <input (change)="somethingChanged()" id="motDePasse" name="motDePasse" type="password"
+             class="form-control col-md-5" style="display:block; margin:auto"
+             required minlength="6"
+             [(ngModel)]="clientForm.motDePasse" #motDePasse="ngModel">
+      <div *ngIf="motDePasse.invalid && (motDePasse.dirty || motDePasse.touched)"
+           class="alert alert-danger col-md-5" style="display:block; margin:auto">
+        <div *ngIf="motDePasse.errors.required">
+          Le mot de passe est requis.
+        </div>
+        <div *ngIf="motDePasse.errors.minlength">
+          Le mot de passe doit contenir au moins 6 caractères.
+        </div>
+      </div>
 
-  <label for="motDePasse" style="margin-left: 37.5%;">Mot de passe : </label>
-  <input (change)="somethingChanged()" id="motDePasse" name="motDePasse" type="password" class="form-control col-md-3" style="display:block; margin:auto"
-         required minlength="6"
-         [(ngModel)]="clientForm.motDePasse" #motDePasse="ngModel" >
-  <div *ngIf="motDePasse.invalid && (motDePasse.dirty || motDePasse.touched)"
-       class="alert alert-danger col-md-3" style="display:block; margin:auto">
-    <div *ngIf="motDePasse.errors.required">
-      Le mot de passe est requis.
-    </div>
-    <div *ngIf="motDePasse.errors.minlength">
-      Le mot de passe doit contenir au moins 6 caractères.
-    </div>
-  </div>
+      <label for="confirmMotDePasse" md-5>Confirmation du mot de passe : </label>
+      <input (change)="somethingChanged()" id="confirmMotDePasse" name="confirmMotDePasse" type="password"
+             class="form-control col-md-5" style="display:block; margin:auto"
+             required minlength="6"
+             [(ngModel)]="confirmMotDePasse" #confirmMotDePasseDiez="ngModel">
+      <div *ngIf="confirmMotDePasseDiez.invalid && (confirmMotDePasseDiez.dirty || confirmMotDePasseDiez.touched)"
+           class="alert alert-danger col-md-5" style="display:block; margin:auto">
+        <div *ngIf="confirmMotDePasseDiez.errors.required">
+          La confirmation du mot de passe est requise.
+        </div>
+        <div *ngIf="confirmMotDePasseDiez.errors.minlength">
+          Le mot de passe doit contenir au moins 6 caractères.
+        </div>
+      </div>
+      <div *ngIf="!passwordMatch" class="alert alert-danger col-md-5" style="display:block; margin:auto">
+        <div>
+          Les mots de passe sont différents.
+        </div>
+      </div>
 
-  <label for="confirmMotDePasse" style="margin-left: 37.5%;">Confirmation du mot de passe : </label>
-  <input (change)="somethingChanged()" id="confirmMotDePasse" name="confirmMotDePasse" type="password" class="form-control col-md-3" style="display:block; margin:auto"
-         required minlength="6"
-         [(ngModel)]="confirmMotDePasse" #confirmMotDePasseDiez="ngModel" >
-  <div *ngIf="confirmMotDePasseDiez.invalid && (confirmMotDePasseDiez.dirty || confirmMotDePasseDiez.touched)"
-       class="alert alert-danger col-md-3" style="display:block; margin:auto">
-    <div *ngIf="confirmMotDePasseDiez.errors.required">
-      La confirmation du mot de passe est requise.
-    </div>
-    <div *ngIf="confirmMotDePasseDiez.errors.minlength">
-      Le mot de passe doit contenir au moins 6 caractères.
-    </div>
-  </div>
-  <div *ngIf="!passwordMatch" class="alert alert-danger col-md-3" style="display:block; margin:auto">
-    <div>
-      Les mots de passe sont différents.
-    </div>
-  </div>
+      <br/>
 
-  <br/>
+      <div style="text-align: center">
+<!--        <div class="btn-group btn-group-lg ">-->
+          <div class="container" style="text-align: center">
+            <a  style="color:white;" class="btn btn-primary"
+               *ngIf="!nom.errors && !email.errors && !identifiant.errors && !motDePasse.errors && !confirmMotDePasseDiez.errors && passwordMatch; else blabla">
+              <i (click)="save()">Créer un compte</i>
+            </a>
+<!--          </div>-->
+<!--          <div class="container" style="text-align: center">-->
+            <ng-template #blabla>
+              <a style="color:white;" class="btn btn-primary" (click)=toggleDisplay()> Créer un compte </a>
+            </ng-template>
+<!--          </div>-->
+<!--          <div class="container" style="text-align: center">-->
+            <a style="color:white;margin-left: 10px" class="btn btn-warning" (click)="cancel()"> Effacer </a>
+          </div>
 
-  <div style="text-align: center">
-    <div class="btn-group btn-group-lg ">
-      <a  class="btn btn-success"
-          *ngIf="!nom.errors && !email.errors && !identifiant.errors && !motDePasse.errors && !confirmMotDePasseDiez.errors && passwordMatch; else blabla">
-        <i  (click)="save()" >Créer un compte</i>
-      </a>
-      <ng-template #blabla>
-        <a  class="btn btn-success" (click) = toggleDisplay() > Créer un compte </a>
-      </ng-template>
-      <a class="btn btn-warning" (click)="cancel()"> Effacer  </a>
+<!--        </div>-->
+      </div>
+      <br/>
+      <div
+        *ngIf="isShow && (nom.errors || email.errors || identifiant.errors || motDePasse.errors || confirmMotDePasseDiez.errors || !passwordMatch)"
+        class="alert alert-danger col-md-5" style="display:block; margin:auto">
+        <div>
+          Renseignez correctement les champs.
+        </div>
+      </div>
     </div>
   </div>
-  <br/>
-  <div *ngIf="isShow && (nom.errors || email.errors || identifiant.errors || motDePasse.errors || confirmMotDePasseDiez.errors || !passwordMatch)" class="alert alert-danger col-md-3" style="display:block; margin:auto">
-    <div>
-      Renseignez correctement les champs.
-    </div>
-  </div>
+</div>

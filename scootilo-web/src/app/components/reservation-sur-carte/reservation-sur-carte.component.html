@@ -1,14 +1,14 @@
+<br/>
 <div class="container">
-  <div class="card">
-    <div class="card-header">
+  <div class="divBorder card">
+    <div class="divBg card-header">
       <h4>Confirmation de la réservation</h4>
     </div>
     <div class="card-body">
-      <h6>Êtes-vous sûr de vouloir réserver ?</h6>
+      <h6 style="font-size:40px;text-align: center">Êtes-vous sûr de vouloir réserver ?</h6>
       <p>Un accompte d'1€ vous sera prélevé afin de réserver le moyen de transport.<br>Ce montant sera déduit de votre trajet.</p>
-
       <div>
-        <table class="table table-striped">
+        <table class="table ">
           <tbody>
           <tr>
             <td>Mode de transport :</td>
@@ -28,9 +28,9 @@
           </tr>
           </tbody>
         </table>
-        <div>
-          <a type="submit" class="btn btn-primary" (click)="save()">Confirmer</a>
-          <a class="btn btn-danger" (click)="cancelClick()" [routerLink]="['/seDeplacer']">Annuler</a>
+        <div style="text-align: center">
+          <a style="color: white" type="submit" class="btn btn-primary" (click)="save()">Confirmer</a>
+          <a style="color: white; margin-left: 10px" class="btn btn-danger" (click)="cancelClick()" [routerLink]="['/seDeplacer']">Annuler</a>
         </div>
       </div>
 
