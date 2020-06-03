@@ -6,7 +6,7 @@ import {Utilisateur} from "../model/utilisateur";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardSupplierService implements CanActivate{
+export class AuthGuardAjoutService implements CanActivate{
 
   utilisateur: Utilisateur;
 
@@ -17,7 +17,7 @@ export class AuthGuardSupplierService implements CanActivate{
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log(this.utilisateur);
-    if (this.utilisateur.type != "supplier")  {
+    if (this.utilisateur.type == "customer" || this.utilisateur.type == null)  {
       // alert('Vous n\'avez pas le droit d\'acceder à cette page');
       // location.replace('/accueil');
       location.replace('/accessDenied');

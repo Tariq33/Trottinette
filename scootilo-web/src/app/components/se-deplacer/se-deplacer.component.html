@@ -1,15 +1,13 @@
-<div class="row" style="padding-left: 50px; padding-top: 15px;">
-  <div>
-    <div style="text-align: center;">
+<div style="margin: 100px 15px 15px 15px;width: 470px; border: 1px solid rgb(50,162,228); border-radius: 7px">
+  <div class="card-header" style="text-align: center; background-color: rgba(50,162,228,0.5);">
+    <h4>Rechercher un itinéraire</h4>
+    <h6>OU</h6>
+    <h4>Réserver sur la carte</h4>
+  </div>
+  <div class="card-body" style="background-color: rgb(248,249,250)">
 
-
-      <h6>Recherchez votre itinéraire</h6>
-      <h6>OU</h6>
-      <h6>Réservez directement sur la carte</h6>
-
-    </div>
     <div class="form-group">
-      <label >Lieu de départ :</label>
+      <h4>Lieu de départ :</h4>
       <input [(ngModel)]="adrDepart" type="text" class="form-control"
              style="width: 400px;" placeholder="Départ">
     </div>
@@ -17,196 +15,240 @@
     <div *ngIf="this.adresses.length!=0">
       <p>Ou choisissez parmi vos adresses ou votre position: </p>
 
-      <input list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe" (ngModelChange)="charger($event)" placeholder="Choisir">
+      <input class="form-control" style="width: 250px;" list="mesAdrs" id="adrDepart" [ngModel]="adrDepartListe"
+             (ngModelChange)="charger($event)" placeholder="Choisir une adresse">
       <datalist id="mesAdrs">
-        <option value={{this.nomAdressePositionclient}} > {{this.nomAdressePositionclient}} </option>
-        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
+        <option value={{this.nomAdressePositionclient}}> {{this.nomAdressePositionclient}} </option>
+        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}}> {{adr.nomAdresse}} </option>
       </datalist>
     </div>
-
+    <br>
     <div class="form-group">
-      <label >Lieu d'arrivée :</label>
+      <h4>Lieu d'arrivée :</h4>
       <input [(ngModel)]="adrArrivee" type="text" class="form-control"
-             style="width: 400px;"  placeholder="Arrivée">
+             style="width: 400px;" placeholder="Arrivée">
     </div>
 
     <div *ngIf="this.adresses.length!=0">
       <p>Ou choisissez parmi vos adresses : </p>
 
-      <input list="mesAdrs2" id="adrArrivee" [ngModel]="adrArriveeListe" (ngModelChange)="charger2($event)" placeholder="Choisir">
+      <input class="form-control" style="width: 250px" list="mesAdrs2" id="adrArrivee" [ngModel]="adrArriveeListe"
+             (ngModelChange)="charger2($event)" placeholder="Choisir une adresse">
       <datalist id="mesAdrs2">
-        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}} > {{adr.nomAdresse}} </option>
+        <option *ngFor="let adr of adresses" value={{adr.nomAdresse}}> {{adr.nomAdresse}} </option>
       </datalist>
     </div>
-
-    <div *ngIf="this.client.preference!=undefined">
-      <h6 class="card-title">Préférences :</h6>
+    <br>
+    <div *ngIf="this.client.preference!=undefined" style="font-size: 20px">
+      <h4 class="card-title">Préférences :</h4>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.trottinette" (ngModelChange)="charger3($event, 'trottinette')" >Trottinette
+          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.trottinette"
+                 (ngModelChange)="charger3($event, 'trottinette')">Trottinette
         </label>
       </div>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.velo" (ngModelChange)="charger3($event, 'velo')">Vélo
+          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.velo"
+                 (ngModelChange)="charger3($event, 'velo')">Vélo
         </label>
       </div>
       <div class="form-check-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" value=""[ngModel]="client.preference.scooter" (ngModelChange)="charger3($event, 'scooter')">Scooter
+          <input type="checkbox" class="form-check-input" value="" [ngModel]="client.preference.scooter"
+                 (ngModelChange)="charger3($event, 'scooter')">Scooter
         </label>
       </div>
     </div>
-<br>
+    <br>
     <h3 class="first" style="font-size: 24px;">Distance de marche Max: {{distanceClientMarcheMax}} m</h3>
-    <p-slider [(ngModel)]="distanceClientMarcheMax" [style]="{'width':'25em'}" [step]="100" [min]="100" [max]="5000"></p-slider>
+    <p-slider [(ngModel)]="distanceClientMarcheMax" [style]="{'width':'25em'}" [step]="100" [min]="100"
+              [max]="5000"></p-slider>
 
-    <br> <button  class="btn-lg btn-secondary"
-            style="margin-left: 130px;" (click)="isShowItineraire()">Rechercher</button>
+    <br>
+    <button class="btn-lg btn-secondary"
+            style="margin-left: 130px;" (click)="isShowItineraire()">Rechercher
+    </button>
+  </div>
+</div>
 
 
-  <br>
-  <br>
+<p-progressSpinner *ngIf="this.spinnerShow"></p-progressSpinner>
 
-    <div *ngIf="ongletReservationItineraireShow">
-      <div *ngIf="!pasDePreferencesCochees;else pasDeTransport">
-        <ul  class="nav nav-tabs">
-          <li  style="cursor : pointer" class="nav-item">
-            <a (click)="affichageFunction(1)" style="color: black;" class="nav-link" >Moins de marche</a>
-          </li>
-          <li  style="cursor : pointer" class="nav-item">
-            <a (click)="affichageFunction(2)" style="color: black;" class="nav-link" >Moins long</a>
-          </li>
-          <li  style="cursor : pointer" class="nav-item">
-            <a (click)="affichageFunction(3)" style="color: black;" class="nav-link" >Moins cher</a>
-          </li>
-        </ul>
 
-        <table *ngIf="this.affichage==1;"class="table">
-          <tbody>
-          <tr>
-            <td>Mode de transport :</td>
-            <td>{{this.transportAvecLeMoinsDeMarche.typeDeTransport}}</td>
-          </tr>
-          <tr>
-            <td>Emplacement :</td>
-            <td>{{this.emplacementTransportAvecLeMoinsDeMarche}}</td>
-          </tr>
-          <tr>
-            <td>Temps de marche :</td>
-            <td>{{this.donneesDuMoinsDeMarche[0]}} minutes</td>
-          </tr>
-          <tr>
-            <td>Durée totale :</td>
-            <td>{{this.donneesDuMoinsDeMarche[1]}} minutes</td>
-          </tr>
-          <tr>
-            <td>Prix estimatif :</td>
-            <td>{{this.donneesDuMoinsDeMarche[2]}} €</td>
-          </tr>
+<div *ngIf="ongletReservationItineraireShow"
+     style="margin: 15px 15px 15px 15px; width: 470px; border: 1px solid rgb(50,162,228); border-radius: 7px">
 
-          </tbody>
-        </table>
+  <div *ngIf="!pasDePreferencesCochees;else pasDeTransport">
+    <ul class="nav nav-tabs card-header" style="text-align: center; background-color: rgba(50,162,228,0.5);">
 
-        <table *ngIf="this.affichage==2;" class="table">
-          <tbody>
-          <tr>
-            <td>Mode de transport :</td>
-            <td>{{this.transportLeMoinsLong.typeDeTransport}}</td>
-          </tr>
-          <tr>
-            <td>Emplacement :</td>
-            <td>{{this.emplacementTransportLeMoinsLong}}</td>
-          </tr>
-          <tr>
-            <td>Temps de marche :</td>
-            <td>{{this.donneesDuMoinsLong[0]}} minutes</td>
-          </tr>
-          <tr>
-            <td>Durée totale :</td>
-            <td>{{this.donneesDuMoinsLong[1]}} minutes</td>
-          </tr>
-          <tr>
-            <td>Prix estimatif :</td>
-            <td>{{this.donneesDuMoinsLong[2]}} €</td>
-          </tr>
-          </tbody>
-        </table>
+      <li style="cursor : pointer" class="nav-item pill1">
+        <a (click)="affichageFunction(1)" data-toggle="tab" style="color: black; margin: 5px;" class="nav-link active">
+          <h6>Moins de marche</h6></a>
+      </li>
+      <li style="cursor : pointer" class="nav-item pill2">
+        <a (click)="affichageFunction(2)" data-toggle="tab" style="color: black;  margin: 5px;" class="nav-link"><h6>
+          Moins long</h6></a>
+      </li>
+      <li style="cursor : pointer" class="nav-item pill3">
+        <a (click)="affichageFunction(3)" data-toggle="tab" style="color: black;  margin: 5px;" class="nav-link"><h6>
+          Moins cher</h6></a>
+      </li>
+    </ul>
+    <div style="background-color: rgb(248,249,250);">
+    <table *ngIf="this.affichage==1;" class="table">
+      <tbody>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Mode de transport</td>
+        <td
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.transportAvecLeMoinsDeMarche.typeDeTransport}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Emplacement</td>
+        <td
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.emplacementTransportAvecLeMoinsDeMarche}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Temps de marche</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsDeMarche[0]}}
+          minutes
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Durée totale</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsDeMarche[1]}}
+          minutes
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Prix estimatif</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsDeMarche[2]}} €</td>
+      </tr>
 
-        <table *ngIf="this.affichage==3;" class="table">
-          <tbody>
-          <tr>
-            <td>Mode de transport :</td>
-            <td>{{this.transportLeMoinsCher.typeDeTransport}}</td>
-          </tr>
-          <tr>
-            <td>Emplacement :</td>
-            <td>{{this.emplacementTransportLeMoinsCher}}</td>
-          </tr>
-          <tr>
-            <td>Temps de marche :</td>
-            <td>{{this.donneesDuMoinsCher[0]}} minutes</td>
-          </tr>
-          <tr>
-            <td>Durée totale :</td>
-            <td>{{this.donneesDuMoinsCher[1]}} minutes</td>
-          </tr>
-          <tr>
-            <td>Prix estimatif :</td>
-            <td>{{this.donneesDuMoinsCher[2]}} €</td>
-          </tr>
-          </tbody>
-        </table>
-        <br> <button  class="btn-lg btn-secondary"
-                      style="margin-left: 160px;" (click)="getTransportItineraire()">Réserver</button>
-      </div>
-      <ng-template #pasDeTransport> <div style="border: solid 2px;border-color: #dc143c; padding: 10px;"><h4> Aucun véhicule disponible. <br/> Veuillez attendre ou modifier vos préférences.</h4></div></ng-template>
+      </tbody>
+    </table>
+
+    <table *ngIf="this.affichage==2;" class="table">
+      <tbody>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Mode de transport</td>
+        <td
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.transportLeMoinsLong.typeDeTransport}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Emplacement</td>
+        <td
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.emplacementTransportLeMoinsLong}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Temps de marche</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsLong[0]}} minutes
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Durée totale</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsLong[1]}} minutes
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Prix estimatif</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsLong[2]}} €</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table *ngIf="this.affichage==3;" class="table">
+      <tbody>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Mode de transport</td>
+        <td
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.transportLeMoinsCher.typeDeTransport}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Emplacement</td>
+        <td
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.emplacementTransportLeMoinsCher}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Temps de marche</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsCher[0]}} minutes
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Durée totale</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsCher[1]}} minutes
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Prix estimatif</td>
+        <td style="font-size: 17px; text-align: left; vertical-align: middle">{{this.donneesDuMoinsCher[2]}} €</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <button class="btn-lg btn-secondary"
+            style="margin-left: 180px; margin-bottom: 15px;" (click)="getTransportItineraire()">Réserver
+    </button>
     </div>
+  </div>
+
+  <ng-template #pasDeTransport>
+    <div style="border: solid 2px;border-color: #dc143c; padding: 10px;"><h4> Aucun véhicule disponible. <br/> Veuillez
+      attendre ou modifier vos préférences.</h4></div>
+  </ng-template>
+</div>
 
 
-    <div *ngIf="ongletReservationShow">
-      <div>
-        <h4>Moyen de transport sélectionné :</h4>
+<div *ngIf="ongletReservationShow"
+     style="margin: 15px 15px 15px 15px; width: 470px; border: 1px solid rgb(50,162,228); border-radius: 7px">
+  <div class="card-header" style="text-align: center; background-color: rgba(50,162,228,0.5);">
 
-        <table class="table">
-          <tbody>
-          <tr>
-            <td>Mode de transport :</td>
-            <td>{{this.moyenDeTransportChoisi.typeDeTransport}}</td>
-          </tr>
-          <tr>
-            <td>Emplacement :</td>
-            <td>{{this.adresseAndTempsDeMarcheTransportChoisi.adresse}}</td>
-          </tr>
-          <tr>
-            <td>Prix (€/min) :</td>
-            <td>{{this.moyenDeTransportChoisi.prixMinute}}</td>
-          </tr>
-          <tr>
-            <td>Temps de marche :</td>
-            <td>{{this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche}}</td>
-          </tr>
-          </tbody>
-        </table>
-        <div *ngIf="this.moyenDeTransportChoisi.disponible;else indisponible">
-        <a class="btn-lg btn-secondary"
-           style="margin-left: 160px;" [routerLink]="['/reservationSurCarte']">Réserver</a>
-        </div>
-        <ng-template #indisponible>
-          <a class="btn-lg btn-secondary"
-             style="margin-left: 160px; color: darkred;" >Indisponible</a>
-        </ng-template>
-      </div>
+
+    <h4>Moyen de transport sélectionné :</h4>
+  </div>
+  <div class=card-body style="background-color: rgb(248,249,250)">
+    <table class="table">
+      <tbody>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Mode de transport</td>
+        <td
+          style="font-size: 17px; text-align: left; vertical-align: middle">{{this.moyenDeTransportChoisi.typeDeTransport}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Emplacement</td>
+        <td
+          style="font-size: 17px; text-align: left;vertical-align: middle">{{this.adresseAndTempsDeMarcheTransportChoisi.adresse}}</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Prix (€/min)</td>
+        <td
+          style="font-size: 17px; text-align: left;vertical-align: middle">{{this.moyenDeTransportChoisi.prixMinute}}€
+        </td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold; font-size: 19px; vertical-align: middle">Temps de marche</td>
+        <td
+          style="font-size: 17px; text-align: left;vertical-align: middle">{{this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="this.moyenDeTransportChoisi.disponible;else indisponible">
+      <a class="btn-lg btn-secondary"
+         style="margin-left: 170px;" [routerLink]="['/reservationSurCarte']">Réserver</a>
     </div>
-
+    <ng-template #indisponible>
+      <a class="btn-lg btn-secondary"
+         style="margin-left: 170px; color: darkred;">Indisponible</a>
+    </ng-template>
+  </div>
 </div>
 
 
 <div>
-  <div class="container" >
-    <div class="map-wrapper" style="left: 500px">
-      <div id="map"> </div>
+  <div class="container">
+    <div class="map-wrapper" style="left: 500px; height : 111%; margin-top: 97px">
+      <div id="map"></div>
     </div>
   </div>
 </div>
-</div>
+<!--</div>-->

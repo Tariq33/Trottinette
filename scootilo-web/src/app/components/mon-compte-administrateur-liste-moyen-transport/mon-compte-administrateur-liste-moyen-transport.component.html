@@ -1,3 +1,4 @@
+<br/>
 <div class="container">
   <div class="divBorder card">
     <div class="divBg card-header">
@@ -28,7 +29,11 @@
           <td>
             <div style="padding-top: 9px;" class="btn-group btn-group-sm">
               <a class="btn btn-primary" (click)="edit(moy.id)" [routerLink]="['/compteAdministrateur/ajoutMoyenTransport', moy.id]"><i class="fa fa-edit"></i></a>
-              <a class="btn btn-danger" (click)="delete(moy.id)"><i class="fa fa-trash"></i></a>
+              <a class="btn btn-danger" (click)="delete(moy.id)">
+                <span style="color: white">
+                <i class="fa fa-trash"></i>
+                </span>
+              </a>
             </div>
           </td>
         </tr>
