@@ -18,8 +18,9 @@ export class AuthGuardAdminService implements CanActivate{
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log(this.utilisateur);
     if (this.utilisateur.type != "admin")  {
-      alert('Vous n\'avez pas le droit d\'acceder à cette page');
-        location.replace('/accueil');
+      // alert('Vous n\'avez pas le droit d\'acceder à cette page');
+        // location.replace('/accueil');
+      location.replace('/accessDenied');
         return false;
     }
     return true;

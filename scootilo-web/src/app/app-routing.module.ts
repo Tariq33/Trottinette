@@ -29,6 +29,7 @@ import {AuthGuardAdminService} from "./guards/auth-guard-admin.service";
 import {AuthGuardSupplierService} from "./guards/auth-guard-supplier.service";
 import {AuthGuardCustomerService} from "./guards/auth-guard-customer.service";
 import {AuthGuardConnecterService} from "./guards/auth-guard-connecter.service";
+import {AccesDeniedComponent} from "./components/acces-denied/acces-denied.component";
 
 
 const routes: Routes = [
@@ -61,6 +62,7 @@ const routes: Routes = [
   {path: "finalisation", component: FinalisationComponent, canActivate: [AuthGuardConnecterService]},
   {path: "compteClient/ajoutAdresse/:id", component: MonCompteAjoutAdresseComponent, canActivate: [AuthGuardCustomerService]},
   {path: "idOublie", component: IdOublieComponent},
+  {path: "accessDenied", component: AccesDeniedComponent},
   ];
 
 @NgModule({
