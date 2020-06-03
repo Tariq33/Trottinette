@@ -11,26 +11,85 @@
           </div>
           <p class="login-card-description">Connectez-vous à votre compte</p>
 
-            <div class="form-group mb-4">
-              <input type="text" name="identifiant" id="identifiant" class="form-control" placeholder="Identifiant" [(ngModel)]="identifiant">
-            </div>
+          <div class="form-group mb-4">
+            <input type="text" name="identifiant" id="identifiant" class="form-control" placeholder="Identifiant"
+                   [(ngModel)]="identifiant">
+          </div>
 
-            <div class="form-group mb-4">
-              <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" [(ngModel)]="motDePasse">
-            </div>
+          <div class="form-group mb-4">
+            <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe"
+                   [(ngModel)]="motDePasse">
+          </div>
 
-            <div style="text-align: center">
-              <div class="btn btn-block login-btn mb-4" (click)="checkUser()" >
-                Se connecter
-              </div>
+          <div style="text-align: center">
+            <div class="btn btn-block login-btn mb-4" (click)="checkUser()">
+              Se connecter
             </div>
+          </div>
 
 
           <a href="#!" class="forgot-password-link" [routerLink]="['/idOublie']">Mot de passe oublié ?</a>
-          <br><br><p class="login-card-footer-text">Vous ne possédez pas de compte? <br><a [routerLink]="['/creationCompte']" class="text-reset"><b>Inscrivez-vous ici!</b></a></p>
+          <br><br>
+          <p class="login-card-footer-text">Vous ne possédez pas de compte? <br><a [routerLink]="['/creationCompte']"
+                                                                                   class="text-reset"><b>Inscrivez-vous
+            ici!</b></a></p>
         </div>
       </div>
 
     </div>
   </div>
 </div>
+
+
+/////////////////////////
+
+<div class="container">
+  <h2>Modal Example</h2>
+  <!-- Button to Open the Modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal" style="background-color: transparent; padding-top: 160px;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body" style="padding-bottom: 0px; padding-top: 0px">
+          <div class="row" style="height: 650px;">
+            <div class="col-sm-3 color-side" style="margin: -1px; padding: -1px;">
+            </div>
+            <div class="col-sm-9 ">
+              <div class="brand-wrapper" style="text-align: center; margin-top: 15px">
+                <img src="../../../assets/LOGO_scootilo.png" alt="logo" class="logo">
+              </div>
+              <h3>Connectez-vous à votre compte : </h3>
+              <div class="form-group mb-4">
+                <input type="text" name="identifiant" id="identifiant" class="form-control" placeholder="Identifiant"
+                       [(ngModel)]="identifiant">
+              </div>
+              <div class="form-group mb-4">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe"
+                       [(ngModel)]="motDePasse">
+              </div>
+              <div style="text-align: center">
+                <button class="btn btn-lg btn-primary login-btn mb-4 container" (click)="checkUser()">
+                  Se connecter
+                </button>
+              </div>
+              <a [routerLink]="['/idOublie']" style="font-size: 19px;">Mot de passe oublié ?</a>
+              <br>
+              <br>
+              <p style="font-size: 19px;">Vous ne possédez pas de compte?</p>
+              <br>
+              <button [routerLink]="['/creationCompte']" type="button" class="btn btn-lg btn-dark"
+                      style="width: 50%; margin-left: 110px;">Inscrivez-vous ici!
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

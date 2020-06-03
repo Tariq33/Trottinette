@@ -39,7 +39,7 @@ export class MonCompteFournisseurGrapheRepartitionTransportComponent implements 
 
       }
       this.dataPie = [this.compteurTrot, this.compteurScoot, this.compteurVelo];
-      console.log(this.dataPie)
+      // console.log(this.dataPie)
 
       this.data = {
         labels: ['Trottinette','Scooter','Vélo'],

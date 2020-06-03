@@ -10,11 +10,12 @@ import {UtilisateurService} from "./service/utilisateur.service";
 })
 export class AppComponent {
   title = 'scootilo-web';
+  identifiant:string;
+  motDePasse:string;
 
   public href: string = "";
 
-  constructor(public sessionService : SessionService,public router: Router,
-              private utilisateurService:UtilisateurService) {
+  constructor(public sessionService : SessionService,public router: Router, private utilisateurService:UtilisateurService) {
 
     this.connexionEnTantQueClient();
     // this.connexionEnTantQueAdministrateur();
@@ -25,6 +26,16 @@ export class AppComponent {
   ngOnInit() {
     this.href = this.router.url;
     console.log(this.router.url);
+  }
+
+  checkUser () {
+    this.utilisateurService.findByIdentifiantAndMotDePasse(this.identifiant, this.motDePasse).subscribe(resp => {
+        this.sessionService.setUtilisateur(resp);
+        console.log(resp);
+        // this.router.navigateByUrl('/accueil');
+      },
+      error => console.log(error)
+    );
   }
 
   connexionEnTantQueClient () {
@@ -69,6 +80,7 @@ export class AppComponent {
     document.documentElement.style.setProperty('--img-accueil', "url('/assets/miroir_eau.jpg')");
     document.documentElement.style.setProperty('--bg-navbar', "rgba(248,249,250,0.5)");
     document.documentElement.style.setProperty('--text-navbar', "black");
+    document.documentElement.style.setProperty('--img-fond', "url('../../../assets/testFond.jpg')");
   }
 
   themeSombre() {
@@ -77,6 +89,7 @@ export class AppComponent {
     document.documentElement.style.setProperty('--img-accueil', "url('/assets/bg2.jpg')");
     document.documentElement.style.setProperty('--bg-navbar', "grey");
     document.documentElement.style.setProperty('--text-navbar', "white");
+    document.documentElement.style.setProperty('--img-fond', "url('../../../assets/fond noir2.jpg')");
   }
 
 
