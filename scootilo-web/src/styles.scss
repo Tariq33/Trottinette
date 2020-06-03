@@ -10,6 +10,7 @@
   --bg-navbar: rgba(248,249,250,0.5);
   --text-navbar:black;
   --img-fond:url('/assets/testFond.jpg');
+  --img-navbar:url("/assets/LOGO_scootilo.png");
 }
 
 
@@ -20,7 +21,11 @@ $urlImgPages : var(--img-pages);
 $bgNavBar : var(--bg-navbar);
 $textNavBar : var(--text-navbar);
 $urlImgFond : var( --img-fond);
+$urlImgNavbar : var(--img-navbar);
 
+.imgNavbar{
+  content: $urlImgNavbar;
+}
 .divBorder{
   border-color: $borderColor;
 }
