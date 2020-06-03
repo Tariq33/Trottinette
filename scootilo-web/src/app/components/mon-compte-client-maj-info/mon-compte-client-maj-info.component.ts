@@ -15,6 +15,7 @@ export class MonCompteClientMajInfoComponent implements OnInit {
 
   clientunique: Client = new Client();
 
+
   constructor(private sessionService : SessionService, private clientService: ClientService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
     this.clientunique=sessionService.getClient();
   }

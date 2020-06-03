@@ -35,7 +35,7 @@ import {AuthGuardAjoutService} from "./guards/auth-guard-ajout.service";
 
 const routes: Routes = [
   {path: "", component: PageDaccueilComponent},
-  {path: "accueil", component: PageDaccueilComponent},
+  {path: "accueil", component: FinalisationComponent},
   {path: "seDeplacer", component: SeDeplacerComponent},
   {path: "tarifs", component: SeDeplacerTarifComponent},
   {path: "partenaires", component: PartenairesComponent},

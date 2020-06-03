@@ -19,6 +19,8 @@ export class FinalisationComponent implements OnInit {
   itineraire : Itineraire;
   reservation : Reservation;
   final: FinDeTrajet = new FinDeTrajet();
+  rating: number = null;
+  commentaire: string = null;
 
   constructor(private router: Router, private sessionService: SessionService, private  finDeTrajetService: FinDeTrajetService, private  reservationService: ReservationService, private http: HttpClient, private route: ActivatedRoute) {
     // this.itineraire = sessionService.getItineraire();
@@ -46,6 +48,7 @@ export class FinalisationComponent implements OnInit {
   }
 
   save(){
+    this.final.commentaire = "Note : " + this.rating + "Commentaire : " + this.commentaire;
     this.final.reservation=this.sessionService.getReservation();
     this.final.photo = this.imagePath[0].name;
     // console.log(this.imagePath);
