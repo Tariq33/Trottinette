@@ -188,7 +188,7 @@ export class FinDeTrajetComponent implements OnInit {
     let pointA = new L.LatLng(this.client.latitude, this.client.longitude);
     let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
     let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
-    
+
     this.ligne = new L.Polyline([pointA,pointB], undefined ).addTo(this.map);
     this.ligne = new L.Polyline([pointB,pointC], {color: 'green'} ).addTo(this.map);
   }
