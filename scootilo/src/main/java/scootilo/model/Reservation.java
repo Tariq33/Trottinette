@@ -54,6 +54,7 @@ public class Reservation {
 	@Column(name = "expired")
 	@JsonView(Views.ViewCommon.class)
 	private Boolean expiree;
+	@JsonView(Views.ViewReservation.class)
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name="rue", column = @Column(name="departure_street")),
@@ -64,6 +65,7 @@ public class Reservation {
 		@AttributeOverride(name="longitude", column = @Column(name="departure_longitude")),
 	})
 	private AdresseItineraire adrDepart;
+	@JsonView(Views.ViewReservation.class)
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name="rue", column = @Column(name="arrival_street")),
