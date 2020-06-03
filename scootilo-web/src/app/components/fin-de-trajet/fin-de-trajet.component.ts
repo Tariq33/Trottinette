@@ -77,10 +77,10 @@ export class FinDeTrajetComponent implements OnInit {
     this.reservation.heureArrivee = new Date();
     this.reservation.montantTotal = this.cout;
 
-    console.log(this.reservation);
+    // console.log(this.reservation);
     this.reservationService.modify(this.reservation).subscribe( resp => {
       this.reservation=resp;
-      console.log(this.reservation);
+      // console.log(this.reservation);
     }, error => console.log(error));
 
     //Modifier l'itinéraire puis envoie la MAJ en base
@@ -104,7 +104,7 @@ export class FinDeTrajetComponent implements OnInit {
     // retirer au solde le prix du trajet
 
     this.client.solde = this.client.solde - this.cout;
-    console.log(this.client);
+    // console.log(this.client);
     this.clientService.modify(this.client).subscribe(resp => {
       this.sessionService.setUtilisateur(resp);
       this.client=this.sessionService.getClient();

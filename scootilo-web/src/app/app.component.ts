@@ -17,7 +17,7 @@ export class AppComponent {
 
   constructor(public sessionService : SessionService,public router: Router, private utilisateurService:UtilisateurService) {
 
-     // this.connexionEnTantQueClient();
+    this.connexionEnTantQueClient();
     // this.connexionEnTantQueAdministrateur();
     // this.connexionEnTantQueFournisseur();
 
@@ -80,6 +80,7 @@ export class AppComponent {
     document.documentElement.style.setProperty('--img-accueil', "url('/assets/miroir_eau.jpg')");
     document.documentElement.style.setProperty('--bg-navbar', "rgba(248,249,250,0.5)");
     document.documentElement.style.setProperty('--text-navbar', "black");
+    document.documentElement.style.setProperty('--img-fond', "url('../../../assets/testFond.jpg')");
   }
 
   themeSombre() {
@@ -88,6 +89,7 @@ export class AppComponent {
     document.documentElement.style.setProperty('--img-accueil', "url('/assets/bg2.jpg')");
     document.documentElement.style.setProperty('--bg-navbar', "grey");
     document.documentElement.style.setProperty('--text-navbar', "white");
+    document.documentElement.style.setProperty('--img-fond', "url('../../../assets/fond noir2.jpg')");
   }
 
 
