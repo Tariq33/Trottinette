@@ -14,6 +14,8 @@ import {PaiementFournisseurService} from '../../service/paiement-fournisseur.ser
 import {ReservationService} from '../../service/reservation.service';
 import {Fournisseur} from '../../model/fournisseur';
 import {MoyenDeTransportService} from "../../service/moyen-de-transport.service";
+import {AdresseItineraire} from "../../model/adresseItineraire";
+import {GeocodingService} from "../../service/geocoding.service";
 
 @Component({
   selector: 'app-fin-de-trajet',
@@ -51,10 +53,11 @@ export class FinDeTrajetComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private reservationService: ReservationService, private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService, private paiementFournisseurService: PaiementFournisseurService, private clientService: ClientService, private moyenDeTransportService: MoyenDeTransportService) {
+  constructor(private geocodingService : GeocodingService, private reservationService: ReservationService, private router: Router, private sessionService: SessionService, private itineraireService: ItineraireService, private paiementFournisseurService: PaiementFournisseurService, private clientService: ClientService, private moyenDeTransportService: MoyenDeTransportService) {
     this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
     this.reservation = this.sessionService.getReservation();
     this.client=sessionService.getClient();
+    this.moyenDeTransportService.findAllMoyObs().subscribe(resp => {this.createMap(); this.addMarker();} ,err => console.log(err));
   }
 
   getDisplayTimer(time: number) {
@@ -77,45 +80,93 @@ export class FinDeTrajetComponent implements OnInit {
     this.reservation.heureArrivee = new Date();
     this.reservation.montantTotal = this.cout;
 
-    // console.log(this.reservation);
-    this.reservationService.modify(this.reservation).subscribe( resp => {
-      this.reservation=resp;
-      // console.log(this.reservation);
+    let adresseDepart = new AdresseItineraire();
+    let adresseArrivee = new AdresseItineraire();
+    adresseDepart.latitude=this.sessionService.getDepartCoords()[0];
+    adresseDepart.longitude=this.sessionService.getDepartCoords()[1];
+    adresseArrivee.latitude=this.sessionService.getArriveeCoords()[0];
+    adresseArrivee.longitude=this.sessionService.getArriveeCoords()[1];
+
+
+    this.geocodingService.getAddressWithGps(adresseDepart.latitude,adresseDepart.longitude).subscribe(resp => {
+      let adresseStringDepart = resp.display_name;
+
+      if(adresseStringDepart.indexOf("Bordeaux")==-1) {
+        adresseDepart.ville="Mérignac";
+        adresseDepart.rue = adresseStringDepart.slice(0,adresseStringDepart.indexOf("Mérignac")-2);
+        adresseDepart.codePostal="33700";
+      }
+      else {
+        adresseDepart.ville="Bordeaux";
+        adresseDepart.rue = adresseStringDepart.slice(0,adresseStringDepart.indexOf("Bordeaux")-2);
+        adresseDepart.codePostal="33000";
+      }
+
+      this.geocodingService.getAddressWithGps(adresseArrivee.latitude,adresseArrivee.longitude).subscribe(resp => {
+        let adresseStringArrivee = resp.display_name;
+
+        if(adresseStringArrivee.indexOf("Bordeaux")==-1) {
+          adresseArrivee.ville="Mérignac";
+          adresseArrivee.rue = adresseStringArrivee.slice(0,adresseStringArrivee.indexOf("Mérignac")-2);
+          adresseArrivee.codePostal="33700";
+        }
+        else {
+          adresseArrivee.ville="Bordeaux";
+          adresseArrivee.rue = adresseStringArrivee.slice(0,adresseStringArrivee.indexOf("Bordeaux")-2);
+          adresseArrivee.codePostal="33000";
+        }
+
+        /////////////////
+
+        this.reservation.adrDepart=adresseDepart;
+        this.reservation.adrArrivee=adresseArrivee;
+
+        this.reservationService.modify(this.reservation).subscribe( resp => {
+          this.reservation=resp;
+        }, error => console.log(error));
+
+        //Modifier l'itinéraire puis envoie la MAJ en base
+        this.itineraire=this.sessionService.getItineraire();
+        this.itineraire.montant=this.cout;
+        this.itineraire.duree=this.time;
+        this.itineraire.heureArrivee= new Date();
+        this.itineraire.moyenDeTransport=this.moyenDeTransportChoisi;
+        this.itineraire.adrDepart=adresseDepart;
+        this.itineraire.adrArrivee=adresseArrivee;
+        this.sessionService.setItineraire(this.itineraire);
+
+        // creer paiement fournisseur et l'associer à l'itinéraire
+
+        this.paiementFournisseur.date = new Date();
+        this.paiementFournisseur.montant = this.cout;
+        this.paiementFournisseur.numeroDeTransaction = "TRANS-" + this.itineraire.id;
+        this.paiementFournisseur.itineraire = this.itineraire;
+        this.paiementFournisseur.fournisseur = this.moyenDeTransportChoisi.fournisseur;
+
+        this.paiementFournisseurService.create(this.paiementFournisseur).subscribe(resp => {
+        }, error => console.log(error));
+
+        // retirer au solde le prix du trajet
+
+        this.client.solde = this.client.solde - this.cout;
+        this.clientService.modify(this.client).subscribe(resp => {
+          this.sessionService.setUtilisateur(resp);
+          this.client=this.sessionService.getClient();
+        }, error => console.log(error));
+
+
+        //Supprime le moyen de transport de l'itinéraire car lien OneOne entre eux et stock en base
+        // this.itineraire.moyenDeTransport = null;
+        this.itineraireService.modify(this.itineraire).subscribe(resp => {
+        }, error => console.log(error));
+        this.router.navigateByUrl('/finalisation');
+
+      }, error => console.log(error));
+
     }, error => console.log(error));
 
-    //Modifier l'itinéraire puis envoie la MAJ en base
-    this.itineraire=this.sessionService.getItineraire();
-    this.itineraire.montant=this.cout;
-    this.itineraire.duree=this.time;
-    this.itineraire.moyenDeTransport=this.moyenDeTransportChoisi;
-    this.sessionService.setItineraire(this.itineraire);
-
-    // creer paiement fournisseur et l'associer à l'itinéraire
-
-    this.paiementFournisseur.date = new Date();
-    this.paiementFournisseur.montant = this.cout;
-    this.paiementFournisseur.numeroDeTransaction = "TRANS-" + this.itineraire.id;
-    this.paiementFournisseur.itineraire = this.itineraire;
-    this.paiementFournisseur.fournisseur = this.moyenDeTransportChoisi.fournisseur;
-
-    this.paiementFournisseurService.create(this.paiementFournisseur).subscribe(resp => {
-    }, error => console.log(error));
-
-    // retirer au solde le prix du trajet
-
-    this.client.solde = this.client.solde - this.cout;
-    // console.log(this.client);
-    this.clientService.modify(this.client).subscribe(resp => {
-      this.sessionService.setUtilisateur(resp);
-      this.client=this.sessionService.getClient();
-    }, error => console.log(error));
 
 
-    //Supprime le moyen de transport de l'itinéraire car lien OneOne entre eux et stock en base
-    // this.itineraire.moyenDeTransport = null;
-    this.itineraireService.modify(this.itineraire).subscribe(resp => {
-    }, error => console.log(error));
-    this.router.navigateByUrl('/finalisation');
   }
 
   validationDuQrCode(qrCodeRenseigne : string){
@@ -127,8 +178,11 @@ export class FinDeTrajetComponent implements OnInit {
         this.time++;
         this.timerDisplay = this.getDisplayTimer(this.time);
         this.cout = (this.prixSeconde * this.time).toFixed(2);
-        this.createMap();
-        this.addMarker();
+
+        let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
+        let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
+        this.ligne = new L.Polyline([pointB,pointC], {color: 'green'} ).addTo(this.map);
+
       });
     }
     else {
@@ -151,8 +205,6 @@ export class FinDeTrajetComponent implements OnInit {
     if (container.style.position.valueOf() == "") {
       this.map = L.map('map', {center: [centre.lat, centre.lng], zoom: zoomLevel});
     }
-
-
 
     const mainLayer = L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors',
@@ -191,10 +243,8 @@ export class FinDeTrajetComponent implements OnInit {
 
     let pointA = new L.LatLng(this.client.latitude, this.client.longitude);
     let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
-    let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
 
     this.ligne = new L.Polyline([pointA,pointB], undefined ).addTo(this.map);
-    this.ligne = new L.Polyline([pointB,pointC], {color: 'green'} ).addTo(this.map);
   }
 
 }
