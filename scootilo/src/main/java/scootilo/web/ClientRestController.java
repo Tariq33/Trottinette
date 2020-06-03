@@ -104,6 +104,28 @@ public class ClientRestController {
 		return arrfStrFull;
 		
 	}
+	
+	@GetMapping("/mail")
+	@JsonView(Views.ViewClient.class)
+	public ArrayList<String[]> FindAllMail() {
+		
+//		String[] arrfStrFull = null;
+		ArrayList<String[]> arrfStrFull = new ArrayList<String[]>();
+		
+		String[] client = clientRepo.FindAllMail();
+		
+		for (int j=0; j<client.length; j++) {
+			String i = (String)client[j];
+			
+			String[] arrOfStr = i.split(",");
+			
+			arrfStrFull.add(arrOfStr);
+						
+			}
+		
+		return arrfStrFull;
+		
+	}
 
 	
 	@PostMapping("")

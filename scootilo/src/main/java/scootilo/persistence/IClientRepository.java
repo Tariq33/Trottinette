@@ -33,6 +33,10 @@ public interface IClientRepository extends JpaRepository<Client, Long> {
 
 	@Query(value = "SELECT transport_means.type_of_transport, reservation.arrival_time, reservation.total_time, reservation.total_amount FROM itinerary JOIN reservation ON itinerary.reservation_id = reservation.id JOIN user_account ON reservation.client_id = user_account.id JOIN transport_means ON itinerary.transport_means_id = transport_means.id WHERE reservation.client_id = ? ORDER BY arrival_time desc", nativeQuery = true)
 	String[] FindHistorique(@Param("id") Long id);
+
+	
+	@Query(value = "SELECT user_account.mail FROM user_account", nativeQuery = true)
+	String[] FindAllMail();
 	
 }
 
