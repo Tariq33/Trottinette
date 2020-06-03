@@ -84,6 +84,14 @@ export class SessionService {
     return JSON.parse(sessionStorage.getItem("utilisateur")).type;
   }
 
+  setArriveeCoords(lat : number, long : number){
+    sessionStorage.setItem("CoordsArr", JSON.stringify([lat,long]));
+  }
+
+  getArriveeCoords(): number[]{
+    return JSON.parse(sessionStorage.getItem("CoordsArr"));
+  }
+
   offUtilisateur(){
     sessionStorage.clear();
     window.location.reload();

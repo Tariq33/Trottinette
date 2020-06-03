@@ -1,23 +1,16 @@
 
 
-
-<div> Renseigner le qrCode pour commencer la réservation : </div>
-<input type="text" [(ngModel)]="qrCodeInput" placeholder="Renseignez le qrCode">
-<button (click)="validationDuQrCode(qrCodeInput)"> Valider le qrCode</button>
+<div *ngIf="!validationDuMoyenDeTransport">
+  <div> Renseigner le qrCode pour commencer la réservation : </div>
+  <input type="text" [(ngModel)]="qrCodeInput" placeholder="Renseignez le qrCode">
+  <button (click)="validationDuQrCode(qrCodeInput)"> Valider le qrCode</button>
+</div>
 
 <div *ngIf="validationDuMoyenDeTransport" class="container">
   <div class="card">
     <div class="card-header">
       <h4>Fin de trajet</h4>
 
-    </div>
-
-    <div >
-      <div class="container" >
-        <div class="map-wrapper" style="margin: 150px">
-          <div id="map"> </div>
-        </div>
-      </div>
     </div>
 
 
@@ -41,3 +34,10 @@
 </div>
 
 
+<div>
+  <div class="container" >
+    <div class="map-wrapper" style="margin-top: 300px">
+      <div id="map"> </div>
+    </div>
+  </div>
+</div>

@@ -35,7 +35,7 @@ export class ReservationItineraireComponent implements OnInit {
     //Renseigne la réservation
     this.reservation.adrDepart= new AdresseItineraire();
     this.reservation.adrArrivee= new AdresseItineraire();
-    console.log("on passe");
+
     // this.reservation.adrDepart.rue= this.reservationItineraire.numeroRue + " " + this.reservationItineraire.rue;
     // this.reservation.adrDepart.codePostal= "33000";
 
@@ -63,7 +63,7 @@ export class ReservationItineraireComponent implements OnInit {
         this.itineraire.heureArrivee= new Date();
         this.itineraire.acompte=1;
         this.itineraire.reservation=this.reservation;
-
+        // this.itineraire.moyenDeTransport = this.moyenDeTransportChoisi;
         this.itineraireService.create(this.itineraire).subscribe(resp => {
             //renseigner le itineraireSession
             this.itineraire=resp;

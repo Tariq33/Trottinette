@@ -3,99 +3,118 @@
 <div class="img-trait-bleu container-fluid">
 
 
-<div class="container">
-  <div class="card">
-    <div class="card-header">
-      <h4>Mon solde</h4>
-    </div>
-    <div class="card-body">
-      <h6 class="card-title">Argent disponible :</h6>
-      <h4 >{{client.solde}} €</h4>
-      <br> <a class="btn btn-primary"[routerLink]="['/compteCrediter', client.id]">Recharger votre
-      compte</a>
+  <div class="container">
+    <div class="divBorder card">
+      <div class="divBg card-header">
+        <h4>Mon solde</h4>
+      </div>
+      <div style="text-align: center" class="card-body">
+        <h6 class="card-title">Argent disponible :</h6>
+        <h4>{{client.solde}} €</h4>
+        <br> <a class="btn btn-primary" [routerLink]="['/compteCrediter', client.id]">Recharger votre
+        compte</a>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="card">
-    <div class="card-header">
-      <h4>Mes informations personnelles</h4>
-    </div>
+  <div class="container">
+    <div class="divBorder card">
+      <div class="divBg card-header">
+        <h4>Mes informations personnelles</h4>
+      </div>
 
-    <div *ngIf="client" class="card-body">
-      <div>
-        <h6 class="card-title">Prénom :</h6>
-        <p class="card-text">{{client.prenom}}</p>
-        <h6 class="card-title">Nom :</h6>
-        <p class="card-text">{{client.nom}}</p>
-        <h6 class="card-title">Adresse mail :</h6>
-        <p class="card-text">{{client.email}}</p>
+      <div *ngIf="client" class="card-body">
+        <div>
+          <h6 class="card-title">Prénom :</h6>
+          <p class="card-text">{{client.prenom}}</p>
+          <h6 class="card-title">Nom :</h6>
+          <p class="card-text">{{client.nom}}</p>
+          <h6 class="card-title">Adresse mail :</h6>
+          <p class="card-text">{{client.email}}</p>
+          <br>
+        </div>
+        <div>
+          <h6 class="card-title">Mes préférences :</h6>
+          <div class="form-check-inline">
+            <label class="form-check-label"> <input type="checkbox"
+                                                    class="form-check-input" disabled
+                                                    [(ngModel)]="client.preference.trottinette">Trottinette
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label"> <input type="checkbox"
+                                                    class="form-check-input" disabled
+                                                    [(ngModel)]="client.preference.velo">Vélo
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label"> <input type="checkbox"
+                                                    class="form-check-input" disabled
+                                                    [(ngModel)]="client.preference.scooter">Scooter
+            </label>
+          </div>
+        </div>
         <br>
-      </div>
-      <div>
-        <h6 class="card-title">Préférences :</h6>
-        <div class="form-check-inline">
-          <label class="form-check-label" > <input type="checkbox"
-                                                  class="form-check-input" disabled [(ngModel)]="client.preference.trottinette">Trottinette
-          </label>
+        <div style="text-align: center">
+          <a  class="btn btn-primary" [routerLink]="['/compteClient/miseJourInfoPerso']">Mettre à jour</a>
         </div>
-        <div class="form-check-inline">
-          <label class="form-check-label"> <input type="checkbox"
-                                                  class="form-check-input" disabled [(ngModel)]="client.preference.velo">Vélo
-          </label>
         </div>
-        <div class="form-check-inline">
-          <label class="form-check-label"> <input type="checkbox"
-                                                  class="form-check-input" disabled [(ngModel)]="client.preference.scooter">Scooter
-          </label>
-        </div>
-      </div>
-      <br> <a class="btn btn-primary" [routerLink]="['/compteClient/miseJourInfoPerso']">Mettre à jour</a>
     </div>
   </div>
-</div>
-<div class="card-body container">
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Nom d'adresse</th>
-    <th>Rue</th>
-    <th>Ville</th>
-    <th>Code Postal</th>
-    <th>Complement</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let adr of adresses">
-    <td>{{adr.nomAdresse}}</td>
-    <td>{{adr.rue}}</td>
-    <td>{{adr.ville}}</td>
-    <td>{{adr.codePostal}}</td>
-    <td>{{adr.complement}}</td>
-    <td>
-      <div class="btn-group btn-group-sm">
 
-        <a class="btn btn-primary" [routerLink]="['/compteClient/ajoutAdresse',adr.id]"><i class="fa fa-edit"></i></a>
-        <a class="btn btn-danger" (click)="delete(adr.id)"><i class="fa fa-trash"></i></a>
+
+  <div class="container">
+    <div class="divBorder card">
+      <div class=" divBg card-header">
+        <h4>Mes adresses</h4>
       </div>
-    </td>
 
-  </tr>
-  </tbody>
-  <a class="btn btn-primary" [routerLink]="['/compteClient/ajoutAdresse',0]"><i class="fa fa-plus"></i></a>
-</table>
-</div>
-
-
-<div class="container" style="padding-bottom: 100px;">
-  <div class="card">
-    <div class="card-header">
-      <h4>Mon historique</h4>
+      <table class="table">
+        <thead style="text-align: center" class="thead-light">
+        <tr>
+          <th>Nom d'adresse</th>
+          <th>Rue</th>
+          <th>Ville</th>
+          <th>Code Postal</th>
+          <th>Complement</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody style="text-align: center">
+        <tr *ngFor="let adr of adresses">
+          <td>{{adr.nomAdresse}}</td>
+          <td>{{adr.rue}}</td>
+          <td>{{adr.ville}}</td>
+          <td>{{adr.codePostal}}</td>
+          <td>{{adr.complement}}</td>
+          <td>
+            <div class="btn-group btn-group-sm">
+              <a class="btn btn-primary" [routerLink]="['/compteClient/ajoutAdresse',adr.id]"><i
+                class="fa fa-edit"></i></a>
+              <a class="btn btn-danger" (click)="delete(adr.id)"><i class="fa fa-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <tr style="border-style: none;text-align: center">
+<!--        <p>Ajoutez une nouvelle adresse : </p>-->
+        <div class="container">
+          <a class="btn btn-primary" [routerLink]="['/compteClient/ajoutAdresse',0]"><i
+            class="fa fa-plus fa-2x"></i></a>
+        </div>
+        <br>
+      </tr>
     </div>
-    <div class="card-body">
-      <table class="table table-striped" >
+  </div>
+
+
+  <div class="container" style="padding-bottom: 100px;">
+    <div class="divBorder card">
+      <div class=" divBg card-header">
+        <h4>Mon historique</h4>
+      </div>
+      <table class="table">
         <thead class="thead-light">
         <tr>
           <th>Type de transport</th>
@@ -107,18 +126,15 @@
 
         <tbody>
 
-          <tr  *ngFor="let taille of arrayOne(histo.length)">
-            <td *ngFor="let ele of histo[taille]">{{ele}}</td>
-          </tr>
+        <tr *ngFor="let taille of arrayOne(histo.length)">
+          <td *ngFor="let ele of histo[taille]">{{ele}}</td>
+        </tr>
 
         </tbody>
       </table>
 
 
-
     </div>
-
   </div>
-</div>
 </div>
 </body>
