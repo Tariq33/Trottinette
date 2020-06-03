@@ -42,7 +42,7 @@ import { MonCompteFournisseurGrapheRepartitionTransportComponent } from './compo
 import { DateCustomPipe } from './pipe/date-custom.pipe';
 import { AbsoluPipe } from './pipe/absolu';
 import { ReservationSurCarteComponent } from './components/reservation-sur-carte/reservation-sur-carte.component';
-import {CardModule, ProgressSpinnerModule, SliderModule} from 'primeng';
+import {CardModule, ProgressSpinnerModule, RatingModule, SliderModule} from 'primeng';
 import { AccesDeniedComponent } from './components/acces-denied/acces-denied.component';
 
 @NgModule({
@@ -89,16 +89,17 @@ import { AccesDeniedComponent } from './components/acces-denied/acces-denied.com
     ReservationSurCarteComponent,
     AccesDeniedComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ChartModule,
-    CardModule,
-    SliderModule,
-    ProgressSpinnerModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ChartModule,
+        CardModule,
+        SliderModule,
+        ProgressSpinnerModule,
+        RatingModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

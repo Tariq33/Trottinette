@@ -92,6 +92,15 @@ export class SessionService {
     return JSON.parse(sessionStorage.getItem("CoordsArr"));
   }
 
+  setDepartCoords(lat : number, long : number){
+    sessionStorage.setItem("CoordsDep", JSON.stringify([lat,long]));
+  }
+
+  getDepartCoords(): number[]{
+    return JSON.parse(sessionStorage.getItem("CoordsDep"));
+  }
+
+
   offUtilisateur(){
     sessionStorage.clear();
     window.location.reload();
