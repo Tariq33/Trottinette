@@ -18,8 +18,9 @@ export class AuthGuardSupplierService implements CanActivate{
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log(this.utilisateur);
     if (this.utilisateur.type != "supplier")  {
-      alert('Vous n\'avez pas le droit d\'acceder à cette page');
-      location.replace('/accueil');
+      // alert('Vous n\'avez pas le droit d\'acceder à cette page');
+      // location.replace('/accueil');
+      location.replace('/accessDenied');
       return false;
     }
     return true;

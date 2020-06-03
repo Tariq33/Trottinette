@@ -43,6 +43,7 @@ import { DateCustomPipe } from './pipe/date-custom.pipe';
 import { AbsoluPipe } from './pipe/absolu';
 import { ReservationSurCarteComponent } from './components/reservation-sur-carte/reservation-sur-carte.component';
 import {CardModule, SliderModule} from 'primeng';
+import { AccesDeniedComponent } from './components/acces-denied/acces-denied.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import {CardModule, SliderModule} from 'primeng';
     DateCustomPipe,
     AbsoluPipe,
     ReservationSurCarteComponent,
+    AccesDeniedComponent,
   ],
     imports: [
         BrowserModule,
