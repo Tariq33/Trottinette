@@ -32,8 +32,8 @@ export class SeDeplacerComponent implements OnInit {
   adrArriveeListe : string = null;
   adresses: Array<Adresse> = new Array<Adresse>();
   moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
-  ongletReservationItineraireShow: boolean = false;
-  spinnerShow: boolean = false;
+  ongletReservationItineraireShow: boolean = null;
+  spinnerShow: boolean = null;
   map;
   ligne;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
@@ -59,7 +59,8 @@ export class SeDeplacerComponent implements OnInit {
 
   departPositionClient : boolean = false;
 
-  pasDePreferencesCochees : boolean;
+  pasDePreferencesCochees : boolean = true;
+  pasDeTransportProche : boolean = true;
   nomAdressePositionclient : string = "Ma position";
 
   adresseAndTempsDeMarcheTransportChoisi = {
@@ -96,6 +97,7 @@ export class SeDeplacerComponent implements OnInit {
         this.addTransports();
         },err => console.log(err));
     }
+
   }
 
   ngOnInit(): void {
@@ -212,17 +214,22 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
-    this.ongletReservationItineraireShow = false;
-  if(this.adrDepart==null || this.adrArrivee==null){
-    this.pasDePreferencesCochees=true;
-    return;
-  }
 
-  if((this.client.preference.velo==false && this.client.preference.scooter==false && this.client.preference.trottinette==false)){
-    this.pasDePreferencesCochees=true;
-    return;
-  }
-  else this.pasDePreferencesCochees=false;
+    if(this.adrDepart==null || this.adrArrivee==null || this.adrDepart.length==0 || this.adrArrivee.length==0 ){
+      this.pasDePreferencesCochees=true;
+      this.ongletReservationItineraireShow = false;
+      return;
+    }
+
+    if((this.client.preference.velo==false && this.client.preference.scooter==false && this.client.preference.trottinette==false)){
+      this.pasDePreferencesCochees=true;
+      this.ongletReservationItineraireShow = false;
+      return;
+    }
+    else {
+      this.pasDePreferencesCochees=false;
+      this.ongletReservationItineraireShow = true;
+    }
 
     var adresseDepart = new AdresseItineraire();
     var adresseArrivee = new AdresseItineraire();
@@ -236,10 +243,8 @@ export class SeDeplacerComponent implements OnInit {
         adresseArrivee.longitude = resp[0].lon;
         this.sessionService.setArriveeCoords(adresseArrivee.latitude, adresseArrivee.longitude);
         this.testMoyenDeTransport(this.moyensDeTransportObs,this.client, adresseDepart, adresseArrivee);
+        }, error => console.log(error));
       }, error => console.log(error));
-
-    }, error => console.log(error));
-
   }
 
   isShow() {
@@ -327,6 +332,7 @@ export class SeDeplacerComponent implements OnInit {
 
   //Récupère les données du moyen de transport via la recherche itinéraire puis les envoie dans le sessionStorage
   getTransportItineraire() {
+
     if (this.affichage == 1) {
       this.moyenDeTransportChoisi = this.transportAvecLeMoinsDeMarche;
       this.adresseAndTempsDeMarcheTransportChoisi.adresse = this.emplacementTransportAvecLeMoinsDeMarche;
@@ -392,7 +398,8 @@ export class SeDeplacerComponent implements OnInit {
 
   testMoyenDeTransport(moyensDeTransport: Array<MoyenDeTransport>, client : Client, adresseDepart:AdresseItineraire, adresseArrivee : AdresseItineraire ){
     //boolean pour savoir si on rentre dans la boucle
-    let flag: boolean = false;
+
+    //let flag: boolean = false;
 
     // On filtre selon les préférences
     let preferences = client.preference;
@@ -419,8 +426,7 @@ export class SeDeplacerComponent implements OnInit {
       if(moyenDeTransport.disponible
         && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude])
         && this.getDistance([adresseDepart.latitude, adresseDepart.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]) < this.distanceClientMarcheMax) {
-        console.log(moyenDeTransport);
-        flag = true;
+        //flag = true;
         // en m
         var distanceEnMoyenDeTransport = this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude], [adresseArrivee.latitude, adresseArrivee.longitude]);
 
@@ -464,12 +470,12 @@ export class SeDeplacerComponent implements OnInit {
     this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
     this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
 
-    if(flag ==false) {
-      this.pasDePreferencesCochees = true;
+    if(this.transportAvecLeMoinsDeMarche.id == undefined || this.transportLeMoinsLong.id == undefined || this.transportLeMoinsCher.id == undefined) {
+      this.pasDeTransportProche = true;
       return;
     } else {
+      this.pasDeTransportProche = false;
       this.spinnerShow = true;
-      this.pasDePreferencesCochees = false;
     }
 
     setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportAvecLeMoinsDeMarche.latitude, this.transportAvecLeMoinsDeMarche.longitude).subscribe(resp => {
@@ -490,9 +496,6 @@ export class SeDeplacerComponent implements OnInit {
     }) }, 2400);
 
 
-    // this.transportAvecLeMoinsDeMarche=moyenDeTransportAvecLeMoinsDeMarche;
-    // this.transportLeMoinsLong=moyenDeTransportLeMoinsLong;
-    // this.transportLeMoinsCher=moyenDeTransportLeMoinsCher;
   }
 
   affichageFunction(nombre : number){
