@@ -74,5 +74,23 @@ export class AppComponent {
     }
   }
 
+  themeClair() {
+    document.documentElement.style.setProperty('--border-color', "rgba(50,162,228,0.5)");
+    document.documentElement.style.setProperty('--bg-color', "rgba(50,162,228,0.5)");
+    document.documentElement.style.setProperty('--img-accueil', "url('/assets/miroir_eau.jpg')");
+    document.documentElement.style.setProperty('--bg-navbar', "rgba(248,249,250,0.5)");
+    document.documentElement.style.setProperty('--text-navbar', "black");
+  }
+
+  themeSombre() {
+    document.documentElement.style.setProperty('--border-color', "grey");
+    document.documentElement.style.setProperty('--bg-color', "grey");
+    document.documentElement.style.setProperty('--img-accueil', "url('/assets/bg2.jpg')");
+    document.documentElement.style.setProperty('--bg-navbar', "grey");
+    document.documentElement.style.setProperty('--text-navbar', "white");
+  }
+
+
+
 
 }

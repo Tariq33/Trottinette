@@ -7,13 +7,19 @@
       <p class="card-text">Saississez votre adresse mail, un courriel
         vous sera envoyé avec votre identifiant et votre mot de passe.</p>
       <div class="form-group">
-        <label >Email : </label> <input
-        type="email" class="form-control" id="titreAdresse">
+        <label >Email : </label> <input type="email" class="form-control" id="titreAdresse" [(ngModel)]="email_tapez">
       </div>
 
 
       <a href="#" class="btn btn-primary">Envoyer</a>
       <a class="btn btn-danger" style="margin-left: 10px;" [routerLink]="['/accueil']">Annuler</a>
+    </div>
+    <div>
+      <div *ngIf="condition; else elseBlock" class="alert alert-primary col-md-4" style="display:block; margin:auto">E-mail envoyé avec succès.</div>
+      <ng-template #elseBlock >
+        <div class="alert alert-danger col-md-5" style="display:block; margin:auto" > E-mail non valide ou pas présent.
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

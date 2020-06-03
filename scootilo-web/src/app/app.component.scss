@@ -53,6 +53,10 @@ body {
   background-color: rgb(233,236,239);
   min-height: 100vh;
 }
+.aParent div {
+  float:right;
+  clear: none;
+}
 
 .brand-wrapper {
   margin-bottom: 19px; }

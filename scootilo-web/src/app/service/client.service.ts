@@ -43,4 +43,10 @@ export class ClientService {
       this.clients = resp;
     }, error => console.log(error));
   }
+
+  FindAllMail(): Observable<Array<undefined>> {
+  return this.http.get<Array<undefined>>('http://localhost:8080/client/mail');
+}
+
+
 }

@@ -1,6 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~leaflet/dist/leaflet.css";
 
+
+
+:root {
+  --img-accueil:url('/assets/miroir_eau.jpg');
+  --bg-color:rgba(50,162,228,0.5);
+  --border-color:rgba(50,162,228,0.5);
+  --bg-navbar: rgba(248,249,250,0.5);
+  --text-navbar:black;
+}
+
+
+$borderColor: var(--border-color); //rgba(50,162,228,0.5)
+$bgColor: var(--bg-color); //rgba(50,162,228,0.5)
+$urlImgPageAccueil : var(--img-accueil);
+$urlImgPages : var(--img-pages);
+$bgNavBar : var(--bg-navbar);
+$textNavBar : var(--text-navbar);
+
+.divBorder{
+  border-color: $borderColor;
+}
+
+.textNavBar, .textNavBar:hover{
+  text-decoration:none;
+  font-size: 20px;
+  color: $textNavBar;
+}
+
+
+
+.bgNavBar{
+  background-color: $bgNavBar;
+}
+
+.divBg{
+  background-color: $bgColor; //rgba(50,162,228,0.5);//$bgColor;
+  text-align: center;
+}
+
+.bgPageAccueil{
+  background-image: $urlImgPageAccueil;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: auto;
+}
+
 .map-wrapper{
   position: absolute;
   top: 0;
@@ -23,11 +75,16 @@
 }
 
 
-.divBorder{
-  border-color: rgba(50,162,228,0.5);
+
+
+.btn-primary {
+  background-color: rgb(50,162,228);
+  color:  white;
+  border-color: rgb(50,162,228);
 }
 
-.divBg{
-  background-color: rgba(50,162,228,0.5);
-  text-align: center;
+.btn-primary:hover, .btn-outline-info:focus, .btn-outline-info:active, .btn-outline-info.active, .open>.dropdown-toggle.btn-outline-info {
+  background-color: rgb(28,140,208);
+  color:  white;
+  border-color: rgb(28,140,208);
 }
