@@ -37,7 +37,6 @@ export class FinDeTrajetComponent implements OnInit {
   public validationDuMoyenDeTransport : boolean;
   public qrCodeInput : string;
   public paiementFournisseur = new PaiementFournisseur();
-  private ancientSolde: number;
 
   map;
   ligne;
@@ -74,11 +73,14 @@ export class FinDeTrajetComponent implements OnInit {
     //Modifier la réservation puis envoie la MAJ au serveur
     this.reservation.expiree = true;
     this.reservation.dureeTotale = this.time;
-    // @ts-ignore
+
     this.reservation.heureArrivee = new Date();
     this.reservation.montantTotal = this.cout;
 
+    console.log(this.reservation);
     this.reservationService.modify(this.reservation).subscribe( resp => {
+      this.reservation=resp;
+      console.log(this.reservation);
     }, error => console.log(error));
 
     //Modifier l'itinéraire puis envoie la MAJ en base
@@ -89,7 +91,7 @@ export class FinDeTrajetComponent implements OnInit {
     this.sessionService.setItineraire(this.itineraire);
 
     // creer paiement fournisseur et l'associer à l'itinéraire
-    // @ts-ignore
+
     this.paiementFournisseur.date = new Date();
     this.paiementFournisseur.montant = this.cout;
     this.paiementFournisseur.numeroDeTransaction = "TRANS-" + this.itineraire.id;
@@ -101,11 +103,11 @@ export class FinDeTrajetComponent implements OnInit {
 
     // retirer au solde le prix du trajet
 
-    this.ancientSolde = this.client.solde;
-    this.client.solde = this.ancientSolde - this.cout;
-
+    this.client.solde = this.client.solde - this.cout;
+    console.log(this.client);
     this.clientService.modify(this.client).subscribe(resp => {
-      this.sessionService.setUtilisateur(this.client);
+      this.sessionService.setUtilisateur(resp);
+      this.client=this.sessionService.getClient();
     }, error => console.log(error));
 
 
@@ -119,8 +121,8 @@ export class FinDeTrajetComponent implements OnInit {
   validationDuQrCode(qrCodeRenseigne : string){
     if(qrCodeRenseigne==this.moyenDeTransportChoisi.qrCode){
       this.validationDuMoyenDeTransport=true;
-      this.createMap();
-      this.addMarker();
+      // this.createMap();
+      // this.addMarker();
       //On lance le timer et le compteur de prix
       this.prixSeconde = this.moyenDeTransportChoisi.prixMinute / 60;
       timer(0, 1000).subscribe(ellapsedCycles => {
