@@ -33,6 +33,7 @@ export class SeDeplacerComponent implements OnInit {
   adresses: Array<Adresse> = new Array<Adresse>();
   moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
   ongletReservationItineraireShow: boolean = false;
+  spinnerShow: boolean = false;
   map;
   ligne;
   moyensDeTransportObs: Array<MoyenDeTransport> = new Array<MoyenDeTransport>();
@@ -211,6 +212,7 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
+    this.ongletReservationItineraireShow = false;
   if(this.adrDepart==null || this.adrArrivee==null){
     this.pasDePreferencesCochees=true;
     return;
@@ -238,6 +240,7 @@ export class SeDeplacerComponent implements OnInit {
       }, error => console.log(error));
 
     }, error => console.log(error));
+
   }
 
   isShow() {
@@ -415,7 +418,9 @@ export class SeDeplacerComponent implements OnInit {
     let moyenDeTransportAvecLeMoinsDeMarche : MoyenDeTransport = new MoyenDeTransport();
 
     for(let moyenDeTransport of moyensDeTransportFiltres){
-      if(moyenDeTransport.disponible && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude]) && this.getDistance([adresseDepart.latitude, adresseDepart.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]) < this.distanceClientMarcheMax) {
+      if(moyenDeTransport.disponible
+        && moyenDeTransport.distanceEstimee>1.2*this.getDistance([moyenDeTransport.latitude, moyenDeTransport.longitude],[adresseArrivee.latitude, adresseArrivee.longitude])
+        && this.getDistance([adresseDepart.latitude, adresseDepart.longitude], [moyenDeTransport.latitude, moyenDeTransport.longitude]) < this.distanceClientMarcheMax) {
         console.log(moyenDeTransport);
         flag = true;
         // en m
@@ -466,6 +471,7 @@ export class SeDeplacerComponent implements OnInit {
       this.pasDePreferencesCochees = true;
       return;
     } else {
+      this.spinnerShow = true;
       this.pasDePreferencesCochees = false;
     }
 
@@ -479,7 +485,8 @@ export class SeDeplacerComponent implements OnInit {
 
     setTimeout(() => {  this.geocodingService.getAddressWithGps(this.transportLeMoinsCher.latitude, this.transportLeMoinsCher.longitude).subscribe(resp => {
       this.emplacementTransportLeMoinsCher = resp.display_name;
-
+      this.spinnerShow = false;
+      window.scrollBy(0,3000);
       this.ongletReservationShow = false;
       this.ongletReservationItineraireShow = true;
 

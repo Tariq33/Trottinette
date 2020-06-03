@@ -1,0 +1,36 @@
+/* not active */
+.pill1 .nav-link:not(.active) {
+  background-color: rgba(50, 162, 228, 0);
+  border-color: rgba(50, 162, 228, 0);
+}
+
+.pill2 .nav-link:not(.active) {
+  background-color: rgba(50, 162, 228, 0);
+  border-color: rgba(50, 162, 228, 0);
+}
+
+.pill3 .nav-link:not(.active) {
+  background-color: rgba(50, 162, 228, 0);
+  border-color: rgba(50, 162, 228, 0);
+}
+
+
+/* active (faded) */
+.pill1 .nav-link {
+  background-color: rgba(50, 162, 228, 0.4);
+  border-color: rgba(50, 162, 228, 0.4);
+  border-radius: 5px;
+}
+
+.pill2 .nav-link {
+  background-color: rgba(50, 162, 228, 0.4);
+  border-color: rgba(50, 162, 228, 0.4);
+  border-radius: 5px;
+}
+
+.pill3 .nav-link {
+  background-color: rgba(50, 162, 228, 0.4);
+  border-color: rgba(50, 162, 228, 0.4);
+  border-radius: 5px;
+
+}
