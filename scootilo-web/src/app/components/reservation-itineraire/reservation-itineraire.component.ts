@@ -49,7 +49,7 @@ export class ReservationItineraireComponent implements OnInit {
         this.itineraire.dureeEstimee=this.adresseAndTempsDeMarcheTransportChoisi.dureeEstime;
         this.itineraire.adrDepart= this.reservation.adrDepart;
         this.itineraire.heureDepart= new Date();
-        this.itineraire.heureLimite=new Date(new Date().getTime() + 15*60000);
+        this.itineraire.heureLimite=new Date(new Date().getTime() + (10+this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche)*60000);
         this.itineraire.acompte=1;
         this.itineraire.reservation=this.reservation;
         // this.itineraire.moyenDeTransport = this.moyenDeTransportChoisi;
