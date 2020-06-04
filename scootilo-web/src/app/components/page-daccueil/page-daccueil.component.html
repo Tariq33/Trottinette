@@ -1,51 +1,32 @@
 <body>
 
 <div class="bgPageAccueil container-fluid">
-<!--  <div class="container">-->
-<!--    <div>-->
-<!--      <div>-->
-<!--        <div style=" text-align: center; margin-top: 10px">-->
-<!--          <img src="../../../assets/LOGO_scootilo.png" width="40%" height="40%" />-->
-<!--        </div>-->
-<!--        <div [ngStyle]="{'background' : 'url(../../../assets/bg.jpg)'}" >-->
-<!--          <h1 class="display-4">Bienvenue sur SCOOTILO!</h1>-->
-<div>
-          <div class="container" style="  font-size: 40px;color:black; text-align: center; margin-top: 110px;">
-            <p style="font-family: Georgia, Times New Roman, serif ; font-size: 80px;">Bienvenue sur Scootilo </p>
-            <p style="font-size: 40px;">Trottinettes, vélos ou bien scooters, c'est à vous de choisir ! </p>
-
-<!--            <p style="font-size: 40px;">Le meilleur service pour vos transports quotidiens !<br>-->
-<!--              Trottinettes, vélos ou bien scooters, <br>c'est à vous de choisir votre transport préféré !-->
-<!--            </p>-->
-          </div>
-</div>
+  <div>
+    <div class="container textPageAccueil" style="font-size: 40px; text-align: center; margin-top: 110px;">
+      <p style="font-family: Georgia, Times New Roman, serif ; font-size: 100px;">Bienvenue sur Scootilo </p>
+      <p style="font-size: 40px;">Trottinettes, vélos ou bien scooters, c'est à vous de choisir ! </p>
+    </div>
+  </div>
 
   <main class="flex-center" style="justify-content: center; display: flex;">
     <div style="cursor: pointer" [routerLink]="['/seDeplacer']">
-      <img src ="../../../assets/trajet.png">
+      <img src="../../../assets/trajet.png">
       <br>
-      <p style="font-size: 45px;"><b>Itinéraire</b></p>
-      <p style="font-size: 25px;"><b>Consultez nos services adaptés à vos besoins</b></p>
+      <p class="textPageAccueil" style="font-size: 45px;"><b>Itinéraire</b></p>
+      <p class="textPageAccueil" style="font-size: 25px;"><b>Consultez nos services adaptés à vos besoins</b></p>
     </div>
     <div style="cursor: pointer" [routerLink]="['/plan']">
-      <img src ="../../../assets/carte.png">
+      <img src="../../../assets/carte.png">
       <br>
-      <p style="font-size: 45px;"><b>Carte</b></p>
-      <p style="font-size: 25px;"><b>Visionnez notre carte du réseau</b></p>
+      <p class="textPageAccueil" style="font-size: 45px;"><b>Carte</b></p>
+      <p class="textPageAccueil" style="font-size: 25px;"><b>Visionnez notre carte du réseau</b></p>
     </div>
     <div style="cursor: pointer" [routerLink]="['/tarifs']">
-      <img src ="../../../assets/euro.png">
+      <img src="../../../assets/euro.png">
       <br>
-      <p style="font-size: 45px;"><b>Tarifs</b></p>
-      <p style="font-size: 25px;"><b>Venez les consulter !</b></p>
+      <p class="textPageAccueil" style="font-size: 45px;"><b>Tarifs</b></p>
+      <p class="textPageAccueil" style="font-size: 25px;"><b>Venez les consulter !</b></p>
     </div>
   </main>
-
-
-
 </div>
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
 </body>

@@ -10,6 +10,8 @@
   --bg-navbar: rgba(248,249,250,0.5);
   --text-navbar:black;
   --img-fond:url('/assets/testFond.jpg');
+  --img-navbar:url("/assets/LOGO_scootilo.png");
+  --text-accueil:black;
 }
 
 
@@ -20,7 +22,17 @@ $urlImgPages : var(--img-pages);
 $bgNavBar : var(--bg-navbar);
 $textNavBar : var(--text-navbar);
 $urlImgFond : var( --img-fond);
+$urlImgNavbar : var(--img-navbar);
+$textAccueil : var(--text-accueil);
 
+
+.textPageAccueil{
+  color:$textAccueil;
+}
+
+.imgNavbar{
+  content: $urlImgNavbar;
+}
 .divBorder{
   border-color: $borderColor;
 }
@@ -30,8 +42,6 @@ $urlImgFond : var( --img-fond);
   font-size: 20px;
   color: $textNavBar;
 }
-
-
 
 .bgNavBar{
   background-color: $bgNavBar;
@@ -81,15 +91,12 @@ $urlImgFond : var( --img-fond);
 }
 
 .map-border{
-  border: 5px solid orange;
   height: 90%;
 }
 
 #map{
   height: 100%;
 }
-
-
 
 
 .btn-primary {

@@ -2,8 +2,9 @@
 <div >
   <nav class="navbar navbar-expand-md navbar-light bgNavBar fixed-top" style="height: 80px;">
     <li style="margin-left: -20px;">
-      <a class="navbar-brand" [routerLink]="['/accueil']"><img src="../../../assets/LOGO_scootilo.png" alt="logo"
-                                                               width="180px" height="90"></a>
+      <a class="navbar-brand" [routerLink]="['/accueil']">
+        <img class="imgNavbar" style="margin-left:10px;" width="180px" height="90px">
+      </a>
     </li>
     <div  class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto container" style="font-size: 20px;">
@@ -66,7 +67,7 @@
 </ng-template>
 
 <!-- The Modal -->
-<div class="modal" id="myModal" style="background-color: transparent; padding-top: 160px;">
+<div class="modal" id="myModal" style="padding-right: 350px; background-color: transparent; padding-top: 160px;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body" style="padding-bottom: 0px; padding-top: 0px">
@@ -116,7 +117,7 @@
 <footer  id="sticky-footer" class="text-white-50 fixed-bottom bgNavBar">
 <div class="textNavBar" style="text-align:center;font-size: 15px;vertical-align: middle;">
   <b>Copyright &copy; Scootilo</b>
-  <button style="margin: 10px 3px 10px 3px;" class="float-right btn btn-primary" (click)="themeClair()"> <i class="far fa-sun"></i></button>
-  <button style="margin: 10px 3px 10px 3px;" class="float-right btn btn-primary" (click)="themeSombre()"><i class="far fa-moon"></i></button>
+  <button style="margin: 10px 3px 10px 3px;" class="float-right btn btn-dark" (click)="themeClair()"> <i class="far fa-sun"></i></button>
+  <button style="margin: 10px 3px 10px 3px;" class="float-right btn btn-dark" (click)="themeSombre()"><i class="far fa-moon"></i></button>
 </div>
 </footer>

@@ -1,6 +1,6 @@
-<div style="margin: 100px 15px 15px 15px;width: 470px; border: 1px solid rgb(50,162,228); border-radius: 7px">
-  <div class="card-header" style="text-align: center; background-color: rgba(50,162,228,0.5);">
-    <h4>Rechercher un itinéraire</h4>
+<div class="divBorder" style="margin: 100px 15px 15px 15px;width: 470px; border: 1px solid rgb(50,162,228); border-radius: 7px">
+  <div class="divBg card-header" style="text-align: center;">
+  <h4>Rechercher un itinéraire</h4>
     <h6>OU</h6>
     <h4>Réserver sur la carte</h4>
   </div>
@@ -80,7 +80,7 @@
      style="margin: 15px 15px 15px 15px; width: 470px; border: 2px solid rgb(50,162,228); border-radius: 7px">
 
   <div *ngIf="!pasDePreferencesCochees && !pasDeTransportProche &&!this.spinnerShow;else pasDeTransport">
-    <ul class="nav nav-tabs card-header" style="text-align: center; background-color: rgba(50,162,228,0.5);">
+    <ul class="nav nav-tabs card-header divBg " style="text-align: center">
 
       <li style="cursor : pointer" class="nav-item pill1">
         <a (click)="affichageFunction(1)" data-toggle="tab" style="color: black; margin: 5px;" class="nav-link active">

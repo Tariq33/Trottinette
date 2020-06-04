@@ -17,7 +17,7 @@ export class AppComponent {
 
   constructor(public sessionService : SessionService,public router: Router, private utilisateurService:UtilisateurService) {
 
-    // this.connexionEnTantQueClient();
+    this.connexionEnTantQueClient();
     // this.connexionEnTantQueAdministrateur();
     // this.connexionEnTantQueFournisseur();
 
@@ -81,15 +81,19 @@ export class AppComponent {
     document.documentElement.style.setProperty('--bg-navbar', "rgba(248,249,250,0.5)");
     document.documentElement.style.setProperty('--text-navbar', "black");
     document.documentElement.style.setProperty('--img-fond', "url('../../../assets/testFond.jpg')");
+    document.documentElement.style.setProperty('--img-navbar', "url('../../../assets/LOGO_scootilo.png')");
+    document.documentElement.style.setProperty('--text-accueil', "black");
   }
 
   themeSombre() {
     document.documentElement.style.setProperty('--border-color', "white");
     document.documentElement.style.setProperty('--bg-color', "grey");
     document.documentElement.style.setProperty('--img-accueil', "url('/assets/bg2.jpg')");
-    document.documentElement.style.setProperty('--bg-navbar', "grey");
+    document.documentElement.style.setProperty('--bg-navbar', "black");
     document.documentElement.style.setProperty('--text-navbar', "white");
+    document.documentElement.style.setProperty('--text-accueil', "white");
     document.documentElement.style.setProperty('--img-fond', "url('../../../assets/fond noir2.jpg')");
+    document.documentElement.style.setProperty('--img-navbar', "url('../../../assets/LOGO_scootilo_navbar.png')");
   }
 
 
