@@ -18,7 +18,7 @@ export class AppComponent {
   constructor(public sessionService : SessionService,public router: Router, private utilisateurService:UtilisateurService) {
 
     // this.connexionEnTantQueClient();
-    // this.connexionEnTantQueAdministrateur();
+    this.connexionEnTantQueAdministrateur();
     // this.connexionEnTantQueFournisseur();
 
   }
