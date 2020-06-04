@@ -1,50 +1,94 @@
 
 <br/>
-<div class="container">
-  <div class="divBorder card">
-    <div class="divBg card-header">
-      <h4 class="textPageAccueil">Liste des moyens de transport</h4>
-    </div>
-      <table class="table">
-        <thead class="thead-light">
-        <tr>
-          <th>Numéro de série</th>
-          <th>Type de transport</th>
-          <th>Type de moteur</th>
-          <th>prix à la minute</th>
-          <th>Disponible</th>
-          <th>Longitude</th>
-          <th>Latitude</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let moy of list()">
-          <td>{{moy.numeroDeSerie}}</td>
-          <td>{{moy.typeDeTransport}}</td>
-          <td>{{moy.typeMoteur}}</td>
-          <td>{{moy.prixMinute}}</td>
-          <td>{{moy.disponible}}</td>
-          <td>{{moy.longitude}}</td>
-          <td>{{moy.latitude}}</td>
-          <td>
-            <div style="padding-top: 9px;" class="btn-group btn-group-sm">
-              <a class="btn btn-primary" (click)="edit(moy.id)" [routerLink]="['/compteAdministrateur/ajoutMoyenTransport', moy.id]"><i class="fa fa-edit"></i></a>
-              <a class="btn btn-danger" (click)="delete(moy.id)">
-                <span style="color: white">
-                <i class="fa fa-trash"></i>
-                </span>
-              </a>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+  <div class="container">
+      <div class="divBorder card">
+        <div class="divBg card-header">
+          <h4 class="textPageAccueil">Liste des moyens de transport</h4>
+        </div>
+              <div *ngIf="this.sessionService.getUtilisateur().type=='admin'">
+                <table class="table">
+                  <thead class="thead-light">
+                  <tr>
+                    <th>Numéro de série</th>
+                    <th>Type de transport</th>
+                    <th>Type de moteur</th>
+                    <th>prix à la minute</th>
+                    <th>Disponible</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let moy of list()">
+                        <td>{{moy.numeroDeSerie}}</td>
+                        <td>{{moy.typeDeTransport}}</td>
+                        <td>{{moy.typeMoteur}}</td>
+                        <td>{{moy.prixMinute}}</td>
+                        <td>{{moy.disponible}}</td>
+                        <td>{{moy.longitude}}</td>
+                        <td>{{moy.latitude}}</td>
+                        <td>
+                          <div style="padding-top: 9px;" class="btn-group btn-group-sm">
+                            <a class="btn btn-primary" (click)="edit(moy.id)" [routerLink]="['/compteAdministrateur/ajoutMoyenTransport', moy.id]"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-danger" (click)="delete(moy.id)">
+                              <span style="color: white">
+                              <i class="fa fa-trash"></i>
+                              </span>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
 
-    <div class="container" style="text-align: center">
-      <a  routerLink="/compteAdministrateur/ajoutMoyenTransport" class="btn btn-primary">Ajouter un moyen de transport</a>
-    </div>
-    <br>
+                <div class="container" style="text-align: center">
+                  <a  routerLink="/compteAdministrateur/ajoutMoyenTransport" class="btn btn-primary">Ajouter un moyen de transport</a>
+                </div>
+                <br>
+              </div>
+
+              <div *ngIf="this.sessionService.getUtilisateur().type=='supplier'">
+                <table class="table">
+                  <thead class="thead-light">
+                  <tr>
+                    <th>Numéro de série</th>
+                    <th>Type de transport</th>
+                    <th>Type de moteur</th>
+                    <th>prix à la minute</th>
+                    <th>Disponible</th>
+                    <th>Longitude</th>
+                    <th>Latitude</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let moy of listeFournisseur">
+                        <td>{{moy.numeroDeSerie}}</td>
+                        <td>{{moy.typeDeTransport}}</td>
+                        <td>{{moy.typeMoteur}}</td>
+                        <td>{{moy.prixMinute}}</td>
+                        <td>{{moy.disponible}}</td>
+                        <td>{{moy.longitude}}</td>
+                        <td>{{moy.latitude}}</td>
+                        <td>
+                          <div style="padding-top: 9px;" class="btn-group btn-group-sm">
+                            <a class="btn btn-primary" (click)="edit(moy.id)" [routerLink]="['/compteAdministrateur/ajoutMoyenTransport', moy.id]"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-danger" (click)="delete(moy.id)">
+                                    <span style="color: white">
+                                    <i class="fa fa-trash"></i>
+                                    </span>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+
+                <div class="container" style="text-align: center">
+                  <a  routerLink="/compteAdministrateur/ajoutMoyenTransport" class="btn btn-primary">Ajouter un moyen de transport</a>
+                </div>
+                <br>
+              </div>
+      </div>
   </div>
-</div>
-
