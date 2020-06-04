@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ClientService} from "../../service/client.service";
 import {Client} from "../../model/client";
 import {Router} from '@angular/router';
+import {Pref} from '../../model/preference2';
 //import { Preference } from '@app/shared/Preference';
 
 @Component({
@@ -22,7 +23,6 @@ export class CreationCompteComponent implements OnInit {
   somethingChanged(){
     if(this.clientForm.motDePasse!=this.confirmMotDePasse){
       this.passwordMatch=false;
-      console.log("Pas les mêmes");
       return;
     }
     else{
@@ -35,7 +35,9 @@ export class CreationCompteComponent implements OnInit {
   }
 
   save() {
-
+    this.clientForm.latitude = 44.837789;
+    this.clientForm.longitude =  -0.57918;
+    this.clientForm.preference = new Pref(true,true,true,false,false,false);
     this.clientService.create(this.clientForm).subscribe(resp => {
         this.clientForm = new Client();
         this.router.navigateByUrl('/logIn');

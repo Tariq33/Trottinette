@@ -7,6 +7,14 @@
     </div>
 
     <div class="card-body">
+    <div *ngIf="typeUser != 'supplier'" style="padding-bottom: 10px;">
+      <label for="nomFournisseur">Nom du fournisseur :</label>
+      <input class="form-control" list="fournisseurs" id="nomFournisseur" [ngModel]="nomFournisseurList"
+             (ngModelChange)="charger($event)" placeholder="Choisir une fournisseur">
+      <datalist id="fournisseurs">
+        <option *ngFor="let four of fournisseurs" value={{four.nom}}>{{four.nom}} </option>
+      </datalist>
+    </div>
 
       <div class="form-group">
         <label for="numeroDeSerie">Identifiant :</label>

@@ -12,11 +12,9 @@ export class AuthGuardAjoutService implements CanActivate{
 
   constructor(public sessionService : SessionService) {
     this.utilisateur=this.sessionService.getUtilisateur();
-    console.log(this.utilisateur);
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log(this.utilisateur);
     if (this.utilisateur.type == "customer" || this.utilisateur.type == null)  {
       // alert('Vous n\'avez pas le droit d\'acceder à cette page');
       // location.replace('/accueil');

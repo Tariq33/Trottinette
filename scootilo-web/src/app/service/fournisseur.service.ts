@@ -15,8 +15,8 @@ export class FournisseurService {
     this.load();
   }
 
-  findAll(): Array<Fournisseur> {
-    return this.fournisseurs;
+  findAll(): Observable<Array<Fournisseur>> {
+    return this.http.get<Array<Fournisseur>>('http://localhost:8080/fournisseur');
   }
 
   findById(id: number): Observable<Fournisseur> {
