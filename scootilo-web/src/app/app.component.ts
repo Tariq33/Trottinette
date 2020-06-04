@@ -30,6 +30,11 @@ export class AppComponent {
 
   checkUser () {
     this.utilisateurService.findByIdentifiantAndMotDePasse(this.identifiant, this.motDePasse).subscribe(resp => {
+      if(resp==null){
+        alert("Erreur : \nVeuillez vérifier vos informations de connexion.")
+        return;
+      }
+
         this.sessionService.setUtilisateur(resp);
         console.log(resp);
         // this.router.navigateByUrl('/accueil');
