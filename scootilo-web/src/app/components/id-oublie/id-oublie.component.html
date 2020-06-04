@@ -1,6 +1,8 @@
+<div class="bgPageFond container-fluid">
+  <br/>
 <div class="container">
-  <div class="card">
-    <div class="card-header">
+  <div class="divBorder card">
+    <div class="divBg card-header">
       <h4>Identifiant et/ou Mot de passe oublié ?</h4>
     </div>
     <div class="card-body">
@@ -11,8 +13,13 @@
       </div>
 
 
-      <a href="#" class="btn btn-primary" (click)="verification()">Envoyer</a>
-      <a class="btn btn-danger" style="margin-left: 10px;" [routerLink]="['/accueil']">Annuler</a>
+
+
+
+      <div class="container" style="text-align: center">
+        <a href="#" class="btn btn-primary" (click)="verification()">Envoyer</a>
+        <a class="btn btn-danger" style="margin-left: 10px;" [routerLink]="['/accueil']">Annuler</a>
+      </div>
     </div>
     <div>
       <div *ngIf="condition; else elseBlock" class="alert alert-primary col-md-4" style="display:block; margin:auto">E-mail envoyé avec succès.</div>
@@ -22,4 +29,5 @@
       </ng-template>
     </div>
   </div>
+</div>
 </div>
