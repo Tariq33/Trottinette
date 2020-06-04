@@ -22,17 +22,19 @@ export class ReservationItineraireComponent implements OnInit {
     'tempsDeMarche' : null,
     'dureeEstime' : null,
     'prixEstimatif' : null,
+    'reservationSurCarte' : null,
+    'reservationItineraire' : null,
   };
 
 
   constructor(private sessionService: SessionService, private reservationService: ReservationService, private itineraireService: ItineraireService, private router: Router) {
   this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
   this.adresseAndTempsDeMarcheTransportChoisi = this.sessionService.getAdresseAndTempsDeMarche();
+  window.scrollBy(0,0);
   }
 
   save() {
     //Renseigne la réservation
-
     this.reservation.date = new Date();
     this.reservation.heureDepart = new Date();
     this.reservation.client = this.sessionService.getClient();
