@@ -11,6 +11,7 @@
   --text-navbar:black;
   --img-fond:url('/assets/testFond.jpg');
   --img-navbar:url("/assets/LOGO_scootilo.png");
+  --text-accueil:black;
 }
 
 
@@ -22,6 +23,12 @@ $bgNavBar : var(--bg-navbar);
 $textNavBar : var(--text-navbar);
 $urlImgFond : var( --img-fond);
 $urlImgNavbar : var(--img-navbar);
+$textAccueil : var(--text-accueil);
+
+
+.textPageAccueil{
+  color:$textAccueil;
+}
 
 .imgNavbar{
   content: $urlImgNavbar;
@@ -35,8 +42,6 @@ $urlImgNavbar : var(--img-navbar);
   font-size: 20px;
   color: $textNavBar;
 }
-
-
 
 .bgNavBar{
   background-color: $bgNavBar;
@@ -93,8 +98,6 @@ $urlImgNavbar : var(--img-navbar);
 #map{
   height: 100%;
 }
-
-
 
 
 .btn-primary {

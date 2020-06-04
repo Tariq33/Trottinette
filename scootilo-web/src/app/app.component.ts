@@ -82,6 +82,7 @@ export class AppComponent {
     document.documentElement.style.setProperty('--text-navbar', "black");
     document.documentElement.style.setProperty('--img-fond', "url('../../../assets/testFond.jpg')");
     document.documentElement.style.setProperty('--img-navbar', "url('../../../assets/LOGO_scootilo.png')");
+    document.documentElement.style.setProperty('--text-accueil', "black");
   }
 
   themeSombre() {
@@ -90,6 +91,7 @@ export class AppComponent {
     document.documentElement.style.setProperty('--img-accueil', "url('/assets/bg2.jpg')");
     document.documentElement.style.setProperty('--bg-navbar', "black");
     document.documentElement.style.setProperty('--text-navbar', "white");
+    document.documentElement.style.setProperty('--text-accueil', "white");
     document.documentElement.style.setProperty('--img-fond', "url('../../../assets/fond noir2.jpg')");
     document.documentElement.style.setProperty('--img-navbar', "url('../../../assets/LOGO_scootilo_navbar.png')");
   }
