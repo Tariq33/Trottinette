@@ -21,6 +21,10 @@ export class ReservationSurCarteComponent implements OnInit {
   adresseAndTempsDeMarcheTransportChoisi = {
     'adresse' : null,
     'tempsDeMarche' : null,
+    'dureeEstime' : null,
+    'prixEstimatif' : null,
+    'reservationSurCarte' : null,
+    'reservationItineraire' : null
   };
 
   reservation = new Reservation();
@@ -35,6 +39,10 @@ export class ReservationSurCarteComponent implements OnInit {
   }
 
   save() {
+    //
+    this.adresseAndTempsDeMarcheTransportChoisi.reservationSurCarte = true;
+    this.adresseAndTempsDeMarcheTransportChoisi.reservationItineraire = false;
+    this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
     //Renseigne la réservation
     this.reservation.date = new Date();
     this.reservation.heureDepart = new Date();
