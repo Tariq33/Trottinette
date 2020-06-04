@@ -15,20 +15,19 @@ import {Router} from '@angular/router';
 })
 export class ReservationItineraireComponent implements OnInit {
   moyenDeTransportChoisi: MoyenDeTransport = new MoyenDeTransport();
+  reservation: Reservation = new Reservation();
+  itineraire: Itineraire = new Itineraire();
   adresseAndTempsDeMarcheTransportChoisi = {
     'adresse' : null,
     'tempsDeMarche' : null,
     'dureeEstime' : null,
     'prixEstimatif' : null,
   };
-  reservation: Reservation = new Reservation();
-  itineraire: Itineraire = new Itineraire();
 
 
   constructor(private sessionService: SessionService, private reservationService: ReservationService, private itineraireService: ItineraireService, private router: Router) {
   this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
   this.adresseAndTempsDeMarcheTransportChoisi = this.sessionService.getAdresseAndTempsDeMarche();
-
   }
 
   save() {
@@ -39,8 +38,6 @@ export class ReservationItineraireComponent implements OnInit {
     this.reservation.client = this.sessionService.getClient();
     this.reservation.expiree = false;
     this.reservation.montantEstime=this.adresseAndTempsDeMarcheTransportChoisi.prixEstimatif;
-    // console.log("la résa : ");
-    // console.log(this.reservation);
 
     // Crée la réservation
     this.reservationService.create(this.reservation).subscribe(resp => {
@@ -52,9 +49,7 @@ export class ReservationItineraireComponent implements OnInit {
         this.itineraire.heureLimite=new Date(new Date().getTime() + (10+this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche)*60000);
         this.itineraire.acompte=1;
         this.itineraire.reservation=this.reservation;
-        // this.itineraire.moyenDeTransport = this.moyenDeTransportChoisi;
         this.itineraireService.create(this.itineraire).subscribe(resp => {
-            //renseigner le itineraireSession
             this.itineraire=resp;
             this.sessionService.setItineraire(this.itineraire);
             this.router.navigateByUrl('/finDeTrajet/');
