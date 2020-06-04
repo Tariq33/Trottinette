@@ -27,7 +27,7 @@
           <h6>Donnez votre avis :</h6>
           <div style="text-align: center" style="width: 400px;">
 				<textarea id="commentaire" style="margin-left: -15px;margin-right: -15px;" name="comment" maxlength="400"
-                  cols="100" rows="4" [(ngModel)]="commentaire">
+                  cols="90" rows="4" [(ngModel)]="commentaire">
 				</textarea>
           </div>
         </div>
@@ -49,15 +49,14 @@
       </ng-template>
     </div>
   </div>
-  <div class="row">
+  <div class="container">
     <br>
-    <button class="btn-lg btn-primary col align-self-center container" (click)="save()" [routerLink]="['/accueil']"
-            style="width: 150px; margin-top: 50px;margin-left: 50px; margin-right: 50px;">Envoyer
+    <button class="btn-lg btn-primary" (click)="save()" [routerLink]="['/accueil']">Envoyer
     </button>
   </div>
 
-  <div style="padding-top: 150px; text-align: center;">
-    <h5>Si vous avez rencontré un soucis durant votre trajet, merci de prendre contact avec notre service SAV.</h5>
-  </div>
+<!--  <div style="padding-top: 150px; text-align: center;">-->
+<!--    <h5>Si vous avez rencontré un soucis durant votre trajet, merci de prendre contact avec notre service SAV.</h5>-->
+<!--  </div>-->
 </div>
 
