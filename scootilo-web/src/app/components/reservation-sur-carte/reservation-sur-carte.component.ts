@@ -24,7 +24,7 @@ export class ReservationSurCarteComponent implements OnInit {
     'dureeEstime' : null,
     'prixEstimatif' : null,
     'reservationSurCarte' : null,
-    'reservationItineraire' : null,
+    'reservationItineraire' : null
   };
 
   constructor(private sessionService: SessionService, private reservationService: ReservationService, private router: Router, private itineraireService: ItineraireService) {

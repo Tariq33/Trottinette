@@ -3,7 +3,7 @@
 <div *ngIf="!validationDuMoyenDeTransport" class="container">
   <div style="text-align: center" class="divBorder card">
     <div class="divBg card-header">
-      <h4>Renseigner le qrCode pour commencer la réservation :</h4>
+      <h4 class="textPageAccueil">Renseigner le qrCode pour commencer la réservation :</h4>
     </div>
     <br/>
     <div class="card-body">
@@ -21,7 +21,7 @@
 <div *ngIf="validationDuMoyenDeTransport" class="container">
   <div class="divBorder card">
     <div class="divBg card-header">
-      <h4>Fin de trajet</h4>
+      <h4 class="textPageAccueil">Fin de trajet</h4>
     </div>
     <div style="text-align: center;">
       <h4>Durée du trajet en cours : {{this.timerDisplay.minutes.digit1}}{{this.timerDisplay.minutes.digit2}}

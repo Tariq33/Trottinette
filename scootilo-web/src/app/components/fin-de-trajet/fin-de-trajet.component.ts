@@ -179,10 +179,11 @@ export class FinDeTrajetComponent implements OnInit {
         this.timerDisplay = this.getDisplayTimer(this.time);
         this.cout = (this.prixSeconde * this.time).toFixed(2);
 
-        let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
-        let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
-        this.ligne = new L.Polyline([pointB,pointC], {color: 'green'} ).addTo(this.map);
-
+        if(!this.sessionService.getAdresseAndTempsDeMarche().reservationSurCarte) {
+          let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
+          let pointC = new L.LatLng(this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]);
+          this.ligne = new L.Polyline([pointB, pointC], {color: 'green'}).addTo(this.map);
+        }
       });
     }
     else {
@@ -239,8 +240,10 @@ export class FinDeTrajetComponent implements OnInit {
       marker.bindPopup('<h6>Trottinette n°</h6>' + this.moyenDeTransportChoisi.numeroDeSerie);
     }
     L.circle([this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude], 5, {color: 'blue', fillColor: '#3ebfff', fillOpacity: 0.5}).addTo(this.map);
-    L.circle([this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]], 5, {color: 'green', fillColor: '#74ff3e', fillOpacity: 0.5}).addTo(this.map);
 
+    if(!this.sessionService.getAdresseAndTempsDeMarche().reservationSurCarte){
+      L.circle([this.sessionService.getArriveeCoords()[0], this.sessionService.getArriveeCoords()[1]], 5, {color: 'green', fillColor: '#74ff3e', fillOpacity: 0.5}).addTo(this.map);
+    }
     let pointA = new L.LatLng(this.client.latitude, this.client.longitude);
     let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
 
