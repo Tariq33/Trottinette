@@ -317,10 +317,13 @@ export class SeDeplacerComponent implements OnInit {
       this.adresseAndTempsDeMarcheTransportChoisi.tempsDeMarche = this.secondsToHms(temps);
     this.sessionService.setMoyenDeTransportReserve(this.moyenDeTransportChoisi);
     this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
-    /*let polyline = [
-      [this.client.latitude, this.client.longitude],
-      [this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude],
-    ];*/
+    this.sessionService.setDepartCoords(this.client.latitude, this.client.longitude);
+    this.sessionService.setArriveeCoords(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
+
+      /*let polyline = [
+        [this.client.latitude, this.client.longitude],
+        [this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude],
+      ];*/
       let pointA = new L.LatLng(this.client.latitude, this.client.longitude);
       let pointB = new L.LatLng(this.moyenDeTransportChoisi.latitude, this.moyenDeTransportChoisi.longitude);
       //var pointList = [pointA, pointB];
