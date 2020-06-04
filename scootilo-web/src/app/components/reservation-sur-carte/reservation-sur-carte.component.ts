@@ -23,17 +23,24 @@ export class ReservationSurCarteComponent implements OnInit {
     'tempsDeMarche' : null,
     'dureeEstime' : null,
     'prixEstimatif' : null,
+    'reservationSurCarte' : null,
+    'reservationItineraire' : null
   };
 
   constructor(private sessionService: SessionService, private reservationService: ReservationService, private router: Router, private itineraireService: ItineraireService) {
     this.moyenDeTransportChoisi = this.sessionService.getMoyenDeTransportReserve();
     this.adresseAndTempsDeMarcheTransportChoisi = this.sessionService.getAdresseAndTempsDeMarche();
+    window.scrollBy(0,0);
       }
 
   ngOnInit(): void {
   }
 
   save() {
+    //Booléans pour savoir si on passe par une réservation sur carte ou via itinéraire et MAJ session storage
+    this.adresseAndTempsDeMarcheTransportChoisi.reservationSurCarte = true;
+    this.adresseAndTempsDeMarcheTransportChoisi.reservationItineraire = false;
+    this.sessionService.setAdresseAndTempsDeMarche(this.adresseAndTempsDeMarcheTransportChoisi);
     //Renseigne la réservation
     this.reservation.date = new Date();
     this.reservation.heureDepart = new Date();

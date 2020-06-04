@@ -214,6 +214,7 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShowItineraire() {
+    this.ongletReservationShow = false;
 
     if(this.adrDepart==null || this.adrArrivee==null || this.adrDepart.length==0 || this.adrArrivee.length==0 ){
       this.pasDePreferencesCochees=true;
@@ -248,8 +249,8 @@ export class SeDeplacerComponent implements OnInit {
   }
 
   isShow() {
-    this.ongletReservationShow = true;
     this.ongletReservationItineraireShow = false;
+    this.ongletReservationShow = true;
   }
 
 

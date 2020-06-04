@@ -193,12 +193,12 @@
   </div>
 
   <ng-template #pasDeTransport>
-    <div *ngIf="!this.spinnerShow" style="border: 2px solid;border-color: rgb(50,162,228); padding: 10px; border-radius: 7px;"><h4> Aucun véhicule disponible. <br/> Veuillez
+    <div *ngIf="!this.spinnerShow && this.ongletReservationShow==false" style="border: 2px solid;border-color: rgb(50,162,228); padding: 10px; border-radius: 7px;"><h4> Aucun véhicule disponible. <br/> Veuillez
       attendre ou modifier vos préférences.</h4></div>
   </ng-template>
 </div>
 
-<div *ngIf="(ongletReservationItineraireShow != null) && (!ongletReservationItineraireShow || pasDePreferencesCochees) && this.spinnerShow!=true" style="margin: 15px 15px 15px 15px; width: 470px; padding: 10px; border: 2px solid; border-radius: 7px; border-color: rgb(50,162,228);"><h4> Aucun véhicule disponible. <br/> Veuillez
+<div *ngIf="(ongletReservationItineraireShow != null) && (!ongletReservationItineraireShow || pasDePreferencesCochees) && this.spinnerShow!=true && this.ongletReservationShow==false" style="margin: 15px 15px 15px 15px; width: 470px; padding: 10px; border: 2px solid; border-radius: 7px; border-color: rgb(50,162,228);"><h4> Aucun véhicule disponible. <br/> Veuillez
   attendre ou modifier vos préférences.</h4></div>
 
 
