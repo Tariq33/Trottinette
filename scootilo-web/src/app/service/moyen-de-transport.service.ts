@@ -3,6 +3,7 @@ import {MoyenDeTransport} from "../model/moyenDeTransport";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {TypeDeTransport} from "../model/type-de-transport.enum";
+import {Adresse} from "../model/adresse";
 // import {TypeDeTransport} from "../model/TypeDeTransport";
 
 @Injectable({
@@ -53,8 +54,8 @@ export class MoyenDeTransportService {
     return this.http.put<MoyenDeTransport>("http://localhost:8080/moyendetransport/" + moyenDeTransport.id, moyenDeTransport);
   }
 
-  deleteById(id: number) {
-    this.http.delete("http://localhost:8080/moyendetransport/" + id).subscribe(resp => this.load(), error => console.log(error))
+  deleteById(id: number) : Observable<MoyenDeTransport> {
+    return this.http.delete<MoyenDeTransport>("http://localhost:8080/moyendetransport/" + id);//.subscribe(resp => this.load(), error => console.log(error))
   }
 
   load() {

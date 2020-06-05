@@ -5,6 +5,7 @@ import {MoyenDeTransport} from '../../model/moyenDeTransport';
 import {SessionService} from "../../service/session.service";
 import {Fournisseur} from "../../model/fournisseur";
 import {Observable} from "rxjs";
+import {Adresse} from "../../model/adresse";
 
 @Component({
   selector: 'app-mon-compte-administrateur-liste-moyen-transport',
@@ -36,9 +37,16 @@ export class MonCompteAdministrateurListeMoyenTransportComponent implements OnIn
 
   }
 
-  delete(id: number) {
-    this.moyenDeTransportService.deleteById(id);
+  delete(id: number){
+    this.moyenDeTransportService.deleteById(id).subscribe(resp => {
+      this.listFournisseur();
+    }, error => console.log(error));
+
   }
+
+
+
+
 
   edit(id: number) {
     this.moyenDeTransportService.findById(id).subscribe(resp => this.moyenDeTransportForm = resp, error => console.log(error));

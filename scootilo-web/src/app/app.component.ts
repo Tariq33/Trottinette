@@ -25,7 +25,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.href = this.router.url;
-    console.log(this.router.url);
   }
 
   checkUser () {
@@ -34,9 +33,7 @@ export class AppComponent {
         alert("Erreur : \nVeuillez vérifier vos informations de connexion.")
         return;
       }
-
         this.sessionService.setUtilisateur(resp);
-        console.log(resp);
         // this.router.navigateByUrl('/accueil');
       },
       error => console.log(error)
